@@ -40,11 +40,22 @@ public class SharedPrefManager {
     private static final String sales_person = "sales_person";
     private static final String wallet_id = "wallet_id";
     private static final String amount = "amount";
+    private static final String login = "login";
 
     public SharedPrefManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
+    }
+
+    public void setLogin(boolean Login){
+        editor = pref.edit();
+        editor.putBoolean(login, Login);
+        editor.commit();
+    }
+
+    public boolean getLogin(){
+        return pref.getBoolean(login, false);
     }
 
     public void setToken(String Token){
@@ -105,6 +116,61 @@ public class SharedPrefManager {
 
     public String getPhone(){
         return pref.getString(phone, "null");
+    }
+
+    public void setAadhaarNumber(String AadhaarNumber){
+        editor = pref.edit();
+        editor.putString(aadhaar_number, AadhaarNumber);
+        editor.commit();
+    }
+
+    public String getAadhaarNumber(){
+        return pref.getString(aadhaar_number, "null");
+    }
+
+    public void setAadhaarAttachment(String AadhaarAttachment){
+        editor = pref.edit();
+        editor.putString(aadhaar_attachment, AadhaarAttachment);
+        editor.commit();
+    }
+
+    public String getAadhaarAttachment(){
+        return pref.getString(aadhaar_attachment, "null");
+    }
+
+    public void setPanCardNumber(String PanCardNumber){
+        editor = pref.edit();
+        editor.putString(pan_card_number, PanCardNumber);
+        editor.commit();
+    }
+
+    public String getPanCardNumber(){
+        return pref.getString(pan_card_number, "null");
+    }
+
+    public void setPanCardAttachment(String PanCardAttachment){
+        editor = pref.edit();
+        editor.putString(pan_card_attachment, PanCardAttachment);
+        editor.commit();
+    }
+
+    public String getPanCardAttachment(){
+        return pref.getString(pan_card_attachment, "null");
+    }
+
+    public void setLicenseNumber(String LicenseNumber){
+        editor = pref.edit();
+        editor.putString(license_no, LicenseNumber);
+        editor.commit();
+    }
+
+    public String getLicenseNumber(){
+        return pref.getString(license_no, "null");
+    }
+
+    public void setClear(){
+        editor.clear();
+        editor.commit();
     }
 
 }

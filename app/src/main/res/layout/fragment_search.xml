@@ -5,13 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.SearchFragment">
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -19,20 +16,17 @@
             android:background="#2196F3"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-
             <LinearLayout
                 android:id="@+id/user_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="8dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="15dp">
 
-
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchview"
+                    android:id="@+id/searchView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/searchview_background"
@@ -40,10 +34,7 @@
                     app:queryHint="Search Services....." />
 
             </LinearLayout>
-
-
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -53,5 +44,4 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:paddingTop="20dp"
         tools:listitem="@layout/item_recyclerview"/>
-
 </FrameLayout>

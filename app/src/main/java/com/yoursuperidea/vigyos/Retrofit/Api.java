@@ -22,4 +22,10 @@ public interface Api {
             @Header("Authorization") String  Authorization
     );
 
+    @GET("services")
+    Call<Object> getServiceData(
+            @Header("Authorization") String  Authorization,
+            @Query("limit") String limit
+    );
+
 }

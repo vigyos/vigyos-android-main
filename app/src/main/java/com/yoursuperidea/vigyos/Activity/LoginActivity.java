@@ -60,14 +60,19 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.code() == 200){
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
+                            JSONObject jsonObjectData = jsonObject.getJSONObject("data");
 
-                        SplashActivity.prefManager.setUserID(jsonObject1.getString("userId"));
-                        SplashActivity.prefManager.setToken(jsonObject1.getString("token"));
+                            SplashActivity.prefManager.setUserID(jsonObjectData.getString("userId"));
+                            SplashActivity.prefManager.setToken(jsonObjectData.getString("token"));
+                            SplashActivity.prefManager.setLogin(true);
 
-                        Toast.makeText(LoginActivity.this, "Login Successfully" , Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+                            Toast.makeText(LoginActivity.this, "Login Successfully" , Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Please enter valid email id & password", Toast.LENGTH_SHORT).show();
+                        }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

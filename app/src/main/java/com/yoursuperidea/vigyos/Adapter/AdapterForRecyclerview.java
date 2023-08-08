@@ -12,7 +12,7 @@ import com.yoursuperidea.vigyos.R;
 
 public class AdapterForRecyclerview extends RecyclerView.Adapter<AdapterForRecyclerview.holder> {
 
-    String data[];
+    String[] data;
 
     public AdapterForRecyclerview(String[] data) {
         this.data = data;
@@ -30,7 +30,6 @@ public class AdapterForRecyclerview extends RecyclerView.Adapter<AdapterForRecyc
     public void onBindViewHolder(@NonNull holder holder, int position) {
 
         holder.txt.setText(data[position]);
-
     }
 
     @Override
@@ -38,7 +37,8 @@ public class AdapterForRecyclerview extends RecyclerView.Adapter<AdapterForRecyc
         return data.length;
     }
 
-    class holder extends RecyclerView.ViewHolder{
+    public static class holder extends RecyclerView.ViewHolder{
+
         TextView txt;
 
         public holder(@NonNull View itemView) {

@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait");
         progressDialog.show();
-
         Log.i("2525","token " +SplashActivity.prefManager.getToken() );
         Call<Object> objectCall = RetrofitClient.getApi().profile("Bearer "+SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
@@ -136,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
                         SplashActivity.prefManager.setLastName(jsonObject1.getString("last_name"));
                         SplashActivity.prefManager.setEmail(jsonObject1.getString("email"));
                         SplashActivity.prefManager.setPhone(jsonObject1.getString("phone"));
-
-
-//
-//                        SplashActivity.prefManager.setUserID(jsonObject1.getString("userId"));
-//                        SplashActivity.prefManager.setToken(jsonObject1.getString("token"));
+                        SplashActivity.prefManager.setAadhaarNumber(jsonObject1.getString("aadhar_number"));
+                        SplashActivity.prefManager.setAadhaarAttachment(jsonObject1.getString("aadhar_attachment"));
+                        SplashActivity.prefManager.setPanCardNumber(jsonObject1.getString("pan_card_number"));
+                        SplashActivity.prefManager.setPanCardAttachment(jsonObject1.getString("pan_card_attachment"));
+                        SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
