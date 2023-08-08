@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.NumberRegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="25dp">
+
+
+        <TextView
+            android:id="@+id/icontext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:gravity="center"
+            android:text="Vigyos"
+            android:textColor="#2196F3"
+            android:textSize="34dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icontext"
+            android:layout_marginTop="60dp"
+            android:text="Welcome"
+            android:textColor="#A3000000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tv_credentials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome_text"
+            android:layout_marginTop="10dp"
+            android:text="Enter Your Credentials"
+            android:textColor="@color/black"
+            android:textSize="26dp" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/tv_credentials"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="Mobile Number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="#B9000000" />
+
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phone_number"
+                android:layout_marginTop="20dp"
+                android:background="#2196F3"
+                android:text="Next"
+                android:enabled="false"/>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
