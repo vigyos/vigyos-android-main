@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.SearchFragment">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="?actionBarSize"
+        android:background="@color/vigyos">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2196F3"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Light">
-            <LinearLayout
-                android:id="@+id/user_img"
+            android:layout_marginHorizontal="5sp"
+            android:background="@drawable/searchview_background"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10sp"
+                android:src="@drawable/search_icon"/>
+            <AutoCompleteTextView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="15dp">
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/searchview_background"
-                    app:iconifiedByDefault="false"
-                    app:queryHint="Search Services....." />
-
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/icon"
+                android:completionThreshold="1"
+                android:background="@null"
+                android:hint="Search Services..."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textColorHint="#757575"
+                android:padding="10sp"/>
+        </RelativeLayout>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:paddingTop="20dp"
         tools:listitem="@layout/item_recyclerview"/>
-</FrameLayout>
+</RelativeLayout>

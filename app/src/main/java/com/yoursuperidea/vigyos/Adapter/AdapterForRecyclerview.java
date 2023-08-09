@@ -43,7 +43,7 @@ public class AdapterForRecyclerview extends RecyclerView.Adapter<AdapterForRecyc
 
         public holder(@NonNull View itemView) {
             super(itemView);
-            txt = itemView.findViewById(R.id.text_demo);
+            txt = itemView.findViewById(R.id.listName);
         }
     }
 }

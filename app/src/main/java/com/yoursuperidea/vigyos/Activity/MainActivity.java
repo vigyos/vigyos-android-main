@@ -139,7 +139,13 @@ public class MainActivity extends AppCompatActivity {
                         SplashActivity.prefManager.setAadhaarAttachment(jsonObject1.getString("aadhar_attachment"));
                         SplashActivity.prefManager.setPanCardNumber(jsonObject1.getString("pan_card_number"));
                         SplashActivity.prefManager.setPanCardAttachment(jsonObject1.getString("pan_card_attachment"));
-                        SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
+                        if (jsonObject1.has("license_no")){
+                            SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
+                        } else {
+                            SplashActivity.prefManager.setLicenseNumber("null");
+                        }
+
+
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

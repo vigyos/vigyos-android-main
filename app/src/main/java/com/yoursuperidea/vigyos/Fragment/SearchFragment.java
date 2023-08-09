@@ -1,22 +1,32 @@
 package com.yoursuperidea.vigyos.Fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.SearchView;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.yoursuperidea.vigyos.Activity.SplashActivity;
-import com.yoursuperidea.vigyos.Adapter.AdapterForRecyclerview;
+import com.yoursuperidea.vigyos.Model.SearchServicesModel;
 import com.yoursuperidea.vigyos.R;
 import com.yoursuperidea.vigyos.Retrofit.RetrofitClient;
 
@@ -24,59 +34,58 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchFragment extends Fragment {
 
-    private AutoCompleteTextView searchView;
-    private RecyclerView recyclerView;
     private View view;
+    private AutoCompleteTextView autoCompleteTextView;
+    private RecyclerView recyclerView;
+    private ServiceItemListAdapter serviceItemListAdapter;
+    private GridLayoutManager gridLayoutManager;
+    private ArrayList<SearchServicesModel> searchServicesModels = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_search, container, false);
-
-        String[] arr = {"GST Registration", "GST Return", "GST Return Nil", "GST Return Regular", "Income tax", "FSSAI Registration", "LOGO design","GST Registration", "GST Return", "GST Return Nil", "GST Return Regular", "Income tax"};
-
+        initialization();
+        declaration();
         getServicesData();
-
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     private void initialization(){
-        searchView = view.findViewById(R.id.searchView);
+        autoCompleteTextView = view.findViewById(R.id.searchView);
         recyclerView = view.findViewById(R.id.order_list);
     }
 
-    private void Declaration(){
-
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setAdapter(new AdapterForRecyclerview(arr));
-//
-//        searchView.clearFocus();
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return true;
-//            }
-//        });
-
+    private void declaration(){
+        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                serviceItemListAdapter.getFilter().filter(charSequence);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
     }
 
     private void getServicesData(){
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait");
         progressDialog.show();
-        Call<Object> objectCall = RetrofitClient.getApi().getServiceData("Bearer "+SplashActivity.prefManager.getToken(), "100");
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceData("Bearer "+ SplashActivity.prefManager.getToken(), "100");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -88,18 +97,16 @@ public class SearchFragment extends Fragment {
                         JSONArray jsonObject1 = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonObject1.length(); i++ ){
                             JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
-
-                            String name = jsonObject2.getString("service_name");
-
-                            Log.i("21212112","name - "+ name);
-
+                            SearchServicesModel servicesModel = new SearchServicesModel();
+                            servicesModel.setService_id(jsonObject2.getString("service_id"));
+                            servicesModel.setService_name(jsonObject2.getString("service_name"));
+                            servicesModel.setDescription(jsonObject2.getString("description"));
+                            searchServicesModels.add(servicesModel);
                         }
-
-
-
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
+                    serviceList();
                 }
             }
 
@@ -111,4 +118,104 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    private void serviceList(){
+        serviceItemListAdapter = new ServiceItemListAdapter(searchServicesModels, getActivity());
+        gridLayoutManager = new GridLayoutManager(getActivity(), 1 , GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(serviceItemListAdapter);
+    }
+
+    public class ServiceItemListAdapter extends RecyclerView.Adapter<ServiceItemListAdapter.MyViewHolder> implements Filterable {
+
+        private ArrayList<SearchServicesModel> searchListArray;
+        private ArrayList<SearchServicesModel> searchFilterList;
+        private Activity activity;
+
+        @Override
+        public Filter getFilter() {
+            return filterData;
+        }
+
+        private Filter filterData =new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                ArrayList<SearchServicesModel> filteredList = new ArrayList<>();
+                if (charSequence == null || charSequence.length() ==0 ){
+                    filteredList.addAll(searchFilterList);
+                } else {
+                    String filterPattern = charSequence.toString().toLowerCase().trim();
+                    for (SearchServicesModel item : searchFilterList){
+                        if (item.getService_name().toLowerCase().contains(filterPattern)){
+                            filteredList.add(item);
+                        }
+                    }
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                searchListArray.clear();
+                searchListArray.addAll((ArrayList) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+
+        public ServiceItemListAdapter(ArrayList<SearchServicesModel> searchServicesModels, Activity activity) {
+            super();
+            this.searchListArray = searchServicesModels;
+            this.activity = activity;
+            this.searchFilterList = new ArrayList<>(searchServicesModels);
+        }
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            View view = inflater.inflate(R.layout.item_recyclerview, parent, false);
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            SearchServicesModel model = searchListArray.get(position);
+            holder.listName.setText(model.getService_name());
+            holder.next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragmentCall(new ShowServicesFragment(model.getDescription()));
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return searchListArray.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder{
+
+            private TextView listName;
+            private LinearLayout next;
+
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                listName = itemView.findViewById(R.id.listName);
+                next = itemView.findViewById(R.id.next_ll);
+            }
+        }
+    }
+
+    private void fragmentCall(Fragment fragment){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment); // R.id.fragment_container is the container in your activity layout where fragments are placed
+        fragmentTransaction.addToBackStack(null); // This allows the user to navigate back to FragmentA when they press the back button
+        fragmentTransaction.commit();
+    }
 }
