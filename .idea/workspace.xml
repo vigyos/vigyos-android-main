@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dedd1faf-507e-4561-8f42-156c46bcfbab" name="Changes" comment="Work in Profile Page &#10;Add se service API">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_loader.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
@@ -24,108 +22,57 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/yoursuperidea/vigyos/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/yoursuperidea/vigyoscentersrm/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/yoursuperidea/vigyoscentersrm/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/vigyoscentercrm/ExampleInstrumentedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/ForgotPasswordActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/NameRegisterActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/NumberRegisterActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Activity/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/SplashActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Adapter/AdapterForHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterForHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Adapter/AdapterForRecyclerview.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Adapter/AdapterWishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterWishlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Adapter/AdapterforUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterforUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Adapter/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/OrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Banner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Constant/SharedPrefManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Constant/SharedPrefManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/AccountFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/CancelledFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/CancelledFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/CompletedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/CompletedFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/FeedBackFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/FeedBackFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/HistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/HistoryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/HomeFrament.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/MessageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/MessageFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/Offer_BannerFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/OrderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/OrderFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/PrivacyPolicyFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/PrivacyPolicyFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/ProcessingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/ProcessingFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/RefundPolicyFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/RefundPolicyFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/SearchFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/SeeMore_TopServicesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/SeeMore_TopServicesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/ShowServicesFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/TermsAndConditionsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/TermsAndConditionsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/UserFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/UserFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/WalletFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/WalletFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Fragment/WishlistFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/WishlistFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Model/SearchServicesModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Model/SearchServicesModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Retrofit/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Retrofit/Api.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/Retrofit/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Retrofit/RetrofitClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyos/UserItemListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Utils/UserItemListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/banner2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bannerlion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bannernew.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/demo_transaction_icon.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/edit_text_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/feedback_icon.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_history_icon.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_home_icon.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/persion_icon_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/vigyos_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/vigyos_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_banner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_name_register.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_number_register.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cancelled.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cancelled.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_completed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_completed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/loader.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/loader.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Activity/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/SearchServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Activity/SearchServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/ShowServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Activity/ShowServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Activity/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Activity/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterForHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Adapter/AdapterForHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterWishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Adapter/AdapterWishlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/AdapterforUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Adapter/AdapterforUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Adapter/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Adapter/OrderAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Constant/SharedPrefManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Constant/SharedPrefManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/AccountFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/CancelledFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/CancelledFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/CompletedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/CompletedFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/FeedBackFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/FeedBackFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/HistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/HistoryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/MessageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/MessageFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/OrderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/OrderFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/PrivacyPolicyFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/PrivacyPolicyFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/ProcessingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/ProcessingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/RefundPolicyFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/RefundPolicyFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/SeeMore_TopServicesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/SeeMore_TopServicesFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/TermsAndConditionsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/TermsAndConditionsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/UserFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/UserFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/WalletFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/WalletFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Fragment/WishlistFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Fragment/WishlistFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Model/SearchServicesModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Model/SearchServicesModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Retrofit/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Retrofit/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Retrofit/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Retrofit/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yoursuperidea/vigyoscentersrm/Utils/UserItemListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/vigyoscentercrm/Utils/UserItemListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_sesrvices.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_sesrvices.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_message.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_offer__banner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_privacy_policy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_privacy_policy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_processing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_processing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_show_services.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_terms_and_conditions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_terms_and_conditions.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_wallet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_wallet.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_wishlist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_wishlist.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/history_item_recyclerview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/history_item_recyclerview.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/message_list_item.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/wishlist_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/wishlist_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/nav_items.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/yoursuperidea/vigyos/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/yoursuperidea/vigyoscentersrm/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/yoursuperidea/vigyoscentersrm/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/vigyoscentercrm/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ABC\.android\avd\Pixel_7_Pro_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ABC\.android\avd\Pixel_3a_XL_API_31.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -139,6 +86,12 @@
       </list>
     </option>
   </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="C:\Users\ABC\Documents\WIP\Vigyos\vigyos.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -146,6 +99,19 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8075536a-190e-4284-a3e5-33e931c35da4" />
+        <option name="url" value="https://github.com/vigyos/vigyos-android-main.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -156,18 +122,26 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "BundleExportedModule": "Vigyos.app",
+    "ExportBundle.BundlePathForVigyos.app": "C:\\Users\\ABC\\Documents\\WIP\\Vigyos\\vigyos-android-main\\app",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/Backup",
+    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  },
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app\src\main\res\drawable" />
+      <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app" />
       <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app\src\main\assets" />
     </key>
     <key name="android.template.-379006683">
@@ -175,6 +149,9 @@
     </key>
     <key name="android.template.-45961669">
       <recent name="com.yoursuperidea.vigyoscentersrm.Activity" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.vigyoscentercrm.Adapter" />
     </key>
   </component>
   <component name="RunManager">
@@ -261,7 +238,21 @@
       <option name="project" value="LOCAL" />
       <updated>1691499342762</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Work in Profile Page &#10;Add se service API">
+      <created>1691743905520</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691743905520</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Work in Profile Page &#10;Add se service API">
+      <created>1691744182006</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691744182006</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

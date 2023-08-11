@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="by_successful">By Successful login you are Agreeing with our \n<font color='#2196F3'>Terms &amp; Conditions</font> and <font color='#2196F3'>Privacy Policy</font></string>
+    <string name="details">Simplify your One Person Company (OPC) registration process with our comprehensive service, excluding stamp duty. We assist individuals in registering their OPCs, ensuring compliance with legal requirements. Our expert team provides guidance and support throughout the registration process, making it convenient and hassle-free.</string>
+
+    <!--Onesignal ID-->
+    <string name="ONESIGNAL_APP_ID">90a6683c-bfe9-42d1-ab70-7292f9db9e53</string>
+
 </resources>

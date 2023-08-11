@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp">
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginHorizontal="5sp"
+        android:text="•"
+        android:textSize="20sp"
+        android:textColor="#5C5A5A" />
+
+    <TextView
+        android:id="@+id/service1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/dot"
+        android:layout_marginTop="5sp"
+        android:layout_marginHorizontal="5sp"
+        android:text="1. Pan Card"
+        android:textSize="18sp"
+        android:textColor="#5C5A5A" />
+
+</RelativeLayout>

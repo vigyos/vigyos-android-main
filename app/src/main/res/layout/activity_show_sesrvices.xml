@@ -19,26 +19,90 @@
             android:layout_marginStart="5sp"
             app:tint="@color/white"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/serviceName"
+            android:layout_width="250sp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/ivBack"
             android:layout_marginStart="10sp"
+            android:maxLines="1"
             android:text="Service Name"
             android:textColor="@color/white"
             android:textSize="22sp"/>
     </RelativeLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/serviceDetails"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="5sp"
-        android:layout_marginTop="5sp"
-        android:layout_below="@+id/toolbar"
-        android:text="@string/hello_blank_fragment"
-        android:textSize="14sp"
-        android:textColor="@color/black"/>
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginBottom="20sp"
+            android:layout_marginTop="20sp"
+            >
+            <TextView
+                android:id="@+id/overView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5sp"
+                android:layout_marginTop="5sp"
+                android:text="Overview"
+                android:textSize="18sp"
+                android:textColor="#232222"
+                android:fontFamily="@font/poppins_bold"/>
+            <TextView
+                android:id="@+id/serviceDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5sp"
+                android:layout_marginTop="5sp"
+                android:text="@string/details"
+                android:textSize="18sp"
+                android:textColor="#5C5A5A" />
+
+            <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5sp"
+                android:layout_marginTop="20sp"
+                android:text="Price"
+                android:textSize="18sp"
+                android:textColor="#232222"
+                android:fontFamily="@font/poppins_bold"/>
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:layout_marginHorizontal="5sp"
+                android:text="₹500.00"
+                android:textSize="18sp"
+                android:textColor="#5C5A5A" />
+
+            <TextView
+                android:id="@+id/requiredDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5sp"
+                android:layout_marginTop="20sp"
+                android:text="Required Document"
+                android:textSize="18sp"
+                android:textColor="#232222"
+                android:fontFamily="@font/poppins_bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
