@@ -6,7 +6,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.yoursuperidea.vigyos"
+        applicationId "com.yoursuperidea.vigyoscentersrm"
         minSdk 23
         targetSdk 32
         versionCode 1
@@ -29,7 +29,7 @@ android {
     dataBinding {
         enabled = true
     }
-    namespace 'com.yoursuperidea.vigyos'
+    namespace 'com.yoursuperidea.vigyoscentersrm'
 }
 
 dependencies {

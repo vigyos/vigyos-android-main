@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.UserFragment">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -18,8 +15,6 @@
             android:background="#2196F3"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-
             <LinearLayout
                 android:id="@+id/user_img"
                 android:layout_width="match_parent"
@@ -28,8 +23,6 @@
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 android:weightSum="2">
-
-
                 <TextView
                     android:id="@+id/tv_wallet"
                     android:layout_width="match_parent"
@@ -38,16 +31,9 @@
                     android:textColor="@color/white"
                     android:textSize="26dp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
-
-
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_recycler"
         android:layout_width="match_parent"
@@ -55,5 +41,4 @@
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="?attr/actionBarSize"
         tools:listitem="@layout/profile_item_list" />
-
 </FrameLayout>
