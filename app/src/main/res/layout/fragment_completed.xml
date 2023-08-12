@@ -9,8 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:text="No Service Completed"
         android:gravity="center_vertical|center_horizontal"
-        android:textSize="33dp"/>
+        android:textSize="33dp"
+        android:textColor="@color/vigyos"/>
 
 </FrameLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "959689669408",
+    "project_id": "test-project-65ddf",
+    "storage_bucket": "test-project-65ddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959689669408:android:b2b5319e153d12bb2d7545",
+        "android_client_info": {
+          "package_name": "com.example.vigyoscentercrm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959689669408-eb5lu1u2p65eepr8l4btmaa7j82l0ca2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLfzAnq1LflAAOlcIN0zhy6I8pWmRR47Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959689669408-eb5lu1u2p65eepr8l4btmaa7j82l0ca2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

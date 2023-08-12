@@ -1,13 +1,15 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.yoursuperidea.vigyos"
-        minSdk 21
+        applicationId "com.example.vigyoscentercrm"
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -29,7 +31,7 @@ android {
     dataBinding {
         enabled = true
     }
-    namespace 'com.yoursuperidea.vigyos'
+    namespace 'com.example.vigyoscentercrm'
 }
 
 dependencies {
@@ -44,14 +46,25 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'
-    implementation 'com.google.code.gson:gson:2.8.7'
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.airbnb.android:lottie:6.1.0"
+
+    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
+
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 }

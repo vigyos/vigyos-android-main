@@ -4,18 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.PrivacyPolicyFragment">
-
    <WebView
        android:id="@+id/privacyPolicy"
        android:layout_height="match_parent"
        android:layout_width="match_parent"/>
-
    <ProgressBar
        android:id="@+id/progress_bar"
        android:layout_width="50sp"
        android:layout_height="50sp"
        android:layout_centerInParent="true"
-       android:backgroundTint="@color/vigyos"
-       />
-
+       android:backgroundTint="@color/vigyos" />
 </RelativeLayout>

@@ -3,4 +3,61 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="by_successful">By Successful login you are Agreeing with our \n<font color='#2196F3'>Terms &amp; Conditions</font> and <font color='#2196F3'>Privacy Policy</font></string>
+    <string name="details">Simplify your One Person Company (OPC) registration process with our comprehensive service, excluding stamp duty. We assist individuals in registering their OPCs, ensuring compliance with legal requirements. Our expert team provides guidance and support throughout the registration process, making it convenient and hassle-free.</string>
+
+    <!--Onesignal ID-->
+    <string name="ONESIGNAL_APP_ID">90a6683c-bfe9-42d1-ab70-7292f9db9e53</string>
+    
+    
+
+    <!--Top Service Details -->
+    <string name="gst_service">GST REGISTERATION</string>
+    <string name="gst_Description">Our service provides seamless GST registration assistance. We handle the entire process, including documentation, application preparation, and submission to the GST authorities, ensuring accurate and timely registration for businesses to comply with GST regulations and smoothly conduct their operations </string>
+    <string name="gst_price">₹500.00</string>
+    <string name="gst_Required_Document">
+        \n\n1. PAN Card
+        \n\n2. Proof of business registration(Shop Act)
+        \n\n3. Aadhaar Card
+        \n\n4. Photographs(3 passport Size)
+        \n\n5. 3Months Bank account statements.
+    </string>
+    
+    
+    <string name="TDS_Return">TDS Return </string>
+    <string name="TDS_Description">Our TDS Return service facilitates quarterly filing for individuals. We handle the entire process, including data compilation, form preparation, and timely submission of TDS returns. Ensure compliance with tax regulations and streamline your TDS filing obligations efficiently.</string>
+    <string name="TDS_Price">₹881.00</string>
+    <string name="TDS_RequiredDocument">
+        \n\n1. Tax Payments Chalans
+        \n\n2. Pan Card
+        \n\n3. Copy of Income Tax Return
+    </string>
+
+
+    <string name="Eway">E-way Bill - Registration</string>
+    <string name="Eway_Description">Our E-way Bill Registration service assists businesses in obtaining and registering for E-way bills. We guide you through the registration process, ensuring compliance with GST regulations, and enabling seamless generation and management of E-way bills for your goods transportation.</string>
+    <string name="Eway_Price">₹74.00</string>
+    <string name="Eway_RequiredDocument"> </string>
+
+
+    <string name="ITR1">ITR - 1</string>
+    <string name="ITR1_Description">Our service provides seamless filing of ITR (Income Tax Return) for salaried individuals with 1 house property and other sources of income. We handle the entire process, including data compilation, form preparation, and timely submission, ensuring accurate compliance with income tax regulations for individuals with straightforward income sources.</string>
+    <string name="ITR1_Price">₹245.00</string>
+    <string name="ITR1_RequiredDocument">
+        \n\n1. PAN CARD
+        \n\n2. Aadhaar Card
+        \n\n3. Form 16
+        \n\n4. Salary Slips
+        \n\n5. Interest Certificates from Post Office and Banks
+        \n\n6. Tax-saving Investment Proofs
+        \n\n7. Health Insurance Premium Receipts.
+        \n\n8. Health Insurance Premium Receipts.
+    </string>
+
+    <string name="Udyam_Registration">Udyam Registration</string>
+    <string name="Udyam_RegistrationDescription">Udyam Registration is a comprehensive service offering hassle-free registration for Micro, Small, and Medium Enterprises (MSMEs) in India. We provide expert guidance and support to help businesses complete the Udyam registration process, ensuring compliance with government regulations and availing the benefits and recognition offered to MSMEs.</string>
+    <string name="Udyam_RegistrationPrice">₹250.00</string>
+    <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>
+
+
+
 </resources>

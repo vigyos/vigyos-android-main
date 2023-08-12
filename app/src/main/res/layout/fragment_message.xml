@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.MessageFragment">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -17,8 +15,6 @@
             android:background="#2196F3"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-
             <LinearLayout
                 android:id="@+id/user_img"
                 android:layout_width="match_parent"
@@ -27,8 +23,6 @@
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 android:weightSum="2">
-
-
                 <TextView
                     android:id="@+id/tv_wallet"
                     android:layout_width="match_parent"
@@ -37,22 +31,23 @@
                     android:textColor="@color/white"
                     android:textSize="26dp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
-
-
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/msg_recycler"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginHorizontal="10dp"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        tools:listitem="@layout/message_list_item"/>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/msg_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/message_list_item"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="You dont' have any massage"
+        android:textColor="@color/vigyos"
+        android:textSize="20sp"/>
 </FrameLayout>
