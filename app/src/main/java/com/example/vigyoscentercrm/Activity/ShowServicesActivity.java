@@ -88,7 +88,6 @@ public class ShowServicesActivity extends AppCompatActivity {
             serviceName = jsonObject.getString("service_name");
             serviceDetails = jsonObject.getString("description");
             price = jsonObject.getString("price");
-
             JSONArray jsonObject1 = jsonObject.getJSONArray("required_data");
             for (int i = 0; i < jsonObject1.length(); i++ ){
                 JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
@@ -96,7 +95,6 @@ public class ShowServicesActivity extends AppCompatActivity {
                 itemModel.setDocument_name(jsonObject2.getString("document_name"));
                 documentItemModels.add(itemModel);
             }
-
             serviceNameText.setText(serviceName);
             serviceDetailsText.setText(serviceDetails);
             priceText.setText("₹"+price);

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Activity.ShowServicesActivity">
+    tools:context=".Activity.ShowTopServiceActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -89,10 +89,18 @@
                 android:textSize="18sp"
                 android:textColor="#232222"
                 android:fontFamily="@font/poppins_bold"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+
+            <TextView
+                android:id="@+id/document"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/dot"
+                android:layout_marginTop="5sp"
+                android:layout_marginHorizontal="5sp"
+                android:text="1. Pan Card"
+                android:textSize="18sp"
+                android:textColor="#5C5A5A" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
