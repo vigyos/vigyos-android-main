@@ -6,10 +6,8 @@
     android:background="@color/white"
     android:gravity="center"
     tools:context=".Activity.SplashActivity">
-
     <ImageView
         android:layout_width="180sp"
         android:layout_height="180sp"
         android:src="@drawable/vigyos_logo"/>
-
 </LinearLayout>

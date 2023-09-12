@@ -43,7 +43,4 @@ public class WishlistFragment extends Fragment {
         recyclerView.setAdapter(new AdapterWishlist(arrayName,arrayPrice));
         return view;
     }
-
-
-
 }

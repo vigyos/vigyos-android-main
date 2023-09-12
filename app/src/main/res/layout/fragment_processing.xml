@@ -4,14 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.ProcessingFragment">
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
         android:text="No Service In Processing"
-        android:textSize="33dp"
+        android:textSize="33sp"
         android:textColor="@color/vigyos"/>
-
 </FrameLayout>

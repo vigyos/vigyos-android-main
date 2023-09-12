@@ -89,7 +89,6 @@
                 android:textSize="18sp"
                 android:textColor="#232222"
                 android:fontFamily="@font/poppins_bold"/>
-
             <TextView
                 android:id="@+id/document"
                 android:layout_width="match_parent"
@@ -100,7 +99,6 @@
                 android:text="1. Pan Card"
                 android:textSize="18sp"
                 android:textColor="#5C5A5A" />
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

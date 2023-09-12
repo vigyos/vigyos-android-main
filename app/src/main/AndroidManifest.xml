@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".AppController"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Activity.AEPSActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.ShowTopServiceActivity"
             android:exported="false" />

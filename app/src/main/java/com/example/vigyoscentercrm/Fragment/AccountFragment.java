@@ -78,14 +78,12 @@ public class AccountFragment extends Fragment {
                  areYouSure();
              }
          });
-
          viewAadhaarCard.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  viewImage(SplashActivity.prefManager.getAadhaarAttachment());
              }
          });
-
          viewPanCard.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {

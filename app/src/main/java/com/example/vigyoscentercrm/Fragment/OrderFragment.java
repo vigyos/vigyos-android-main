@@ -25,11 +25,9 @@ public class OrderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.fragment_order, container, false);
-
          tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
          viewPager2 = (ViewPager2) view.findViewById(R.id.viewpager);
          adapter = new OrderAdapter(getActivity());
@@ -39,10 +37,8 @@ public class OrderFragment extends Fragment {
              public void onTabSelected(TabLayout.Tab tab) {
                     viewPager2.setCurrentItem(tab.getPosition());
              }
-
              @Override
              public void onTabUnselected(TabLayout.Tab tab) { }
-
              @Override
              public void onTabReselected(TabLayout.Tab tab) { }
          });
@@ -54,7 +50,6 @@ public class OrderFragment extends Fragment {
                  tabLayout.getTabAt(position).select();
              }
          });
-
         return view;
     }
 }

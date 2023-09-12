@@ -124,8 +124,6 @@
             android:textSize="20sp"
             android:textColor="@color/white" />
     </RelativeLayout>
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,6 +134,4 @@
         android:text="@string/by_successful"
         android:textSize="16sp"
         android:textColor="#6A6868" />
-
-
 </RelativeLayout>

@@ -16,7 +16,7 @@ import com.example.vigyoscentercrm.R;
 
 public class TermsAndConditionsFragment extends Fragment {
 
-    private WebView termsWebView;
+    public WebView termsWebView;
     private ProgressBar progressBar;
 
     public TermsAndConditionsFragment() {

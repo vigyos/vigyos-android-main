@@ -33,7 +33,6 @@ public class DocumentItemAdapter extends RecyclerView.Adapter<DocumentItemAdapte
     @Override
     public void onBindViewHolder(@NonNull DocumentItemAdapter.holder holder, int position) {
         DocumentItemModel itemModel = documentItemModels.get(position);
-
         holder.txt.setText(itemModel.getDocument_name());
     }
 
@@ -52,5 +51,3 @@ public class DocumentItemAdapter extends RecyclerView.Adapter<DocumentItemAdapte
         }
     }
 }
-
-

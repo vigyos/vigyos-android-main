@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.vigyoscentercrm.R;
 
-
 public class ProcessingFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

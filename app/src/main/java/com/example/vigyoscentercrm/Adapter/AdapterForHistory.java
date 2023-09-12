@@ -20,7 +20,6 @@ public class AdapterForHistory extends RecyclerView.Adapter<AdapterForHistory.ho
         this.rs = rs;
     }
 
-
     @NonNull
     @Override
     public holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,7 +39,7 @@ public class AdapterForHistory extends RecyclerView.Adapter<AdapterForHistory.ho
         return rs.length;
     }
 
-    class holder extends RecyclerView.ViewHolder {
+    public class holder extends RecyclerView.ViewHolder {
 
         TextView service_name;
         TextView amount;

@@ -7,8 +7,7 @@
 
     <!--Onesignal ID-->
     <string name="ONESIGNAL_APP_ID">90a6683c-bfe9-42d1-ab70-7292f9db9e53</string>
-    
-    
+
 
     <!--Top Service Details -->
     <string name="gst_service">GST REGISTERATION</string>
@@ -21,8 +20,8 @@
         \n\n4. Photographs(3 passport Size)
         \n\n5. 3Months Bank account statements.
     </string>
-    
-    
+
+
     <string name="TDS_Return">TDS Return </string>
     <string name="TDS_Description">Our TDS Return service facilitates quarterly filing for individuals. We handle the entire process, including data compilation, form preparation, and timely submission of TDS returns. Ensure compliance with tax regulations and streamline your TDS filing obligations efficiently.</string>
     <string name="TDS_Price">₹881.00</string>
@@ -56,8 +55,36 @@
     <string name="Udyam_Registration">Udyam Registration</string>
     <string name="Udyam_RegistrationDescription">Udyam Registration is a comprehensive service offering hassle-free registration for Micro, Small, and Medium Enterprises (MSMEs) in India. We provide expert guidance and support to help businesses complete the Udyam registration process, ensuring compliance with government regulations and availing the benefits and recognition offered to MSMEs.</string>
     <string name="Udyam_RegistrationPrice">₹250.00</string>
-    <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>
+    <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>\
 
+    <string-array name="bank_name">
+        <item>--Select your Bank--</item>
+        <item>IDBI Bank</item>
+        <item>HDFC Bank</item>
+        <item>ICICI Bank</item>
+        <item>Bank of Baroda</item>
+        <item>SBI Bank</item>
+        <item>PNB</item>
+        <item>Union Bank</item>
+        <item>UCO Bank</item>
+        <item>BOI</item>
+        <item>Axis Bank</item>
+        <item>Kotak Bank</item>
+        <item>Bank of Maharastra</item>
+        <item>Bandhan Bank</item>
+        <item>Royal Bank of Scotland</item>
+        <item>CITI Bank</item>
+        <item>HSBC Bank</item>
+        <item>WOORI Bank</item>
+        <item>IDFC</item>
+    </string-array>
 
+    <string-array name="gender">
+        <item>--Gender--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Not to be Disclosed</item>
+    </string-array>
 
 </resources>

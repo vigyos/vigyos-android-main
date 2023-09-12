@@ -27,7 +27,6 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -344,5 +343,4 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>

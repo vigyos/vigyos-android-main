@@ -17,20 +17,15 @@ import com.example.vigyoscentercrm.Utils.UserItemListener;
 
 public class UserFragment extends Fragment  implements UserItemListener {
 
-    private RecyclerView recyclerView;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-
         String[] list = {"Account Information", "Wishlist", "Refund Policy", "Terms and Conditions", "Privacy Policy", "Feedback"};
-
         int[] theBitmapIds = { R.drawable.person_dark, R.drawable.wishlist_icon, R.drawable.refund_icon,
-                 R.drawable.terms_icon, R.drawable.privacy_icon, R.drawable.feedback_icon };
+                R.drawable.terms_icon, R.drawable.privacy_icon, R.drawable.feedback_icon };
 
-        recyclerView = view.findViewById(R.id.profile_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.profile_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new AdapterforUser(list, this, theBitmapIds));
 

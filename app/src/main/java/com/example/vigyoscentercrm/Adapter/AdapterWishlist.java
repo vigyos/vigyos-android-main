@@ -32,7 +32,6 @@ public class AdapterWishlist extends RecyclerView.Adapter<AdapterWishlist.holder
 
     @Override
     public void onBindViewHolder(@NonNull holder holder, int position) {
-
         holder.price.setText(arrayPrice.get(position));
         holder.serviceName.setText(arrayList.get(position));
     }
@@ -42,7 +41,7 @@ public class AdapterWishlist extends RecyclerView.Adapter<AdapterWishlist.holder
         return arrayList.size();
     }
 
-    class holder extends RecyclerView.ViewHolder {
+    public class holder extends RecyclerView.ViewHolder {
 
         private TextView serviceName;
         private TextView price;

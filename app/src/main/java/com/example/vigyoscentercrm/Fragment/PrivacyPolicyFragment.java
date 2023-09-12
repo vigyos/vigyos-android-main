@@ -31,12 +31,10 @@ public class PrivacyPolicyFragment extends Fragment {
         privacyPolicy.getSettings().setJavaScriptEnabled(true);
         privacyPolicy.loadUrl("file:///android_asset/privacy_policy.html");
         privacyPolicy.setWebViewClient(new WebViewClient(){
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //                progressBar.show();
                 view.loadUrl(url);
-
                 return true;
             }
             @Override
@@ -44,7 +42,6 @@ public class PrivacyPolicyFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-
         return  rootView;
     }
 }

@@ -20,14 +20,12 @@ public class RetrofitClient {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
         Gson gson = new GsonBuilder().setLenient().create();
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(ScalarsConverterFactory.create()) //important
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
         return retrofit;
     }
 

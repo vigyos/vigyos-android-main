@@ -18,14 +18,12 @@ public class OrderAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-
         switch(position){
             case 0: return new CompletedFragment();
             case 1: return new ProcessingFragment();
             case 2: return new CancelledFragment();
             default: return new CompletedFragment();
         }
-
     }
 
     @Override

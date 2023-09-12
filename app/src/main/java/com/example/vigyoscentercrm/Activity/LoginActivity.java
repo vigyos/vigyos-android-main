@@ -53,7 +53,7 @@ public class  LoginActivity extends AppCompatActivity {
 
     private void login(String name, String password){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().login(name, password);
+        Call<Object> objectCall = RetrofitClient.getApi().login(name, password,"APP");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -69,7 +69,6 @@ public class  LoginActivity extends AppCompatActivity {
                             SplashActivity.prefManager.setToken(jsonObjectData.getString("token"));
                             SplashActivity.prefManager.setFirstName(jsonObjectData.getString("first_name"));
                             SplashActivity.prefManager.setLastName(jsonObjectData.getString("last_name"));
-
 
                             SplashActivity.prefManager.setLogin(true);
 

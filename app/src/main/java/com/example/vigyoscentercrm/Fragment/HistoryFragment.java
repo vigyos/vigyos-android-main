@@ -32,7 +32,6 @@ public class HistoryFragment extends Fragment {
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.auto_complete_txt);
         adapter = new ArrayAdapter<>(getContext(), R.layout.category_item_list, item);
         autoCompleteTextView.setAdapter(adapter);
-
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

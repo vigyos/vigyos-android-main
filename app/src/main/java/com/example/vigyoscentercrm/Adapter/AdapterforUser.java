@@ -16,7 +16,6 @@ import com.example.vigyoscentercrm.Utils.UserItemListener;
 public class AdapterforUser extends RecyclerView.Adapter<AdapterforUser.holder> {
 
     private final UserItemListener listener;
-
     private String arr[];
     private int icon_img[];
 
@@ -38,7 +37,6 @@ public class AdapterforUser extends RecyclerView.Adapter<AdapterforUser.holder> 
     public void onBindViewHolder(@NonNull AdapterforUser.holder holder, int position) {
         holder.txt.setText(arr[position]);
         holder.img.setImageResource(icon_img[position]);
-
     }
 
     @Override
@@ -46,7 +44,7 @@ public class AdapterforUser extends RecyclerView.Adapter<AdapterforUser.holder> 
         return arr.length;
     }
 
-    class holder extends RecyclerView.ViewHolder {
+    public class holder extends RecyclerView.ViewHolder {
 
         TextView txt;
         ImageView img;
@@ -62,10 +60,8 @@ public class AdapterforUser extends RecyclerView.Adapter<AdapterforUser.holder> 
                 public void onClick(View view) {
                     if (listener != null){
                         int pos = getAdapterPosition();
-
                         if(pos != RecyclerView.NO_POSITION){
                             Log.i("12121"," position - " + pos);
-
                             listener.onItemClick(pos);
                         }
                     }
@@ -74,5 +70,3 @@ public class AdapterforUser extends RecyclerView.Adapter<AdapterforUser.holder> 
         }
     }
 }
-
-
