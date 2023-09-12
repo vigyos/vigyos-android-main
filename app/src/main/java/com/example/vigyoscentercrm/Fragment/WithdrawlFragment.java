@@ -218,6 +218,7 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
         Log.i("1212","text" +text);
+
     }
 
     @Override
