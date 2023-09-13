@@ -28,13 +28,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.vigyoscentercrm.Activity.SplashActivity;
+import com.example.vigyoscentercrm.FingerPrintModel.Opts;
+import com.example.vigyoscentercrm.FingerPrintModel.PidData;
+import com.example.vigyoscentercrm.FingerPrintModel.PidOptions;
 import com.example.vigyoscentercrm.Model.BankListModel;
 import com.example.vigyoscentercrm.R;
 import com.example.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -53,7 +58,10 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,24 +73,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class WithdrawlFragment extends Fragment{
 
     private View view;
     private Spinner spinner;
     private Activity activity;
-    private EditText aadhaar_num,amount;
+    private EditText aadhaar_num, amount, mobile_number, remark;
     private RelativeLayout button_done;
+    private CardView captureFingerPrint;
     private ArrayList<BankListModel> bankListModels = new ArrayList<>();
     private ArrayList<String> backListArray = new ArrayList<>();
+    private String bankName;
+    private int iinno;
     private Dialog dialog;
     private String ipAddress;
     private FusedLocationProviderClient fusedLocationClient;
     private double latitude;
     private double longitude;
-    private String currentDate;
-    private String currentTime;
-
-    public WithdrawlFragment(){ }
+    private String currentDateAndTime;
+    public PidData pidData = null;
+    private String fingerData = "fingerData";
+    private TextView remark_heading;
+    private Serializer serializer = null;
+    public ArrayList<String> positions;
 
     public WithdrawlFragment(Activity activity) {
         this.activity = activity;
@@ -101,10 +114,16 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
         spinner = view.findViewById(R.id.bank_name);
         aadhaar_num = view.findViewById(R.id.aadhaar_number);
         button_done = view.findViewById(R.id.button_done);
+        captureFingerPrint = view.findViewById(R.id.captureFingerPrint);
         amount = view.findViewById(R.id.amount);
+        mobile_number = view.findViewById(R.id.mobile_number);
+        remark = view.findViewById(R.id.remark);
+        remark_heading = view.findViewById(R.id.remark_heading);
     }
 
     private void declaration() {
+        serializer = new Persister();
+        positions = new ArrayList<>();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         button_done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,19 +132,40 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
                     aadhaar_num.setError("Please enter a Valid number");
                     return;
                 }
-                if(TextUtils.isEmpty(amount.getText().toString())||!isNumeric(amount.getText().toString())){
-                    amount.setError("Please enter a valid amount");
-                    return;
-                }
                 if (spinner.getSelectedItem().toString().trim().equals("--Select your Bank--")) {
                     Toast.makeText(activity,"Please select your bank",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String timeAndDate = currentTime +" "+currentDate;
-                String fingerData = "fingerData";
-                withdrawal(aadhaar_num.getText().toString(),timeAndDate, fingerData, "10101", "remarks", "0.0");
+                if(TextUtils.isEmpty(amount.getText().toString())||!isNumeric(amount.getText().toString())){
+                    amount.setError("Please enter a valid amount");
+                    return;
+                }
+                if(TextUtils.isEmpty(mobile_number.getText().toString())||!isNumeric(mobile_number.getText().toString())){
+                    mobile_number.setError("Please enter a valid Mobile Number");
+                    return;
+                }
+
+                withdrawal(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), amount.getText().toString(), mobile_number.getText().toString() );
             }
         });
+        captureFingerPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String pidOption = getPIDOptions();
+                    if (pidOption != null) {
+                        Log.e("PidOptions", pidOption);
+                        Intent intent2 = new Intent();
+                        intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                        intent2.putExtra("PID_OPTIONS", pidOption);
+                        startActivityForResult(intent2, 2);
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                }
+            }
+        });
+
     }
 
     public static boolean isNumeric(String strNum){
@@ -192,7 +232,22 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, backListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(spinnerArrayAdapter);
-                    spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) activity);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String selectedItem = (String) parent.getItemAtPosition(position);
+                            for (BankListModel bankListModel: bankListModels){
+                                if(bankListModel.getBankName().equalsIgnoreCase(selectedItem)){
+                                    bankName = bankListModel.getBankName();
+                                    iinno  = bankListModel.getIinno();
+                                    Log.i("789654", "Bank Name: - " + bankName + " " + iinno);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) { }
+                    });
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -209,34 +264,25 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("123345","onFailure");
-
             }
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
-        Log.i("1212","text" +text);
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    private void withdrawal(String aadhaarNumber, String timeStamp, String fingerData, String nationalbankidentification, String requestremarks , String amount){
-        Call<Object> objectCall = RetrofitClient.getApi().withdrawal("Bearer "+SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank2", "submerchantid", nationalbankidentification, requestremarks, "CW", amount);
+    private void withdrawal(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String amount, String mobile){
+        Call<Object> objectCall = RetrofitClient.getApi().withdrawal("Bearer " + SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
+                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "CW", amount);
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse " + response);
+                Toast.makeText(activity, " " + response, Toast.LENGTH_SHORT).show();
+                remark_heading.setText("response"+ response);
 
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("2016", "onFailure " + t);
 
             }
         });
@@ -263,9 +309,88 @@ public class WithdrawlFragment extends Fragment implements AdapterView.OnItemSel
         super.onDestroy();
     }
 
+    private String getPIDOptions() {
+        try {
+            String posh = "UNKNOWN";
+            if (positions.size() > 0) {
+                posh = positions.toString().replace("[", "").replace("]", "").replaceAll("[\\s+]", "");
+            }
+            Opts opts = new Opts();
+            opts.fCount = "1";
+            opts.fType = "0";
+            opts.iCount = "0";
+            opts.iType = "0";
+            opts.pCount = "0";
+            opts.pType = "0";
+            opts.format = "0";
+            opts.pidVer = "2.0";
+            opts.timeout = "10000";
+            opts.posh = posh;
+            opts.env = "p";
+
+            PidOptions pidOptions = new PidOptions();
+            pidOptions.ver = "1.0";
+            pidOptions.Opts = opts;
+
+            Serializer serializer = new Persister();
+            StringWriter writer = new StringWriter();
+            serializer.write(pidOptions, writer);
+            return writer.toString();
+        } catch (Exception e) {
+            Log.e("Error", e.toString());
+        }
+        return null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("DEVICE_INFO");
+                            String rdService = data.getStringExtra("RD_SERVICE_INFO");
+                            String display = "";
+                            if (rdService != null) {
+                                display = "RD Service Info :\n" + rdService + "\n\n";
+                            }
+                            if (result != null) {
+                                display += "Device Info :\n" + result;
+//                                textView.setText(display);
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("Error", "Error while deserialze device info", e);
+                    }
+                }
+                break;
+            case 2:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                remark_heading.setText(result);
+
+//                                fingerData = pidData.toString();
+
+                                Log.i("78954","pidData " + result);
+//                                Toast.makeText(activity, "pidData " + result, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("Error", "Error while deserialze pid data", e);
+                    }
+                }
+                break;
+        }
+    }
+
     private void dateAndTime(){
-        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
     }
 
     private void iPAddress(){

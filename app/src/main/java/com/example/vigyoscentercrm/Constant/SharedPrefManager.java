@@ -39,6 +39,7 @@ public class SharedPrefManager {
     private static final String createdby = "createdby";
     private static final String sales_person = "sales_person";
     private static final String wallet_id = "wallet_id";
+    private static final String merchant_id = "merchant_id";
     private static final String amount = "amount";
     private static final String login = "login";
     private static final String service_id = "service_id";
@@ -199,6 +200,16 @@ public class SharedPrefManager {
 
     public String getLicenseNumber(){
         return pref.getString(license_no, "null");
+    }
+
+    public void setMerchantId(String MerchantId){
+        editor = pref.edit();
+        editor.putString(merchant_id, MerchantId);
+        editor.commit();
+    }
+
+    public String getMerchantId(){
+        return pref.getString(merchant_id, "null");
     }
 
     public void setClear(){

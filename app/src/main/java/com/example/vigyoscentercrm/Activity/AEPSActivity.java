@@ -32,7 +32,7 @@ public class AEPSActivity extends AppCompatActivity {
         viewPager2= findViewById(R.id.view_pager2);
 
         tabLayout.addTab(tabLayout.newTab().setText("Withdraw"));
-        tabLayout.addTab(tabLayout.newTab().setText("Aadhaar Pay"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Aadhaar Pay"));
         tabLayout.addTab(tabLayout.newTab().setText("Enquiry"));
         tabLayout.addTab(tabLayout.newTab().setText("Mini statement"));
 
@@ -69,14 +69,4 @@ public class AEPSActivity extends AppCompatActivity {
             }
         });
     }
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        String text = adapterView.getItemAtPosition(i).toString();
-//
-//        Log.i("1212","text" +text);
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> adapterView) { }
 }

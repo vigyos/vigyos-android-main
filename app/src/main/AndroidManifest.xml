@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-feature android:name="android.hardware.usb.host" />
 
     <application
         android:name=".AppController"
@@ -17,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".Activity.AEPSActivity"
             android:exported="false" />
@@ -45,6 +47,17 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false" />
+
+        <receiver
+            android:name=".UsbReceiver"
+            android:directBootAware="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.emteria.usbpermissions.USB_PERMISSION" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>

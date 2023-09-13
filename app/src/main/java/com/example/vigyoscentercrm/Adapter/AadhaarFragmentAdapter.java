@@ -27,17 +27,19 @@ public class AadhaarFragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if(position ==0 ){
             return new WithdrawlFragment(activity);
-        } else if (position==2) {
-            return new EnquiryFragment();
-        } else if (position==1){
-            return new AadhaarPayFragment();
-        } else {
-            return new MiniStatementFragment();
+        } else if (position==1) {
+            return new EnquiryFragment(activity);
+        }
+//        else if (position==1){
+//            return new AadhaarPayFragment();
+//        }
+        else {
+            return new MiniStatementFragment(activity);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 }

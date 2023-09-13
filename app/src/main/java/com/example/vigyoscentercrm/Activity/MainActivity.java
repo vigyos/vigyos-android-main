@@ -31,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class MainActivity extends AppCompatActivity {
 
     public MeowBottomNavigation meowBottomNavigation;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         break;
                     case 3:
-                        loadFragment(new HomeFragment(), true);
+                        loadFragment(new HomeFragment(MainActivity.this), true);
                         break;
                     case 4:
                         loadFragment(new OrderFragment(), false);
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 //                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
                         break;
                     case 3:
-                        loadFragment(new HomeFragment(), true);
+                        loadFragment(new HomeFragment(MainActivity.this), true);
                         break;
                     case 4:
                         loadFragment(new OrderFragment(), false);
@@ -148,6 +147,11 @@ public class MainActivity extends AppCompatActivity {
                             SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
                         } else {
                             SplashActivity.prefManager.setLicenseNumber("null");
+                        }
+                        if (jsonObject1.has("merchant_id")){
+                            SplashActivity.prefManager.setMerchantId(jsonObject1.getString("merchant_id"));
+                        } else {
+                            SplashActivity.prefManager.setMerchantId("null");
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

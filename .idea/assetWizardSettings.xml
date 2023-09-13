@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/dashboard/baseline_dashboard_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/file_download_done/baseline_file_download_done_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="more_icon" />
+                            <entry key="color" value="11ff00" />
+                            <entry key="outputName" value="done_icon" />
                             <entry key="sourceFile" value="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main" />
                           </map>
                         </option>
