@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.Settings;
+import android.text.Spannable;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.vigyoscentercrm.Activity.AEPSActivity;
+import com.example.vigyoscentercrm.Activity.PanCardActivity;
 import com.example.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.example.vigyoscentercrm.Activity.ShowTopServiceActivity;
 import com.example.vigyoscentercrm.Activity.SplashActivity;
@@ -48,6 +50,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -55,6 +58,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -80,7 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout gstRegistration, tdsReturn;
     private LinearLayout eWay, itr1;
     private LinearLayout udyamRegistration;
-    private LinearLayout aeps;
+    private LinearLayout aeps, panCard;
     private String ipAddress;
     private FusedLocationProviderClient fusedLocationClient;
     private double latitude;
@@ -114,6 +119,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         udyamRegistration = view.findViewById(R.id.udyamRegistration);
         seeMore = view.findViewById(R.id.seeMore);
         aeps = view.findViewById(R.id.aeps);
+        panCard = view.findViewById(R.id.panService);
     }
 
     private void declaration(){
@@ -128,7 +134,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         udyamRegistration.setOnClickListener(this);
         seeMore.setOnClickListener(this);
         aeps.setOnClickListener(this);
+        panCard.setOnClickListener(this);
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (checkPermission()){
             getLocation();
         } else {
@@ -139,7 +147,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         serializer = new Persister();
         positions = new ArrayList<>();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
 
         userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
         ArrayList<SlideModel> img = new ArrayList<>();
@@ -153,6 +160,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.panService:
+                startActivity(new Intent(activity, PanCardActivity.class));
+                break;
             case R.id.aeps:
                 try {
                     String pidOption = getPIDOptions();
@@ -165,9 +175,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
+                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
                 }
-
-//                startActivity(new Intent(getActivity(), AEPSActivity.class));
                 break;
             case R.id.profile_image:
                 replaceFragment(new UserFragment());
@@ -287,19 +296,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case 2:
+                Log.i("78954", "case 2 ");
                 if (resultCode == Activity.RESULT_OK) {
+                    Log.i("78954", "case 2  if");
                     try {
+                        Log.i("78954", "case 2  try");
                         if (data != null) {
+
+                            Log.i("78954", "case 2  data if");
+
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
 //                                remark_heading.setText(result);
                                 AuthAPI(result);
-                                Log.i("78954", "pidData " + result);
+                                Log.i("78954", "case 2  result if");
+
                             }
                         }
                     } catch (Exception e) {
                         Log.e("Error", "Error while deserialze pid data", e);
+                        Log.i("78954", "case 2  catch");
                     }
                 }
                 break;
@@ -395,7 +412,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 Log.i("2016", "onResponse "+ response);
-                Toast.makeText(activity, "Authenticated Successfully", Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("status")){
+                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
+                            String message = jsonObject.getString("message");
+                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override

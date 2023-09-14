@@ -136,7 +136,7 @@
                             <ImageView
                                 android:layout_width="25sp"
                                 android:layout_height="25sp"
-                                android:src="@drawable/aeps" />
+                                android:src="@drawable/aeps_2" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -148,6 +148,7 @@
                                 android:textSize="16sp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/panService"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_columnWeight="1"
@@ -157,7 +158,7 @@
                             <ImageView
                                 android:layout_width="25sp"
                                 android:layout_height="25sp"
-                                android:src="@drawable/pan_icon_new" />
+                                android:src="@drawable/pan_card_service" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -271,8 +272,7 @@
                                                 android:layout_height="35sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/gst_icone"
-                                                app:tint="@color/vigyos" />
+                                                android:src="@drawable/accounting" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -302,8 +302,8 @@
                                                 android:layout_height="35sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/gst_icone"
-                                                app:tint="@color/vigyos" />
+                                                android:src="@drawable/dsc_services"
+                                                />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -333,8 +333,7 @@
                                                 android:layout_width="30dp"
                                                 android:layout_height="30dp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/tds_icon"
-                                                app:tint="@color/vigyos" />
+                                                android:src="@drawable/e_way_bills" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -364,7 +363,7 @@
                                                 android:layout_height="40sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/e_way_icon" />
+                                                android:src="@drawable/gst_servcices" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -394,10 +393,10 @@
                                             app:cardCornerRadius="12dp">
                                             <ImageView
                                                 android:layout_width="36dp"
-                                                android:layout_height="wrap_content"
+                                                android:layout_height="36sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/itr__icon" />
+                                                android:src="@drawable/iec" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -425,10 +424,10 @@
                                             app:cardCornerRadius="12dp">
                                             <ImageView
                                                 android:layout_width="36dp"
-                                                android:layout_height="wrap_content"
+                                                android:layout_height="36sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/itr__icon" />
+                                                android:src="@drawable/income_tax_return" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -460,7 +459,7 @@
                                                 android:layout_height="36dp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/udyam_registration_icon" />
+                                                android:src="@drawable/ipr" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PanCardActivity"
+    android:background="#F9F4F1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:id="@+id/startlogo"
+        android:background="#F9F4F1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/good_times"
+            android:text="@string/pan_services"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#434343"
+            android:textSize="40sp"
+            android:textStyle="italic"
+            android:shadowColor="@color/grey_font"
+            android:shadowDx = "-7"
+            android:shadowDy = "-7"
+            android:shadowRadius = "5"/>
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardCornerRadius="30dp"
+        android:layout_below="@id/startlogo"
+        android:backgroundTint="#F9F4F1"
+        android:id="@+id/tab"
+        android:clipChildren="true"
+        android:layout_marginTop="20dp">
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginVertical="5dp"
+            android:theme="@style/pan_tab_text"
+            android:id="@+id/tab_panCard"
+            android:background="#F9F4F1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07999998"
+            app:tabGravity="center"
+            android:clipToPadding="true"
+            app:tabIndicator="@drawable/tab_selected"
+            app:tabIndicatorColor="@color/vigyos"
+            app:tabBackground="@drawable/tab_selected"
+            app:tabTextAppearance="@style/pan_tab_text"
+            app:tabSelectedTextAppearance="@style/pan_tab_text"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorGravity="stretch"
+            app:tabMode="scrollable"
+            app:tabIndicatorAnimationMode="fade"
+            app:tabMinWidth="180dp"
+            app:tabMaxWidth="180dp" />
+    </androidx.cardview.widget.CardView>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab"
+        android:layout_marginTop="10dp" />
+</RelativeLayout>

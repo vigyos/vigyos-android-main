@@ -114,4 +114,23 @@ public interface Api {
             @Field("bank") String pipe,
             @Field("submerchantid") String submerchantid
     );
+
+    @FormUrlEncoded
+    @POST("pan/generateCorrectionUrl")
+    Call<Object> panCardUpdate(
+            @Header("Authorization") String Authorization,
+            @Field("title") String title,
+            @Field("firstname") String firstname,
+            @Field("middlename") String middlename,
+            @Field("lastname") String lastname,
+            @Field("mode") String mode,
+            @Field("gender") String gender,
+            @Field("redirect_url") String redirect_url,
+            @Field("email") String email,
+            @Field("user_id") String user_id,
+            @Field("remarks") String remarks,
+            @Field("status") String status,
+            @Field("customer_phone") String customer_phone,
+            @Field("customer_adds") String customer_adds
+    );
 }

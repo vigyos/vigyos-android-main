@@ -55,7 +55,8 @@
     <string name="Udyam_Registration">Udyam Registration</string>
     <string name="Udyam_RegistrationDescription">Udyam Registration is a comprehensive service offering hassle-free registration for Micro, Small, and Medium Enterprises (MSMEs) in India. We provide expert guidance and support to help businesses complete the Udyam registration process, ensuring compliance with government regulations and availing the benefits and recognition offered to MSMEs.</string>
     <string name="Udyam_RegistrationPrice">₹250.00</string>
-    <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>\
+    <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>
+    <string name="pan_services">PAN Services</string>\
 
     <string-array name="bank_name">
         <item>--Select your Bank--</item>

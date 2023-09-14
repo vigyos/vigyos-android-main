@@ -26,6 +26,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -92,10 +93,11 @@ public class EnquiryFragment extends Fragment {
     private double longitude;
     private String currentDateAndTime;
     public PidData pidData = null;
-    private String fingerData = "fingerData";
-    private TextView remark_heading;
+    private String fingerData = null;
     private Serializer serializer = null;
     public ArrayList<String> positions;
+    private boolean fingerCapture = false;
+    private ImageView fingerPrintDone;
 
     public EnquiryFragment(Activity activity) {
         this.activity = activity;
@@ -117,8 +119,8 @@ public class EnquiryFragment extends Fragment {
         mobile_number = view.findViewById(R.id.mobileNumber);
         remark = view.findViewById(R.id.remarkEnquiry);
         captureFingerPrint = view.findViewById(R.id.captureFingerPrint);
+        fingerPrintDone = view.findViewById(R.id.captureData);
         button_done = view.findViewById(R.id.buttonDone);
-        remark_heading = view.findViewById(R.id.remark_heading);
     }
 
     private void declaration() {
@@ -140,8 +142,13 @@ public class EnquiryFragment extends Fragment {
                     mobile_number.setError("Please enter a valid Mobile Number");
                     return;
                 }
-
-                enquiry(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
+                if(fingerCapture){
+                    fingerCapture = false;
+                    fingerPrintDone.setVisibility(View.GONE);
+                    enquiry(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
+                } else {
+                    Toast.makeText(activity, "Capture FingerPrint", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         captureFingerPrint.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +165,7 @@ public class EnquiryFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
+                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -335,7 +343,7 @@ public class EnquiryFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
@@ -364,16 +372,16 @@ public class EnquiryFragment extends Fragment {
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-                                remark_heading.setText(result);
-
-//                                fingerData = pidData.toString();
-
+//                                remark_heading.setText(result);
+                                fingerData = result;
+                                fingerCapture = true;
+                                fingerPrintDone.setVisibility(View.VISIBLE);
                                 Log.i("78954","pidData " + result);
-//                                Toast.makeText(activity, "pidData " + result, Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (Exception e) {
                         Log.e("Error", "Error while deserialze pid data", e);
+                        Toast.makeText(activity, "Failed to Capture FingerPrint", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

@@ -19,7 +19,7 @@ import com.example.vigyoscentercrm.R;
 
 public class HistoryFragment extends Fragment {
 
-    private String item [] = {"All","GST Registration","Adhar Service", "Pancard Service", "Domain Name", "ITR services"};
+    private final String[] item = {"All", "GST Registration", "Aadhaar Service", "Pan Card Service", "Domain Name", "ITR services"};
     private AutoCompleteTextView autoCompleteTextView;
     private ArrayAdapter<String> adapter;
     private RecyclerView historyrecyclerView;
@@ -29,7 +29,7 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.auto_complete_txt);
+        autoCompleteTextView = view.findViewById(R.id.auto_complete_txt);
         adapter = new ArrayAdapter<>(getContext(), R.layout.category_item_list, item);
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,10 +40,10 @@ public class HistoryFragment extends Fragment {
             }
         });
 
-        String service[] ={"Add Money in Wallet", "Adhar card update", "Pancard service", "Add Money in Wallet", "Gem Registration", "Advertisement","Add Money in Wallet", "Add Money in Wallet", "Pancard service", "Add Money in Wallet", "Gem Registration", "Advertisement"};
-        String money[] = {"+200 Rs","-50 Rs","-100 Rs","+520 Rs","-200 Rs","-100 Rs","+200 Rs","+50 Rs","-100 Rs","+520 Rs","-200 Rs","-100 Rs"};
+        String[] service ={"Add Money in Wallet", "Aadhaar card update", "Pan Card service", "Add Money in Wallet", "Gem Registration", "Advertisement", "Add Money in Wallet", "Add Money in Wallet", "Pan Card service", "Add Money in Wallet", "Gem Registration", "Advertisement"};
+        String[] money = {"+200 Rs", "-50 Rs", "-100 Rs", "+520 Rs", "-200 Rs", "-100 Rs", "+200 Rs", "+50 Rs", "-100 Rs", "+520 Rs", "-200 Rs", "-100 Rs"};
 
-        historyrecyclerView = (RecyclerView) view.findViewById(R.id.history_recycler);
+        historyrecyclerView = view.findViewById(R.id.history_recycler);
         historyrecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         historyrecyclerView.setAdapter(new AdapterForHistory(service, money));
         return view;

@@ -30,7 +30,6 @@
         <!-- Customize other attributes if needed -->
     </style>
 
-
     <style name="CustomToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!-- HERE ARE THE CHANGES - Change color of different texts -->
         <item name="android:textColorPrimary">@color/white</item>
@@ -40,6 +39,11 @@
     <style name="aadhaar_tab_text" parent="@style/Widget.Design.TabLayout">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">10dp</item>
+    </style>
+
+    <style name="pan_tab_text" parent="@style/Widget.Design.TabLayout">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
 </resources>

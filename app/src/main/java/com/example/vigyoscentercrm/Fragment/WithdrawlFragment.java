@@ -26,6 +26,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -92,10 +93,11 @@ public class WithdrawlFragment extends Fragment{
     private double longitude;
     private String currentDateAndTime;
     public PidData pidData = null;
-    private String fingerData = "fingerData";
-    private TextView remark_heading;
+    private String fingerData = null;
     private Serializer serializer = null;
     public ArrayList<String> positions;
+    private boolean fingerCapture = false;
+    private ImageView fingerPrintDone;
 
     public WithdrawlFragment(Activity activity) {
         this.activity = activity;
@@ -111,14 +113,14 @@ public class WithdrawlFragment extends Fragment{
     }
 
     private void initialization() {
-        spinner = view.findViewById(R.id.bank_name);
         aadhaar_num = view.findViewById(R.id.aadhaar_number);
-        button_done = view.findViewById(R.id.button_done);
-        captureFingerPrint = view.findViewById(R.id.captureFingerPrint);
+        spinner = view.findViewById(R.id.bank_name);
         amount = view.findViewById(R.id.amount);
         mobile_number = view.findViewById(R.id.mobile_number);
         remark = view.findViewById(R.id.remark);
-        remark_heading = view.findViewById(R.id.remark_heading);
+        captureFingerPrint = view.findViewById(R.id.captureFingerPrint);
+        fingerPrintDone = view.findViewById(R.id.captureData);
+        button_done = view.findViewById(R.id.button_done);
     }
 
     private void declaration() {
@@ -145,7 +147,14 @@ public class WithdrawlFragment extends Fragment{
                     return;
                 }
 
-                withdrawal(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), amount.getText().toString(), mobile_number.getText().toString() );
+                if (fingerCapture){
+                    fingerCapture = false;
+                    fingerPrintDone.setVisibility(View.GONE);
+                    withdrawal(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), amount.getText().toString(), mobile_number.getText().toString() );
+                } else {
+                    Toast.makeText(activity, "Capture FingerPrint", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         captureFingerPrint.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +171,7 @@ public class WithdrawlFragment extends Fragment{
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
+                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -276,8 +286,6 @@ public class WithdrawlFragment extends Fragment{
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 Log.i("2016", "onResponse " + response);
                 Toast.makeText(activity, " " + response, Toast.LENGTH_SHORT).show();
-                remark_heading.setText("response"+ response);
-
             }
 
             @Override
@@ -344,7 +352,7 @@ public class WithdrawlFragment extends Fragment{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
@@ -373,16 +381,17 @@ public class WithdrawlFragment extends Fragment{
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-                                remark_heading.setText(result);
-
-//                                fingerData = pidData.toString();
+//                                remark_heading.setText(result);
+                                fingerData = result;
+                                fingerCapture = true;
+                                fingerPrintDone.setVisibility(View.VISIBLE);
 
                                 Log.i("78954","pidData " + result);
-//                                Toast.makeText(activity, "pidData " + result, Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (Exception e) {
                         Log.e("Error", "Error while deserialze pid data", e);
+                        Toast.makeText(activity, "Failed to Capture FingerPrint", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
