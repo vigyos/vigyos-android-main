@@ -62,7 +62,7 @@
                         app:cardCornerRadius="15dp"
                         app:cardElevation="5dp">
                         <EditText
-                            android:id="@+id/aadhaar_number"
+                            android:id="@+id/FirstNameCreate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -100,10 +100,10 @@
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp">
                         <EditText
+                            android:id="@+id/middleNameCreate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            android:id="@+id/middle_name"
                             android:hint="Middle Name"
                             android:textSize="15sp"
                             android:layout_marginStart="15sp"
@@ -148,7 +148,7 @@
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:hint="Last Name"
-                            android:id="@+id/last_name"
+                            android:id="@+id/lastNameCreate"
                             android:textSize="15sp"
                             android:layout_marginStart="15sp"
                             android:textColorHint="@color/grey_font"
@@ -185,7 +185,43 @@
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/gender"
+                            android:id="@+id/genderCreate"
+                            android:inputType="none"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="5dp" />
+                    </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Card Type"
+                            android:id="@+id/cardType"
+                            android:layout_marginStart="20dp"
+                            android:textColor="@color/vigyos"
+                            android:textSize="18sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*"
+                            android:textColor="#FF0303"
+                            android:layout_marginStart="5dp"/>
+                    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="15dp"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="#F5F7FA"
+                        app:cardElevation="5dp">
+                        <Spinner
+                            android:id="@+id/cardTypeCreate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:inputType="none"
                             android:paddingVertical="5dp"
                             android:paddingHorizontal="5dp" />
@@ -222,7 +258,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            android:id="@+id/mobile_number"
+                            android:id="@+id/mobileNumberCreate"
                             android:hint="Ex. 9876543210"
                             android:textSize="15sp"
                             android:layout_marginStart="15sp"
@@ -262,7 +298,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:id="@+id/email"
+                        android:id="@+id/emailCreate"
                         android:hint="Ex. abc@gmail.com"
                         android:textSize="15sp"
                         android:layout_marginStart="15sp"
@@ -298,7 +334,7 @@
                     android:backgroundTint="#F5F7FA"
                     app:cardElevation="5dp">
                     <EditText
-                        android:id="@+id/address"
+                        android:id="@+id/addressCreate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="15sp"
@@ -330,6 +366,7 @@
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp">
                         <EditText
+                            android:id="@+id/remarkCreate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -345,7 +382,7 @@
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:id="@+id/button_done"
+                    android:id="@+id/CreatePanCard"
                     android:layout_height="50dp"
                     android:background="@drawable/button_submit"
                     android:layout_marginHorizontal="20dp"

@@ -66,7 +66,7 @@ public class  LoginActivity extends AppCompatActivity {
                             JSONObject jsonObjectData = jsonObject.getJSONObject("data");
 
                             SplashActivity.prefManager.setUserID(jsonObjectData.getString("userId"));
-                            SplashActivity.prefManager.setToken(jsonObjectData.getString("token"));
+                            SplashActivity.prefManager.setToken("Bearer "+jsonObjectData.getString("token"));
                             SplashActivity.prefManager.setFirstName(jsonObjectData.getString("first_name"));
                             SplashActivity.prefManager.setLastName(jsonObjectData.getString("last_name"));
 

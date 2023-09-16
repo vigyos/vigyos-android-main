@@ -81,11 +81,14 @@
     </string-array>
 
     <string-array name="gender">
-        <item>--Gender--</item>
         <item>Male</item>
         <item>Female</item>
-        <item>Other</item>
-        <item>Not to be Disclosed</item>
+        <item>Transgender</item>
+    </string-array>
+
+    <string-array name="mode">
+        <item>Physical Pan</item>
+        <item>Electronic Pan</item>
     </string-array>
 
 </resources>

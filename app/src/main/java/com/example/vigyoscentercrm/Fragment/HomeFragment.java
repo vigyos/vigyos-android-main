@@ -37,6 +37,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.vigyoscentercrm.Activity.AEPSActivity;
+import com.example.vigyoscentercrm.Activity.MainActivity;
 import com.example.vigyoscentercrm.Activity.PanCardActivity;
 import com.example.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.example.vigyoscentercrm.Activity.ShowTopServiceActivity;
@@ -52,10 +53,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import org.json.JSONException;
@@ -67,6 +70,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -340,26 +344,66 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void requestPermissions() {
         Dexter.withContext(activity)
-                .withPermission(ACCESS_FINE_LOCATION)
-                .withListener(new PermissionListener() {
+                // below line is use to request the number of permissions which are required in our app.
+                .withPermissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                // after adding permissions we are calling an with listener method.
+                .withListener(new MultiplePermissionsListener() {
                     @Override
-                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        getLocation();
-                        Log.i("874521", "Permission  granted..");
-                    }
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        // check for permanent decline of permission
-                        if (permissionDeniedResponse.isPermanentlyDenied()) {
-                            // navigate user to app settings
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                        // this method is called when all permissions are granted
+                        if (multiplePermissionsReport.areAllPermissionsGranted()) {
+                            // do you work now
+                            getLocation();
+                            Log.i("874521", "Permission  granted..");
+                            Toast.makeText(activity, "All the permissions are granted..", Toast.LENGTH_SHORT).show();
+                        }
+                        // check for permanent denial of any permission
+                        if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()) {
+                            // permission is denied permanently, we will show user a dialog message.
                             showSettingsDialog();
                         }
                     }
+
                     @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                        // this method is called when user grants some permission and denies some of them.
                         permissionToken.continuePermissionRequest();
                     }
-                }).check();
+
+                }).withErrorListener(error -> {
+                    // we are displaying a toast message for error message.
+                    Toast.makeText(activity, "Error occurred! ", Toast.LENGTH_SHORT).show();
+                })
+                // below line is use to run the permissions on same thread and to check the permissions
+                .onSameThread().check();
+
+
+
+
+//        Dexter.withContext(activity)
+//                .withPermission(ACCESS_FINE_LOCATION)
+//                .withListener(new PermissionListener() {
+//                    @Override
+//                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+//                        getLocation();
+//                        Log.i("874521", "Permission  granted..");
+//                    }
+//                    @Override
+//                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+//                        // check for permanent decline of permission
+//                        if (permissionDeniedResponse.isPermanentlyDenied()) {
+//                            // navigate user to app settings
+//                            showSettingsDialog();
+//                        }
+//                    }
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+//                        permissionToken.continuePermissionRequest();
+//                    }
+//                }).check();
     }
 
     private void showSettingsDialog() {
@@ -406,7 +450,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void AuthAPI(String fingerData){
-        Call<Object> objectCall = RetrofitClient.getApi().AuthAPI("Bearer " + SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+        Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
                 String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override

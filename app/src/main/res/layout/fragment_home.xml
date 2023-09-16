@@ -123,20 +123,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:columnCount="4"
+                        android:columnCount="5"
                         android:rowCount="1">
                         <LinearLayout
                             android:id="@+id/aeps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="50sp"
+                            android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_vertical|center_horizontal"
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="25sp"
-                                android:layout_height="25sp"
-                                android:src="@drawable/aeps_2" />
+                                android:layout_width="35sp"
+                                android:layout_height="35sp"
+                                android:src="@drawable/aeps3" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -145,74 +145,96 @@
                                 android:fontFamily="@font/hankengrotesk_regular"
                                 android:textAlignment="center"
                                 android:textColor="@color/text_color"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/panService"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="50sp"
+                            android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_vertical|center_horizontal"
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="25sp"
-                                android:layout_height="25sp"
-                                android:src="@drawable/pan_card_service" />
+                                android:layout_width="35sp"
+                                android:layout_height="35sp"
+                                android:src="@drawable/pan_card_3" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:text="Pan Service"
+                                android:text="Pan Card"
                                 android:fontFamily="@font/hankengrotesk_regular"
                                 android:textAlignment="center"
                                 android:textColor="@color/text_color"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="50sp"
+                            android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_vertical|center_horizontal"
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="25sp"
-                                android:layout_height="25sp"
-                                android:src="@drawable/dollar_icon"
-                                app:tint="@color/vigyos"/>
+                                android:layout_width="35sp"
+                                android:layout_height="35sp"
+                                android:src="@drawable/gst_3" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/hankengrotesk_regular"
-                                android:text="Request"
+                                android:text="GST"
                                 android:textAlignment="center"
                                 android:textColor="@color/text_color"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="50sp"
+                            android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_vertical|center_horizontal"
                             android:gravity="center"
                             android:orientation="vertical">
                             <ImageView
-                                android:layout_width="25sp"
-                                android:layout_height="25sp"
-                                android:src="@drawable/history_icon"
-                                app:tint="@color/vigyos"/>
+                                android:layout_width="35sp"
+                                android:layout_height="35sp"
+                                android:src="@drawable/udyam_3" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/hankengrotesk_regular"
-                                android:text="History"
+                                android:text="Udyam"
                                 android:textAlignment="center"
                                 android:textColor="@color/text_color"
-                                android:textSize="16sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="50sp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:visibility="gone"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="35sp"
+                                android:layout_height="35sp"
+                                android:src="@drawable/udyam_1" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/hankengrotesk_regular"
+                                android:text="Udyam"
+                                android:textAlignment="center"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
                     </GridLayout>
                 </androidx.cardview.widget.CardView>
                 <RelativeLayout

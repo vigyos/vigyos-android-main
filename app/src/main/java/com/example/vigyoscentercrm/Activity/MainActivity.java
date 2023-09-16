@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private void profileData(){
         pleaseWait();
         Log.i("2525","token " +SplashActivity.prefManager.getToken() );
-        Call<Object> objectCall = RetrofitClient.getApi().profile("Bearer "+SplashActivity.prefManager.getToken());
+        Call<Object> objectCall = RetrofitClient.getApi().profile(SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

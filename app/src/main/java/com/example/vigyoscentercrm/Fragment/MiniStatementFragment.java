@@ -189,7 +189,7 @@ public class MiniStatementFragment extends Fragment {
 
     private void bankList(){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().bankList("Bearer "+ SplashActivity.prefManager.getToken());
+        Call<Object> objectCall = RetrofitClient.getApi().bankList(SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -272,7 +272,7 @@ public class MiniStatementFragment extends Fragment {
     }
 
     private void miniStatement(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String mobile){
-        Call<Object> objectCall = RetrofitClient.getApi().miniStatement("Bearer " + SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
+        Call<Object> objectCall = RetrofitClient.getApi().miniStatement(SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
                 String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "MS");
         objectCall.enqueue(new Callback<Object>() {
             @Override

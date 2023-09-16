@@ -196,7 +196,7 @@ public class WithdrawlFragment extends Fragment{
 
     private void bankList(){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().bankList("Bearer "+ SplashActivity.prefManager.getToken());
+        Call<Object> objectCall = RetrofitClient.getApi().bankList(SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -279,7 +279,7 @@ public class WithdrawlFragment extends Fragment{
     }
 
     private void withdrawal(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String amount, String mobile){
-        Call<Object> objectCall = RetrofitClient.getApi().withdrawal("Bearer " + SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
+        Call<Object> objectCall = RetrofitClient.getApi().withdrawal( SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
                 String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "CW", amount);
         objectCall.enqueue(new Callback<Object>() {
             @Override

@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.usb.host" />
+
 
     <application
         android:name=".AppController"
@@ -19,6 +22,9 @@
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
 
+        <activity
+            android:name=".Activity.PanWebViewActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.PanCardActivity"
             android:exported="false" />
@@ -51,7 +57,6 @@
             </intent-filter>
         </activity>
 
-
         <receiver
             android:name=".UsbReceiver"
             android:directBootAware="true"
@@ -60,6 +65,10 @@
                 <action android:name="com.emteria.usbpermissions.USB_PERMISSION" />
             </intent-filter>
         </receiver>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
 
     </application>
 

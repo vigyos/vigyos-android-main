@@ -89,7 +89,7 @@ public class SearchServicesActivity extends AppCompatActivity {
 
     private void getServicesData(){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().getServiceName("Bearer "+ SplashActivity.prefManager.getToken(), "100");
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "100");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
