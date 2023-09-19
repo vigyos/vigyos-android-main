@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5FBFD"
+    tools:context="com.vigyos.vigyoscentercrm.Fragment.SeeMoreServicesFragment">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2196F3">
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_back"
+                app:tint="@color/white"/>
+            <TextView
+                android:id="@+id/tv_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivBack"
+                android:layout_marginStart="10sp"
+                android:text="All Services"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/toolbar"/>
+
+</RelativeLayout>

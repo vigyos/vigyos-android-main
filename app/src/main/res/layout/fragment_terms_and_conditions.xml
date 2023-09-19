@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.TermsAndConditionsFragment">
+    tools:context="com.vigyos.vigyoscentercrm.Fragment.TermsAndConditionsFragment">
     <WebView
         android:id="@+id/termsWebView"
         android:layout_height="match_parent"

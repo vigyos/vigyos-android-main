@@ -8,7 +8,6 @@
     <!--Onesignal ID-->
     <string name="ONESIGNAL_APP_ID">90a6683c-bfe9-42d1-ab70-7292f9db9e53</string>
 
-
     <!--Top Service Details -->
     <string name="gst_service">GST REGISTERATION</string>
     <string name="gst_Description">Our service provides seamless GST registration assistance. We handle the entire process, including documentation, application preparation, and submission to the GST authorities, ensuring accurate and timely registration for businesses to comply with GST regulations and smoothly conduct their operations </string>
@@ -20,7 +19,6 @@
         \n\n4. Photographs(3 passport Size)
         \n\n5. 3Months Bank account statements.
     </string>
-
 
     <string name="TDS_Return">TDS Return </string>
     <string name="TDS_Description">Our TDS Return service facilitates quarterly filing for individuals. We handle the entire process, including data compilation, form preparation, and timely submission of TDS returns. Ensure compliance with tax regulations and streamline your TDS filing obligations efficiently.</string>

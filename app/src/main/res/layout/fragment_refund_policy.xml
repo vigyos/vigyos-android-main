@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.RefundPolicyFragment">
+    tools:context="com.vigyos.vigyoscentercrm.Fragment.RefundPolicyFragment">
     <WebView
         android:id="@+id/refundWebView"
         android:layout_width="match_parent"

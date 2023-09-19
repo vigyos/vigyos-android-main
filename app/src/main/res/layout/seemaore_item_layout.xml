@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/TotalCardView"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_gravity="fill"
+        android:layout_margin="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#3EB5E8F4"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardLyt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10sp"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/white">
+                <ImageView
+                    android:id="@+id/iconImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:src="@drawable/tax_services" />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/serviceTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/cardLyt"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10sp"
+                android:lines="1"
+                android:text="Wallet"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

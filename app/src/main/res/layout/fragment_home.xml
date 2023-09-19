@@ -11,14 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30sp"
-        android:background="@drawable/gradient_bg"
         android:layout_marginHorizontal="15sp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/male_vactor" />
+            android:src="@drawable/male_vactor"
+            app:civ_border_width="0dp"
+            app:civ_border_color="@color/white"/>
         <LinearLayout
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
@@ -57,7 +58,6 @@
                 app:tint="@color/white"/>
         </RelativeLayout>
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -94,11 +94,12 @@
                         android:src="@drawable/money_icon"
                         app:tint="@color/white" />
                     <TextView
+                        android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/hankengrotesk_regular"
-                        android:text="5000.45"
+                        android:text="0.00"
                         android:textColor="@color/white"
                         android:textSize="40sp"
                         android:textStyle="bold"/>
@@ -163,13 +164,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:text="Pan Card"
+                                android:text="PanCard"
                                 android:fontFamily="@font/hankengrotesk_regular"
                                 android:textAlignment="center"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/gst"
                             android:layout_width="50sp"
                             android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
@@ -191,6 +193,7 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/udyam"
                             android:layout_width="50sp"
                             android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
@@ -211,7 +214,6 @@
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="50sp"
                             android:layout_height="wrap_content"
@@ -234,7 +236,6 @@
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp" />
                         </LinearLayout>
-
                     </GridLayout>
                 </androidx.cardview.widget.CardView>
                 <RelativeLayout
@@ -275,7 +276,7 @@
                                     android:columnCount="4"
                                     android:rowCount="2">
                                     <LinearLayout
-                                        android:id="@+id/gstRegistration"
+                                        android:id="@+id/taxService"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_column="0"
@@ -293,19 +294,20 @@
                                                 android:layout_width="35sp"
                                                 android:layout_height="35sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/accounting" />
+                                                android:padding="0dp"
+                                                android:src="@drawable/tax_services" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="GST"
+                                            android:text="Tax Service"
                                             android:textAlignment="center"
                                             android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
+                                            android:textSize="15sp" />
                                     </LinearLayout>
                                     <LinearLayout
+                                        android:id="@+id/dscService"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_column="1"
@@ -324,20 +326,19 @@
                                                 android:layout_height="35sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/dsc_services"
-                                                />
+                                                android:src="@drawable/dsc_services" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="GST-1"
+                                            android:text="DSC"
                                             android:textAlignment="center"
                                             android:textColor="@color/text_color"
                                             android:textSize="16sp" />
                                     </LinearLayout>
                                     <LinearLayout
-                                        android:id="@+id/tdsReturn"
+                                        android:id="@+id/itrService"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_column="2"
@@ -355,13 +356,13 @@
                                                 android:layout_width="30dp"
                                                 android:layout_height="30dp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/e_way_bills" />
+                                                android:src="@drawable/income_tax_return" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="TDS"
+                                            android:text="ITR"
                                             android:textColor="@color/text_color"
                                             android:textSize="16sp" />
                                     </LinearLayout>
@@ -385,7 +386,7 @@
                                                 android:layout_height="40sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/gst_servcices" />
+                                                android:src="@drawable/e_way_bills" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -397,7 +398,7 @@
                                             android:textSize="16sp" />
                                     </LinearLayout>
                                     <LinearLayout
-                                        android:id="@+id/itr1"
+                                        android:id="@+id/accounting"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_row="1"
@@ -418,17 +419,18 @@
                                                 android:layout_height="36sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/iec" />
+                                                android:src="@drawable/accounting" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="ITR-1"
+                                            android:text="Accounting"
                                             android:textColor="@color/text_color"
                                             android:textSize="16sp" />
                                     </LinearLayout>
                                     <LinearLayout
+                                        android:id="@+id/iec"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_row="1"
@@ -449,18 +451,18 @@
                                                 android:layout_height="36sp"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:padding="3dp"
-                                                android:src="@drawable/income_tax_return" />
+                                                android:src="@drawable/iec" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="ITR-2"
+                                            android:text="IEC"
                                             android:textColor="@color/text_color"
                                             android:textSize="16sp" />
                                     </LinearLayout>
                                     <LinearLayout
-                                        android:id="@+id/udyamRegistration"
+                                        android:id="@+id/ipr"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_row="1"
@@ -487,7 +489,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="5dp"
-                                            android:text="Udyam"
+                                            android:text="IPR"
                                             android:textAlignment="center"
                                             android:textColor="@color/text_color"
                                             android:textSize="16sp" />
@@ -544,23 +546,11 @@
                             android:layout_height="200dp"
                             android:layout_marginBottom="9dp"
                             tools:ignore="MissingConstrains">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="200sp"
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/bannerRecyclerView"
                                 android:layout_marginHorizontal="20sp"
-                                android:layout_marginBottom="5dp"
-                                app:cardBackgroundColor="#DFEEFD"
-                                app:cardCornerRadius="20sp"
-                                app:cardElevation="2sp">
-                                <com.denzcoskun.imageslider.ImageSlider
-                                    android:id="@+id/image_slider"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="200dp"
-                                    app:iss_auto_cycle="true"
-                                    app:iss_corner_radius="20"
-                                    app:iss_delay="1000"
-                                    app:iss_period="1000" />
-                            </androidx.cardview.widget.CardView>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
                         </RelativeLayout>
                         <androidx.cardview.widget.CardView
                             android:id="@+id/Recharge_bill"
