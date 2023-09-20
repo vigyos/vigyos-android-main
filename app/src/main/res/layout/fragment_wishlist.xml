@@ -35,10 +35,19 @@
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Wishlist is empty"
+        android:gravity="center"
+        android:textColor="@color/vigyos"
+        android:textSize="33sp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/wishlist_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         tools:listitem="@layout/wishlist_item" />
 </FrameLayout>

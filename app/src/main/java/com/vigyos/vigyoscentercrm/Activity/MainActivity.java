@@ -17,14 +17,18 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
-import com.vigyos.vigyoscentercrm.Fragment.MessageFragment;
 import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
 import com.vigyos.vigyoscentercrm.Fragment.WishlistFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     public MeowBottomNavigation meowBottomNavigation;
     private Dialog dialog;
+    private ArrayList<String> name = new ArrayList<>();
+    private ArrayList<String> state = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +113,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         meowBottomNavigation.show(3,true);
+        data();
     }
+
+
+    private void data(){
+        try {
+            JSONArray jsonArray = new JSONArray(loadJSONFromAsset());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userDetail = jsonArray.getJSONObject(i);
+                name.add(userDetail.getString("name"));
+                state.add(userDetail.getString("state"));
+
+
+
+
+//                String s = userDetail.getString("name");
+//                Log.i("8522155", "data : " +s);
+            }
+
+
+            Log.i("85858","name" + name.toString());
+
+            Log.i("85858","state" + state.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getAssets().open("cities.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void loadFragment(Fragment fragment, boolean flag){
         FragmentManager fm = getSupportFragmentManager();

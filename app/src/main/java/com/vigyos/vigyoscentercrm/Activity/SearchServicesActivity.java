@@ -59,6 +59,7 @@ public class SearchServicesActivity extends AppCompatActivity {
         initialization();
         declaration();
         serviceList();
+
     }
 
     private void initialization(){
