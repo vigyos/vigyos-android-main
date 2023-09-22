@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
-
         meowBottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
             public Unit invoke(MeowBottomNavigation.Model model) {
@@ -116,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         data();
     }
 
-
     private void data(){
         try {
             JSONArray jsonArray = new JSONArray(loadJSONFromAsset());
@@ -124,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject userDetail = jsonArray.getJSONObject(i);
                 name.add(userDetail.getString("name"));
                 state.add(userDetail.getString("state"));
-
-
 
 
 //                String s = userDetail.getString("name");
@@ -156,23 +152,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return json;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void loadFragment(Fragment fragment, boolean flag){
         FragmentManager fm = getSupportFragmentManager();

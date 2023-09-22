@@ -36,6 +36,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
@@ -144,6 +145,7 @@ public class EnquiryFragment extends Fragment {
                 if(fingerCapture){
                     fingerCapture = false;
                     fingerPrintDone.setVisibility(View.GONE);
+                    button_done.setVisibility(View.GONE);
                     enquiry(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
                 } else {
                     Toast.makeText(activity, "Capture FingerPrint", Toast.LENGTH_SHORT).show();
@@ -276,7 +278,39 @@ public class EnquiryFragment extends Fragment {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
                 Log.i("2016", "onResponse " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if(jsonObject.has("status")){
+                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
+                            String message = jsonObject.getString("message");
+                            String ackno = jsonObject.getString("ackno");
+//                            String amount = jsonObject.getString("amount");
+                            String balanceamount = jsonObject.getString("balanceamount");
+                            String bankrrn = jsonObject.getString("bankrrn");
+                            String bankiin = jsonObject.getString("bankiin");
+                            String clientrefno = jsonObject.getString("clientrefno");
+
+                            Intent intent = new Intent(activity, ProcessDoneActivity.class);
+                            intent.putExtra("messageStatus", "Enquiry Successful!");
+                            intent.putExtra("message", message);
+                            intent.putExtra("message", message);
+                            intent.putExtra("bankName", bankName);
+                            intent.putExtra("ackno", ackno);
+                            intent.putExtra("amount", "amount");
+                            intent.putExtra("balanceamount", balanceamount);
+                            intent.putExtra("aadhaarNumber", aadhaarNumber);
+                            intent.putExtra("bankrrn", bankrrn);
+                            intent.putExtra("bankiin", bankiin);
+                            intent.putExtra("clientrefno", clientrefno);
+                            startActivity(intent);
+                            activity.finish();
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
@@ -375,6 +409,7 @@ public class EnquiryFragment extends Fragment {
                                 fingerData = result;
                                 fingerCapture = true;
                                 fingerPrintDone.setVisibility(View.VISIBLE);
+                                button_done.setVisibility(View.VISIBLE);
                                 Log.i("78954","pidData " + result);
                             }
                         }

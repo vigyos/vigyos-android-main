@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
+import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
@@ -257,20 +258,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(activity, PanCardActivity.class));
                 break;
             case R.id.aeps:
-                startActivity(new Intent(activity, AEPSActivity.class));
-//                try {
-//                    String pidOption = getPIDOptions();
-//                    if (pidOption != null) {
-//                        Log.e("PidOptions", pidOption);
-//                        Intent intent2 = new Intent();
-//                        intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                        intent2.putExtra("PID_OPTIONS", pidOption);
-//                        startActivityForResult(intent2, 2);
-//                    }
-//                } catch (Exception e) {
-//                    Log.e("Error", e.toString());
-//                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
-//                }
+                try {
+                    String pidOption = getPIDOptions();
+                    if (pidOption != null) {
+                        Log.e("PidOptions", pidOption);
+                        Intent intent9 = new Intent();
+                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                        intent9.putExtra("PID_OPTIONS", pidOption);
+                        startActivityForResult(intent9, 2);
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.profile_image:
                 replaceFragment(new UserFragment());
@@ -318,7 +318,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
@@ -353,7 +353,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 pidData = serializer.read(PidData.class, result);
 //                                remark_heading.setText(result);
                                 AuthAPI(result);
-                                Log.i("78954", "case 2  result if");
+                                Log.i("78954", "case 2  result if : - " + pidData.toString());
                             }
                         }
                     } catch (Exception e) {
@@ -452,7 +452,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void AuthAPI(String fingerData){
         Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "1", SplashActivity.prefManager.getMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -463,6 +463,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         if (jsonObject.getString("status").equalsIgnoreCase("true")){
                             String message = jsonObject.getString("message");
                             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(activity, AEPSActivity.class));
                         }
                     }
                 } catch (JSONException e) {
