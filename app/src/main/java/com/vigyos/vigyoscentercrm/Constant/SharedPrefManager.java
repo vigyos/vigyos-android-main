@@ -41,6 +41,7 @@ public class SharedPrefManager {
     private static final String wallet_id = "wallet_id";
     private static final String merchant_id = "merchant_id";
     private static final String amount = "amount";
+    private static final String payout_balance = "payout_balance";
     private static final String login = "login";
     private static final String service_id = "service_id";
     private static final String service_name = "service_name";
@@ -230,6 +231,16 @@ public class SharedPrefManager {
 
     public String getProfilePicture(){
         return pref.getString(profile_picture, "null");
+    }
+
+    public void setPayoutBalance(int PayoutBalance){
+        editor = pref.edit();
+        editor.putInt(payout_balance, PayoutBalance);
+        editor.commit();
+    }
+
+    public int getPayoutBalance(){
+        return pref.getInt(payout_balance, 0);
     }
 
     public void setClear(){

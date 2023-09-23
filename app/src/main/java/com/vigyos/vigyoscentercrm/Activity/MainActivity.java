@@ -202,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
                         if (jsonObject1.has("profile_picture")){
                             SplashActivity.prefManager.setProfilePicture(jsonObject1.getString("profile_picture"));
                         }
+                        if (jsonObject1.has("payout_balance")){
+                            SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
+                        }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

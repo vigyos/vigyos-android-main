@@ -22,6 +22,12 @@
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.AddBankAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PayOutActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ProcessDoneActivity"
             android:exported="false" />
         <activity

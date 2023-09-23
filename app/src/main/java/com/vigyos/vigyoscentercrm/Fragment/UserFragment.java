@@ -1,5 +1,6 @@
 package com.vigyos.vigyoscentercrm.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
 import com.vigyos.vigyoscentercrm.Adapter.AdapterForUser;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Utils.UserItemListener;
@@ -21,8 +23,8 @@ public class UserFragment extends Fragment  implements UserItemListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-        String[] list = {"Account Information", "Refund Policy", "Terms and Conditions", "Privacy Policy"};
-        int[] theBitmapIds = { R.drawable.person_dark, R.drawable.refund_icon, R.drawable.terms_icon, R.drawable.privacy_icon};
+        String[] list = {"Account Information", "Payout Balance", "Refund Policy", "Terms and Conditions", "Privacy Policy"};
+        int[] theBitmapIds = { R.drawable.person_dark, R.drawable.payout_icon, R.drawable.refund_icon, R.drawable.terms_icon, R.drawable.privacy_icon};
         RecyclerView recyclerView = view.findViewById(R.id.profile_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new AdapterForUser(list, this, theBitmapIds));
@@ -36,12 +38,15 @@ public class UserFragment extends Fragment  implements UserItemListener {
                 fragmentCall(new AccountFragment());
                 break;
             case 1:
-                fragmentCall(new RefundPolicyFragment());
+                startActivity(new Intent(getActivity(), PayOutActivity.class));
                 break;
             case 2:
-                fragmentCall(new TermsAndConditionsFragment());
+                fragmentCall(new RefundPolicyFragment());
                 break;
             case 3:
+                fragmentCall(new TermsAndConditionsFragment());
+                break;
+            case 4:
                 fragmentCall(new PrivacyPolicyFragment());
                 break;
 //            case 5:

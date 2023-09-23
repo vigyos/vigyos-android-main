@@ -169,4 +169,11 @@ public interface Api {
             @Header("Authorization") String Authorization,
             @Query("user_id") String id
     );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/list")
+    Call<Object> payoutList(
+            @Header("Authorization") String Authorization,
+            @Field("merchantid") String merchantid
+    );
 }
