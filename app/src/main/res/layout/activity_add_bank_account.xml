@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activity.AddBankAccountActivity">
     <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_marginStart="10sp"
             android:layout_centerVertical="true"
             app:tint="@color/white"
@@ -27,4 +29,380 @@
             android:textColor="@color/white"
             android:textSize="22sp"/>
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Select Bank"
+                        android:id="@+id/bank_name_heading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="15dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp">
+                    <Spinner
+                        android:id="@+id/bank_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="5dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Account Number"
+                        android:id="@+id/account_number_heading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <EditText
+                        android:id="@+id/accountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Ex. 1234 1234 1234"
+                        android:lines="1"
+                        android:textSize="15sp"
+                        android:padding="15sp"
+                        android:textColorHint="@color/grey_font"
+                        android:inputType="number" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IFSC Code"
+                        android:id="@+id/ifscCodeHeading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <EditText
+                        android:id="@+id/ifscNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Ex. 1234 1234 1234"
+                        android:lines="1"
+                        android:textSize="15sp"
+                        android:padding="15sp"
+                        android:textColorHint="@color/grey_font"
+                        android:inputType="number" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Account Name"
+                        android:id="@+id/accountNameHeading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <EditText
+                        android:id="@+id/accountName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Ex. Name"
+                        android:lines="1"
+                        android:textSize="15sp"
+                        android:padding="15sp"
+                        android:textColorHint="@color/grey_font"
+                        android:inputType="number" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Passbook"
+                        android:id="@+id/passbookHeading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:visibility="gone"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/passbookImageLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <ImageView
+                        android:id="@+id/passbookImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/image_not_available"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Select Document Type"
+                        android:id="@+id/select_document_heading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="15dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp">
+                    <Spinner
+                        android:id="@+id/selectDocumentType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="5dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Document"
+                        android:id="@+id/documentHeading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:visibility="gone"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/documentImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <ImageView
+                        android:id="@+id/frontImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/image_not_available"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/documentBackLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Document"
+                        android:id="@+id/documentBackHeading"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/vigyos"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:visibility="gone"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/documentBackImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#F5F7FA"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp">
+                    <ImageView
+                        android:id="@+id/backImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/image_not_available"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/button_done"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20sp"
+                android:background="@drawable/button_submit"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:text="Add Account"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/poppins_bold"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

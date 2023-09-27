@@ -176,4 +176,9 @@ public interface Api {
             @Header("Authorization") String Authorization,
             @Field("merchantid") String merchantid
     );
+
+    @GET("aeps/payout/bank_list")
+    Call<Object> payoutBankList(
+            @Header("Authorization") String Authorization
+    );
 }

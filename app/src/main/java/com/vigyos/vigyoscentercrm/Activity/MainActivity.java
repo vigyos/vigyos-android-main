@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private Dialog dialog;
     private ArrayList<String> name = new ArrayList<>();
     private ArrayList<String> state = new ArrayList<>();
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         meowBottomNavigation.show(3,true);
-        data();
+//        data();
     }
 
     private void data(){
@@ -122,16 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject userDetail = jsonArray.getJSONObject(i);
                 name.add(userDetail.getString("name"));
                 state.add(userDetail.getString("state"));
-
-
-//                String s = userDetail.getString("name");
-//                Log.i("8522155", "data : " +s);
             }
-
-
-            Log.i("85858","name" + name.toString());
-
-            Log.i("85858","state" + state.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -237,5 +232,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         dismissDialog();
         super.onDestroy();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Click BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

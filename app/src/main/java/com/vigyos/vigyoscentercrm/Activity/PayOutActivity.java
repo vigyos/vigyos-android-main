@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -78,6 +79,12 @@ public class PayOutActivity extends AppCompatActivity {
             float v = (float) i;
             payoutBalance.setText("₹"+ v);
         }
+        addBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PayOutActivity.this, AddBankAccountActivity.class));
+            }
+        });
 
         payoutList();
 
