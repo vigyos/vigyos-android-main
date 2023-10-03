@@ -99,7 +99,7 @@ public class SearchServicesActivity extends AppCompatActivity {
                 if (response.code() == 200){
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                        if (jsonObject.getBoolean("success")){
+                        if (jsonObject.has("success") && jsonObject.getBoolean("success")){
                             JSONArray jsonObject1 = jsonObject.getJSONArray("data");
                             for (int i = 0; i < jsonObject1.length(); i++ ){
                                 JSONObject jsonObject2 = jsonObject1.getJSONObject(i);

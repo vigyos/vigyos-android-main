@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context="com.vigyos.vigyoscentercrm.Activity.LoginActivity">
     <ImageView
         android:id="@+id/logo"
@@ -56,10 +57,13 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/person"
                     android:layout_marginStart="5sp"
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
                     android:layout_marginEnd="15sp"
                     android:fontFamily="@font/poppins_regular"
                     android:background="@null"
-                    android:hint="Username"
+                    android:hint="Email"
                     android:textColorHint="#737373"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -87,13 +91,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/passwordVisibility"
                     android:layout_toEndOf="@+id/lockIcon"
                     android:layout_marginStart="5sp"
                     android:layout_marginEnd="15sp"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:inputType="textPassword"
                     android:fontFamily="@font/poppins_regular"
                     android:background= "@null"
                     android:hint="Password"
                     android:textColorHint="#737373"/>
+
+                <ImageView
+                    android:id="@+id/passwordVisibility"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:tint="@color/vigyos" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -106,6 +123,7 @@
         android:layout_marginEnd="28sp"
         android:layout_below="@+id/idPasswordLyt"
         android:text="Forgot password?"
+        android:textColor="@color/black"
         android:textSize="14sp" />
     <RelativeLayout
         android:id="@+id/loginButton"
@@ -125,13 +143,49 @@
             android:textColor="@color/white" />
     </RelativeLayout>
     <TextView
+        android:id="@+id/mainTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15sp"
+        android:layout_above="@+id/termsAndPrivacyLyt"
+        android:layout_marginBottom="2sp"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         android:textAlignment="center"
         android:text="@string/by_successful"
         android:textSize="16sp"
         android:textColor="#6A6868" />
+    <LinearLayout
+        android:id="@+id/termsAndPrivacyLyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/TermsAndConditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:textAlignment="center"
+            android:text="@string/terms_amp_conditions"
+            android:textSize="16sp"
+            android:textColor="@color/vigyos" />
+        <TextView
+            android:id="@+id/and"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:layout_marginHorizontal="5sp"
+            android:textAlignment="center"
+            android:text="And"
+            android:textSize="16sp"
+            android:textColor="#6A6868" />
+        <TextView
+            android:id="@+id/privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:textAlignment="center"
+            android:text="@string/privacy_policy"
+            android:textSize="16sp"
+            android:textColor="@color/vigyos" />
+    </LinearLayout>
 </RelativeLayout>

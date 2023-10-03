@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vigyos.vigyoscentercrm.Activity.ShowServicesActivity">
     <RelativeLayout
@@ -94,6 +95,7 @@
                 android:layout_height="30sp"
                 android:layout_marginHorizontal="10sp"
                 android:background="@drawable/round_bg">
+
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"

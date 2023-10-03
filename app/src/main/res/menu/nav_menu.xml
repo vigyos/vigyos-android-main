@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_editProfile"
+            android:icon="@drawable/lock_icon"
+            android:title="Edit Profile" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/lock_icon"
+            android:title="About Us"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_buy"
+            android:icon="@drawable/lock_icon"
+            android:title="Buy NFC card (AD)"/>
+        <item
+            android:id="@+id/nav_invite"
+            android:icon="@drawable/lock_icon"
+            android:title="Invite Friends"/>
+        <item
+            android:id="@+id/nav_rating"
+            android:icon="@drawable/lock_icon"
+            android:title="Rate Us"/>
+
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/lock_icon"
+            android:title="Need help?"/>
+    </group>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_privacy"
+                android:icon="@drawable/lock_icon"
+                android:title="Privacy Policy"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/lock_icon"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/TotalCardView"
@@ -9,7 +10,7 @@
         android:layout_height="60sp"
         android:layout_gravity="fill"
         android:layout_margin="10dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp">
         <RelativeLayout

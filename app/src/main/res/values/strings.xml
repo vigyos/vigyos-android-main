@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Vigyos</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="by_successful">By Successful login you are Agreeing with our \n<font color='#2196F3'>Terms &amp; Conditions</font> and <font color='#2196F3'>Privacy Policy</font></string>
+    <string name="by_successful">By Successful login you are Agreeing with our</string>
+
+
     <string name="details">Simplify your One Person Company (OPC) registration process with our comprehensive service, excluding stamp duty. We assist individuals in registering their OPCs, ensuring compliance with legal requirements. Our expert team provides guidance and support throughout the registration process, making it convenient and hassle-free.</string>
 
     <!--Onesignal ID-->
@@ -54,7 +57,10 @@
     <string name="Udyam_RegistrationDescription">Udyam Registration is a comprehensive service offering hassle-free registration for Micro, Small, and Medium Enterprises (MSMEs) in India. We provide expert guidance and support to help businesses complete the Udyam registration process, ensuring compliance with government regulations and availing the benefits and recognition offered to MSMEs.</string>
     <string name="Udyam_RegistrationPrice">₹250.00</string>
     <string name="Udyam_RegistrationRequiredDocument">1. PAN CARD</string>
-    <string name="pan_services">PAN Services</string>\
+    <string name="pan_services">PAN Services</string>
+    <string name="privacy_policy"><u>Privacy Policy</u> </string>
+    <string name="terms_amp_conditions"><u>Terms &amp; Conditions</u></string>
+    \
 
     <string-array name="bank_name">
         <item>--Select your Bank--</item>
@@ -88,5 +94,6 @@
         <item>Physical Pan</item>
         <item>Electronic Pan</item>
     </string-array>
+
 
 </resources>

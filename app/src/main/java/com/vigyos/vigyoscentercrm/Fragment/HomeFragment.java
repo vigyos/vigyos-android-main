@@ -29,19 +29,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
 import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
+import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
@@ -84,6 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView userName , amount;
     private CircleImageView userAccount;
     private RecyclerView bannerRecyclerView;
+    private RelativeLayout notification;
     private LinearLayout walletView;
     private LinearLayout seeMore;
     private LinearLayout taxService, dscService, itrService;
@@ -113,8 +118,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initialization(){
-        userName = view.findViewById(R.id.userNameHome);
-        userAccount = view.findViewById(R.id.profile_image);
+//        userName = view.findViewById(R.id.userNameHome);
+//        userAccount = view.findViewById(R.id.profile_image);
+//        notification = view.findViewById(R.id.notification);
         bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
         walletView = view.findViewById(R.id.walletView);
         aeps = view.findViewById(R.id.aeps);
@@ -133,8 +139,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void declaration(){
         //SetListeners
-        userAccount.setOnClickListener(this);
+//        userAccount.setOnClickListener(this);
         walletView.setOnClickListener(this);
+        notification.setOnClickListener(this);
         aeps.setOnClickListener(this);
         panCard.setOnClickListener(this);
         gst.setOnClickListener(this);
@@ -148,6 +155,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ipr.setOnClickListener(this);
         seeMore.setOnClickListener(this);
 
+        AppController.backCheck = true;
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (checkPermission()){
             getLocation();
@@ -159,16 +168,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         serializer = new Persister();
         positions = new ArrayList<>();
 
-        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
-        userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
-        amount = view.findViewById(R.id.amount);
-        if (SplashActivity.prefManager.getAmount() == 0){
-            amount.setText("0.00");
-        } else {
-            int i = SplashActivity.prefManager.getAmount();
-            float v = (float) i;
-            amount.setText(String.valueOf(v));
-        }
+//        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
+//        userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
+//        amount = view.findViewById(R.id.amount);
+//        if (SplashActivity.prefManager.getAmount() == 0){
+//            amount.setText("0.00");
+//        } else {
+//            int i = SplashActivity.prefManager.getAmount();
+//            float v = (float) i;
+//            amount.setText(String.valueOf(v));
+//        }
         bannerShow();
     }
 
@@ -199,6 +208,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.seeMore:
                 replaceFragment(new SeeMoreServicesFragment());
+                AppController.backCheck = false;
                 break;
             case R.id.ipr:
                 Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
@@ -272,11 +282,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.notification:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                startActivity(new Intent(activity, NotificationActivity.class));
+                break;
             case R.id.profile_image:
                 replaceFragment(new UserFragment());
+                AppController.backCheck = false;
                 break;
             case R.id.walletView:
                 replaceFragment(new WalletFragment());
+                AppController.backCheck = false;
                 break;
             default:
                 break;

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
 import com.vigyos.vigyoscentercrm.Adapter.AdapterForUser;
+import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Utils.UserItemListener;
 
@@ -36,18 +37,23 @@ public class UserFragment extends Fragment  implements UserItemListener {
         switch (position){
             case 0:
                 fragmentCall(new AccountFragment());
+                AppController.backCheck = false;
                 break;
             case 1:
                 startActivity(new Intent(getActivity(), PayOutActivity.class));
+                AppController.backCheck = false;
                 break;
             case 2:
                 fragmentCall(new RefundPolicyFragment());
+                AppController.backCheck = false;
                 break;
             case 3:
                 fragmentCall(new TermsAndConditionsFragment());
+                AppController.backCheck = false;
                 break;
             case 4:
                 fragmentCall(new PrivacyPolicyFragment());
+                AppController.backCheck = false;
                 break;
 //            case 5:
 //                fragmentCall(new FeedBackFragment());

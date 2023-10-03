@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.usb.host" />
 
     <application
@@ -20,7 +21,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".Activity.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.TermsAndConditionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.HelpAndSupportActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.AddBankAccountActivity"
             android:exported="false" />
