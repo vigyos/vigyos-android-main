@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vigyos.vigyoscentercrm.Fragment.OrderFragment">
+    android:background="@color/white"
+    tools:context=".Fragment.OrderFragment">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
@@ -42,6 +43,7 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:paddingVertical="10dp">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

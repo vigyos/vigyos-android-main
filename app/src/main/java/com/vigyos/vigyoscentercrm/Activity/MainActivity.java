@@ -4,27 +4,20 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
@@ -34,13 +27,8 @@ import com.vigyos.vigyoscentercrm.Fragment.WishlistFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -48,12 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity {
 
     public MeowBottomNavigation meowBottomNavigation;
     private Dialog dialog;
     boolean doubleBackToExitPressedOnce = false;
-    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         profileData();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
         meowBottomNavigation = findViewById(R.id.bottomNav);
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.wishlist_icon));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.nav_search_icon));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.nav_home_icon));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.nav_order_icon));
@@ -93,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
                     case 2:
                         startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
-                        AppController.backCheck = false;
+//                        AppController.backCheck = false;
                         finish();
                         break;
                     case 3:
@@ -101,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         AppController.backCheck = true;
                         break;
                     case 4:
-                        loadFragment(new OrderFragment(), false);
+                        loadFragment(new OrderFragment(MainActivity.this), false);
                         AppController.backCheck = false;
                         break;
                     case 5:
@@ -131,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         AppController.backCheck = true;
                         break;
                     case 4:
-                        loadFragment(new OrderFragment(), false);
+                        loadFragment(new OrderFragment(MainActivity.this), false);
                         AppController.backCheck = false;
                         break;
                     case 5:
@@ -162,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         AppController.backCheck = true;
                         break;
                     case 4:
-                        loadFragment(new OrderFragment(), false);
+                        loadFragment(new OrderFragment(MainActivity.this), false);
                         AppController.backCheck = false;
                         break;
                     case 5:
@@ -186,57 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.replace(R.id.frame_container, fragment);
         }
         ft.commit();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == 16908332) {
-            if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                this.drawerLayout.closeDrawer(GravityCompat.START);
-            } else {
-                this.drawerLayout.openDrawer(GravityCompat.START);
-            }
-        } else {
-            this.drawerLayout.openDrawer(GravityCompat.START);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        Log.d("222222", "onNavigationItemSelected: " + id + item);
-        if (item.isChecked()) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return false;
-        }
-        if (id == R.id.nav_editProfile) {
-//            Intent intent = new Intent(MainActivity.this, EditActivity.class);
-//            intent.putExtra("edit", "Edit");
-//            startActivity(intent);
-        } else if (id == R.id.nav_about) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.easetap.com/pages/about")));
-        } else if (id == R.id.nav_rating) {
-            Intent rateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName()));
-            startActivity(rateIntent);
-        } else if (id == R.id.nav_invite) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey!! Heard about the NFC cards? Your dynamic profile is one tap away. You can personalize your own card." +
-                    "Check out the App at: https://play.google.com/store/apps/details?id=" + getPackageName());
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
-        } else if (id == R.id.nav_help) {
-//            startActivity(new Intent(MainActivity.this, HelpActivity.class));
-        } else if (id == R.id.nav_buy) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.easetap.com/collections/all")));
-        } else if (id == R.id.nav_privacy) {
-//            startActivity(new Intent(MainActivity.this, PrivacyActivity.class));
-        } else if (id == R.id.nav_logout) {
-//            Logout();
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return false;
     }
 
     private void profileData(){
@@ -282,8 +206,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
 
                             meowBottomNavigation.show(3,true);
+                            AppController.backCheck = true;
                         } else {
-                            Toast.makeText(MainActivity.this, "Please Login Again", Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

@@ -127,8 +127,8 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("pan/generateCorrectionUrl")
-    Call<Object> panCardUpdate(
+    @POST("pan/generateNewUrl")
+    Call<Object> panCardCreate(
             @Header("Authorization") String Authorization,
             @Field("title") String title,
             @Field("firstname") String firstname,
@@ -146,8 +146,8 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("pan/generateNewUrl")
-    Call<Object> panCardCreate(
+    @POST("pan/generateCorrectionUrl")
+    Call<Object> panCardUpdate(
             @Header("Authorization") String Authorization,
             @Field("title") String title,
             @Field("firstname") String firstname,

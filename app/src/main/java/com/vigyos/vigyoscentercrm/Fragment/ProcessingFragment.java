@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.CompletedItemModel;
 import com.vigyos.vigyoscentercrm.Model.ProcessingItemModel;
@@ -65,30 +69,33 @@ public class ProcessingFragment extends Fragment {
                 Log.i("2016","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                if (jsonObject1.getString("status").equalsIgnoreCase("PENDING")){
-                                    ProcessingItemModel processingItemModel = new ProcessingItemModel();
-                                    processingItemModel.setService_name(jsonObject1.getString("service_name"));
-                                    processingItemModel.setStatus(jsonObject1.getString("status"));
-                                    processingItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                    processingItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                    processingItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                    processingItemModel.setPrice(jsonObject1.getInt("price"));
-                                    processingItemModel.setCreated_time(jsonObject1.getString("created_time"));
-                                    processingItemModels.add(processingItemModel);
-                                }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            if (jsonObject1.getString("status").equalsIgnoreCase("PENDING")){
+                                ProcessingItemModel processingItemModel = new ProcessingItemModel();
+                                processingItemModel.setService_name(jsonObject1.getString("service_name"));
+                                processingItemModel.setStatus(jsonObject1.getString("status"));
+                                processingItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                processingItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                processingItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                processingItemModel.setPrice(jsonObject1.getInt("price"));
+                                processingItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                processingItemModels.add(processingItemModel);
                             }
-                            if(processingItemModels.isEmpty()){
-                                noPending.setVisibility(View.VISIBLE);
-                            } else {
-                                noPending.setVisibility(View.GONE);
-                            }
-                            showPendingList();
                         }
+                        if(processingItemModels.isEmpty()){
+                            noPending.setVisibility(View.VISIBLE);
+                        } else {
+                            noPending.setVisibility(View.GONE);
+                        }
+                        showPendingList();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        getActivity().finish();
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

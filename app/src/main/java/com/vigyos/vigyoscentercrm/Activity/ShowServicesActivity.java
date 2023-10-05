@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Adapter.DocumentItemAdapter;
 import com.vigyos.vigyoscentercrm.Model.DocumentItemModel;
@@ -97,29 +98,32 @@ public class ShowServicesActivity extends AppCompatActivity {
                 Log.i("2016", "onResponse" + response);
                 try {
                     JSONObject  jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for (int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                                serviceName = jsonObject2.getString("service_name");
-                                serviceDetails = jsonObject2.getString("description");
-                                price = jsonObject2.getInt("price");
-                                JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
-                                for(int k = 0; k <jsonArray1.length(); k++){
-                                    JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
-//                                    DocumentItemModel itemModel = new DocumentItemModel();
-//                                    itemModel.setDocument_name(jsonObject1.getString("document_name"));
-//                                    documentItemModels.add(itemModel);
-                                    documentsName.add(jsonObject1.getString("document_name"));
-                                }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                            serviceName = jsonObject2.getString("service_name");
+                            serviceDetails = jsonObject2.getString("description");
+                            price = jsonObject2.getInt("price");
+                            JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
+                            for(int k = 0; k <jsonArray1.length(); k++){
+                                JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
+//                              DocumentItemModel itemModel = new DocumentItemModel();
+//                              itemModel.setDocument_name(jsonObject1.getString("document_name"));
+//                              documentItemModels.add(itemModel);
+                                documentsName.add(jsonObject1.getString("document_name"));
                             }
-                            serviceNameText.setText(serviceName);
-                            serviceDetailsText.setText(serviceDetails);
-                            priceText.setText("₹"+price);
-//                            serviceDocuments();
-                            spinner();
                         }
+                        serviceNameText.setText(serviceName);
+                        serviceDetailsText.setText(serviceDetails);
+                        priceText.setText("₹"+price);
+//                      serviceDocuments();
+                        spinner();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(ShowServicesActivity.this, LoginActivity.class));
+                        finish();
+                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

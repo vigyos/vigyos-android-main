@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.CompletedItemModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -42,8 +46,11 @@ public class CompletedFragment extends Fragment {
     private Dialog dialog;
     private ArrayList<CompletedItemModel> completedItemModels = new ArrayList<>();
     private TextView noComplete;
+    private Activity activity;
 
-    public CompletedFragment() { }
+    public CompletedFragment(Activity activity) {
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,30 +71,33 @@ public class CompletedFragment extends Fragment {
                 Log.i("2016","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                if (jsonObject1.getString("status").equalsIgnoreCase("COMPLETED")){
-                                    CompletedItemModel completedItemModel = new CompletedItemModel();
-                                    completedItemModel.setService_name(jsonObject1.getString("service_name"));
-                                    completedItemModel.setStatus(jsonObject1.getString("status"));
-                                    completedItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                    completedItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                    completedItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                    completedItemModel.setPrice(jsonObject1.getInt("price"));
-                                    completedItemModel.setCreated_time(jsonObject1.getString("created_time"));
-                                    completedItemModels.add(completedItemModel);
-                                }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            if (jsonObject1.getString("status").equalsIgnoreCase("COMPLETED")){
+                                CompletedItemModel completedItemModel = new CompletedItemModel();
+                                completedItemModel.setService_name(jsonObject1.getString("service_name"));
+                                completedItemModel.setStatus(jsonObject1.getString("status"));
+                                completedItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                completedItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                completedItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                completedItemModel.setPrice(jsonObject1.getInt("price"));
+                                completedItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                completedItemModels.add(completedItemModel);
                             }
-                            if(completedItemModels.isEmpty()){
-                                noComplete.setVisibility(View.VISIBLE);
-                            } else {
-                                noComplete.setVisibility(View.GONE);
-                            }
-                            showCompletedList();
                         }
+                        if(completedItemModels.isEmpty()){
+                            noComplete.setVisibility(View.VISIBLE);
+                        } else {
+                            noComplete.setVisibility(View.GONE);
+                        }
+                        showCompletedList();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
+                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -103,15 +113,15 @@ public class CompletedFragment extends Fragment {
 
     private void showCompletedList(){
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        CompletedListAdapter completedListAdapter = new CompletedListAdapter(completedItemModels, getActivity());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
+        CompletedListAdapter completedListAdapter = new CompletedListAdapter(completedItemModels, activity);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(completedListAdapter);
     }
 
     private void pleaseWait(){
-        dialog = new Dialog(getActivity());
+        dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_loader);

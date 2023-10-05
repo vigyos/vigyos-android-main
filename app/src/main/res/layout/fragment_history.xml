@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vigyos.vigyoscentercrm.Fragment.HistoryFragment">
+    android:background="@color/white"
+    tools:context=".Fragment.HistoryFragment">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
@@ -77,7 +78,7 @@
                 android:background="@drawable/recycle_borderline"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
-                tools:listitem="@layout/history_item_recyclerview" />
+                tools:listitem="@layout/layout_history_item" />
         </RelativeLayout>
     </RelativeLayout>
 </FrameLayout>

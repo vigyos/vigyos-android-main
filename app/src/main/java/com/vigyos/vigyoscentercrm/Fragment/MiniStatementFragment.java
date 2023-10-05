@@ -36,6 +36,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
@@ -196,7 +199,7 @@ public class MiniStatementFragment extends Fragment {
                 Log.i("123345","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.getString("status").equalsIgnoreCase("true")){
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
                         JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
                         JSONArray jsonArray = jsonObject1.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++){
@@ -230,6 +233,11 @@ public class MiniStatementFragment extends Fragment {
                             }
                             bankListModels.add(bankListModel);
                         }
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
+                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, backListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -271,16 +279,19 @@ public class MiniStatementFragment extends Fragment {
     }
 
     private void miniStatement(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String mobile){
+        pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().miniStatement(SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
                 String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "MS");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
                 Log.i("2016", "onResponse " + response);
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
                 Log.i("2016", "onFailure " + t);
             }
         });

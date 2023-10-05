@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vigyos.vigyoscentercrm.Fragment.ProcessingFragment">
+    android:background="@color/white"
+    tools:context=".Fragment.ProcessingFragment">
     <TextView
         android:id="@+id/noPending"
         android:layout_width="match_parent"

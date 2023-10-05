@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vigyos.vigyoscentercrm.Fragment.CompletedFragment">
+    android:background="@color/white"
+    tools:context=".Fragment.CompletedFragment">
     <TextView
         android:id="@+id/noComplete"
         android:layout_width="match_parent"

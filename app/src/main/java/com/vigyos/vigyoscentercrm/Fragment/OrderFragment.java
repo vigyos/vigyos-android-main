@@ -1,5 +1,6 @@
 package com.vigyos.vigyoscentercrm.Fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,15 +14,15 @@ import com.google.android.material.tabs.TabLayout;
 import com.vigyos.vigyoscentercrm.Adapter.OrderAdapter;
 import com.vigyos.vigyoscentercrm.R;
 
-
 public class OrderFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private OrderAdapter adapter;
+    private Activity activity;
 
-    public OrderFragment() {
-        // Required empty public constructor
+    public OrderFragment(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class OrderFragment extends Fragment {
          View view = inflater.inflate(R.layout.fragment_order, container, false);
          tabLayout = view.findViewById(R.id.tablayout);
          viewPager2 = view.findViewById(R.id.viewpager);
-         adapter = new OrderAdapter(getActivity());
+         adapter = new OrderAdapter(getActivity(), activity);
          viewPager2.setAdapter(adapter);
          tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
              @Override

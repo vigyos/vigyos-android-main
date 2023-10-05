@@ -6,9 +6,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bg">
+    <RelativeLayout
+        android:id="@+id/user_img"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginTop="30sp"
+        android:layout_marginHorizontal="15sp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/male_vactor"
+            app:civ_border_width="0dp"
+            app:civ_border_color="@color/white"/>
+        <LinearLayout
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome,"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/hankengrotesk_regular"/>
+            <TextView
+                android:id="@+id/userNameHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Krishnkant sharma"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/hankengrotesk_regular"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/notification"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/notification_bg">
+            <ImageView
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/notification"
+                app:tint="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/user_img">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -151,28 +205,6 @@
                                 android:layout_width="35sp"
                                 android:layout_height="35sp"
                                 android:src="@drawable/udyam"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/hankengrotesk_regular"
-                                android:text="Udyam"
-                                android:textAlignment="center"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="50sp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:visibility="gone"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="35sp"
-                                android:layout_height="35sp"
-                                android:src="@drawable/udyam_1" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -544,7 +576,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/demo_money_icon" />
+                                                android:src="@drawable/currency_rupee" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -573,7 +605,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/demo_money_icon" />
+                                                android:src="@drawable/currency_rupee" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -601,7 +633,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/demo_money_icon" />
+                                                android:src="@drawable/currency_rupee" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -630,7 +662,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/demo_money_icon" />
+                                                android:src="@drawable/currency_rupee" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -659,7 +691,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/demo_money_icon" />
+                                                android:src="@drawable/currency_rupee" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -692,7 +724,7 @@
                                                 android:layout_height="match_parent"
                                                 android:layout_gravity="center_horizontal|center_vertical"
                                                 android:background="#2196F3"
-                                                android:src="@drawable/seemore_arrow_icone" />
+                                                android:src="@drawable/more_icon" />
                                         </androidx.cardview.widget.CardView>
                                         <TextView
                                             android:layout_width="wrap_content"

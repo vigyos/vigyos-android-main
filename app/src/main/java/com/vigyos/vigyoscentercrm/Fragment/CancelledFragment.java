@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.CancelledItemModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -42,8 +46,11 @@ public class CancelledFragment extends Fragment {
     private Dialog dialog;
     private ArrayList<CancelledItemModel> cancelledItemModels = new ArrayList<>();
     private TextView noCancelled;
+    private final Activity activity;
 
-    public CancelledFragment() { }
+    public CancelledFragment(Activity activity) {
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,35 +66,38 @@ public class CancelledFragment extends Fragment {
         Call<Object> objectCall = RetrofitClient.getApi().serviceRequest(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID());
         objectCall.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
                 Log.i("2016","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for(int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                if (jsonObject1.getString("status").equalsIgnoreCase("REJECTED") ){
-                                    CancelledItemModel cancelledItemModel = new CancelledItemModel();
-                                    cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
-                                    cancelledItemModel.setStatus(jsonObject1.getString("status"));
-                                    cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                    cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                    cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                    cancelledItemModel.setPrice(jsonObject1.getInt("price"));
-                                    cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
-                                    cancelledItemModels.add(cancelledItemModel);
-                                }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            if (jsonObject1.getString("status").equalsIgnoreCase("REJECTED") ){
+                                CancelledItemModel cancelledItemModel = new CancelledItemModel();
+                                cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
+                                cancelledItemModel.setStatus(jsonObject1.getString("status"));
+                                cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                cancelledItemModel.setPrice(jsonObject1.getInt("price"));
+                                cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                cancelledItemModels.add(cancelledItemModel);
                             }
-                            if(cancelledItemModels.isEmpty()){
-                                noCancelled.setVisibility(View.VISIBLE);
-                            } else {
-                                noCancelled.setVisibility(View.GONE);
-                            }
-                            showCancelledList();
                         }
+                        if(cancelledItemModels.isEmpty()){
+                            noCancelled.setVisibility(View.VISIBLE);
+                        } else {
+                            noCancelled.setVisibility(View.GONE);
+                        }
+                        showCancelledList();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
+                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -95,7 +105,7 @@ public class CancelledFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
             }
         });
@@ -103,15 +113,15 @@ public class CancelledFragment extends Fragment {
 
     private void showCancelledList(){
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        CancelledListAdapter cancelledListAdapter = new CancelledListAdapter(cancelledItemModels, getActivity());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
+        CancelledListAdapter cancelledListAdapter = new CancelledListAdapter(cancelledItemModels, activity);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cancelledListAdapter);
     }
 
     private void pleaseWait(){
-        dialog = new Dialog(getActivity());
+        dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_loader);

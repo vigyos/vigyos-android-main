@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Model.SearchServicesModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -111,7 +112,10 @@ public class SearchServicesActivity extends AppCompatActivity {
                                 searchServicesModels.add(servicesModel);
                             }
                         } else {
-                            Toast.makeText(SearchServicesActivity.this, "Please Login Again", Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(SearchServicesActivity.this, LoginActivity.class));
+                            finish();
+                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -207,7 +211,7 @@ public class SearchServicesActivity extends AppCompatActivity {
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.item_recyclerview, parent, false);
+            View view = inflater.inflate(R.layout.layout_search_services_item, parent, false);
             return new ServiceItemListAdapter.MyViewHolder(view);
         }
 

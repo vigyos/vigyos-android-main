@@ -2,14 +2,12 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.vigyos.vigyoscentercrm.Adapter.AadhaarFragmentAdapter;
+import com.vigyos.vigyoscentercrm.Adapter.AEPSFragmentAdapter;
 import com.vigyos.vigyoscentercrm.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,36 +15,16 @@ public class AEPSActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
-    private AadhaarFragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aeps);
-        tabLayout=findViewById(R.id.tab_aadhaar_pay);
-        viewPager2= findViewById(R.id.view_pager2);
-
-        tabLayout.addTab(tabLayout.newTab().setText("Withdraw"));
-//        tabLayout.addTab(tabLayout.newTab().setText("Aadhaar Pay"));
-        tabLayout.addTab(tabLayout.newTab().setText("Enquiry"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mini statement"));
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        adapter = new AadhaarFragmentAdapter(fragmentManager,getLifecycle(), AEPSActivity.this);
+        ImageView ivBack = findViewById(R.id.ivBack);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager2 = findViewById(R.id.viewpager);
+        AEPSFragmentAdapter adapter = new AEPSFragmentAdapter(AEPSActivity.this, AEPSActivity.this);
         viewPager2.setAdapter(adapter);
-        ViewGroup tabs = (ViewGroup) tabLayout.getChildAt(0);
-
-        for (int i = 0; i < tabs.getChildCount() - 1; i++) {
-            View tab = tabs.getChildAt(i);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tab.getLayoutParams();
-            layoutParams.weight = 0;
-            layoutParams.setMarginEnd(12);
-            layoutParams.setMarginEnd(12);
-            layoutParams.width = 10;
-            tab.setLayoutParams(layoutParams);
-            tabLayout.requestLayout();
-        }
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -60,7 +38,15 @@ public class AEPSActivity extends AppCompatActivity {
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                tabLayout.selectTab(tabLayout.getTabAt(position));
+                super.onPageSelected(position);
+                tabLayout.getTabAt(position).select();
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
             }
         });
     }

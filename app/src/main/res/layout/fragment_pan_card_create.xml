@@ -3,35 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.vigyos.vigyoscentercrm.Fragment.PancardCreateFragment">
+    android:background="@color/white"
+    tools:context=".Fragment.PanCardCreateFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="2dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginHorizontal="5sp"
                 android:background="@color/white">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DETAILS"
-                    android:textSize="30sp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="#5A5959"
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="10dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -58,19 +44,21 @@
                         android:layout_height="50dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp"
-                        android:backgroundTint="#F5F7FA"
-                        app:cardCornerRadius="15dp"
-                        app:cardElevation="5dp">
+                        android:backgroundTint="#F9FCFF"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="4dp">
                         <EditText
                             android:id="@+id/FirstNameCreate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:hint="First Name"
+                            android:maxLines="1"
                             android:inputType="textPersonName"
-                            android:layout_marginStart="15sp"
+                            android:layout_marginHorizontal="15sp"
                             android:textColorHint="@color/grey_font"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:textColor="@color/black"/>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
                 <LinearLayout
@@ -94,8 +82,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
-                        android:backgroundTint="#F5F7FA"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="#F9FCFF"
                         app:cardElevation="5dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp">
@@ -105,8 +93,10 @@
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:hint="Middle Name"
+                            android:maxLines="1"
                             android:textSize="15sp"
-                            android:layout_marginStart="15sp"
+                            android:textColor="@color/black"
+                            android:layout_marginHorizontal="15sp"
                             android:textColorHint="@color/grey_font"
                             android:inputType="textPersonName" />
                     </androidx.cardview.widget.CardView>
@@ -138,9 +128,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
-                        android:backgroundTint="#F5F7FA"
-                        app:cardElevation="5dp"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="#F9FCFF"
+                        app:cardElevation="4dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp">
                         <EditText
@@ -149,8 +139,10 @@
                             android:background="@null"
                             android:hint="Last Name"
                             android:id="@+id/lastNameCreate"
+                            android:maxLines="1"
                             android:textSize="15sp"
-                            android:layout_marginStart="15sp"
+                            android:textColor="@color/black"
+                            android:layout_marginHorizontal="15sp"
                             android:textColorHint="@color/grey_font"
                             android:inputType="textPersonName" />
                     </androidx.cardview.widget.CardView>
@@ -177,10 +169,10 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp"
-                        android:backgroundTint="#F5F7FA"
+                        android:backgroundTint="#F9FCFF"
                         app:cardElevation="5dp">
                         <Spinner
                             android:layout_width="match_parent"
@@ -213,11 +205,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp"
-                        android:backgroundTint="#F5F7FA"
-                        app:cardElevation="5dp">
+                        android:backgroundTint="#F9FCFF"
+                        app:cardElevation="4dp">
                         <Spinner
                             android:id="@+id/cardTypeCreate"
                             android:layout_width="match_parent"
@@ -249,11 +241,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp"
-                        android:backgroundTint="#F5F7FA"
-                        app:cardElevation="5dp">
+                        android:backgroundTint="#F9FCFF"
+                        app:cardElevation="4dp">
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -261,7 +253,9 @@
                             android:id="@+id/mobileNumberCreate"
                             android:hint="Ex. 9876543210"
                             android:textSize="15sp"
-                            android:layout_marginStart="15sp"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:layout_marginHorizontal="15sp"
                             android:textColorHint="@color/grey_font"
                             android:inputType="number" />
                     </androidx.cardview.widget.CardView>
@@ -289,19 +283,21 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:cardCornerRadius="15dp"
+                    app:cardCornerRadius="10dp"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="10dp"
-                    android:backgroundTint="#F5F7FA"
-                    app:cardElevation="5dp">
+                    android:backgroundTint="#F9FCFF"
+                    app:cardElevation="4dp">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:id="@+id/emailCreate"
                         android:hint="Ex. abc@gmail.com"
+                        android:maxLines="1"
                         android:textSize="15sp"
-                        android:layout_marginStart="15sp"
+                        android:textColor="@color/black"
+                        android:layout_marginHorizontal="15sp"
                         android:textColorHint="@color/grey_font"
                         android:inputType="textEmailAddress" />
                 </androidx.cardview.widget.CardView>
@@ -328,18 +324,20 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:cardCornerRadius="15dp"
+                    app:cardCornerRadius="10dp"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="10dp"
-                    android:backgroundTint="#F5F7FA"
-                    app:cardElevation="5dp">
+                    android:backgroundTint="#F9FCFF"
+                    app:cardElevation="4dp">
                     <EditText
                         android:id="@+id/addressCreate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="15sp"
+                        android:layout_marginHorizontal="15sp"
                         android:background="@null"
+                        android:maxLines="1"
                         android:hint="Address"
+                        android:textColor="@color/black"
                         android:inputType="textLongMessage"
                         android:textColorHint="@color/grey_font"
                         android:textSize="15sp" />
@@ -351,7 +349,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remark"
+                        android:text="Remark (Optional)"
                         android:id="@+id/remark_heading"
                         android:layout_marginHorizontal="20dp"
                         android:textColor="@color/vigyos"
@@ -360,8 +358,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:cardCornerRadius="15dp"
-                        android:backgroundTint="#F5F7FA"
+                        app:cardCornerRadius="10dp"
+                        android:backgroundTint="#F9FCFF"
                         app:cardElevation="5dp"
                         android:layout_marginHorizontal="15dp"
                         android:layout_marginBottom="10dp">
@@ -370,12 +368,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            android:hint="Optional"
+                            android:maxLines="1"
+                            android:hint="Remark"
                             android:textSize="15sp"
-                            android:minHeight="40dp"
-                            android:maxHeight="70dp"
                             android:paddingVertical="10dp"
-                            android:layout_marginStart="15sp"
+                            android:layout_marginHorizontal="15sp"
                             android:textColorHint="@color/grey_font"
                             android:inputType="textLongMessage" />
                     </androidx.cardview.widget.CardView>
@@ -392,15 +389,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_centerInParent="true"
                         android:text="CREATE"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
-                        android:textStyle="bold"/>
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </ScrollView>
 </FrameLayout>

@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonObjectData = jsonObject.getJSONObject("data");
 
                             SplashActivity.prefManager.setUserID(jsonObjectData.getString("userId"));
-                            SplashActivity.prefManager.setToken("Bearer "+jsonObjectData.getString("token"));
+                            SplashActivity.prefManager.setToken("Bearer "+ jsonObjectData.getString("token"));
                             SplashActivity.prefManager.setFirstName(jsonObjectData.getString("first_name"));
                             SplashActivity.prefManager.setLastName(jsonObjectData.getString("last_name"));
 
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login Successfully" , Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
-                        }else {
+                        } else {
                             Toast.makeText(LoginActivity.this, "Please enter valid email id & password", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {

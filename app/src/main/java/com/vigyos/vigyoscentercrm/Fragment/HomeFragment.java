@@ -6,13 +6,28 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.format.Formatter;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -23,27 +38,28 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.Settings;
-import android.text.format.Formatter;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
-import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
-import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
+import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
+import com.vigyos.vigyoscentercrm.Activity.UserActivity;
+import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
 import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
@@ -52,16 +68,6 @@ import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
 import com.vigyos.vigyoscentercrm.Model.BannerListModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.gson.Gson;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,6 +110,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Serializer serializer = null;
     public ArrayList<String> positions;
     private ArrayList<BannerListModel> bannerListModels = new ArrayList<>();
+    private Dialog dialog;
 
     public HomeFragment(Activity activity) {
         this.activity = activity;
@@ -118,9 +125,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initialization(){
-//        userName = view.findViewById(R.id.userNameHome);
-//        userAccount = view.findViewById(R.id.profile_image);
-//        notification = view.findViewById(R.id.notification);
+        userName = view.findViewById(R.id.userNameHome);
+        userAccount = view.findViewById(R.id.profile_image);
+        notification = view.findViewById(R.id.notification);
         bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
         walletView = view.findViewById(R.id.walletView);
         aeps = view.findViewById(R.id.aeps);
@@ -139,7 +146,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void declaration(){
         //SetListeners
-//        userAccount.setOnClickListener(this);
+        userAccount.setOnClickListener(this);
         walletView.setOnClickListener(this);
         notification.setOnClickListener(this);
         aeps.setOnClickListener(this);
@@ -155,7 +162,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ipr.setOnClickListener(this);
         seeMore.setOnClickListener(this);
 
-        AppController.backCheck = true;
+//        AppController.backCheck = true;
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (checkPermission()){
@@ -168,16 +175,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         serializer = new Persister();
         positions = new ArrayList<>();
 
-//        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
-//        userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
-//        amount = view.findViewById(R.id.amount);
-//        if (SplashActivity.prefManager.getAmount() == 0){
-//            amount.setText("0.00");
-//        } else {
-//            int i = SplashActivity.prefManager.getAmount();
-//            float v = (float) i;
-//            amount.setText(String.valueOf(v));
-//        }
+        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
+        userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
+        amount = view.findViewById(R.id.amount);
+        if (SplashActivity.prefManager.getAmount() == 0){
+            amount.setText("0.00");
+        } else {
+            int i = SplashActivity.prefManager.getAmount();
+            float v = (float) i;
+            amount.setText(String.valueOf(v));
+        }
         bannerShow();
     }
 
@@ -207,8 +214,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.seeMore:
-                replaceFragment(new SeeMoreServicesFragment());
-                AppController.backCheck = false;
+                startActivity(new Intent(activity, SeeMoreServicesActivity.class));
                 break;
             case R.id.ipr:
                 Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
@@ -268,31 +274,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(activity, PanCardActivity.class));
                 break;
             case R.id.aeps:
-                try {
-                    String pidOption = getPIDOptions();
-                    if (pidOption != null) {
-                        Log.e("PidOptions", pidOption);
-                        Intent intent9 = new Intent();
-                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-                        intent9.putExtra("PID_OPTIONS", pidOption);
-                        startActivityForResult(intent9, 2);
-                    }
-                } catch (Exception e) {
-                    Log.e("Error", e.toString());
-                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
-                }
+//                try {
+//                    String pidOption = getPIDOptions();
+//                    if (pidOption != null) {
+//                        Log.e("PidOptions", pidOption);
+//                        Intent intent9 = new Intent();
+//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+//                        intent9.putExtra("PID_OPTIONS", pidOption);
+//                        startActivityForResult(intent9, 2);
+//                    } else {
+//                        Log.i("454545","Device not found!");
+//                    }
+//                } catch (Exception e) {
+//                    Log.e("Error", e.toString());
+//                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+//                }
+
+                startActivity(new Intent(activity, AEPSActivity.class));
                 break;
             case R.id.notification:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, NotificationActivity.class));
                 break;
             case R.id.profile_image:
-                replaceFragment(new UserFragment());
-                AppController.backCheck = false;
+                startActivity(new Intent(activity, UserActivity.class));
                 break;
             case R.id.walletView:
-                replaceFragment(new WalletFragment());
-                AppController.backCheck = false;
+                startActivity(new Intent(activity, WalletActivity.class));
                 break;
             default:
                 break;
@@ -357,24 +365,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case 2:
-                Log.i("78954", "case 2 ");
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.i("78954", "case 2  if");
                     try {
-                        Log.i("78954", "case 2  try");
                         if (data != null) {
-                            Log.i("78954", "case 2  data if");
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-//                                remark_heading.setText(result);
                                 AuthAPI(result);
                                 Log.i("78954", "case 2  result if : - " + pidData.toString());
                             }
                         }
                     } catch (Exception e) {
-                        Log.e("Error", "Error while deserialze pid data", e);
-                        Log.i("78954", "case 2  catch");
+                        Log.i("78954", "Error while deserialze pid data " + e);
+                        Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -467,20 +470,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void AuthAPI(String fingerData){
+        pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
                 String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "1", SplashActivity.prefManager.getMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
                 Log.i("2016", "onResponse "+ response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("status")){
-                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
-                            String message = jsonObject.getString("message");
-                            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(activity, AEPSActivity.class));
-                        }
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(activity, AEPSActivity.class));
+                    } else {
+                        Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -489,17 +493,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
                 Log.i("2016", "onFailure "+ t);
-                Toast.makeText(activity, "Failed ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Failed Authentication", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment); // R.id.fragment_container is the container in your activity layout where fragments are placed
-        fragmentTransaction.addToBackStack(null); // This allows the user to navigate back to FragmentA when they press the back button
-        fragmentTransaction.commit();
+    private void pleaseWait(){
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_loader);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void dismissDialog(){
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        dismissDialog();
+        super.onDestroy();
     }
 }

@@ -2,14 +2,19 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,6 +25,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanWebViewActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.R;
@@ -39,17 +47,19 @@ import retrofit2.Response;
 public class PanCardUpdateFragment extends Fragment{
 
     private View view;
-    private Activity activity1;
+    private Activity activity;
     private RelativeLayout update;
     private EditText firstName, middleName, lastName, mobile_number;
     private EditText email, address, remark;
     private Spinner spinner, spinner1;
     private String gender, mode;
+    private Dialog dialog;
 
     public PanCardUpdateFragment() {}
 
     public PanCardUpdateFragment(Activity activity) {
-        this.activity1 = activity;}
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +83,7 @@ public class PanCardUpdateFragment extends Fragment{
     }
 
     private void declaration() {
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(activity1, R.array.gender,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(activity, R.array.gender,android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter2);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -92,7 +102,7 @@ public class PanCardUpdateFragment extends Fragment{
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(activity1, R.array.mode,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(activity, R.array.mode,android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner1.setAdapter(adapter3);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -112,33 +122,55 @@ public class PanCardUpdateFragment extends Fragment{
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 if (TextUtils.isEmpty(firstName.getText().toString())) {
                     firstName.setError("This field is required");
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(lastName.getText().toString())) {
                     lastName.setError("This field is required");
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (spinner.getSelectedItem().toString().trim().equals("--Gender--")) {
-                    Toast.makeText(activity1, "Please select your Gender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Please select your Gender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if ((TextUtils.isEmpty(mobile_number.getText().toString())) || (!isValidPhone(mobile_number.getText().toString()))) {
-                    mobile_number.setError("Invalid Number");
+                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
+                    mobile_number.setError("This field is required");
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if (!isValidPhone(mobile_number.getText().toString())){
+                        mobile_number.setError("Invalid Number");
+                        Toast.makeText(activity, "Invalid Number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if ((TextUtils.isEmpty(email.getText().toString()))) {
+                    email.setError("This field is required");
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if (!isValidMail(email.getText().toString())){
+                        email.setError("Invalid Email");
+                        Toast.makeText(activity, "Invalid Email", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if (TextUtils.isEmpty(address.getText().toString())) {
+                    address.setError("This field is required");
+                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if ((TextUtils.isEmpty(email.getText().toString())) || (!isValidMail(mobile_number.getText().toString()))) {
-//                    email.setError("Invalid Email");
-//                    return;
-//                }
-
                 areYouSure();
             }});
     }
 
     private void areYouSure(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(activity1);
+        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
         alert.setTitle("Update Pan Card?");
         alert.setMessage("Are you sure you want to Update Card?");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -166,23 +198,27 @@ public class PanCardUpdateFragment extends Fragment{
     }
 
     private void updateCard(){
+        pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().panCardUpdate(SplashActivity.prefManager.getToken(), "1", firstName.getText().toString(), middleName.getText().toString(), lastName.getText().toString(),
                 mode, gender, "https://vigyos.com/", email.getText().toString(), SplashActivity.prefManager.getUserID(), remark.getText().toString(), "PENDING", mobile_number.getText().toString(), address.getText().toString());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
                 Log.i("85214","onResponse"+response);
                 try {
                     JSONObject jsonObject  = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                            String url = jsonObject1.getString("url");
-                            String encData = jsonObject1.getString("encdata");
-                            Intent intent = new Intent(activity1, PanWebViewActivity.class);
-                            intent.putExtra("url", url);
-                            intent.putExtra("encData", encData);
-                            startActivity(intent);
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                        String url = jsonObject1.getString("url");
+                        String encData = jsonObject1.getString("encdata");
+                        Intent intent = new Intent(activity, PanWebViewActivity.class);
+                        intent.putExtra("url", url);
+                        intent.putExtra("encData", encData);
+                        startActivity(intent);
+                    } else {
+                        if (jsonObject.has("message")){
+                            Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 } catch (JSONException e) {
@@ -192,8 +228,30 @@ public class PanCardUpdateFragment extends Fragment{
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
                 Log.i("85214","onFailure" + t);
             }
         });
+    }
+
+    private void pleaseWait(){
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_loader);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void dismissDialog(){
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        dismissDialog();
+        super.onDestroy();
     }
 }

@@ -30,7 +30,7 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         autoCompleteTextView = view.findViewById(R.id.auto_complete_txt);
-        adapter = new ArrayAdapter<>(getContext(), R.layout.category_item_list, item);
+        adapter = new ArrayAdapter<>(getContext(), R.layout.layout_category_item_list, item);
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

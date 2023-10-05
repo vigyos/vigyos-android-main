@@ -13,8 +13,8 @@
         android:background="@color/vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="28sp"
-            android:layout_height="28sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10sp"
             app:tint="@color/white"
@@ -25,7 +25,7 @@
             android:layout_toEndOf="@+id/ivBack"
             android:layout_marginStart="10sp"
             android:text="Terms And Conditions"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"/>
     </RelativeLayout>

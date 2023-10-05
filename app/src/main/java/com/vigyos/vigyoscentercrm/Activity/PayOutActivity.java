@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -69,6 +70,7 @@ public class PayOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                finish();
             }
         });
 
@@ -85,9 +87,7 @@ public class PayOutActivity extends AppCompatActivity {
                 startActivity(new Intent(PayOutActivity.this, AddBankAccountActivity.class));
             }
         });
-
         payoutList();
-
     }
 
     private void payoutList(){
@@ -100,24 +100,28 @@ public class PayOutActivity extends AppCompatActivity {
                 Log.i("2016","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("status")){
-                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for (int i = 0; i < jsonArray.length(); i ++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                PayoutBankNameModel bankNameModel = new PayoutBankNameModel();
-                                bankNameModel.setBeneid(jsonObject1.getString("beneid"));
-                                bankNameModel.setMerchantcode(jsonObject1.getString("merchantcode"));
-                                bankNameModel.setBankname(jsonObject1.getString("bankname"));
-                                bankNameModel.setAccount(jsonObject1.getString("account"));
-                                bankNameModel.setIfsc(jsonObject1.getString("ifsc"));
-                                bankNameModel.setName(jsonObject1.getString("name"));
-                                bankNameModel.setAccount_type(jsonObject1.getString("account_type"));
-                                bankNameModels.add(bankNameModel);
-                                bankNameArray.add(jsonObject1.getString("bankname"));
-                            }
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status") ){
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for (int i = 0; i < jsonArray.length(); i ++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            PayoutBankNameModel bankNameModel = new PayoutBankNameModel();
+                            bankNameModel.setBeneid(jsonObject1.getString("beneid"));
+                            bankNameModel.setMerchantcode(jsonObject1.getString("merchantcode"));
+                            bankNameModel.setBankname(jsonObject1.getString("bankname"));
+                            bankNameModel.setAccount(jsonObject1.getString("account"));
+                            bankNameModel.setIfsc(jsonObject1.getString("ifsc"));
+                            bankNameModel.setName(jsonObject1.getString("name"));
+                            bankNameModel.setAccount_type(jsonObject1.getString("account_type"));
+                            bankNameModels.add(bankNameModel);
+                            bankNameArray.add(jsonObject1.getString("bankname"));
                         }
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+                        finish();
+                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
+
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(PayOutActivity.this, android.R.layout.simple_spinner_item, bankNameArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     payoutBankName.setAdapter(spinnerArrayAdapter);
@@ -172,5 +176,11 @@ public class PayOutActivity extends AppCompatActivity {
     public void onDestroy() {
         dismissDialog();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

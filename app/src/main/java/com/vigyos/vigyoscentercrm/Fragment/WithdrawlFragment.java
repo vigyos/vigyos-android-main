@@ -36,6 +36,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
@@ -78,7 +81,7 @@ public class WithdrawlFragment extends Fragment{
 
     private View view;
     private Spinner spinner;
-    private Activity activity;
+    private final Activity activity;
     private EditText aadhaar_num, amount, mobile_number, remark;
     private RelativeLayout button_done;
     private CardView captureFingerPrint;
@@ -130,21 +133,42 @@ public class WithdrawlFragment extends Fragment{
         button_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(aadhaar_num.getText().toString())||!isValidAadhaarNumber(aadhaar_num.getText().toString())){
-                    aadhaar_num.setError("Please enter a Valid number");
+                if(TextUtils.isEmpty(aadhaar_num.getText().toString())  ){
+                    aadhaar_num.setError("This field is required");
+                    Toast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    if (!isValidAadhaarNumber(aadhaar_num.getText().toString())){
+                        aadhaar_num.setError("Enter a valid Aadhaar number");
+                        Toast.makeText(activity, "Enter a valid Aadhaar number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if (spinner.getSelectedItem().toString().trim().equals("--Select your Bank--")) {
                     Toast.makeText(activity,"Please select your bank",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(amount.getText().toString())||!isNumeric(amount.getText().toString())){
-                    amount.setError("Please enter a valid amount");
+                if(TextUtils.isEmpty(amount.getText().toString())){
+                    amount.setError("This field is required");
+                    Toast.makeText(activity, "Enter a Amount", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    if (!isNumeric(amount.getText().toString())){
+                        amount.setError("Enter a valid Amount");
+                        Toast.makeText(activity, "Enter a valid Amount", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-                if(TextUtils.isEmpty(mobile_number.getText().toString())||!isNumeric(mobile_number.getText().toString())){
-                    mobile_number.setError("Please enter a valid Mobile Number");
+                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
+                    mobile_number.setError("This field is required");
+                    Toast.makeText(activity, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    if (!isValidPhone(mobile_number.getText().toString())){
+                        mobile_number.setError("Invalid Mobile Number");
+                        Toast.makeText(activity, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
                 if (fingerCapture){
@@ -159,6 +183,28 @@ public class WithdrawlFragment extends Fragment{
             }
         });
         captureFingerPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanFingerPrint();
+            }
+        });
+    }
+
+    private void scanFingerPrint(){
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_fingerprint_scan);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        RelativeLayout cancelDialog = dialog.findViewById(R.id.cancelDialog);
+        RelativeLayout scanFingerPrint = dialog.findViewById(R.id.scanFingerPrint);
+        cancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissDialog();
+            }
+        });
+        scanFingerPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -176,11 +222,30 @@ public class WithdrawlFragment extends Fragment{
                 }
             }
         });
+        dialog.show();
     }
+
+//    private void dismissDialog(){
+//        if (dialog != null && dialog.isShowing()) {
+//            dialog.dismiss();
+//        }
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        dismissDialog();
+//        super.onDestroy();
+//    }
 
     public static boolean isNumeric(String strNum){
         double amt = Double.parseDouble(strNum);
         return !(amt <= 0);
+    }
+
+    public boolean isValidPhone(String num) {
+        Pattern ptrn = Pattern.compile("[6-9][0-9]{9}");
+        Matcher match = ptrn.matcher(num);
+        return (match.find() && match.group().equals(num));
     }
 
     public static boolean isValidAadhaarNumber(String str) {
@@ -204,42 +269,45 @@ public class WithdrawlFragment extends Fragment{
                 Log.i("123345","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("status")){
-                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
-                            JSONArray jsonArray = jsonObject1.getJSONArray("data");
-                            for (int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                                BankListModel bankListModel = new BankListModel();
-                                if (jsonObject2.has("id")){
-                                    bankListModel.setId(jsonObject2.getInt("id"));
-                                } else {
-                                    bankListModel.setId(0);
-                                }
-                                if(jsonObject2.has("bankName")){
-                                    bankListModel.setBankName(jsonObject2.getString("bankName"));
-                                    backListArray.add(jsonObject2.getString("bankName"));
-                                } else {
-                                    bankListModel.setBankName("Bank Name");
-                                }
-                                if (jsonObject2.has("iinno")){
-                                    bankListModel.setIinno(jsonObject2.getInt("iinno"));
-                                } else {
-                                    bankListModel.setIinno(0);
-                                }
-                                if (jsonObject2.has("activeFlag")){
-                                    bankListModel.setActiveFlag(jsonObject2.getString("activeFlag"));
-                                } else {
-                                    bankListModel.setActiveFlag("0");
-                                }
-                                if (jsonObject2.has("aadharpayiinno")){
-                                    bankListModel.setAadharpayiinno(jsonObject2.getString("aadharpayiinno"));
-                                } else {
-                                    bankListModel.setAadharpayiinno("aadharpayiinno");
-                                }
-                                bankListModels.add(bankListModel);
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
+                        JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                            BankListModel bankListModel = new BankListModel();
+                            if (jsonObject2.has("id")){
+                                bankListModel.setId(jsonObject2.getInt("id"));
+                            } else {
+                                bankListModel.setId(0);
                             }
+                            if(jsonObject2.has("bankName")){
+                                bankListModel.setBankName(jsonObject2.getString("bankName"));
+                                backListArray.add(jsonObject2.getString("bankName"));
+                            } else {
+                                bankListModel.setBankName("Bank Name");
+                            }
+                            if (jsonObject2.has("iinno")){
+                                bankListModel.setIinno(jsonObject2.getInt("iinno"));
+                            } else {
+                                bankListModel.setIinno(0);
+                            }
+                            if (jsonObject2.has("activeFlag")){
+                                bankListModel.setActiveFlag(jsonObject2.getString("activeFlag"));
+                            } else {
+                                bankListModel.setActiveFlag("0");
+                            }
+                            if (jsonObject2.has("aadharpayiinno")){
+                                bankListModel.setAadharpayiinno(jsonObject2.getString("aadharpayiinno"));
+                            } else {
+                                bankListModel.setAadharpayiinno("aadharpayiinno");
+                            }
+                            bankListModels.add(bankListModel);
                         }
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
+                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, backListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -291,31 +359,34 @@ public class WithdrawlFragment extends Fragment{
                 Log.i("2016", "onResponse " + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if(jsonObject.has("status")){
-                        if (jsonObject.getString("status").equalsIgnoreCase("true")){
-                            String message = jsonObject.getString("message");
-                            String ackno = jsonObject.getString("ackno");
-                            String amount = jsonObject.getString("amount");
-                            String balanceamount = jsonObject.getString("balanceamount");
-                            String bankrrn = jsonObject.getString("bankrrn");
-                            String bankiin = jsonObject.getString("bankiin");
-                            String clientrefno = jsonObject.getString("clientrefno");
+                    if(jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        String message = jsonObject.getString("message");
+                        String ackno = jsonObject.getString("ackno");
+                        String amount = jsonObject.getString("amount");
+                        String balanceamount = jsonObject.getString("balanceamount");
+                        String bankrrn = jsonObject.getString("bankrrn");
+                        String bankiin = jsonObject.getString("bankiin");
+                        String clientrefno = jsonObject.getString("clientrefno");
 
-                            Intent intent = new Intent(activity, ProcessDoneActivity.class);
-                            intent.putExtra("messageStatus", "Payment Successful!");
-                            intent.putExtra("message", message);
-                            intent.putExtra("message", message);
-                            intent.putExtra("bankName", bankName);
-                            intent.putExtra("ackno", ackno);
-                            intent.putExtra("amount", amount);
-                            intent.putExtra("balanceamount", balanceamount);
-                            intent.putExtra("aadhaarNumber", aadhaarNumber);
-                            intent.putExtra("bankrrn", bankrrn);
-                            intent.putExtra("bankiin", bankiin);
-                            intent.putExtra("clientrefno", clientrefno);
-                            startActivity(intent);
-                            activity.finish();
-                        }
+                        Intent intent = new Intent(activity, ProcessDoneActivity.class);
+                        intent.putExtra("messageStatus", "Payment Successful!");
+                        intent.putExtra("message", message);
+                        intent.putExtra("message", message);
+                        intent.putExtra("bankName", bankName);
+                        intent.putExtra("ackno", ackno);
+                        intent.putExtra("amount", amount);
+                        intent.putExtra("balanceamount", balanceamount);
+                        intent.putExtra("aadhaarNumber", aadhaarNumber);
+                        intent.putExtra("bankrrn", bankrrn);
+                        intent.putExtra("bankiin", bankiin);
+                        intent.putExtra("clientrefno", clientrefno);
+                        startActivity(intent);
+                        activity.finish();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
+                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

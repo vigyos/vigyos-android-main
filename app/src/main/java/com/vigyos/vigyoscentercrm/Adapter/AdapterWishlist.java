@@ -26,7 +26,7 @@ public class AdapterWishlist extends RecyclerView.Adapter<AdapterWishlist.holder
     @Override
     public holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.wishlist_item, parent, false);
+        View view = inflater.inflate(R.layout.layout_wishlist_item, parent, false);
         return new holder(view);
     }
 
@@ -41,7 +41,7 @@ public class AdapterWishlist extends RecyclerView.Adapter<AdapterWishlist.holder
         return arrayList.size();
     }
 
-    public class holder extends RecyclerView.ViewHolder {
+    public static class holder extends RecyclerView.ViewHolder {
 
         private TextView serviceName;
         private TextView price;

@@ -13,8 +13,9 @@
         android:background="@color/vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginStart="10sp"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"
             app:tint="@color/white"/>
@@ -26,7 +27,7 @@
             android:layout_toEndOf="@+id/ivBack"
             android:text="Payout"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:textSize="22sp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/payLyt"

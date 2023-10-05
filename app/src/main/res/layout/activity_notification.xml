@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".Activity.NotificationActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -12,8 +13,8 @@
         android:background="@color/vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="28sp"
-            android:layout_height="28sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10sp"
             app:tint="@color/white"
@@ -24,10 +25,24 @@
             android:layout_toEndOf="@+id/ivBack"
             android:layout_marginStart="10sp"
             android:text="Notification"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="You Don't Have any Notification"
+            android:textSize="22sp"
+            android:textColor="@color/vigyos"/>
+    </RelativeLayout>
 </RelativeLayout>

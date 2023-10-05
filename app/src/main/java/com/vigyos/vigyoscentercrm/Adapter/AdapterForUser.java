@@ -1,6 +1,5 @@
 package com.vigyos.vigyoscentercrm.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class AdapterForUser extends RecyclerView.Adapter<AdapterForUser.holder> 
     @Override
     public AdapterForUser.holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.profile_item_list, parent, false);
+        View view = inflater.inflate(R.layout.layout_account_item_list, parent, false);
         return new holder(view, listener);
     }
 
@@ -44,10 +43,10 @@ public class AdapterForUser extends RecyclerView.Adapter<AdapterForUser.holder> 
         return arr.length;
     }
 
-    public class holder extends RecyclerView.ViewHolder {
+    public static class holder extends RecyclerView.ViewHolder {
 
-        TextView txt;
-        ImageView img;
+        public TextView txt;
+        public ImageView img;
 
         public holder(@NonNull View itemView, UserItemListener listener) {
             super(itemView);
@@ -61,7 +60,6 @@ public class AdapterForUser extends RecyclerView.Adapter<AdapterForUser.holder> 
                     if (listener != null){
                         int pos = getAdapterPosition();
                         if(pos != RecyclerView.NO_POSITION){
-                            Log.i("12121"," position - " + pos);
                             listener.onItemClick(pos);
                         }
                     }

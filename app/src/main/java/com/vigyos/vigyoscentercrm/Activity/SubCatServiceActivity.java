@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.vigyos.vigyoscentercrm.Model.ServiceListModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -70,23 +71,26 @@ public class SubCatServiceActivity extends AppCompatActivity {
                 Log.i("45621", "onResponse "+ response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("data");
-                            for (int i = 0; i<jsonArray.length(); i++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                JSONArray jsonArray1 = jsonObject1.getJSONArray("services");
-                                for (int k = 0; k < jsonArray1.length(); k++){
-                                    JSONObject jsonObject2 = jsonArray1.getJSONObject(k);
-                                    ServiceListModel serviceListModel = new ServiceListModel();
-                                    serviceListModel.setService_id(jsonObject2.getString("service_id"));
-                                    serviceListModel.setService_name(jsonObject2.getString("service_name"));
-                                    serviceListModel.setPrice(jsonObject2.getInt("price"));
-                                    serviceListModels.add(serviceListModel);
-                                }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        for (int i = 0; i<jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            JSONArray jsonArray1 = jsonObject1.getJSONArray("services");
+                            for (int k = 0; k < jsonArray1.length(); k++){
+                                JSONObject jsonObject2 = jsonArray1.getJSONObject(k);
+                                ServiceListModel serviceListModel = new ServiceListModel();
+                                serviceListModel.setService_id(jsonObject2.getString("service_id"));
+                                serviceListModel.setService_name(jsonObject2.getString("service_name"));
+                                serviceListModel.setPrice(jsonObject2.getInt("price"));
+                                serviceListModels.add(serviceListModel);
                             }
                         }
                         callShowAdapter();
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(SubCatServiceActivity.this, LoginActivity.class));
+                        finish();
+                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -145,7 +149,7 @@ public class SubCatServiceActivity extends AppCompatActivity {
         @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.service_list_layout, parent, false);
+            View view = inflater.inflate(R.layout.layout_service_list, parent, false);
             return new Holder(view);
         }
 

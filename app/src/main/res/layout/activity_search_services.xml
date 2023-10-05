@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity">
+    android:background="@color/white"
+    tools:context=".Activity.SearchServicesActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -40,5 +41,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/item_recyclerview"/>
+        tools:listitem="@layout/layout_search_services_item"/>
 </RelativeLayout>

@@ -12,8 +12,8 @@ import com.vigyos.vigyoscentercrm.R;
 
 public class AdapterForHistory extends RecyclerView.Adapter<AdapterForHistory.holder> {
 
-    String sn[];
-    String rs[];
+    public String[] sn;
+    public String[] rs;
 
     public AdapterForHistory(String[] sn, String[] rs) {
         this.sn = sn;
@@ -24,7 +24,7 @@ public class AdapterForHistory extends RecyclerView.Adapter<AdapterForHistory.ho
     @Override
     public holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.history_item_recyclerview, parent, false);
+        View view = inflater.inflate(R.layout.layout_history_item, parent, false);
         return new holder(view);
     }
 
@@ -39,7 +39,7 @@ public class AdapterForHistory extends RecyclerView.Adapter<AdapterForHistory.ho
         return rs.length;
     }
 
-    public class holder extends RecyclerView.ViewHolder {
+    public static class holder extends RecyclerView.ViewHolder {
 
         TextView service_name;
         TextView amount;

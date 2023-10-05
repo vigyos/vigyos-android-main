@@ -3,6 +3,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Model.BankListModel;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankListModel;
@@ -75,19 +77,21 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 Log.i("123654", "onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success")){
-                        if (jsonObject.getString("success").equalsIgnoreCase("true")){
-                            JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
-                            for (int i = 0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                PayoutBankListModel listModel = new PayoutBankListModel();
-                                listModel.setBank_id(jsonObject1.getString("bank_id"));
-                                listModel.setBank_name(jsonObject1.getString("bank_name"));
-                                bankListModels.add(listModel);
-                                bankName.add(jsonObject1.getString("bank_name"));
-
-                            }
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
+                        for (int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            PayoutBankListModel listModel = new PayoutBankListModel();
+                            listModel.setBank_id(jsonObject1.getString("bank_id"));
+                            listModel.setBank_name(jsonObject1.getString("bank_name"));
+                            bankListModels.add(listModel);
+                            bankName.add(jsonObject1.getString("bank_name"));
                         }
+                    } else {
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(AddBankAccountActivity.this, LoginActivity.class));
+                        finish();
+                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
 
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(AddBankAccountActivity.this, android.R.layout.simple_spinner_item, bankName); //selected item will look like a spinner set from XML
