@@ -20,6 +20,5 @@ public class AppController extends Application {
         // OneSignal Initialization
 //        OneSignal.initWithContext(this, getString(R.string.ONESIGNAL_APP_ID));
 
-
     }
 }

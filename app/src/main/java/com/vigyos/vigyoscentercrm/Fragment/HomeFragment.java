@@ -274,23 +274,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(activity, PanCardActivity.class));
                 break;
             case R.id.aeps:
-//                try {
-//                    String pidOption = getPIDOptions();
-//                    if (pidOption != null) {
-//                        Log.e("PidOptions", pidOption);
-//                        Intent intent9 = new Intent();
-//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                        intent9.putExtra("PID_OPTIONS", pidOption);
-//                        startActivityForResult(intent9, 2);
-//                    } else {
-//                        Log.i("454545","Device not found!");
-//                    }
-//                } catch (Exception e) {
-//                    Log.e("Error", e.toString());
-//                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
-//                }
+                try {
+                    String pidOption = getPIDOptions();
+                    if (pidOption != null) {
+                        Log.e("PidOptions", pidOption);
+                        Intent intent9 = new Intent();
+                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                        intent9.putExtra("PID_OPTIONS", pidOption);
+                        startActivityForResult(intent9, 2);
+                    } else {
+                        Log.i("454545","Device not found!");
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                }
 
-                startActivity(new Intent(activity, AEPSActivity.class));
+//                startActivity(new Intent(activity, AEPSActivity.class));
                 break;
             case R.id.notification:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));

@@ -165,7 +165,7 @@ public class PanCardCreateFragment extends Fragment {
             }});
     }
 
-    private void areYouSure(){
+    private void areYouSure() {
         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
         alert.setTitle("Create Pan Card?");
         alert.setMessage("Are you sure you want to Create Card?");

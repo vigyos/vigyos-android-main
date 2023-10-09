@@ -13,5 +13,7 @@
     <color name="text_color">#1d1031</color>
     <color name="title_text">#0e0023</color>
     <color name="icon_card">#FCEAF5FA</color>
+    <color name="cr">#4CAF50</color>
+    <color name="dr">#F44336</color>
 
 </resources>

@@ -15,6 +15,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
@@ -37,13 +38,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.MiniStatementDoneActivity;
+import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
 import com.vigyos.vigyoscentercrm.Model.BankListModel;
+import com.vigyos.vigyoscentercrm.Model.MiniStatementModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -85,7 +88,8 @@ public class MiniStatementFragment extends Fragment {
     private RelativeLayout button_done;
     private CardView captureFingerPrint;
     private ArrayList<BankListModel> bankListModels = new ArrayList<>();
-    private ArrayList<String> backListArray = new ArrayList<>();
+    private ArrayList<String> bankListArray = new ArrayList<>();
+    private ArrayList<MiniStatementModel> miniStatementModels = new ArrayList<>();
     private String bankName;
     private int iinno;
     private Dialog dialog;
@@ -129,31 +133,98 @@ public class MiniStatementFragment extends Fragment {
         serializer = new Persister();
         positions = new ArrayList<>();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
-        button_done.setOnClickListener(new View.OnClickListener() {
+        captureFingerPrint.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(TextUtils.isEmpty(aadhaar_num.getText().toString())||!isValidAadhaarNumber(aadhaar_num.getText().toString())){
-                    aadhaar_num.setError("Please enter a Valid number");
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(aadhaar_num.getText().toString())  ){
+                    aadhaar_num.setError("This field is required");
+                    Toast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if (!isValidAadhaarNumber(aadhaar_num.getText().toString())){
+                        aadhaar_num.setError("Enter a valid Aadhaar number");
+                        Toast.makeText(activity, "Enter a valid Aadhaar number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if (spinner.getSelectedItem().toString().trim().equals("Select your bank")) {
+                    Toast.makeText(activity,"Select your bank",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (spinner.getSelectedItem().toString().trim().equals("--Select your Bank--")) {
-                    Toast.makeText(activity,"Please select your bank",Toast.LENGTH_SHORT).show();
+                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
+                    mobile_number.setError("This field is required");
+                    Toast.makeText(activity, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if (!isValidPhone(mobile_number.getText().toString())){
+                        mobile_number.setError("Invalid Mobile Number");
+                        Toast.makeText(activity, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                scanFingerPrint();
+            }
+        });
+        button_done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                if(TextUtils.isEmpty(aadhaar_num.getText().toString())  ){
+                    aadhaar_num.setError("This field is required");
+                    Toast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if (!isValidAadhaarNumber(aadhaar_num.getText().toString())){
+                        aadhaar_num.setError("Enter a valid Aadhaar number");
+                        Toast.makeText(activity, "Enter a valid Aadhaar number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                if (spinner.getSelectedItem().toString().trim().equals("Select your bank")) {
+                    Toast.makeText(activity,"Select your bank",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(mobile_number.getText().toString())||!isNumeric(mobile_number.getText().toString())){
-                    mobile_number.setError("Please enter a valid Mobile Number");
+                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
+                    mobile_number.setError("This field is required");
+                    Toast.makeText(activity, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    if (!isValidPhone(mobile_number.getText().toString())){
+                        mobile_number.setError("Invalid Mobile Number");
+                        Toast.makeText(activity, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 if(fingerCapture){
+                    if(fingerData != null){
+                        miniStatement(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
+                    } else {
+                        Toast.makeText(activity, "FingerPrint Data Null", Toast.LENGTH_SHORT).show();
+                    }
                     fingerCapture = false;
                     fingerPrintDone.setVisibility(View.GONE);
-                    miniStatement(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
                 } else {
                     Toast.makeText(activity, "Capture FingerPrint", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        captureFingerPrint.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void scanFingerPrint(){
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_fingerprint_scan);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        RelativeLayout cancelDialog = dialog.findViewById(R.id.cancelDialog);
+        RelativeLayout scanFingerPrint = dialog.findViewById(R.id.scanFingerPrint);
+        cancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissDialog();
+            }
+        });
+        scanFingerPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -171,11 +242,13 @@ public class MiniStatementFragment extends Fragment {
                 }
             }
         });
+        dialog.show();
     }
 
-    public static boolean isNumeric(String strNum){
-        double amt = Double.parseDouble(strNum);
-        return !(amt <= 0);
+    public boolean isValidPhone(String num) {
+        Pattern ptrn = Pattern.compile("[6-9][0-9]{9}");
+        Matcher match = ptrn.matcher(num);
+        return (match.find() && match.group().equals(num));
     }
 
     public static boolean isValidAadhaarNumber(String str) {
@@ -202,6 +275,7 @@ public class MiniStatementFragment extends Fragment {
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
                         JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
                         JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                        bankListArray.add(0, "Select your bank");
                         for (int i = 0; i < jsonArray.length(); i++){
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                             BankListModel bankListModel = new BankListModel();
@@ -212,7 +286,7 @@ public class MiniStatementFragment extends Fragment {
                             }
                             if(jsonObject2.has("bankName")){
                                 bankListModel.setBankName(jsonObject2.getString("bankName"));
-                                backListArray.add(jsonObject2.getString("bankName"));
+                                bankListArray.add(jsonObject2.getString("bankName"));
                             } else {
                                 bankListModel.setBankName("Bank Name");
                             }
@@ -234,23 +308,26 @@ public class MiniStatementFragment extends Fragment {
                             bankListModels.add(bankListModel);
                         }
                     } else {
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(activity, LoginActivity.class));
-                        activity.finish();
-                        Snackbar.make(activity.findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        if (jsonObject.has("message")){
+                            Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
+                        }
                     }
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, backListArray); //selected item will look like a spinner set from XML
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, bankListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(spinnerArrayAdapter);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            String selectedItem = (String) parent.getItemAtPosition(position);
-                            for (BankListModel bankListModel: bankListModels){
-                                if(bankListModel.getBankName().equalsIgnoreCase(selectedItem)){
-                                    bankName = bankListModel.getBankName();
-                                    iinno  = bankListModel.getIinno();
-                                    Log.i("789654", "Bank Name: - " + bankName + " " + iinno);
+                            if (parent.getItemAtPosition(position).equals("Select your bank")) {
+                                Log.i("12121", "Select your bank");
+                            } else {
+                                String selectedItem = (String) parent.getItemAtPosition(position);
+                                for (BankListModel bankListModel : bankListModels) {
+                                    if (bankListModel.getBankName().equalsIgnoreCase(selectedItem)) {
+                                        bankName = bankListModel.getBankName();
+                                        iinno = bankListModel.getIinno();
+                                        Log.i("789654", "Bank Name: - " + bankName + " " + iinno);
+                                    }
                                 }
                             }
                         }
@@ -287,12 +364,54 @@ public class MiniStatementFragment extends Fragment {
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
                 Log.i("2016", "onResponse " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")){
+                        String  ackno = jsonObject.getString("ackno");
+                        double  balanceamount = jsonObject.getDouble("balanceamount");
+                        String  bankrrn = jsonObject.getString("bankrrn");
+                        String  bankiin = jsonObject.getString("bankiin");
+                        String  message = jsonObject.getString("message");
+                        JSONArray jsonArray = jsonObject.getJSONArray("ministatement");
+                        for (int i = 0; i <jsonArray.length(); i++){
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                            MiniStatementModel statementModel = new MiniStatementModel();
+                            statementModel.setDate(jsonObject1.getString("date"));
+                            statementModel.setTxnType(jsonObject1.getString("txnType"));
+                            statementModel.setAmount(jsonObject1.getDouble("amount"));
+                            statementModel.setNarration(jsonObject1.getString("narration"));
+                            miniStatementModels.add(statementModel);
+                        }
+
+                        Intent intent = new Intent(activity, MiniStatementDoneActivity.class);
+                        intent.putExtra("messageStatus", "Mini Statement!");
+                        intent.putExtra("bankName", bankName);
+                        intent.putExtra("aadhaarNumber", aadhaarNumber);
+                        intent.putExtra("ackno", ackno);
+                        intent.putExtra("balanceamount", balanceamount);
+                        intent.putExtra("bankrrn", bankrrn);
+                        intent.putExtra("bankiin", bankiin);
+                        intent.putExtra("message", message);
+                        intent.putParcelableArrayListExtra("miniStatementModels", miniStatementModels);
+                        startActivity(intent);
+                    } else {
+                        if (jsonObject.has("message")){
+                            Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
+                            fingerCapture = false;
+                            fingerPrintDone.setVisibility(View.GONE);
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016", "onFailure " + t);
+                fingerCapture = false;
+                fingerPrintDone.setVisibility(View.GONE);
             }
         });
     }
@@ -382,10 +501,10 @@ public class MiniStatementFragment extends Fragment {
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-//                                remark_heading.setText(result);
                                 fingerData = result;
                                 fingerCapture = true;
                                 fingerPrintDone.setVisibility(View.VISIBLE);
+                                dismissDialog();
                                 Log.i("78954","pidData " + result);
                             }
                         }

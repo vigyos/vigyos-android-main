@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.vigyos.vigyoscentercrm.Fragment.EnquiryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.MiniStatementFragment;
-import com.vigyos.vigyoscentercrm.Fragment.WithdrawlFragment;
+import com.vigyos.vigyoscentercrm.Fragment.WithdrawalFragment;
 
 public class AEPSFragmentAdapter extends FragmentStateAdapter {
 
@@ -24,9 +24,9 @@ public class AEPSFragmentAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch(position){
-            case 1: return new WithdrawlFragment(activity);
-            case 2: return new EnquiryFragment(activity);
-            default: return new MiniStatementFragment(activity);
+            case 1: return new EnquiryFragment(activity);
+            case 2: return new MiniStatementFragment(activity);
+            default: return new WithdrawalFragment(activity) ;
         }
     }
 
