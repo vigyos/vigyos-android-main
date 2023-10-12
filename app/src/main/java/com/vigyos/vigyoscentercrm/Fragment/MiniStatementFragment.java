@@ -83,7 +83,7 @@ public class MiniStatementFragment extends Fragment {
 
     private View view;
     private Spinner spinner;
-    private Activity activity;
+    private final Activity activity;
     private EditText aadhaar_num, mobile_number, remark;
     private RelativeLayout button_done;
     private CardView captureFingerPrint;
@@ -162,6 +162,9 @@ public class MiniStatementFragment extends Fragment {
                         return;
                     }
                 }
+                aadhaar_num.clearFocus();
+                mobile_number.clearFocus();
+                remark.clearFocus();
 
                 scanFingerPrint();
             }
@@ -195,6 +198,10 @@ public class MiniStatementFragment extends Fragment {
                         return;
                     }
                 }
+                aadhaar_num.clearFocus();
+                mobile_number.clearFocus();
+                remark.clearFocus();
+
                 if(fingerCapture){
                     if(fingerData != null){
                         miniStatement(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
@@ -420,6 +427,7 @@ public class MiniStatementFragment extends Fragment {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_loader);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
@@ -445,7 +453,7 @@ public class MiniStatementFragment extends Fragment {
             }
             Opts opts = new Opts();
             opts.fCount = "1";
-            opts.fType = "0";
+            opts.fType = "2";
             opts.iCount = "0";
             opts.iType = "0";
             opts.pCount = "0";
@@ -490,7 +498,7 @@ public class MiniStatementFragment extends Fragment {
                             }
                         }
                     } catch (Exception e) {
-                        Log.e("Error", "Error while deserialze device info", e);
+                        Log.e("Error", "Error while deserialize device info", e);
                     }
                 }
                 break;
@@ -501,15 +509,19 @@ public class MiniStatementFragment extends Fragment {
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-                                fingerData = result;
-                                fingerCapture = true;
-                                fingerPrintDone.setVisibility(View.VISIBLE);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    fingerData = result;
+                                    fingerCapture = true;
+                                    fingerPrintDone.setVisibility(View.VISIBLE);
+                                    Log.i("78954","pidData " + result);
+                                }
                                 dismissDialog();
-                                Log.i("78954","pidData " + result);
                             }
                         }
                     } catch (Exception e) {
-                        Log.e("Error", "Error while deserialze pid data", e);
+                        Log.e("Error", "Error while deserialize pid data", e);
                         Toast.makeText(activity, "Failed to Capture FingerPrint", Toast.LENGTH_SHORT).show();
                     }
                 }

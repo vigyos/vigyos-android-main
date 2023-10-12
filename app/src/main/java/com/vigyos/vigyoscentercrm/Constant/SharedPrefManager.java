@@ -41,6 +41,9 @@ public class SharedPrefManager {
     private static final String wallet_id = "wallet_id";
     private static final String merchant_id = "merchant_id";
     private static final String amount = "amount";
+    private static final String is_verified = "is_verified";
+    private static final String bank_verified = "bank_verified";
+    private static final String last_verify_timestamp_aeps = "last_verify_timestamp_aeps";
     private static final String payout_balance = "payout_balance";
     private static final String login = "login";
     private static final String service_id = "service_id";
@@ -241,6 +244,96 @@ public class SharedPrefManager {
 
     public int getPayoutBalance(){
         return pref.getInt(payout_balance, 0);
+    }
+
+    public void setCompany(String Company){
+        editor = pref.edit();
+        editor.putString(company, Company);
+        editor.commit();
+    }
+
+    public String getCompany(){
+        return pref.getString(company, "null");
+    }
+
+    public void setPlan(String Plan){
+        editor = pref.edit();
+        editor.putString(plan, Plan);
+        editor.commit();
+    }
+
+    public String getPlan(){
+        return pref.getString(plan, "null");
+    }
+
+    public void setIsDeleted(String IsDeleted){
+        editor = pref.edit();
+        editor.putString(is_deleted, IsDeleted);
+        editor.commit();
+    }
+
+    public String getIsDeleted(){
+        return pref.getString(is_deleted, "null");
+    }
+
+    public void setUserType(String UserType){
+        editor = pref.edit();
+        editor.putString(user_type, UserType);
+        editor.commit();
+    }
+
+    public String getUserType(){
+        return pref.getString(user_type, "null");
+    }
+
+    public void setIsActive(String IsActive){
+        editor = pref.edit();
+        editor.putString(is_active, IsActive);
+        editor.commit();
+    }
+
+    public String getIsActive(){
+        return pref.getString(is_active, "null");
+    }
+
+    public void setWalletId(String WalletId){
+        editor = pref.edit();
+        editor.putString(wallet_id, WalletId);
+        editor.commit();
+    }
+
+    public String getWalletId(){
+        return pref.getString(wallet_id, "null");
+    }
+
+    public void setIsVerified(String IsVerified){
+        editor = pref.edit();
+        editor.putString(is_verified, IsVerified);
+        editor.commit();
+    }
+
+    public String getIsVerified(){
+        return pref.getString(is_verified, "null");
+    }
+
+    public void setBankVerified(String BankVerified){
+        editor = pref.edit();
+        editor.putString(bank_verified, BankVerified);
+        editor.commit();
+    }
+
+    public String getBankVerified(){
+        return pref.getString(bank_verified, "null");
+    }
+
+    public void setLastVerifyTimeStampAeps(long LastVerifyTimeStampAeps){
+        editor = pref.edit();
+        editor.putLong(last_verify_timestamp_aeps, LastVerifyTimeStampAeps);
+        editor.commit();
+    }
+
+    public long getLastVerifyTimeStampAeps(){
+        return pref.getLong(last_verify_timestamp_aeps, 0);
     }
 
     public void setClear(){

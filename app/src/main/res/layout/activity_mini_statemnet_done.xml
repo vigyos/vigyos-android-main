@@ -6,7 +6,6 @@
     android:background="@color/vigyos"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.MiniStatementDoneActivity">
-
     <RelativeLayout
         android:id="@+id/iconLyt"
         android:layout_width="match_parent"
@@ -14,255 +13,264 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:layout_centerInParent="true"
             android:scaleType="centerInside"
             app:lottie_autoPlay="true"
             app:lottie_fileName="done_icon.json"
             app:lottie_loop="false" />
     </RelativeLayout>
-    <TextView
-        android:id="@+id/paySuccess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iconLyt"
-        android:layout_marginTop="20sp"
-        android:layout_centerHorizontal="true"
-        android:text="Payment Successful!"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/thankYou"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/paySuccess"
-        android:layout_marginTop="5sp"
-        android:layout_centerHorizontal="true"
-        android:text="Thank you for using AEPS."
-        android:textSize="16sp"
-        android:textColor="#F6F2F2"
-        android:textStyle="bold"/>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/paymentDetails"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thankYou"
-        android:layout_marginHorizontal="12sp"
-        android:layout_marginTop="20sp"
-        android:layout_marginBottom="5sp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5sp"
-        app:cardElevation="2sp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="8sp"
-            android:layout_marginVertical="12sp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/backNameLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/backIdentification"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Bank Identification:"
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/backName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/hankengrotesk_bold"
-                    android:text="HDFC Bank"
-                    android:textColor="#272727"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/currentBalanceLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/yourBalanceTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="You Current Balance: "
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/balance"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/hankengrotesk_bold"
-                    android:text="₹1000"
-                    android:textColor="#1A811E"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/AadhaarLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/aadhaarNumberTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="You Aadhaar Number: "
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/aadhaarNumber"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/hankengrotesk_bold"
-                    android:text="6985214563252"
-                    android:textColor="#272727"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ackNoLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/ackNoTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ack No.: "
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/ackNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="30254984525"
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/referenceLyt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/referenceTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Client Reference Number: "
-                    android:textColor="#252525"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/reference"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/hankengrotesk_bold"
-                    android:text="15823692568952896"
-                    android:textColor="#272727"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/statementLyt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/paymentDetails"
-        android:layout_marginTop="5sp"
-        android:layout_marginHorizontal="12sp"
-        app:cardCornerRadius="10sp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="5dp">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/iconLyt">
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RelativeLayout
-                android:id="@+id/topLyt"
+            <TextView
+                android:id="@+id/paySuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_centerHorizontal="true"
+                android:text="Payment Successful!"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/thankYou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/paySuccess"
+                android:layout_marginTop="5sp"
+                android:layout_centerHorizontal="true"
+                android:text="Thank you for using AEPS."
+                android:textSize="16sp"
+                android:textColor="#F6F2F2"
+                android:textStyle="bold"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/paymentDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginHorizontal="5sp"
-                android:orientation="horizontal">
+                android:layout_below="@id/thankYou"
+                android:layout_marginHorizontal="12sp"
+                android:layout_marginTop="15sp"
+                android:layout_marginBottom="5sp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5sp"
+                app:cardElevation="2sp">
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="8sp"
+                    android:layout_marginVertical="12sp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/backNameLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/backIdentification"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bank Identification:"
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/backName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hankengrotesk_bold"
+                            android:text="HDFC Bank"
+                            android:textColor="#272727"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/currentBalanceLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/yourBalanceTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="You Current Balance: "
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/balance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hankengrotesk_bold"
+                            android:text="₹1000"
+                            android:textColor="#1A811E"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/AadhaarLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/aadhaarNumberTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="You Aadhaar Number: "
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/aadhaarNumber"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hankengrotesk_bold"
+                            android:text="6985214563252"
+                            android:textColor="#272727"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ackNoLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/ackNoTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ack No.: "
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/ackNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="30254984525"
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/referenceLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/referenceTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Client Reference Number: "
+                            android:textColor="#252525"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/reference"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/hankengrotesk_bold"
+                            android:text="15823692568952896"
+                            android:textColor="#272727"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/statementLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/paymentDetails"
+                android:layout_marginTop="5sp"
+                android:layout_marginHorizontal="12sp"
+                app:cardCornerRadius="10sp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="5dp">
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/topLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Date / Narration"
-                        android:textColor="@color/vigyos"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/montserrat_bold"/>
-                </LinearLayout>
-                <LinearLayout
+                        android:layout_marginTop="5sp"
+                        android:layout_marginHorizontal="5sp"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date / Narration"
+                                android:textColor="@color/vigyos"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_bold"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginHorizontal="5sp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Amount"
+                                android:textColor="@color/vigyos"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/montserrat_bold"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <View
+                        android:id="@+id/viewLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="2sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginHorizontal="5sp"
+                        android:layout_below="@+id/topLyt"
+                        android:background="@color/vigyos"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewMiniStatement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_below="@+id/viewLine"
+                        tools:listitem="@layout/layout_ministatement_list"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <RelativeLayout
+                android:id="@+id/Continue"
+                android:layout_width="match_parent"
+                android:layout_height="45sp"
+                android:layout_marginTop="15sp"
+                android:layout_marginBottom="15sp"
+                android:layout_marginHorizontal="12sp"
+                android:layout_below="@+id/statementLyt"
+                android:background="@drawable/done_button_bg">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginHorizontal="5sp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Amount"
-                        android:textColor="@color/vigyos"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/montserrat_bold"/>
-                </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:text="Done"
+                    android:textColor="@color/vigyos"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
-            <View
-                android:id="@+id/viewLine"
-                android:layout_width="match_parent"
-                android:layout_height="2sp"
-                android:layout_marginTop="5sp"
-                android:layout_marginHorizontal="5sp"
-                android:layout_below="@+id/topLyt"
-                android:background="@color/vigyos"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewMiniStatement"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_below="@+id/viewLine"
-                tools:listitem="@layout/layout_ministatement_list"/>
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <RelativeLayout
-        android:id="@+id/Continue"
-        android:layout_width="match_parent"
-        android:layout_height="45sp"
-        android:layout_marginTop="20sp"
-        android:layout_below="@+id/statementLyt"
-        android:layout_marginHorizontal="12sp"
-        android:background="@drawable/done_button_bg">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Done"
-            android:textColor="@color/vigyos"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

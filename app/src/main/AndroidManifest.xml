@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-feature android:name="android.hardware.usb.host" />
 
     <application
@@ -22,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".Activity.MiniStatementDoneActivity"
             android:exported="false" />

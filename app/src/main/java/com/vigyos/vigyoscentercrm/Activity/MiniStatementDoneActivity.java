@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vigyos.vigyoscentercrm.Model.MiniStatementModel;
@@ -56,6 +58,15 @@ public class MiniStatementDoneActivity extends AppCompatActivity {
         ackNo.setText(ackno);
         reference.setText(bankrrn);
         callMiniStatementAdapter();
+
+        RelativeLayout done = findViewById(R.id.Continue);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(MiniStatementDoneActivity.this, R.anim.viewpush));
+                finish();
+            }
+        });
     }
 
     private void callMiniStatementAdapter(){

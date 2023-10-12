@@ -283,6 +283,7 @@
                 android:id="@+id/button_done"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="20sp"
                 android:background="@drawable/button_submit"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="20dp"

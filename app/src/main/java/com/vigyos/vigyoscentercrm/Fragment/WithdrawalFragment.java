@@ -106,7 +106,7 @@ public class WithdrawalFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       view = inflater.inflate(R.layout.fragment_withdrawl, container, false);
+       view = inflater.inflate(R.layout.fragment_withdrawal, container, false);
        initialization();
        declaration();
        bankList();
@@ -168,6 +168,10 @@ public class WithdrawalFragment extends Fragment{
                         return;
                     }
                 }
+                aadhaar_num.clearFocus();
+                amount.clearFocus();
+                mobile_number.clearFocus();
+                remark.clearFocus();
 
                 scanFingerPrint();
             }
@@ -212,6 +216,10 @@ public class WithdrawalFragment extends Fragment{
                         return;
                     }
                 }
+                aadhaar_num.clearFocus();
+                amount.clearFocus();
+                mobile_number.clearFocus();
+                remark.clearFocus();
 
                 if (fingerCapture){
                     if (fingerData != null){
@@ -382,7 +390,7 @@ public class WithdrawalFragment extends Fragment{
     private void withdrawal(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String amount, String mobile){
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().withdrawal( SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
-                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "CW", amount);
+                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank2", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "CW", amount);
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -464,7 +472,7 @@ public class WithdrawalFragment extends Fragment{
             }
             Opts opts = new Opts();
             opts.fCount = "1";
-            opts.fType = "0";
+            opts.fType = "2";
             opts.iCount = "0";
             opts.iType = "0";
             opts.pCount = "0";
@@ -520,11 +528,15 @@ public class WithdrawalFragment extends Fragment{
                             String result = data.getStringExtra("PID_DATA");
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
-                                fingerData = result;
-                                fingerCapture = true;
-                                fingerPrintDone.setVisibility(View.VISIBLE);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    fingerData = result;
+                                    fingerCapture = true;
+                                    fingerPrintDone.setVisibility(View.VISIBLE);
+                                    Log.i("78954","pidData " + result);
+                                }
                                 dismissDialog();
-                                Log.i("78954","pidData " + result);
                             }
                         }
                     } catch (Exception e) {
