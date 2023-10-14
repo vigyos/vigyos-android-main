@@ -65,8 +65,11 @@ public class AccountActivity extends AppCompatActivity {
         userAadhaar.setText(SplashActivity.prefManager.getAadhaarNumber());
         userPenCard.setText(SplashActivity.prefManager.getPanCardNumber());
         licenseNumber.setText(SplashActivity.prefManager.getLicenseNumber());
-        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(personIcon);
-
+        if (SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("null") || SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("")) {
+            personIcon.setBackgroundResource(R.drawable.user_icon);
+        } else {
+            Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(personIcon);
+        }
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

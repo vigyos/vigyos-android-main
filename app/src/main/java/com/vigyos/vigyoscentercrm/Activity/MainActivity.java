@@ -184,9 +184,9 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
 //                        Log.i("7412589","jsonObject profile" + jsonObject.getBoolean("success"));
-                        if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                        if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                            if (jsonObject1.has("first_name")){
+                            if (jsonObject1.has("first_name")) {
                                 SplashActivity.prefManager.setFirstName(jsonObject1.getString("first_name"));
                             }
                             if (jsonObject1.has("last_name")) {
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("is_active")) {
                                 SplashActivity.prefManager.setIsActive(jsonObject1.getString("is_active"));
                             }
-                            if (jsonObject1.has("license_no")){
+                            if (jsonObject1.has("license_no")) {
                                 SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
                             }
                             if (jsonObject1.has("profile_picture")){
@@ -234,10 +234,10 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("wallet_id")) {
                                 SplashActivity.prefManager.setWalletId(jsonObject1.getString("wallet_id"));
                             }
-                            if (jsonObject1.has("amount")){
+                            if (jsonObject1.has("amount")) {
                                 SplashActivity.prefManager.setAmount(jsonObject1.getInt("amount"));
                             }
-                            if (jsonObject1.has("merchant_id")){
+                            if (jsonObject1.has("merchant_id")) {
                                 SplashActivity.prefManager.setMerchantId(jsonObject1.getString("merchant_id"));
                             }
                             if (jsonObject1.has("is_verified")){
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("last_verify_timestamp_aeps")) {
                                 SplashActivity.prefManager.setLastVerifyTimeStampAeps(jsonObject1.getLong("last_verify_timestamp_aeps"));
                             }
-                            if (jsonObject1.has("payout_balance")){
+                            if (jsonObject1.has("payout_balance")) {
                                 SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
 
@@ -266,6 +266,11 @@ public class MainActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
+                } else {
+                    SplashActivity.prefManager.setClear();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                 }
             }
             @Override

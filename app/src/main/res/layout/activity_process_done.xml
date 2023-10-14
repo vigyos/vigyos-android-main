@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:layout_centerHorizontal="true"
-                android:text="Payment Successful!"
+                android:text="Message!"
                 android:textSize="30sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -86,7 +86,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="HDFC Bank"
+                            android:text="Bank Name"
                             android:textColor="#272727"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -161,7 +161,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="6985214563252"
+                            android:text="0000000000000"
                             android:textColor="#272727"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -185,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:text="30254984525"
+                            android:text="11111111111"
                             android:textColor="#252525"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -210,7 +210,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="15823692568952896"
+                            android:text="22222222222222222"
                             android:textColor="#272727"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -234,7 +234,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:text="Request Completed"
+                            android:text="Message"
                             android:textColor="#252525"
                             android:textSize="16sp" />
                     </LinearLayout>

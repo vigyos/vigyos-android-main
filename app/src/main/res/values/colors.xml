@@ -15,5 +15,8 @@
     <color name="icon_card">#FCEAF5FA</color>
     <color name="cr">#4CAF50</color>
     <color name="dr">#F44336</color>
+    <color name="ucrop_color_toolbar">@color/white</color>
+    <color name="ucrop_color_statusbar">@color/vigyos</color>
+    <color name="ucrop_color_widget_active">@color/black</color>
 
 </resources>

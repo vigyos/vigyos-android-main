@@ -19,12 +19,14 @@ import com.vigyos.vigyoscentercrm.R;
 
 public class ProcessDoneActivity extends AppCompatActivity {
 
+    public String messageStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process_done);
         Intent intent = getIntent();
-        String messageStatus = intent.getStringExtra("messageStatus");
+        messageStatus = intent.getStringExtra("messageStatus");
         String message = intent.getStringExtra("message");
         String bankName = intent.getStringExtra("bankName");
         String ackno = intent.getStringExtra("ackno");
@@ -47,11 +49,12 @@ public class ProcessDoneActivity extends AppCompatActivity {
 
         if (messageStatus.equalsIgnoreCase("Enquiry Successful!")){
             transactionLyt.setVisibility(View.GONE);
+        } else {
+            amountT.setText(amount);
         }
 
         paySuccess.setText(messageStatus);
         bankName1.setText(bankName);
-//        amountT.setText(amount);
         balance.setText(balanceamount);
         aadhaarNumber1.setText(aadhaarNumber);
         ackNo.setText(ackno);

@@ -1,11 +1,15 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -180,5 +184,56 @@ public interface Api {
     @GET("aeps/payout/bank_list")
     Call<Object> payoutBankList(
             @Header("Authorization") String Authorization
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/transaction")
+    Call<Object> createPayOutAPI(
+            @Header("Authorization") String Authorization,
+            @Field("bene_id") String bene_id,
+            @Field("amount") String amount,
+            @Field("mode") String mode,
+            @Field("submerchantid") String submerchantid,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("timestamp") String timestamp,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobile") String mobile,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("ipaddress") String ipaddress
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/add_account")
+    Call<Object> addBankAccountForPayOut(
+            @Header("Authorization") String Authorization,
+            @Field("bankid") int bankid,
+            @Field("merchant_code") String merchant_code,
+            @Field("account") String account,
+            @Field("ifsc") String ifsc,
+            @Field("name") String name,
+            @Field("account_type") String account_type
+    );
+
+    @Multipart
+    @POST("aeps/payout/doc_upload")
+    Call<Object> addPayOutAccPanDocUpload(
+            @Header("Authorization") String Authorization,
+            @Part("doctype") String doctype,
+            @Part MultipartBody.Part passbookImage,
+            @Part("passbook") String passbook,
+            @Part MultipartBody.Part panCardImage,
+            @Part("panimage") String panimage,
+            @Part("bene_id") String bene_id
+    );
+
+    @Multipart
+    @POST("aeps/payout/doc_upload")
+    Call<Object> addPayOutAccAadhaarDocUpload(
+            @Header("Authorization") String Authorization,
+            @Part("doctype") String doctype,
+            @Part MultipartBody.Part passbookImage,
+            @Part("passbook") RequestBody passbook
+
     );
 }

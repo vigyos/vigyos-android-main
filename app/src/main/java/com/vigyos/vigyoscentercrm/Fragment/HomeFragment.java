@@ -178,7 +178,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         serializer = new Persister();
         positions = new ArrayList<>();
 
-        Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
+        Log.i("121220","Profile" + SplashActivity.prefManager.getProfilePicture());
+
+        if (SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("null") || SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("")) {
+            userAccount.setBackgroundResource(R.drawable.user_icon);
+            Log.i("121220" ,"if ");
+        } else {
+            Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userAccount);
+            Log.i("121220" ,"else ");
+        }
         userName.setText(SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName());
         if (SplashActivity.prefManager.getAmount() == 0){
             amount.setText("0.00");
