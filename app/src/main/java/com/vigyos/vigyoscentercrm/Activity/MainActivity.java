@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.code() == 200){
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-//                        Log.i("7412589","jsonObject profile" + jsonObject.getBoolean("success"));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                             if (jsonObject1.has("first_name")) {
@@ -253,24 +252,22 @@ public class MainActivity extends AppCompatActivity {
                                 SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
 
-                            Log.i("7412589","if profile");
                             meowBottomNavigation.show(3,true);
                             AppController.backCheck = true;
                         } else {
-                            Log.i("7412589","else profile");
+                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                             SplashActivity.prefManager.setClear();
                             startActivity(new Intent(MainActivity.this, LoginActivity.class));
                             finish();
-                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
+                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     SplashActivity.prefManager.setClear();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
-                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                 }
             }
             @Override

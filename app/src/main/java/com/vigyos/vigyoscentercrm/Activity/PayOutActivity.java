@@ -25,6 +25,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -119,7 +120,9 @@ public class PayOutActivity extends AppCompatActivity {
         addBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
                 startActivity(new Intent(PayOutActivity.this, AddBankAccountActivity.class));
+//                finish();
             }
         });
         payoutList();
@@ -127,6 +130,7 @@ public class PayOutActivity extends AppCompatActivity {
         createPayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
                 if (payoutBankName.getSelectedItem().toString().trim().equals("Select your bank")) {
                     Toast.makeText(PayOutActivity.this,"Select your bank",Toast.LENGTH_SHORT).show();
                     return;
@@ -144,7 +148,11 @@ public class PayOutActivity extends AppCompatActivity {
                 }
                 payoutAmount.clearFocus();
 
-                areYouSure();
+                if (checkPermission()) {
+                    areYouSure();
+                } else {
+                    requestPermissions();
+                }
             }
         });
     }
@@ -192,6 +200,7 @@ public class PayOutActivity extends AppCompatActivity {
                         if (jsonObject.has("message")){
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
+                        finish();
                     } else {
                         if (jsonObject.has("message")){
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -252,10 +261,10 @@ public class PayOutActivity extends AppCompatActivity {
                             bankNameModels.add(bankNameModel);
                         }
                     } else {
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
-                        finish();
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        bankNameArray.add(0,"Select your bank");
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(PayOutActivity.this, android.R.layout.simple_spinner_item, bankNameArray); //selected item will look like a spinner set from XML
@@ -346,14 +355,13 @@ public class PayOutActivity extends AppCompatActivity {
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void requestPermissions() {
+    public void requestPermissions() {
         Dexter.withContext(PayOutActivity.this)
                 .withPermission(ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         getLocation();
-                        Log.i("874521", "Permission  granted..");
                     }
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
@@ -361,6 +369,10 @@ public class PayOutActivity extends AppCompatActivity {
                         if (permissionDeniedResponse.isPermanentlyDenied()) {
                             // navigate user to app settings
                             showSettingsDialog();
+                        } else {
+                            // Permission was temporarily denied
+                            // Show a rationale to the user and request the permission again
+                            showPermissionRationale();
                         }
                     }
                     @Override
@@ -370,21 +382,64 @@ public class PayOutActivity extends AppCompatActivity {
                 }).check();
     }
 
+    private void showPermissionRationale() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission Required")
+                .setMessage("This app requires access to your location to proceed. Please grant permission.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User agreed to grant permission, continue the permission request
+                        Dexter.withContext(PayOutActivity.this)
+                                .withPermission(ACCESS_FINE_LOCATION)
+                                .withListener(new PermissionListener() {
+                                    @Override
+                                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                                        getLocation();
+                                    }
+                                    @Override
+                                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                                        // check for permanent decline of permission
+                                        if (permissionDeniedResponse.isPermanentlyDenied()) {
+                                            // navigate user to app settings
+                                            showSettingsDialog();
+                                        }
+                                    }
+                                    @Override
+                                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                        permissionToken.continuePermissionRequest();
+                                    }
+                                }).check();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User canceled the permission request, handle this case as needed
+                    }
+                })
+                .show();
+    }
+
     private void showSettingsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PayOutActivity.this);
-        builder.setTitle("Need Permissions");
-        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
-        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
-            dialog.cancel();
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            Uri uri = Uri.fromParts("package", getPackageName(), null);
-            intent.setData(uri);
-            startActivityForResult(intent, 101);
-        });
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
-            dialog.cancel();
-        });
-        builder.show();
+        new AlertDialog.Builder(this)
+                .setTitle("Need Permissions")
+                .setMessage("This app needs location permission to use this feature. You can grant them in app settings.")
+                .setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
     }
 
     private void getLocation() {

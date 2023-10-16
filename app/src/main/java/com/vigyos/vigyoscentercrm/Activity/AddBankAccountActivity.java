@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -205,6 +206,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(AddBankAccountActivity.this, R.anim.viewpush));
                 if (bankNameSpinner.getSelectedItem().toString().trim().equals("Select your bank")) {
                     Toast.makeText(AddBankAccountActivity.this,"Select your bank",Toast.LENGTH_SHORT).show();
                     return;
@@ -250,11 +252,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         return;
                     }
                 }
-
-//                Toast.makeText(AddBankAccountActivity.this, "Done!", Toast.LENGTH_SHORT).show();
-
                 addBankAccount();
-//                uploadPanDocumentApi();
             }
         });
     }
@@ -307,35 +305,37 @@ public class AddBankAccountActivity extends AppCompatActivity {
     private void uploadPanDocumentApi(String beneID) {
 //        pleaseWait();
         try {
-            //Passbook Image code Start
+            // Passbook Image code Start
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), passbookImageUri);
-            File imageFile = convertBitmapToFile(bitmap);
-            String passBookFileName = getOriginalFileName(passbookImageUri);
+            File imageFile = convertBitmapToFile(bitmap); // You need to implement this method
+            String passBookFileName = getOriginalFileName(passbookImageUri); // You need to implement this method
 
-            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
-            MultipartBody.Part passBookImage = MultipartBody.Part.createFormData("image", imageFile.getName(), requestBody);
-            //Passbook Image Code End
+            RequestBody passBookBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
+            MultipartBody.Part passBookImage = MultipartBody.Part.createFormData("passbook", imageFile.getName(), passBookBody);
+            // Passbook Image Code End
 
-            //PanCard Image Code Start
+            // PanCard Image Code Start
             Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), panCardImageUri);
-            File imageFile1 = convertBitmapToFile(bitmap1);
-            String panCardFileName = getOriginalFileName(panCardImageUri);
+            File imageFile1 = convertBitmapToFile(bitmap1); // You need to implement this method
+            String panCardFileName = getOriginalFileName(panCardImageUri); // You need to implement this method
 
-            RequestBody requestBody1 = RequestBody.create(MediaType.parse("image/*"), imageFile1);
-            MultipartBody.Part panCardImage = MultipartBody.Part.createFormData("image", imageFile1.getName(), requestBody1);
-            //PanCard Image Code End
+            RequestBody panCardBody = RequestBody.create(MediaType.parse("image/*"), imageFile1);
+            MultipartBody.Part panCardImage = MultipartBody.Part.createFormData("panimage", imageFile1.getName(), panCardBody);
+            // PanCard Image Code End
 
-            Call<Object> objectCall = RetrofitClient.getApi().addPayOutAccPanDocUpload(SplashActivity.prefManager.getToken(), documentTypeName, passBookImage, passBookFileName, panCardImage, panCardFileName, beneID);
+            Call<Object> objectCall = RetrofitClient.getApi().addPayOutAccPanDocUpload(SplashActivity.prefManager.getToken(), documentTypeName, passBookImage, passBookFileName,
+                    panCardImage, panCardFileName, beneID);
             objectCall.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                    Log.i("2019","onResponse: " + response);
                     dismissDialog();
-                    Log.i("2019","onResponse" + response);
-
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            Toast.makeText(AddBankAccountActivity.this, "Done !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -344,8 +344,9 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                    Log.i("2019", "onFailure: " + t);
                     dismissDialog();
-                    Log.i("2019","onFailure" + t);
+                    Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (IOException e) {
@@ -354,9 +355,64 @@ public class AddBankAccountActivity extends AppCompatActivity {
     }
 
     private void uploadAadhaarDocumentApi(String beneID) {
+        try {
+            // Passbook Image code Start
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), passbookImageUri);
+            File imageFile = convertBitmapToFile(bitmap); // You need to implement this method
+            String passBookFileName = getOriginalFileName(passbookImageUri); // You need to implement this method
 
+            RequestBody passBookBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
+            MultipartBody.Part passBookImage = MultipartBody.Part.createFormData("passbook", imageFile.getName(), passBookBody);
+            // Passbook Image Code End
+
+            // Aadhaar Card Front Image Code Start
+            Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), aadhaarImageFrontUri);
+            File imageFile1 = convertBitmapToFile(bitmap1); // You need to implement this method
+            String aadhaarCardFrontFileName = getOriginalFileName(aadhaarImageFrontUri); // You need to implement this method
+
+            RequestBody aadhaarCardFrontBody = RequestBody.create(MediaType.parse("image/*"), imageFile1);
+            MultipartBody.Part aadhaarCardFrontImage = MultipartBody.Part.createFormData("front_image", imageFile1.getName(), aadhaarCardFrontBody);
+            // Aadhaar Card Front Image Code End
+
+            // Aadhaar Card Back Image Code Start
+            Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), aadhaarImageBackUri);
+            File imageFile2 = convertBitmapToFile(bitmap2); // You need to implement this method
+            String aadhaarCardBackFileName = getOriginalFileName(aadhaarImageBackUri); // You need to implement this method
+
+            RequestBody aadhaarCardBackBody = RequestBody.create(MediaType.parse("image/*"), imageFile2);
+            MultipartBody.Part aadhaarCardBackImage = MultipartBody.Part.createFormData("back_image", imageFile2.getName(), aadhaarCardBackBody);
+            // Aadhaar Card Back Image Code End
+
+            Call<Object> objectCall = RetrofitClient.getApi().addPayOutAccAadhaarDocUpload(SplashActivity.prefManager.getToken(), documentTypeName, passBookImage, passBookFileName,
+                    beneID, aadhaarCardFrontImage, aadhaarCardFrontFileName, aadhaarCardBackImage, aadhaarCardBackFileName);
+            objectCall.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                    Log.i("2019","onResponse: " + response);
+                    dismissDialog();
+                    try {
+                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                        if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                    Log.i("2019", "onFailure: " + t);
+                    dismissDialog();
+                    Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
 
     private String getOriginalFileName(Uri uri) {
         String originalFileName = "image.jpg"; // Default filename if not found
@@ -481,10 +537,10 @@ public class AddBankAccountActivity extends AppCompatActivity {
                             bankListModels.add(listModel);
                         }
                     } else {
+                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(AddBankAccountActivity.this, LoginActivity.class));
                         finish();
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
 
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(AddBankAccountActivity.this, android.R.layout.simple_spinner_item, bankNameArrayList); //selected item will look like a spinner set from XML
@@ -608,7 +664,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 //        startActivity(new Intent(AddBankAccountActivity.this, PayOutActivity.class));
-//        finish();
+        finish();
     }
 
 //    private void checkPermissions() {
@@ -633,6 +689,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
                                 // All permissions are granted. Do your work here.
+                                Log.i("2012","Permission Granted!");
                             } else if (report.isAnyPermissionPermanentlyDenied()) {
                                 // Handle the permanent denial of any permission
                                 showSettingsDialog();
@@ -660,6 +717,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
                                 // All permissions are granted. Do your work here.
+                                Log.i("2012","Permission Granted!");
                             } else if (report.isAnyPermissionPermanentlyDenied()) {
                                 // Handle the permanent denial of any permission
                                 showSettingsDialog();
@@ -731,7 +789,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         token.cancelPermissionRequest();
                     }
-                })
-                .show();
+                }).show();
     }
 }

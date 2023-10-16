@@ -13,8 +13,8 @@
         android:background="@color/vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             android:src="@drawable/arrow_back"
             android:layout_centerVertical="true"
             android:layout_marginStart="5sp"
@@ -51,7 +51,7 @@
                 android:text="Overview"
                 android:textSize="18sp"
                 android:textColor="#232222"
-                android:fontFamily="@font/poppins_bold"/>
+                android:fontFamily="@font/montserrat_bold"/>
             <TextView
                 android:id="@+id/serviceDetails"
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:text="Price"
                 android:textSize="18sp"
                 android:textColor="#232222"
-                android:fontFamily="@font/poppins_bold"/>
+                android:fontFamily="@font/montserrat_bold"/>
             <TextView
                 android:id="@+id/price"
                 android:layout_width="match_parent"
@@ -89,13 +89,12 @@
                 android:text="Required Document"
                 android:textSize="18sp"
                 android:textColor="#232222"
-                android:fontFamily="@font/poppins_bold"/>
+                android:fontFamily="@font/montserrat_bold"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30sp"
                 android:layout_marginHorizontal="10sp"
                 android:background="@drawable/round_bg">
-
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"
@@ -105,13 +104,14 @@
         </LinearLayout>
     </ScrollView>
     <RelativeLayout
+        android:id="@+id/applyNow"
         android:layout_width="match_parent"
-        android:layout_height="40sp"
+        android:layout_height="50sp"
         android:layout_marginHorizontal="10dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10sp"
         android:layout_gravity="bottom"
-        android:background="@color/vigyos">
+        android:background="@drawable/button_submit">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,6 +119,7 @@
             android:text="Apply Now"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat_bold"/>
     </RelativeLayout>
 </RelativeLayout>

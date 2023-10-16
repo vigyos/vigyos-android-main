@@ -233,7 +233,11 @@ public interface Api {
             @Header("Authorization") String Authorization,
             @Part("doctype") String doctype,
             @Part MultipartBody.Part passbookImage,
-            @Part("passbook") RequestBody passbook
-
+            @Part("passbook") String passbook,
+            @Part("bene_id") String bene_id,
+            @Part MultipartBody.Part AadhaarFrontImage,
+            @Part("front_image") String frontImage,
+            @Part MultipartBody.Part AadhaarBackImage,
+            @Part("back_image") String backImage
     );
 }

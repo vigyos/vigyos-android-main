@@ -84,7 +84,7 @@ public class SearchServicesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        super.onBackPressed();
         Log.i("12121","onBackPressed");
         startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
     }

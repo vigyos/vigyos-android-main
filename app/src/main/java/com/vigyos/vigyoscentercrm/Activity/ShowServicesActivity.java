@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +56,8 @@ public class ShowServicesActivity extends AppCompatActivity {
     private GridLayoutManager gridLayoutManager;
 //    private RecyclerView recyclerView;
     private Dialog dialog;
+    private RelativeLayout applyNow;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +67,28 @@ public class ShowServicesActivity extends AppCompatActivity {
         intent = getIntent();
         service = intent.getStringExtra("id");
 
+        ivBack = findViewById(R.id.ivBack);
         serviceNameText = findViewById(R.id.serviceName);
         serviceDetailsText = findViewById(R.id.serviceDetails);
         priceText = findViewById(R.id.price);
 //        recyclerView = findViewById(R.id.recyclerView);
         spinner = findViewById(R.id.spinner);
+        applyNow = findViewById(R.id.applyNow);
 
         serviceData();
 
-        findViewById(R.id.ivBack).setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(AnimationUtils.loadAnimation(ShowServicesActivity.this, R.anim.viewpush));
                 onBackPressed();
+            }
+        });
+        applyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(ShowServicesActivity.this, R.anim.viewpush));
+                Toast.makeText(ShowServicesActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
             }
         });
     }

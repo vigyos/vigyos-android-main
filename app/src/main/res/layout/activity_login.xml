@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:layout_marginTop="15sp"
         android:text="LOGIN"
         android:textColor="@color/black"
