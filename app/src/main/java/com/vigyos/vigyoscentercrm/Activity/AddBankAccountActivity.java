@@ -252,9 +252,33 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         return;
                     }
                 }
-                addBankAccount();
+
+                areYouSure();
             }
         });
+    }
+
+    private void areYouSure(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(AddBankAccountActivity.this);
+        builder1.setMessage("Are you sure, You want to Add this Account ?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        addBankAccount();
+                    }
+                });
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     private void addBankAccount() {
@@ -275,9 +299,9 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         if (jsonObject.has("bene_id")) {
                             beneID = jsonObject.getString("bene_id");
                         }
-                        if (jsonObject.has("message")) {
-                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        }
+//                        if (jsonObject.has("message")) {
+//                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+//                        }
                         if (documentTypeName.equalsIgnoreCase("PAN")) {
                             uploadPanDocumentApi(beneID);
                         } else {
@@ -334,8 +358,10 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
                             Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddBankAccountActivity.this, PayOutActivity.class));
+                            finish();
                         } else {
-                            Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -346,7 +372,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                     Log.i("2019", "onFailure: " + t);
                     dismissDialog();
-                    Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (IOException e) {

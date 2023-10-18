@@ -19,6 +19,7 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,12 +82,21 @@ public class SearchServicesActivity extends AppCompatActivity {
         });
     }
 
+//    @NonNull
+//    @Override
+//    public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
+//        Log.i("1212"," backPressed");
+//
+//        return super.getOnBackInvokedDispatcher();
+//    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Log.i("12121","onBackPressed");
-        startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
+        //        startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
+        finish();
+
     }
 
     private void getServicesData(){

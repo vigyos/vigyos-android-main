@@ -54,7 +54,7 @@ public class ShowServicesActivity extends AppCompatActivity {
     private ArrayList<String> documentsName = new ArrayList<>();
     private DocumentItemAdapter documentItemAdapter;
     private GridLayoutManager gridLayoutManager;
-//    private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private Dialog dialog;
     private RelativeLayout applyNow;
     private ImageView ivBack;
@@ -71,7 +71,7 @@ public class ShowServicesActivity extends AppCompatActivity {
         serviceNameText = findViewById(R.id.serviceName);
         serviceDetailsText = findViewById(R.id.serviceDetails);
         priceText = findViewById(R.id.price);
-//        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         spinner = findViewById(R.id.spinner);
         applyNow = findViewById(R.id.applyNow);
 
@@ -88,17 +88,23 @@ public class ShowServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(ShowServicesActivity.this, R.anim.viewpush));
-                Toast.makeText(ShowServicesActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ShowServicesActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(ShowServicesActivity.this, BuyServiceActivity.class);
+                intent1.putExtra("serviceID", service);
+                intent1.putExtra("serviceName", serviceName);
+                startActivity(intent1);
             }
         });
     }
 
     private void serviceDocuments(){
-//        documentItemAdapter = new DocumentItemAdapter(documentItemModels, ShowServicesActivity.this);
-//        gridLayoutManager = new GridLayoutManager(this, 1 , GridLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(gridLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(documentItemAdapter);
+        documentItemAdapter = new DocumentItemAdapter(documentItemModels, ShowServicesActivity.this);
+        gridLayoutManager = new GridLayoutManager(this, 1 , GridLayoutManager.VERTICAL, false);
+        // Disable scrolling for RecyclerView
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(documentItemAdapter);
     }
 
     private void serviceData() {
@@ -117,21 +123,24 @@ public class ShowServicesActivity extends AppCompatActivity {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                             serviceName = jsonObject2.getString("service_name");
                             serviceDetails = jsonObject2.getString("description");
+                            serviceDetails = serviceDetails.replaceAll("<p>", "").replaceAll("</p>", "");
                             price = jsonObject2.getInt("price");
                             JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
                             for(int k = 0; k <jsonArray1.length(); k++){
                                 JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
-//                              DocumentItemModel itemModel = new DocumentItemModel();
-//                              itemModel.setDocument_name(jsonObject1.getString("document_name"));
-//                              documentItemModels.add(itemModel);
+
+                              DocumentItemModel itemModel = new DocumentItemModel();
+                              itemModel.setDocument_name(jsonObject1.getString("document_name"));
+                              documentItemModels.add(itemModel);
+
                                 documentsName.add(jsonObject1.getString("document_name"));
                             }
                         }
                         serviceNameText.setText(serviceName);
                         serviceDetailsText.setText(serviceDetails);
                         priceText.setText("₹"+price);
-//                      serviceDocuments();
-                        spinner();
+                      serviceDocuments();
+//                        spinner();
                     } else {
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(ShowServicesActivity.this, LoginActivity.class));

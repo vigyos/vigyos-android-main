@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileData();
+//        newAPi();
 
         meowBottomNavigation = findViewById(R.id.bottomNav);
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
 //                        AppController.backCheck = false;
-                        finish();
+//                        finish();
                         break;
                     case 3:
                         loadFragment(new HomeFragment(MainActivity.this), true);
@@ -170,6 +171,28 @@ public class MainActivity extends AppCompatActivity {
             ft.replace(R.id.frame_container, fragment);
         }
         ft.commit();
+    }
+
+    private void newAPi(){
+
+        Call<Object> objectCall = RetrofitClient.getApi().create_link(SplashActivity.prefManager.getToken(),"fdeee",
+                "100","Deepak Gupta","+917007291446","deepak.gupta@vigyos.com",
+                "Jeevan Bima","https://example-callback-url.com/", "get", "RECHARGE"
+
+        );
+
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("1212121", "onResponse " + response);
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("1212121", "onFailure " + t);
+            }
+        });
     }
 
     private void profileData(){

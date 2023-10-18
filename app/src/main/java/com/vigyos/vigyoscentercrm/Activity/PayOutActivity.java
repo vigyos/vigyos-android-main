@@ -117,6 +117,7 @@ public class PayOutActivity extends AppCompatActivity {
             float v = (float) i;
             payoutBalance.setText("₹"+ v);
         }
+
         addBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,10 +198,11 @@ public class PayOutActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")){
-                        if (jsonObject.has("message")){
+                        if (jsonObject.has("message")) {
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
-                        finish();
+                        payoutBalanceUpdate();
+
                     } else {
                         if (jsonObject.has("message")){
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -216,6 +218,48 @@ public class PayOutActivity extends AppCompatActivity {
                 dismissDialog();
                 Log.i("2019", "onFailure" + t);
                 Toast.makeText(PayOutActivity.this, "Payout Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void payoutBalanceUpdate() {
+        Call<Object> objectCall = RetrofitClient.getApi().profile(SplashActivity.prefManager.getToken());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("12121", "onResponse " + response);
+                if (response.code() == 200){
+                    try {
+                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                        if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            if (jsonObject1.has("payout_balance")) {
+                                SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
+                            }
+
+                            if (SplashActivity.prefManager.getPayoutBalance() == 0){
+                                payoutBalance.setText("₹"+"0.00");
+                            } else {
+                                int i = SplashActivity.prefManager.getPayoutBalance();
+                                float v = (float) i;
+                                payoutBalance.setText("₹"+ v);
+                            }
+//                            finish();
+                        } else {
+                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("12121", "onFailure " + t);
+                Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
             }
         });
     }
@@ -337,6 +381,7 @@ public class PayOutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Log.i("25214","onBackPressed");
         finish();
     }
 

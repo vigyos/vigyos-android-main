@@ -31,78 +31,100 @@
             android:textColor="@color/white"
             android:textSize="22sp"/>
     </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
-        <LinearLayout
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@+id/toolbar">-->
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="10sp"
-            android:layout_marginBottom="20sp"
-            android:layout_marginTop="20sp">
-            <TextView
-                android:id="@+id/overView"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginBottom="60sp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5sp"
-                android:layout_marginTop="5sp"
-                android:text="Overview"
-                android:textSize="18sp"
-                android:textColor="#232222"
-                android:fontFamily="@font/montserrat_bold"/>
-            <TextView
-                android:id="@+id/serviceDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5sp"
-                android:layout_marginTop="5sp"
-                android:text="@string/details"
-                android:textSize="18sp"
-                android:textColor="#5C5A5A" />
-            <TextView
-                android:id="@+id/priceTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5sp"
-                android:layout_marginTop="20sp"
-                android:text="Price"
-                android:textSize="18sp"
-                android:textColor="#232222"
-                android:fontFamily="@font/montserrat_bold"/>
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginHorizontal="5sp"
-                android:text="₹500.00"
-                android:textSize="18sp"
-                android:textColor="#5C5A5A" />
-            <TextView
-                android:id="@+id/requiredDocument"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5sp"
-                android:layout_marginTop="20sp"
-                android:text="Required Document"
-                android:textSize="18sp"
-                android:textColor="#232222"
-                android:fontFamily="@font/montserrat_bold"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="30sp"
+                android:orientation="vertical"
                 android:layout_marginHorizontal="10sp"
-                android:background="@drawable/round_bg">
-                <Spinner
-                    android:id="@+id/spinner"
+                android:layout_marginBottom="20sp"
+                android:layout_marginTop="20sp">
+                <TextView
+                    android:id="@+id/overView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_marginHorizontal="5sp"
+                    android:layout_marginTop="5sp"
+                    android:text="Overview"
+                    android:textSize="18sp"
+                    android:textColor="#232222"
+                    android:fontFamily="@font/montserrat_bold"/>
+                <TextView
+                    android:id="@+id/serviceDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5sp"
+                    android:layout_marginTop="5sp"
+                    android:text="@string/details"
+                    android:textSize="18sp"
+                    android:textColor="#5C5A5A" />
+                <TextView
+                    android:id="@+id/priceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5sp"
+                    android:layout_marginTop="20sp"
+                    android:text="Price"
+                    android:textSize="18sp"
+                    android:textColor="#232222"
+                    android:fontFamily="@font/montserrat_bold"/>
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginHorizontal="5sp"
+                    android:text="₹500.00"
+                    android:textSize="18sp"
+                    android:textColor="#5C5A5A" />
+                <TextView
+                    android:id="@+id/requiredDocument"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5sp"
+                    android:layout_marginTop="20sp"
+                    android:text="Required Document"
+                    android:textSize="18sp"
+                    android:textColor="#232222"
+                    android:fontFamily="@font/montserrat_bold"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10sp"
+                    android:layout_marginTop="5sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="10sp"
+                    android:background="@drawable/round_bg">
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
+        </androidx.core.widget.NestedScrollView>
+
+<!--    </ScrollView>-->
     <RelativeLayout
         android:id="@+id/applyNow"
         android:layout_width="match_parent"

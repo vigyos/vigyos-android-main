@@ -1,7 +1,6 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -239,5 +238,21 @@ public interface Api {
             @Part("front_image") String frontImage,
             @Part MultipartBody.Part AadhaarBackImage,
             @Part("back_image") String backImage
+    );
+
+
+    @FormUrlEncoded
+    @POST("razorpay/create_payment_link")
+    Call<Object> create_link(
+            @Header("Authorization") String Authorization,
+            @Field("user_id") String user_id,
+            @Field("amount") String amount,
+            @Field("name") String name,
+            @Field("mobile") String mobile,
+            @Field("email") String email,
+            @Field("policy_name") String policy_name,
+            @Field("callback_url") String callback_url,
+            @Field("callback_method") String callback_method,
+            @Field("transaction_type") String transaction_type
     );
 }

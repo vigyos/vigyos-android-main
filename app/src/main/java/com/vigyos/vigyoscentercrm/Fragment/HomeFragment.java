@@ -202,9 +202,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         bannerListModels.add(bannerListModel);
 
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/d57fb922-5b7d-401e-83db-a0d3041fb05a");
-//        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/f273d695-6fac-44f6-8557-502c5485d38b");
-//        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/9d27b9cd-acdb-4188-a8ea-845e296cf977");
+        //Welcome Vigyos Banner
+//        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/d57fb922-5b7d-401e-83db-a0d3041fb05a");
+        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/0f90ae5e-d3b8-4599-a630-e2570f47fed5");
+        arrayList.add("https://vigyos-upload-files.s3.amazonaws.com/85490ded-cf05-471a-874c-81b444c75d68");
 
         Log.i("98745","list size: -  "+ bannerListModels.size());
         BannerListAdapter bannerListAdapter = new BannerListAdapter(arrayList);
@@ -284,8 +285,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.panService:
-//                startActivity(new Intent(activity, PanCardActivity.class));
-                Toast.makeText(activity, "Coming Soon...", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(activity, PanCardActivity.class));
+//                Toast.makeText(activity, "Coming Soon...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.aeps:
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
