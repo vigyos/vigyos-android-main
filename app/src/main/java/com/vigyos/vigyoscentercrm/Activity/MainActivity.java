@@ -31,14 +31,6 @@ import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import retrofit2.Call;
@@ -57,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileData();
-//        newAPi();
 
         meowBottomNavigation = findViewById(R.id.bottomNav);
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
@@ -171,28 +162,6 @@ public class MainActivity extends AppCompatActivity {
             ft.replace(R.id.frame_container, fragment);
         }
         ft.commit();
-    }
-
-    private void newAPi(){
-
-        Call<Object> objectCall = RetrofitClient.getApi().create_link(SplashActivity.prefManager.getToken(),"fdeee",
-                "100","Deepak Gupta","+917007291446","deepak.gupta@vigyos.com",
-                "Jeevan Bima","https://example-callback-url.com/", "get", "RECHARGE"
-
-        );
-
-        objectCall.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                Log.i("1212121", "onResponse " + response);
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                Log.i("1212121", "onFailure " + t);
-            }
-        });
     }
 
     private void profileData(){
