@@ -9,14 +9,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a1fc11d-ee73-42e4-bd73-c1ab6fbec99f" name="Changes" comment="working on buy service">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+    <list default="true" id="9a1fc11d-ee73-42e4-bd73-c1ab6fbec99f" name="Changes" comment="working on buy service 1">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BuyServiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BuyServiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardCreateFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardCreateFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardUpdateFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardUpdateFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/BuyServiceDocumentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/BuyServiceDocumentModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image_not_available.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image_not_available.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buy_service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buy_service.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_upload_documents_buy_service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_upload_documents_buy_service.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +75,8 @@
       <list>
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -109,7 +112,7 @@
     "android-custom-viewC:/Users/ABC/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED": "RecyclerView",
     "cidr.known.project.marker": "true",
     "last_directory_selection": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
-    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/Backup",
+    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2"
@@ -339,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697634561152</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="working on buy service 1">
+      <created>1697723211571</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1697723211571</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -357,6 +367,7 @@
     <MESSAGE value="Storage Permission Done" />
     <MESSAGE value="payout account Done" />
     <MESSAGE value="working on buy service" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on buy service" />
+    <MESSAGE value="working on buy service 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on buy service 1" />
   </component>
 </project>

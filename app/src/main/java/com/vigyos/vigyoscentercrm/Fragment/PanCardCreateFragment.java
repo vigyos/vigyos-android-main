@@ -168,9 +168,10 @@ public class PanCardCreateFragment extends Fragment {
     private void areYouSure() {
         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
         alert.setTitle("Create Pan Card?");
-        alert.setMessage("Are you sure you want to Create Card?");
+        alert.setMessage("Are you sure, You want to Create Card?");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
                 createPanCard();
             }
         });

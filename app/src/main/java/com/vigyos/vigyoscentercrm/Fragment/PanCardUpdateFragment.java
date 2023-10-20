@@ -172,9 +172,10 @@ public class PanCardUpdateFragment extends Fragment{
     private void areYouSure(){
         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
         alert.setTitle("Update Pan Card?");
-        alert.setMessage("Are you sure you want to Update Card?");
+        alert.setMessage("Are you sure, You want to Update Card?");
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
                 updateCard();
             }
         });

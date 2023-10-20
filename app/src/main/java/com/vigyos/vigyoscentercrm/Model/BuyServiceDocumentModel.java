@@ -6,8 +6,21 @@ public class BuyServiceDocumentModel {
     private String document_name;
     private String document_type;
     private String document_label;
-
+    private String document_value;
     private String imageUri;
+    private boolean isImageUploaded;
+
+    public BuyServiceDocumentModel() { }
+
+
+    // Getter and setter for the isImageUploaded flag
+    public boolean isImageUploaded() {
+        return isImageUploaded;
+    }
+
+    public void setImageUploaded(boolean imageUploaded) {
+        isImageUploaded = imageUploaded;
+    }
 
     public String getImageUri() {
         return imageUri;
@@ -16,8 +29,6 @@ public class BuyServiceDocumentModel {
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
-
-    public BuyServiceDocumentModel() { }
 
     public String getKey() {
         return key;
@@ -49,5 +60,13 @@ public class BuyServiceDocumentModel {
 
     public void setDocument_label(String document_label) {
         this.document_label = document_label;
+    }
+
+    public String getDocument_value() {
+        return document_value;
+    }
+
+    public void setDocument_value(String document_value) {
+        this.document_value = document_value;
     }
 }

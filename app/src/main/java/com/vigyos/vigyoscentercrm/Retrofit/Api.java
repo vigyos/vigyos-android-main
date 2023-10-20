@@ -1,5 +1,7 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
+import com.vigyos.vigyoscentercrm.Model.RequestData;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -247,5 +249,27 @@ public interface Api {
             @Header("Authorization") String Authorization,
             @Part MultipartBody.Part imageName,
             @Part("file") String image
+    );
+
+//    @FormUrlEncoded
+//    @POST("service_req")
+//    Call<Object> buyServiceAPI(
+//            @Header("Authorization") String Authorization,
+//            @Field("user_id") String user_id,
+//            @Field("service_id") String service_id,
+//            @Field("remarks") String remarks,
+//            @Field("status") String status,
+//            @Field("service_group_id") String service_group_id,
+//            @Field("costumer_name") String costumer_name,
+//            @Field("customer_phone") String customer_phone,
+//            @Field("customer_adds") String customer_adds,
+//            @Field("customer_email") String customer_email,
+//    );
+
+
+    @POST("service_req")
+    Call<Object> buyServiceAPI(
+            @Header("Authorization") String Authorization,
+            @Body RequestData data
     );
 }
