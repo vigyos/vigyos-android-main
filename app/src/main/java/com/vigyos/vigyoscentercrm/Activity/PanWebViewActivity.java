@@ -88,26 +88,35 @@ public class PanWebViewActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             // Handle URL loading events here, if needed
             // Return true to indicate that the URL loading event has been handled.
-
-
             return false;
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
+//            String pageUrl = view.getUrl(); // This contains the URL of the loaded page
+//            Log.i("852146", "encdata : - "+ pageUrl );
+
             String pageUrl = view.getUrl(); // This contains the URL of the loaded page
 
-            // Parse the URL to extract the encdata value
-            Uri uri = Uri.parse(pageUrl);
-            String encDataValue = uri.getQueryParameter("encdata");
+            Log.i("852146", "pageUrl: " + pageUrl);
 
-            if (encDataValue != null) {
-                String encData = encDataValue;
-                // encData now contains the extracted encdata value
-                Log.d("WebViewResponse", "encdata: " + encData);
+            // Check if the URL starts with a valid scheme
+            if (Uri.parse(pageUrl).isHierarchical()) {
+                // Parse the URL to extract the encdata value
+                Uri uri = Uri.parse(pageUrl);
+                String encDataValue = uri.getQueryParameter("encdata");
 
-                Log.i("852146", "encdata : - "+ encData );
+                if (encDataValue != null) {
+                    String encData = encDataValue;
+                    // encData now contains the extracted encdata value
+                    Log.d("WebViewResponse", "encdata: " + encData);
+
+                    Log.i("852146", "encdata: " + encData);
+                }
+            } else {
+                // Handle non-hierarchical URLs if necessary
             }
+
         }
     }
 

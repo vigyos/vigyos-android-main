@@ -1,6 +1,7 @@
 package com.vigyos.vigyoscentercrm.Model;
 
 import java.util.List;
+import java.util.Map;
 
 public class RequestData {
 
@@ -13,7 +14,7 @@ public class RequestData {
     private String customer_phone;
     private String customer_adds;
     private String customer_email;
-    private List<BuyServiceDocumentModel> required_data;
+    private List<Map<String, Object>> required_data;
 
     public RequestData() { }
 
@@ -89,11 +90,11 @@ public class RequestData {
         this.customer_email = customer_email;
     }
 
-    public List<BuyServiceDocumentModel> getRequired_data() {
+    public List<Map<String, Object>> getRequired_data() {
         return required_data;
     }
 
-    public void setRequired_data(List<BuyServiceDocumentModel> required_data) {
+    public void setRequired_data(List<Map<String, Object>> required_data) {
         this.required_data = required_data;
     }
 }

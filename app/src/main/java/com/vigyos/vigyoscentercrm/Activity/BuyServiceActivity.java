@@ -3,23 +3,29 @@ package com.vigyos.vigyoscentercrm.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,8 +38,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.vigyos.vigyoscentercrm.Model.BuyServiceDocumentModel;
 import com.vigyos.vigyoscentercrm.Model.RequestData;
@@ -50,7 +62,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,7 +86,6 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     private RecyclerView recyclerView;
     private RelativeLayout buyService;
     private BuyServiceAdapter buyServiceAdapter;
-    private static final int GALLERY_REQUEST_CODE = 123;
     private int selectedPosition;
     private ArrayList<String> imageUris;
     private ArrayList<String> imageUrisForShow;
@@ -130,11 +143,14 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     }
                 }
 
-//                Toast.makeText(BuyServiceActivity.this, "Buy Service!", Toast.LENGTH_SHORT).show();
-//                Log.i("5221145","imageUris " + imageUris.toString());
-//                Log.i("5221145","imageUrisForShow " + imageUrisForShow.toString());
+                Toast.makeText(BuyServiceActivity.this, "Buy Service!", Toast.LENGTH_SHORT).show();
+                Log.i("5221145","imageUris " + imageUris.toString());
 
-                areYouSure();
+                Log.i("5221145","imageUrisForShow " + imageUrisForShow.toString());
+
+                Log.i("5221145","buyServiceDocumentModels " + buyServiceDocumentModels.toString());
+
+//                areYouSure();
             }
         });
     }
@@ -160,19 +176,16 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     private void buyServiceAPI() {
         pleaseWait();
 
-        List<BuyServiceDocumentModel> buyServiceDocumentModels1 = new ArrayList<>();
+        List<Map<String, Object>> buyServiceDocumentModels1 = new ArrayList<>();
+        for (int i = 0; i < imageUris.size(); i++) {
+            Map<String, Object> documentModel = new HashMap<>();
+            documentModel.put("document_name", buyServiceDocumentModels.get(i).getDocument_name());
+            documentModel.put("document_label", buyServiceDocumentModels.get(i).getDocument_label());
+            documentModel.put("document_type", buyServiceDocumentModels.get(i).getDocument_type());
+            documentModel.put("document_value", imageUris.get(i));
+            buyServiceDocumentModels1.add(documentModel);
+        }
 
-        BuyServiceDocumentModel documentModel = new BuyServiceDocumentModel();
-
-        buyServiceDocumentModels1.add(documentModel);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(documentModel);
-//        Object[] userArray = gson.fromJson(json, Object[].class);
-
-
-
-        Log.i("7471747"," data =  001" + json);
         RequestData data = new RequestData();
         data.setUser_id(SplashActivity.prefManager.getUserID());
         data.setService_id(serviceID);
@@ -190,13 +203,23 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 Log.i("2016", "onResponse" + response);
-
+                dismissDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        Toast.makeText(BuyServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(BuyServiceActivity.this, MainActivity.class));
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("2016", "onFailure" + t);
-
+                dismissDialog();
             }
         });
     }
@@ -291,28 +314,42 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
         selectedPosition = position;
 
         Log.d("BuyServiceActivity", "Item clicked at position: " + position);
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        if (ContextCompat.checkSelfPermission(BuyServiceActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(BuyServiceActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(BuyServiceActivity.this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+            ImagePicker.with(BuyServiceActivity.this)
+                    .crop()
+                    .compress(1024)
+                    .maxResultSize(1080, 1080)
+                    .start();
+        } else {
+            requestPermissions();
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData();
-            Log.d("BuyServiceActivity", "Image selected: " + selectedImageUri.toString());
-            // Set the selected image to the corresponding item in the RecyclerView
-            BuyServiceDocumentModel documentModel = buyServiceDocumentModels.get(selectedPosition);
-            documentModel.setImageUri(selectedImageUri.toString());
-            Log.d("BuyServiceActivity", "Image URI set at position: " + selectedPosition);
+        if (resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri selectedImageUri = data.getData();
+                Log.d("BuyServiceActivity", "Image selected: " + selectedImageUri.toString());
 
-            // Show the uploadImageLyt when image is selected
-            buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.VISIBLE);
-            buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.GONE);
+                // Set the selected image to the corresponding item in the RecyclerView
+                BuyServiceDocumentModel documentModel = buyServiceDocumentModels.get(selectedPosition);
+                documentModel.setImageUri(selectedImageUri.toString());
+                Log.d("BuyServiceActivity", "Image URI set at position: " + selectedPosition);
 
-            uploadImageToServer(selectedImageUri);
+                // Show the uploadImageLyt when image is selected
+                buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.VISIBLE);
+                buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.GONE);
 
-//            buyServiceAdapter.notifyDataSetChanged();
+                uploadImageToServer(selectedImageUri);
+            }
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -434,12 +471,8 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             // Set the image from the imageUris array list
             if (position < imageUris.size() && imageUris.get(position) != null) {
                 Uri uri = Uri.parse(imageUris.get(position));
-//                holder.documentImage.setImageURI(uri);
-
                 Log.i("8528528","label 1 " + documentModel.getDocument_value());
-
                 documentModel.setDocument_value(uri.toString());
-
                 Log.i("8528528","label " + documentModel.getDocument_value());
                 Log.d("BuyServiceAdapter", "Image set at position: " + position);
             }
@@ -502,5 +535,120 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     protected void onDestroy() {
         dismissDialog();
         super.onDestroy();
+    }
+
+    private void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Dexter.withActivity(this)
+                    .withPermissions(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_MEDIA_IMAGES
+                    )
+                    .withListener(new MultiplePermissionsListener() {
+                        @Override
+                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+                            if (report.areAllPermissionsGranted()) {
+                                // All permissions are granted. Do your work here.
+                                Log.i("2012","Permission Granted!");
+                            } else if (report.isAnyPermissionPermanentlyDenied()) {
+                                // Handle the permanent denial of any permission
+                                showSettingsDialog();
+                            } else {
+                                // Handle the temporary denial of any permission
+                                showPermissionDeniedDialog();
+                            }
+                        }
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                            // Handle permission rationale. Show a dialog explaining why the permission is needed
+                            showPermissionRationaleDialog(token);
+                        }
+                    })
+                    .check();
+        } else {
+            Dexter.withActivity(this)
+                    .withPermissions(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    .withListener(new MultiplePermissionsListener() {
+                        @Override
+                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+                            if (report.areAllPermissionsGranted()) {
+                                // All permissions are granted. Do your work here.
+                                Log.i("2012","Permission Granted!");
+                            } else if (report.isAnyPermissionPermanentlyDenied()) {
+                                // Handle the permanent denial of any permission
+                                showSettingsDialog();
+                            } else {
+                                // Handle the temporary denial of any permission
+                                showPermissionDeniedDialog();
+                            }
+                        }
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                            // Handle permission rationale. Show a dialog explaining why the permission is needed
+                            showPermissionRationaleDialog(token);
+                        }
+                    })
+                    .check();
+        }
+    }
+
+    private void showSettingsDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Need Permissions")
+                .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
+                .setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, 101);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
+    private void showPermissionDeniedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission Denied")
+                .setMessage("Permission was denied, but is needed for core functionality.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        requestPermissions(); // Try to request permissions again
+                    }
+                })
+                .show();
+    }
+
+    private void showPermissionRationaleDialog(final PermissionToken token) {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission Required")
+                .setMessage("This permission is necessary for certain features to function.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        token.continuePermissionRequest();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        token.cancelPermissionRequest();
+                    }
+                }).show();
     }
 }

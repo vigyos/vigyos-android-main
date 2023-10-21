@@ -1,5 +1,7 @@
 package com.vigyos.vigyoscentercrm.Model;
 
+import com.google.gson.annotations.Expose;
+
 public class BuyServiceDocumentModel {
 
     private String key;
@@ -8,6 +10,8 @@ public class BuyServiceDocumentModel {
     private String document_label;
     private String document_value;
     private String imageUri;
+
+    @Expose(serialize = false)
     private boolean isImageUploaded;
 
     public BuyServiceDocumentModel() { }
