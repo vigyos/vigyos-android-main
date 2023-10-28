@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -90,8 +91,8 @@ public class UserActivity extends AppCompatActivity implements UserItemListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        String[] list = {"Account Information", "Payout Balance", "Refund Policy", "Terms and Conditions", "Privacy Policy"};
-        int[] theBitmapIds = { R.drawable.person_dark, R.drawable.payout_icon, R.drawable.refund_icon, R.drawable.terms_icon, R.drawable.privacy_icon};
+        String[] list = {"Account Information", "Payout Balance", "Refund Policy", "Terms and Conditions", "Privacy Policy", "Help And Support", "Logout"};
+        int[] theBitmapIds = { R.drawable.person_dark, R.drawable.payout_icon, R.drawable.refund_icon, R.drawable.terms_icon, R.drawable.privacy_icon, R.drawable.help_icon, R.drawable.logout_icon};
         RecyclerView recyclerView = findViewById(R.id.profile_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(UserActivity.this));
         recyclerView.setAdapter(new AdapterForUser(list, UserActivity.this, theBitmapIds));
@@ -177,9 +178,40 @@ public class UserActivity extends AppCompatActivity implements UserItemListener 
             case 4:
                 startActivity(new Intent(UserActivity.this, PrivacyPolicyActivity.class));
                 break;
+            case 5:
+                startActivity(new Intent(UserActivity.this, HelpAndSupportActivity.class));
+                break;
+            case 6:
+                areYouSure();
+                break;
             default:
                 break;
         }
+    }
+
+    private void areYouSure(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(UserActivity.this);
+        builder1.setMessage("Are you sure, You want to logout ?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(UserActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     private String formatTimestamp(long timestamp) {

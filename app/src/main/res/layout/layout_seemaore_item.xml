@@ -26,6 +26,11 @@
                 android:layout_centerVertical="true"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/white">
+                <ProgressBar
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="#535151"/>
                 <ImageView
                     android:id="@+id/iconImage"
                     android:layout_width="match_parent"

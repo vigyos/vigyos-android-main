@@ -50,8 +50,8 @@ public class PanCardCreateFragment extends Fragment {
     private RelativeLayout update;
     private EditText firstName, middleName, lastName, mobile_number;
     private EditText email, address, remark;
-    private Spinner spinner, spinner1;
-    private String gender, mode;
+    private Spinner spinner, spinner1, spinner2;
+    private String gender, mode, kycType;
     private Dialog dialog;
 
     public PanCardCreateFragment(Activity activity) {
@@ -72,6 +72,7 @@ public class PanCardCreateFragment extends Fragment {
         lastName = view.findViewById(R.id.lastNameCreate);
         spinner = view.findViewById(R.id.genderCreate);
         spinner1 = view.findViewById(R.id.cardTypeCreate);
+        spinner2 = view.findViewById(R.id.kycTypeSpinner);
         mobile_number = view.findViewById(R.id.mobileNumberCreate);
         email = view.findViewById(R.id.emailCreate);
         address = view.findViewById(R.id.addressCreate);
@@ -81,62 +82,99 @@ public class PanCardCreateFragment extends Fragment {
 
     private void declaration() {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(activity, R.array.gender,android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter2);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String genderSelect = (String) parent.getItemAtPosition(position);
-                if(genderSelect.equalsIgnoreCase("Male")){
-                    gender = "M";
-                } else if (genderSelect.equalsIgnoreCase("Female")){
-                    gender = "F";
+                if (parent.getItemAtPosition(position).equals("Select your Gender")) {
+                    Log.i("12121","Select your Gender");
                 } else {
-                    gender = "T";
+                    String genderSelect = (String) parent.getItemAtPosition(position);
+                    if(genderSelect.equalsIgnoreCase("Male")) {
+                        gender = "M";
+                    } else if (genderSelect.equalsIgnoreCase("Female")) {
+                        gender = "F";
+                    } else {
+                        gender = "T";
+                    }
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(activity, R.array.mode,android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(activity, R.array.mode, android.R.layout.simple_spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter3);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String modeSelect = (String) parent.getItemAtPosition(position);
-                if(modeSelect.equalsIgnoreCase("Physical Pan")){
-                    mode = "P";
+                if (parent.getItemAtPosition(position).equals("Select Pan Type")) {
+                    Log.i("12121","Select Pan Type");
                 } else {
-                    mode = "E";
+                    String modeSelect = (String) parent.getItemAtPosition(position);
+                    if(modeSelect.equalsIgnoreCase("Physical Pan")){
+                        mode = "P";
+                    } else {
+                        mode = "E";
+                    }
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+
+        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(activity, R.array.kycType,android.R.layout.simple_spinner_item);
+        adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter4);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).equals("Select KYC Type")) {
+                    Log.i("12121","Select KYC Type");
+                } else {
+                    String modeSelect = (String) parent.getItemAtPosition(position);
+                    if(modeSelect.equalsIgnoreCase("E - Kyc")){
+                        kycType = "K";
+                    } else {
+                        kycType = "E";
+                    }
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 if (TextUtils.isEmpty(firstName.getText().toString())) {
                     firstName.setError("This field is required");
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Enter First Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(lastName.getText().toString())) {
                     lastName.setError("This field is required");
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Enter Last Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (spinner.getSelectedItem().toString().trim().equals("--Gender--")) {
-                    Toast.makeText(activity, "Please select your Gender", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                if (spinner.getSelectedItem().toString().trim().equals("Select your Gender")) {
+                    Toast.makeText(activity, "Select your Gender", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (spinner1.getSelectedItem().toString().trim().equals("Select Pan Type")) {
+                    Toast.makeText(activity, "Select Pan Type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (spinner2.getSelectedItem().toString().trim().equals("Select Kyc Type")) {
+                    Toast.makeText(activity, "Select Kyc Type", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
                     mobile_number.setError("This field is required");
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     if (!isValidPhone(mobile_number.getText().toString())){
@@ -147,18 +185,18 @@ public class PanCardCreateFragment extends Fragment {
                 }
                 if ((TextUtils.isEmpty(email.getText().toString()))) {
                     email.setError("This field is required");
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Enter Email ID", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     if (!isValidMail(email.getText().toString())){
-                        email.setError("Invalid Email");
-                        Toast.makeText(activity, "Invalid Email", Toast.LENGTH_SHORT).show();
+                        email.setError("Invalid Email ID");
+                        Toast.makeText(activity, "Invalid Email ID", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
                 if (TextUtils.isEmpty(address.getText().toString())) {
                     address.setError("This field is required");
-                    Toast.makeText(activity, "Fill all details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Enter Address", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 areYouSure();
@@ -197,7 +235,7 @@ public class PanCardCreateFragment extends Fragment {
     private void createPanCard(){
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().panCardCreate(SplashActivity.prefManager.getToken(), "1", firstName.getText().toString(), middleName.getText().toString(), lastName.getText().toString(),
-                mode, gender, "https://vigyos.com/", email.getText().toString(), SplashActivity.prefManager.getUserID(), remark.getText().toString(), "PENDING", mobile_number.getText().toString(), address.getText().toString());
+                mode, kycType, gender, "https://vigyos.com/", email.getText().toString(), SplashActivity.prefManager.getUserID(), remark.getText().toString(), "PENDING", mobile_number.getText().toString(), address.getText().toString());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

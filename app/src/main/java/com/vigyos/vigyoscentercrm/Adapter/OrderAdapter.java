@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.vigyos.vigyoscentercrm.Fragment.CancelledFragment;
 import com.vigyos.vigyoscentercrm.Fragment.CompletedFragment;
+import com.vigyos.vigyoscentercrm.Fragment.PendingFragment;
 import com.vigyos.vigyoscentercrm.Fragment.ProcessingFragment;
 
 public class OrderAdapter extends FragmentStateAdapter {
@@ -25,13 +26,14 @@ public class OrderAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch(position){
             case 1: return new ProcessingFragment();
-            case 2: return new CancelledFragment(activity);
-            default: return new CompletedFragment(activity);
+            case 2: return new CompletedFragment(activity);
+            case 3: return new CancelledFragment(activity);
+            default: return new PendingFragment();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

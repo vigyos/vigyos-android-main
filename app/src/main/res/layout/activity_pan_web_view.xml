@@ -14,11 +14,13 @@
         <ImageView
             android:layout_width="30sp"
             android:layout_height="30sp"
+            android:visibility="gone"
             android:src="@drawable/arrow_back"
             android:layout_centerVertical="true"
             android:layout_marginStart="10sp"
             app:tint="@color/white"/>
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

@@ -60,7 +60,8 @@ public class SearchServicesActivity extends AppCompatActivity {
         getServicesData();
         initialization();
         declaration();
-        serviceList();
+
+        Log.i("1414","1414 onCreate");
 
     }
 
@@ -82,19 +83,11 @@ public class SearchServicesActivity extends AppCompatActivity {
         });
     }
 
-//    @NonNull
-//    @Override
-//    public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
-//        Log.i("1212"," backPressed");
-//
-//        return super.getOnBackInvokedDispatcher();
-//    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Log.i("12121","onBackPressed");
-        //        startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
+        //startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
         finish();
 
     }

@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class LoginActivity extends AppCompatActivity {
 
     private RelativeLayout loginButton;

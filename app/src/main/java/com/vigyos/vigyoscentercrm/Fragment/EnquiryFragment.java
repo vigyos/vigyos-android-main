@@ -314,7 +314,7 @@ public class EnquiryFragment extends Fragment {
                             Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
                         }
                     }
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, bankListArray); //selected item will look like a spinner set from XML
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, bankListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(spinnerArrayAdapter);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

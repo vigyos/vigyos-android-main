@@ -50,7 +50,8 @@ public interface Api {
 
     @GET("services_g_c")
     Call<Object> servicesGCList(
-            @Header("Authorization") String Authorization
+            @Header("Authorization") String Authorization,
+            @Query("page") int page
     );
 
     @GET("aeps/bank_list")
@@ -141,6 +142,7 @@ public interface Api {
             @Field("middlename") String middlename,
             @Field("lastname") String lastname,
             @Field("mode") String mode,
+            @Field("kyc_type") String kyc_type,
             @Field("gender") String gender,
             @Field("redirect_url") String redirect_url,
             @Field("email") String email,
@@ -160,6 +162,7 @@ public interface Api {
             @Field("middlename") String middlename,
             @Field("lastname") String lastname,
             @Field("mode") String mode,
+            @Field("kyc_type") String kyc_type,
             @Field("gender") String gender,
             @Field("redirect_url") String redirect_url,
             @Field("email") String email,
@@ -170,10 +173,19 @@ public interface Api {
             @Field("customer_adds") String customer_adds
     );
 
+    @FormUrlEncoded
+    @POST("pan/verify_pan_transaction")
+    Call<Object> panVerify(
+            @Header("Authorization") String Authorization,
+            @Field("encdata") String encdata
+    );
+
     @GET("service_req")
     Call<Object> serviceRequest(
             @Header("Authorization") String Authorization,
-            @Query("user_id") String id
+            @Query("user_id") String id,
+            @Query("page") int page,
+            @Query("status") String status
     );
 
     @FormUrlEncoded
@@ -243,6 +255,14 @@ public interface Api {
             @Part("back_image") String backImage
     );
 
+    @GET("aeps/transaction/logs")
+    Call<Object> aepsHistory(
+            @Header("Authorization") String Authorization,
+            @Query("user_id") String user_id,
+            @Query("page") int page,
+            @Query("transaction_type") String transaction_type
+    );
+
     @Multipart
     @POST("upload")
     Call<Object> uploadImage(
@@ -251,25 +271,17 @@ public interface Api {
             @Part("file") String image
     );
 
-//    @FormUrlEncoded
-//    @POST("service_req")
-//    Call<Object> buyServiceAPI(
-//            @Header("Authorization") String Authorization,
-//            @Field("user_id") String user_id,
-//            @Field("service_id") String service_id,
-//            @Field("remarks") String remarks,
-//            @Field("status") String status,
-//            @Field("service_group_id") String service_group_id,
-//            @Field("costumer_name") String costumer_name,
-//            @Field("customer_phone") String customer_phone,
-//            @Field("customer_adds") String customer_adds,
-//            @Field("customer_email") String customer_email,
-//    );
-
-
     @POST("service_req")
     Call<Object> buyServiceAPI(
             @Header("Authorization") String Authorization,
             @Body RequestData data
+    );
+
+    @GET("transactions")
+    Call<Object> walletHistory(
+            @Header("Authorization") String Authorization,
+            @Query("user_id") String user_id,
+            @Query("page") int page,
+            @Query("trx_type") String trx_type
     );
 }

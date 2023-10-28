@@ -236,6 +236,16 @@ public class SharedPrefManager {
         return pref.getString(profile_picture, "null");
     }
 
+    public void setJoinDate(int JoinDate){
+        editor = pref.edit();
+        editor.putInt(create_time, JoinDate);
+        editor.commit();
+    }
+
+    public int getJoinDate(){
+        return pref.getInt(create_time, 0);
+    }
+
     public void setPayoutBalance(int PayoutBalance){
         editor = pref.edit();
         editor.putInt(payout_balance, PayoutBalance);
@@ -294,6 +304,26 @@ public class SharedPrefManager {
 
     public String getIsActive(){
         return pref.getString(is_active, "null");
+    }
+
+    public void setCity(String City){
+        editor = pref.edit();
+        editor.putString(city, City);
+        editor.commit();
+    }
+
+    public String getCity(){
+        return pref.getString(city, "null");
+    }
+
+    public void setState(String State){
+        editor = pref.edit();
+        editor.putString(state, State);
+        editor.commit();
+    }
+
+    public String getState(){
+        return pref.getString(state, "null");
     }
 
     public void setWalletId(String WalletId){

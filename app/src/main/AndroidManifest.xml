@@ -30,6 +30,7 @@
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
+
         <activity
             android:name=".Activity.BuyServiceActivity"
             android:exported="false" />
@@ -95,7 +96,8 @@
             android:exported="false" />
         <activity
             android:name=".Activity.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:enableOnBackInvokedCallback="true"/>
         <activity
             android:name=".Activity.SplashActivity"
             android:exported="true"

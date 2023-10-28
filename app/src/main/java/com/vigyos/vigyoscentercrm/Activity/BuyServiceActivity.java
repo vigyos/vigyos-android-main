@@ -78,6 +78,7 @@ import retrofit2.Response;
 public class BuyServiceActivity extends AppCompatActivity implements OnItemClickListener {
 
     private Dialog dialog;
+    private ImageView ivBack;
     private ArrayList<BuyServiceDocumentModel> buyServiceDocumentModels = new ArrayList<>();
     private TextView serviceName1;
     private String serviceName;
@@ -107,6 +108,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
         Intent intent = getIntent();
         serviceName = intent.getStringExtra("serviceName");
         serviceID = intent.getStringExtra("serviceID");
+        ivBack = findViewById(R.id.ivBack);
         serviceName1 = findViewById(R.id.serviceName1);
         recyclerView = findViewById(R.id.recyclerView);
         buyService = findViewById(R.id.buyService);
@@ -123,6 +125,12 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     private void declaration() {
         serviceName1.setText(serviceName);
         requireDocumentsAPI(serviceID);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         buyService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,14 +151,27 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     }
                 }
 
-                Toast.makeText(BuyServiceActivity.this, "Buy Service!", Toast.LENGTH_SHORT).show();
                 Log.i("5221145","imageUris " + imageUris.toString());
-
                 Log.i("5221145","imageUrisForShow " + imageUrisForShow.toString());
-
                 Log.i("5221145","buyServiceDocumentModels " + buyServiceDocumentModels.toString());
 
-//                areYouSure();
+                boolean isAnyNull = false;
+                for (String uri : imageUris) {
+                    Log.i("5252250", "uri : - " + uri);
+                    if (uri == null) {
+                        Log.i("5252250", "uri 1 : - " + uri);
+                        isAnyNull = true;
+                        break;
+                    }
+                }
+
+                if (isAnyNull) {
+                    // None of the elements in imageUris is null and buyServiceDocumentModels is not null
+                    // You can now work with your arrays
+                    Toast.makeText(BuyServiceActivity.this, "Select All Documents", Toast.LENGTH_SHORT).show();
+                } else {
+                    areYouSure();
+                }
             }
         });
     }

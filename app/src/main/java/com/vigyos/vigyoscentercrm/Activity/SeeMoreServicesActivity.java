@@ -42,8 +42,11 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
 
     private ImageView ivBack;
     private RecyclerView recyclerViewMore;
+    private ShowAllServicesAdapter showAllServicesAdapter;
     private ArrayList<SeeMoreServiceModel> seeMoreServiceModels = new ArrayList<>();
     private Dialog dialog;
+    private int page = 1;
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +69,32 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                 finish();
             }
         });
-        serviceList();
+        seeMoreServiceModels.clear();
+        showAllService();
     }
 
-    private void serviceList(){
+    private void showAllService(){
+        showAllServicesAdapter = new ShowAllServicesAdapter(seeMoreServiceModels, SeeMoreServicesActivity.this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(SeeMoreServicesActivity.this, 1, GridLayoutManager.VERTICAL, false);
+        recyclerViewMore.setLayoutManager(gridLayoutManager);
+        recyclerViewMore.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewMore.setAdapter(showAllServicesAdapter);
+        recyclerViewMore.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!isLoading && !recyclerView.canScrollVertically(1)) {
+                    serviceList(page++);
+                    isLoading = true;
+                }
+            }
+        });
+        serviceList(page);
+    }
+
+    private void serviceList(int page){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().servicesGCList(SplashActivity.prefManager.getToken());
+        Call<Object> objectCall = RetrofitClient.getApi().servicesGCList(SplashActivity.prefManager.getToken(), page);
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -80,20 +103,26 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i<jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            SeeMoreServiceModel serviceModel = new SeeMoreServiceModel();
-                            serviceModel.setServiceName(jsonObject1.getString("service_group_name"));
-                            serviceModel.setServiceID(jsonObject1.getString("service_group_id"));
-                            if (jsonObject1.has("service_group_icon")){
-                                serviceModel.setServiceIcon(jsonObject1.getString("service_group_icon"));
-                            } else {
-                                serviceModel.setServiceIcon("https://www.indiafilings.com/learn/wp-content/uploads/2020/10/shutterstock_1067245667.jpg");
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i<jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                SeeMoreServiceModel serviceModel = new SeeMoreServiceModel();
+                                if (jsonObject1.has("service_group_name")) {
+                                    serviceModel.setServiceName(jsonObject1.getString("service_group_name"));
+                                }
+                                if (jsonObject1.has("service_group_id")) {
+                                    serviceModel.setServiceID(jsonObject1.getString("service_group_id"));
+                                }
+                                if (jsonObject1.has("service_group_icon")){
+                                    serviceModel.setServiceIcon(jsonObject1.getString("service_group_icon"));
+                                } else {
+                                    serviceModel.setServiceIcon("https://www.indiafilings.com/learn/wp-content/uploads/2020/10/shutterstock_1067245667.jpg");
+                                }
+                                seeMoreServiceModels.add(serviceModel);
                             }
-                            seeMoreServiceModels.add(serviceModel);
                         }
-                        showAllService();
+                        showAllServicesAdapter.notifyDataSetChanged();
                     } else {
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(SeeMoreServicesActivity.this, LoginActivity.class));
@@ -103,22 +132,16 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
+                isLoading = false;
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016","onFailure" + t);
+                isLoading = false;
             }
         });
-    }
-
-    private void showAllService(){
-        ShowAllServicesAdapter showAllServicesAdapter = new ShowAllServicesAdapter(seeMoreServiceModels, SeeMoreServicesActivity.this);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(SeeMoreServicesActivity.this, 1, GridLayoutManager.VERTICAL, false);
-        recyclerViewMore.setLayoutManager(gridLayoutManager);
-        recyclerViewMore.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewMore.setAdapter(showAllServicesAdapter);
     }
 
     private void pleaseWait(){

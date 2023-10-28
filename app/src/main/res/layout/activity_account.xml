@@ -36,19 +36,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/person_icon"
-                android:layout_width="130dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/personIconCardView"
+                android:layout_width="120dp"
                 android:layout_height="130dp"
+                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp" />
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp">
+                <ImageView
+                    android:id="@+id/person_icon"
+                    android:layout_width="115dp"
+                    android:layout_height="125dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"/>
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/person_icon"
+                android:layout_below="@+id/personIconCardView"
                 android:text="Krishnkant Sharma"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -59,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/userName"
-                android:text="ID: 001"
+                android:text="ID: VIG_001"
                 android:textSize="14sp" />
             <RelativeLayout
                 android:id="@+id/detailsLyt"
@@ -106,7 +116,7 @@
                                 android:layout_marginStart="10sp"
                                 android:text="kk@gmail.com"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/montserrat_regular"
                                 android:textSize="16sp"/>
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -146,7 +156,7 @@
                                 android:layout_marginStart="10sp"
                                 android:text="8435126402"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/montserrat_regular"
                                 android:textSize="16sp"/>
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -187,7 +197,7 @@
                                 android:layout_marginStart="10sp"
                                 android:text="Demo road, Demo city, Demo Pradesh"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/montserrat_regular"
                                 android:textSize="16sp"/>
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -229,7 +239,7 @@
                                 android:layout_marginStart="10sp"
                                 android:text="0000111122223333"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/montserrat_regular"
                                 android:textSize="16sp"/>
                             <TextView
                                 android:id="@+id/aadhaarView"
@@ -281,7 +291,7 @@
                                 android:layout_marginStart="10sp"
                                 android:text="1111222233330000"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:fontFamily="@font/montserrat_regular"
                                 android:textSize="16sp"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -317,7 +327,7 @@
                         android:id="@+id/joinDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="01/01/2023"
+                        android:text="00/00/0000"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="@color/black" />
@@ -328,6 +338,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
+                android:visibility="gone"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/joinDateLyt"
                 android:background="@drawable/logout_bg">
@@ -335,7 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10sp"
-                    android:layout_marginVertical="5sp"
+                    android:layout_marginVertical="7sp"
                     android:text="Logout"
                     android:textColor="#ff3a54"
                     android:textSize="14sp"

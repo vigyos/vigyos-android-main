@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.CancelledItemModel;
@@ -44,9 +43,12 @@ public class CancelledFragment extends Fragment {
 
     private View view;
     private Dialog dialog;
+    private CancelledListAdapter cancelledListAdapter;
     private ArrayList<CancelledItemModel> cancelledItemModels = new ArrayList<>();
     private TextView noCancelled;
     private final Activity activity;
+    private int page = 1;
+    private boolean isLoading = false;
 
     public CancelledFragment(Activity activity) {
         this.activity = activity;
@@ -57,18 +59,39 @@ public class CancelledFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cancelled, container, false);
         noCancelled = view.findViewById(R.id.noCancelled);
-        cancelledApi();
+        showCancelledList();
         return view;
     }
 
-    private void cancelledApi(){
+    private void showCancelledList(){
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        cancelledListAdapter = new CancelledListAdapter(cancelledItemModels, activity);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(cancelledListAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!isLoading && !recyclerView.canScrollVertically(1)) {
+                    cancelledApi(page++);
+                    isLoading = true;
+                }
+            }
+        });
+        cancelledApi(page);
+    }
+
+    private void cancelledApi(int page){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().serviceRequest(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID());
+        Call<Object> objectCall = RetrofitClient.getApi().serviceRequest(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), page, "REJECTED");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                dismissDialog();
                 Log.i("2016","onResponse" + response);
+                dismissDialog();
+                isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
@@ -77,13 +100,30 @@ public class CancelledFragment extends Fragment {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                             if (jsonObject1.getString("status").equalsIgnoreCase("REJECTED") ){
                                 CancelledItemModel cancelledItemModel = new CancelledItemModel();
-                                cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
-                                cancelledItemModel.setStatus(jsonObject1.getString("status"));
-                                cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                cancelledItemModel.setPrice(jsonObject1.getInt("price"));
-                                cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                if (jsonObject1.has("service_name")) {
+                                    cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
+                                }
+                                if (jsonObject1.has("status")) {
+                                    cancelledItemModel.setStatus(jsonObject1.getString("status"));
+                                }
+                                if (jsonObject1.has("user_service_id")) {
+                                    cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                }
+                                if (jsonObject1.has("customer_name")) {
+                                    cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                }
+                                if (jsonObject1.has("customer_phone")) {
+                                    cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                }
+                                if (jsonObject1.has("customer_email")) {
+                                    cancelledItemModel.setCustomer_email(jsonObject1.getString("customer_email"));
+                                }
+                                if (jsonObject1.has("price")) {
+                                    cancelledItemModel.setPrice(jsonObject1.getInt("price"));
+                                }
+                                if (jsonObject1.has("created_time")) {
+                                    cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                }
                                 cancelledItemModels.add(cancelledItemModel);
                             }
                         }
@@ -92,7 +132,7 @@ public class CancelledFragment extends Fragment {
                         } else {
                             noCancelled.setVisibility(View.GONE);
                         }
-                        showCancelledList();
+                        cancelledListAdapter.notifyDataSetChanged();
                     } else {
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(activity, LoginActivity.class));
@@ -106,18 +146,11 @@ public class CancelledFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("2016","onFailure" + t);
                 dismissDialog();
+                isLoading = false;
             }
         });
-    }
-
-    private void showCancelledList(){
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        CancelledListAdapter cancelledListAdapter = new CancelledListAdapter(cancelledItemModels, activity);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 1, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(cancelledListAdapter);
     }
 
     private void pleaseWait(){
@@ -163,10 +196,14 @@ public class CancelledFragment extends Fragment {
         public void onBindViewHolder(@NonNull CancelledListAdapter.Holder holder, int position) {
             CancelledItemModel itemModel = cancelledItemModels.get(position);
             holder.serviceName.setText(itemModel.getService_name());
-            holder.orderID.setText("#Oreder: "+itemModel.getUser_service_id());
-            holder.price.setText("₹"+ itemModel.getPrice());
+            holder.orderID.setText("#"+itemModel.getUser_service_id());
+            holder.price.setText("₹ "+ itemModel.getPrice());
             holder.status.setText(itemModel.getStatus());
+            holder.status.setTextColor(Color.parseColor("#FE0000"));
             holder.statusBackground.setBackgroundResource(R.drawable.cancelled);
+            holder.emailID.setText(itemModel.getCustomer_email());
+            holder.phoneNumber.setText("+91-"+itemModel.getCustomer_phone());
+            holder.customerName.setText(itemModel.getCustomer_name());
         }
 
         @Override
@@ -176,11 +213,14 @@ public class CancelledFragment extends Fragment {
 
         private class Holder extends RecyclerView.ViewHolder {
 
-            private TextView serviceName;
-            private TextView orderID;
-            private TextView price;
-            private TextView status;
-            private RelativeLayout statusBackground;
+            public TextView serviceName;
+            public TextView orderID;
+            public TextView price;
+            public TextView status;
+            public TextView customerName;
+            public TextView emailID;
+            public TextView phoneNumber;
+            public RelativeLayout statusBackground;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
@@ -189,6 +229,9 @@ public class CancelledFragment extends Fragment {
                 price = itemView.findViewById(R.id.price);
                 status = itemView.findViewById(R.id.status);
                 statusBackground = itemView.findViewById(R.id.statusBackground);
+                emailID = itemView.findViewById(R.id.emailID);
+                phoneNumber = itemView.findViewById(R.id.phoneNumber);
+                customerName = itemView.findViewById(R.id.customerName);
             }
         }
     }

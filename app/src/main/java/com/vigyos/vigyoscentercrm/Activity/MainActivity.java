@@ -10,9 +10,12 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,12 +27,17 @@ import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
+import com.vigyos.vigyoscentercrm.Fragment.SearchFragment;
 import com.vigyos.vigyoscentercrm.Fragment.WishlistFragment;
+import com.vigyos.vigyoscentercrm.Model.SearchServicesModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -37,18 +45,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class MainActivity extends AppCompatActivity {
 
     public MeowBottomNavigation meowBottomNavigation;
     private Dialog dialog;
     boolean doubleBackToExitPressedOnce = false;
+    private ArrayList<SearchServicesModel> searchServicesModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (BuildCompat.isAtLeastT()) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> {
+                        Log.i("852145", "onBack");
+                        if (AppController.backCheck){
+                            if (doubleBackToExitPressedOnce) {
+//                                super.onBackPressed();
+                                finishAffinity();
+                                return;
+                            }
+                            this.doubleBackToExitPressedOnce = true;
+                            Toast.makeText(this, "Click BACK again to exit", Toast.LENGTH_SHORT).show();
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    doubleBackToExitPressedOnce=false;
+                                }
+                            }, 2000);
+                        } else {
+                            loadFragment(new HomeFragment(MainActivity.this), true);
+                            AppController.backCheck = true;
+                            meowBottomNavigation.show(3,true);
+                        }
+                    }
+            );
+        }
+
         profileData();
+        getServicesData();
 
         meowBottomNavigation = findViewById(R.id.bottomNav);
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
@@ -68,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
-                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
+                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
+//                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
 //                        AppController.backCheck = false;
 //                        finish();
                         break;
@@ -81,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 5:
-                        loadFragment(new HistoryFragment(), false );
+                        loadFragment(new HistoryFragment(MainActivity.this), false );
                         AppController.backCheck = false;
                         break;
                     default:
@@ -100,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
+                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
 //                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
                         break;
                     case 3:
@@ -111,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 5:
-                        loadFragment(new HistoryFragment(), false );
+                        loadFragment(new HistoryFragment(MainActivity.this), false );
                         AppController.backCheck = false;
                         break;
                     default:
@@ -131,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
+                        loadFragment(new SearchFragment(MainActivity.this , searchServicesModels), false);
 //                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
                         break;
                     case 3:
@@ -142,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 5:
-                        loadFragment(new HistoryFragment(), false );
+                        loadFragment(new HistoryFragment(MainActivity.this), false );
                         AppController.backCheck = false;
                         break;
                     default:
@@ -216,11 +258,20 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("is_active")) {
                                 SplashActivity.prefManager.setIsActive(jsonObject1.getString("is_active"));
                             }
+                            if (jsonObject1.has("city")) {
+                                SplashActivity.prefManager.setCity(jsonObject1.getString("city"));
+                            }
+                            if (jsonObject1.has("state")) {
+                                SplashActivity.prefManager.setState(jsonObject1.getString("state"));
+                            }
                             if (jsonObject1.has("license_no")) {
                                 SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
                             }
                             if (jsonObject1.has("profile_picture")){
                                 SplashActivity.prefManager.setProfilePicture(jsonObject1.getString("profile_picture"));
+                            }
+                            if (jsonObject1.has("create_time")){
+                                SplashActivity.prefManager.setJoinDate(jsonObject1.getInt("create_time"));
                             }
                             if (jsonObject1.has("wallet_id")) {
                                 SplashActivity.prefManager.setWalletId(jsonObject1.getString("wallet_id"));
@@ -266,7 +317,52 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
+                meowBottomNavigation.show(3,true);
+                AppController.backCheck = true;
                 Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getServicesData(){
+//        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "100");
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+//                dismissDialog();
+                Log.i("12121", "onResponse " + response);
+                if (response.code() == 200){
+                    try {
+                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                        if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                            JSONArray jsonObject1 = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < jsonObject1.length(); i++ ){
+                                JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
+                                SearchServicesModel servicesModel = new SearchServicesModel();
+                                servicesModel.setService_id(jsonObject2.getString("service_id"));
+                                servicesModel.setService(jsonObject2.toString());
+                                servicesModel.setService_name(jsonObject2.getString("service_name"));
+                                servicesModel.setDescription(jsonObject2.getString("description"));
+                                searchServicesModels.add(servicesModel);
+                            }
+                        } else {
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+//                    serviceList();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+//                dismissDialog();
+                Log.i("12121", "onFailure " + t);
             }
         });
     }

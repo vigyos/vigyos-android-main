@@ -72,20 +72,30 @@ public class SubCatServiceActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")){
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i<jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            JSONArray jsonArray1 = jsonObject1.getJSONArray("services");
-                            for (int k = 0; k < jsonArray1.length(); k++){
-                                JSONObject jsonObject2 = jsonArray1.getJSONObject(k);
-                                ServiceListModel serviceListModel = new ServiceListModel();
-                                serviceListModel.setService_id(jsonObject2.getString("service_id"));
-                                serviceListModel.setService_name(jsonObject2.getString("service_name"));
-                                serviceListModel.setPrice(jsonObject2.getInt("price"));
-                                serviceListModels.add(serviceListModel);
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i<jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                if (jsonObject1.has("services")) {
+                                    JSONArray jsonArray1 = jsonObject1.getJSONArray("services");
+                                    for (int k = 0; k < jsonArray1.length(); k++){
+                                        JSONObject jsonObject2 = jsonArray1.getJSONObject(k);
+                                        ServiceListModel serviceListModel = new ServiceListModel();
+                                        if (jsonObject2.has("service_id")) {
+                                            serviceListModel.setService_id(jsonObject2.getString("service_id"));
+                                        }
+                                        if (jsonObject2.has("service_name")) {
+                                            serviceListModel.setService_name(jsonObject2.getString("service_name"));
+                                        }
+                                        if (jsonObject2.has("price")) {
+                                            serviceListModel.setPrice(jsonObject2.getInt("price"));
+                                        }
+                                        serviceListModels.add(serviceListModel);
+                                    }
+                                }
                             }
+                            callShowAdapter();
                         }
-                        callShowAdapter();
                     } else {
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(SubCatServiceActivity.this, LoginActivity.class));
@@ -184,7 +194,6 @@ public class SubCatServiceActivity extends AppCompatActivity {
                 service_name = itemView.findViewById(R.id.service_name);
                 amount = itemView.findViewById(R.id.amount);
                 cardNext = itemView.findViewById(R.id.cardNext);
-
             }
         }
     }

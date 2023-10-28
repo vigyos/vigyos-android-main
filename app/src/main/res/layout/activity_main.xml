@@ -6,19 +6,23 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Activity.MainActivity">
-    <FrameLayout
-        android:id="@+id/frame_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"/>
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-        android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:mbn_defaultIconColor="#6F858F"
-        app:mbn_rippleColor="#2f424242"
-        app:mbn_selectedIconColor="@color/vigyos"
-        app:mbn_shadowColor="#1f212121" />
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"/>
+        <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:mbn_defaultIconColor="#6F858F"
+            app:mbn_rippleColor="#2f424242"
+            app:mbn_selectedIconColor="@color/vigyos"
+            app:mbn_shadowColor="#1f212121" />
+    </RelativeLayout>
 </RelativeLayout>
