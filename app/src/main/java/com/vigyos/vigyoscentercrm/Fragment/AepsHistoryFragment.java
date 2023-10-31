@@ -2,16 +2,10 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +15,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.AEPSHistoryModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -42,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class AepsHistoryFragment extends Fragment {
 
     private Activity activity;
@@ -120,7 +124,8 @@ public class AepsHistoryFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    aepsHistoryApi(page++);
+                    page++;
+                    aepsHistoryApi(page);
                     isLoading = true;
                 }
             }
@@ -130,8 +135,6 @@ public class AepsHistoryFragment extends Fragment {
 
     private void aepsHistoryApi(int page) {
         pleaseWait();
-
-        Log.i("5858524","use DI " + SplashActivity.prefManager.getUserID());
         Call<Object> objectCall = RetrofitClient.getApi().aepsHistory(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), page, trxType);
         objectCall.enqueue(new Callback<Object>() {
             @Override
@@ -180,6 +183,11 @@ public class AepsHistoryFragment extends Fragment {
                             animationView.setVisibility(View.GONE);
                         }
                         AEPSHistoryAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -256,8 +264,6 @@ public class AepsHistoryFragment extends Fragment {
                 float v = (float) i;
                 holder.balance.setText("₹ "+ v);
             }
-
-
 
 //            String timestampStr = model.getTimestamp();
 //            if (timestampStr.matches("\\d+")) {

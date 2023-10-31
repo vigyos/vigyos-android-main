@@ -3,6 +3,7 @@ package com.vigyos.vigyoscentercrm.Adapter;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -12,6 +13,7 @@ import com.vigyos.vigyoscentercrm.Fragment.CompletedFragment;
 import com.vigyos.vigyoscentercrm.Fragment.PendingFragment;
 import com.vigyos.vigyoscentercrm.Fragment.ProcessingFragment;
 
+@BuildCompat.PrereleaseSdkCheck
 public class OrderAdapter extends FragmentStateAdapter {
 
     private Activity activity;

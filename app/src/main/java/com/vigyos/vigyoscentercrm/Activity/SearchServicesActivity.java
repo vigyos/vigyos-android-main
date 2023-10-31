@@ -17,12 +17,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class SearchServicesActivity extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteTextView;
@@ -56,13 +59,9 @@ public class SearchServicesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_services);
-
         getServicesData();
         initialization();
         declaration();
-
-        Log.i("1414","1414 onCreate");
-
     }
 
     private void initialization(){
@@ -86,18 +85,15 @@ public class SearchServicesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.i("12121","onBackPressed");
-        //startActivity(new Intent(SearchServicesActivity.this, MainActivity.class));
         finish();
-
     }
 
-    private void getServicesData(){
+    private void getServicesData() {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "100");
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "1000");
         objectCall.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
                 Log.i("12121", "onResponse " + response);
                 if (response.code() == 200){
@@ -115,10 +111,12 @@ public class SearchServicesActivity extends AppCompatActivity {
                                 searchServicesModels.add(servicesModel);
                             }
                         } else {
-                            SplashActivity.prefManager.setClear();
-                            startActivity(new Intent(SearchServicesActivity.this, LoginActivity.class));
-                            finish();
-                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                            if (jsonObject.has("message")) {
+                                Toast.makeText(SearchServicesActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                SplashActivity.prefManager.setClear();
+                                startActivity(new Intent(SearchServicesActivity.this, LoginActivity.class));
+                                finish();
+                            }
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -128,14 +126,14 @@ public class SearchServicesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
             }
         });
     }
 
-    private void pleaseWait(){
+    private void pleaseWait() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -144,7 +142,7 @@ public class SearchServicesActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void dismissDialog(){
+    private void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
@@ -156,7 +154,7 @@ public class SearchServicesActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void serviceList(){
+    private void serviceList() {
         serviceItemListAdapter = new ServiceItemListAdapter(searchServicesModels, SearchServicesActivity.this);
         gridLayoutManager = new GridLayoutManager(this, 1 , GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -242,11 +240,10 @@ public class SearchServicesActivity extends AppCompatActivity {
         public class MyViewHolder extends RecyclerView.ViewHolder{
 
             private TextView listName;
-            private LinearLayout next;
+            private RelativeLayout next;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
-
                 listName = itemView.findViewById(R.id.listName);
                 next = itemView.findViewById(R.id.next_ll);
             }

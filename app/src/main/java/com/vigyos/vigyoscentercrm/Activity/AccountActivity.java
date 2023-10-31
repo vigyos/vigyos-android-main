@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.os.BuildCompat;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@BuildCompat.PrereleaseSdkCheck
 public class AccountActivity extends AppCompatActivity {
 
     private ImageView ivBack;

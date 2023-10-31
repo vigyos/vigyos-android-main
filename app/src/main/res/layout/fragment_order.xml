@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            app:tabTextAppearance="@style/CustomTextStyle"
             android:paddingVertical="10dp"
             app:tabMode="fixed">
             <com.google.android.material.tabs.TabItem

@@ -5,6 +5,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -64,6 +65,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class PayOutActivity extends AppCompatActivity {
 
     private ImageView ivBack;
@@ -202,7 +204,6 @@ public class PayOutActivity extends AppCompatActivity {
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                         payoutBalanceUpdate();
-
                     } else {
                         if (jsonObject.has("message")){
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -236,7 +237,6 @@ public class PayOutActivity extends AppCompatActivity {
                             if (jsonObject1.has("payout_balance")) {
                                 SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
-
                             if (SplashActivity.prefManager.getPayoutBalance() == 0){
                                 payoutBalance.setText("₹"+"0.00");
                             } else {
@@ -244,22 +244,29 @@ public class PayOutActivity extends AppCompatActivity {
                                 float v = (float) i;
                                 payoutBalance.setText("₹"+ v);
                             }
-//                            finish();
                         } else {
-                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                            if (jsonObject.has("message")) {
+                                Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                SplashActivity.prefManager.setClear();
+                                startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+                                finish();
+                            }
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(PayOutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+                    SplashActivity.prefManager.setClear();
+                    startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("12121", "onFailure " + t);
-                Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(PayOutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -308,6 +315,9 @@ public class PayOutActivity extends AppCompatActivity {
                         bankNameArray.add(0,"Select your bank");
                         if (jsonObject.has("message")) {
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+                            finish();
                         }
                     }
 
@@ -357,7 +367,7 @@ public class PayOutActivity extends AppCompatActivity {
         });
     }
 
-    private void pleaseWait(){
+    private void pleaseWait() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -366,7 +376,7 @@ public class PayOutActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void dismissDialog(){
+    private void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }

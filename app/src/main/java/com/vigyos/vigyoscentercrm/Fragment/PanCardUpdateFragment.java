@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -44,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class PanCardUpdateFragment extends Fragment{
 
     private View view;
@@ -51,8 +53,8 @@ public class PanCardUpdateFragment extends Fragment{
     private RelativeLayout update;
     private EditText firstName, middleName, lastName, mobile_number;
     private EditText email, address, remark;
-    private Spinner spinner, spinner1, spinner2;
-    private String gender, mode, kycType;
+    private Spinner spinner, spinner1, spinner2, spinner3;
+    private String gender, mode, kycType, titleType;
     private Dialog dialog;
 
     public PanCardUpdateFragment() {}
@@ -76,6 +78,7 @@ public class PanCardUpdateFragment extends Fragment{
         spinner = view.findViewById(R.id.gender);
         spinner1 = view.findViewById(R.id.cardTypeSpinner);
         spinner2 = view.findViewById(R.id.kycTypeSpinner);
+        spinner3 = view.findViewById(R.id.TitleCreate);
         mobile_number = view.findViewById(R.id.mobileNumber);
         email = view.findViewById(R.id.email);
         address = view.findViewById(R.id.address);
@@ -150,10 +153,38 @@ public class PanCardUpdateFragment extends Fragment{
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+        ArrayAdapter<CharSequence> adapter5 = ArrayAdapter.createFromResource(activity, R.array.TitleType,android.R.layout.simple_spinner_item);
+        adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner3.setAdapter(adapter5);
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).equals("Select Title Type")) {
+                    Log.i("12121","Select Title Type");
+                } else {
+                    String modeSelect = (String) parent.getItemAtPosition(position);
+                    if(modeSelect.equalsIgnoreCase("Shri")){
+                        titleType = "1";
+                    } else if (modeSelect.equalsIgnoreCase("Smt.")){
+                        titleType = "2";
+                    } else {
+                        titleType = "3";
+                    }
+                    Log.i("21212","title " + titleType);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                if (spinner3.getSelectedItem().toString().trim().equals("Select Title Type")) {
+                    Toast.makeText(activity, "Select your Title", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.isEmpty(firstName.getText().toString())) {
                     firstName.setError("This field is required");
                     Toast.makeText(activity, "Enter First Name", Toast.LENGTH_SHORT).show();
@@ -238,8 +269,9 @@ public class PanCardUpdateFragment extends Fragment{
     }
 
     private void updateCard(){
+        Log.i("21212","title " + titleType);
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().panCardUpdate(SplashActivity.prefManager.getToken(), "1", firstName.getText().toString(), middleName.getText().toString(), lastName.getText().toString(),
+        Call<Object> objectCall = RetrofitClient.getApi().panCardUpdate(SplashActivity.prefManager.getToken(), titleType, firstName.getText().toString(), middleName.getText().toString(), lastName.getText().toString(),
                 mode, kycType, gender, "https://vigyos.com/", email.getText().toString(), SplashActivity.prefManager.getUserID(), remark.getText().toString(), "PENDING", mobile_number.getText().toString(), address.getText().toString());
         objectCall.enqueue(new Callback<Object>() {
             @Override

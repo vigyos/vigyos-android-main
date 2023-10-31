@@ -7,7 +7,6 @@ import com.onesignal.OneSignal;
 public class AppController extends Application {
 
 //    private FirebaseAnalytics mFirebaseAnalytics;
-
     public static boolean backCheck = true;
 
     @Override

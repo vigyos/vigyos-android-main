@@ -10,7 +10,7 @@
     <string name="details">Simplify your One Person Company (OPC) registration process with our comprehensive service, excluding stamp duty. We assist individuals in registering their OPCs, ensuring compliance with legal requirements. Our expert team provides guidance and support throughout the registration process, making it convenient and hassle-free.</string>
 
     <!--Onesignal ID-->
-    <string name="ONESIGNAL_APP_ID">90a6683c-bfe9-42d1-ab70-7292f9db9e53</string>
+    <string name="ONESIGNAL_APP_ID">d8434635-fe1e-4e60-95e6-c73e913424b5</string>
 
     <string-array name="gender">
         <item>Select your Gender</item>
@@ -23,6 +23,13 @@
         <item>Select Pan Type</item>
         <item>Physical Pan</item>
         <item>Electronic Pan</item>
+    </string-array>
+
+    <string-array name="TitleType">
+        <item>Select Title Type</item>
+        <item>Shri</item>
+        <item>Smt.</item>
+        <item>Kumari</item>
     </string-array>
 
     <string-array name="kycType">

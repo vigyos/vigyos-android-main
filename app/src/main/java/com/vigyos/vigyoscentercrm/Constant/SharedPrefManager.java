@@ -38,6 +38,7 @@ public class SharedPrefManager {
     private static final String time_stamp = "time_stamp";
     private static final String createdby = "createdby";
     private static final String sales_person = "sales_person";
+    private static final String updated_by = "updated_by";
     private static final String wallet_id = "wallet_id";
     private static final String merchant_id = "merchant_id";
     private static final String amount = "amount";
@@ -236,6 +237,16 @@ public class SharedPrefManager {
         return pref.getString(profile_picture, "null");
     }
 
+    public void setOtherDocument(String OtherDocument){
+        editor = pref.edit();
+        editor.putString(other_document, OtherDocument);
+        editor.commit();
+    }
+
+    public String getOtherDocument(){
+        return pref.getString(other_document, "null");
+    }
+
     public void setJoinDate(int JoinDate){
         editor = pref.edit();
         editor.putInt(create_time, JoinDate);
@@ -244,6 +255,56 @@ public class SharedPrefManager {
 
     public int getJoinDate(){
         return pref.getInt(create_time, 0);
+    }
+
+    public void setUpdateTime(int UpdateTime){
+        editor = pref.edit();
+        editor.putInt(update_time, UpdateTime);
+        editor.commit();
+    }
+
+    public int getUpdateTime(){
+        return pref.getInt(update_time, 0);
+    }
+
+    public void setTimeStamp(int TimeStamp){
+        editor = pref.edit();
+        editor.putInt(time_stamp, TimeStamp);
+        editor.commit();
+    }
+
+    public int getTimeStamp(){
+        return pref.getInt(time_stamp, 0);
+    }
+
+    public void setCreatedBy(String CreatedBy){
+        editor = pref.edit();
+        editor.putString(createdby, CreatedBy);
+        editor.commit();
+    }
+
+    public String getCreatedBy(){
+        return pref.getString(createdby, "null");
+    }
+
+    public void setSalesPerson(String SalesPerson){
+        editor = pref.edit();
+        editor.putString(sales_person, SalesPerson);
+        editor.commit();
+    }
+
+    public String getSalesPerson(){
+        return pref.getString(sales_person, "null");
+    }
+
+    public void setUpdatedBy(String UpdatedBy){
+        editor = pref.edit();
+        editor.putString(updated_by, UpdatedBy);
+        editor.commit();
+    }
+
+    public String getUpdatedBy(){
+        return pref.getString(updated_by, "null");
     }
 
     public void setPayoutBalance(int PayoutBalance){
@@ -324,6 +385,16 @@ public class SharedPrefManager {
 
     public String getState(){
         return pref.getString(state, "null");
+    }
+
+    public void setPinCode(String PinCode){
+        editor = pref.edit();
+        editor.putString(pincode, PinCode);
+        editor.commit();
+    }
+
+    public String getPinCode(){
+        return pref.getString(pincode, "null");
     }
 
     public void setWalletId(String WalletId){

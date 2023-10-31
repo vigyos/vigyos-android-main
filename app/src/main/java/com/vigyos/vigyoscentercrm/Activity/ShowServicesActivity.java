@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class ShowServicesActivity extends AppCompatActivity {
 
     private String serviceName;
@@ -88,7 +90,6 @@ public class ShowServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(ShowServicesActivity.this, R.anim.viewpush));
-//                Toast.makeText(ShowServicesActivity.this, "Coming Soon...", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(ShowServicesActivity.this, BuyServiceActivity.class);
                 intent1.putExtra("serviceID", service);
                 intent1.putExtra("serviceName", serviceName);
@@ -113,11 +114,11 @@ public class ShowServicesActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                dismissDialog();
                 Log.i("2016", "onResponse" + response);
+                dismissDialog();
                 try {
                     JSONObject  jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++){
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -128,24 +129,23 @@ public class ShowServicesActivity extends AppCompatActivity {
                             JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
                             for(int k = 0; k <jsonArray1.length(); k++){
                                 JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
-
-                              DocumentItemModel itemModel = new DocumentItemModel();
-                              itemModel.setDocument_name(jsonObject1.getString("document_name"));
-                              documentItemModels.add(itemModel);
-
+                                DocumentItemModel itemModel = new DocumentItemModel();
+                                itemModel.setDocument_name(jsonObject1.getString("document_name"));
+                                documentItemModels.add(itemModel);
                                 documentsName.add(jsonObject1.getString("document_name"));
                             }
                         }
                         serviceNameText.setText(serviceName);
                         serviceDetailsText.setText(serviceDetails);
                         priceText.setText("₹"+price);
-                      serviceDocuments();
-//                        spinner();
+                        serviceDocuments();
                     } else {
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(ShowServicesActivity.this, LoginActivity.class));
-                        finish();
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(ShowServicesActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(ShowServicesActivity.this, LoginActivity.class));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -190,5 +190,6 @@ public class ShowServicesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
     }
 }

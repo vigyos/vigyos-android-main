@@ -50,8 +50,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="Cancel"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textColor="#FE0000"
+                        android:textSize="16sp" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/scanFingerPrint"

@@ -3,6 +3,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -38,6 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class SeeMoreServicesActivity extends AppCompatActivity {
 
     private ImageView ivBack;
@@ -84,12 +87,14 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    serviceList(page++);
+                    page++;  // Increment the page
+                    serviceList(page);
                     isLoading = true;
                 }
             }
         });
-        serviceList(page);
+
+        serviceList(page);  // Load the first page
     }
 
     private void serviceList(int page){
@@ -98,8 +103,9 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                dismissDialog();
                 Log.i("2016","onResponse" + response);
+                dismissDialog();
+                isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")){
@@ -108,31 +114,32 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                             for (int i = 0; i<jsonArray.length(); i++){
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                                 SeeMoreServiceModel serviceModel = new SeeMoreServiceModel();
-                                if (jsonObject1.has("service_group_name")) {
-                                    serviceModel.setServiceName(jsonObject1.getString("service_group_name"));
+                                if (jsonObject1.has("service_group_name") && !jsonObject1.getString("service_group_name").equalsIgnoreCase("Pan")) {
+                                    if (jsonObject1.has("service_group_name")) {
+                                        serviceModel.setServiceName(jsonObject1.getString("service_group_name"));
+                                    }
+                                    if (jsonObject1.has("service_group_id")) {
+                                        serviceModel.setServiceID(jsonObject1.getString("service_group_id"));
+                                    }
+                                    if (jsonObject1.has("service_group_icon")){
+                                        serviceModel.setServiceIcon(jsonObject1.getString("service_group_icon"));
+                                    } else {
+                                        serviceModel.setServiceIcon("https://vigyos-upload-files.s3.amazonaws.com/bbfba05a-d49a-47ef-ab84-40b8d7398d25");
+                                    }
+                                    seeMoreServiceModels.add(serviceModel);
                                 }
-                                if (jsonObject1.has("service_group_id")) {
-                                    serviceModel.setServiceID(jsonObject1.getString("service_group_id"));
-                                }
-                                if (jsonObject1.has("service_group_icon")){
-                                    serviceModel.setServiceIcon(jsonObject1.getString("service_group_icon"));
-                                } else {
-                                    serviceModel.setServiceIcon("https://www.indiafilings.com/learn/wp-content/uploads/2020/10/shutterstock_1067245667.jpg");
-                                }
-                                seeMoreServiceModels.add(serviceModel);
                             }
                         }
                         showAllServicesAdapter.notifyDataSetChanged();
                     } else {
+                        Toast.makeText(SeeMoreServicesActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(SeeMoreServicesActivity.this, LoginActivity.class));
                         finish();
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                isLoading = false;
             }
 
             @Override

@@ -2,11 +2,13 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,9 +21,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.AEPSHistoryModel;
 import com.vigyos.vigyoscentercrm.Model.PayoutHistoryModel;
@@ -41,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class PayoutHistoryFragment extends Fragment {
 
     private Activity activity;
@@ -89,7 +94,8 @@ public class PayoutHistoryFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    aepsHistoryApi(page++);
+                    page++;
+                    aepsHistoryApi(page);
                     isLoading = true;
                 }
             }
@@ -125,7 +131,7 @@ public class PayoutHistoryFragment extends Fragment {
                                 historyModel.setTransactiontype(jsonObject1.getString("transactiontype"));
                             }
                             if (jsonObject1.has("amount")) {
-                                historyModel.setAmount(jsonObject1.getString("amount"));
+                                historyModel.setAmount(jsonObject1.getInt("amount"));
                             }
                             if (jsonObject1.has("timestamp")) {
                                 historyModel.setTimestamp(jsonObject1.getString("timestamp"));
@@ -147,6 +153,11 @@ public class PayoutHistoryFragment extends Fragment {
                             animationView.setVisibility(View.GONE);
                         }
                         payoutHistoryAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -209,10 +220,18 @@ public class PayoutHistoryFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             PayoutHistoryModel model = payoutHistoryModels.get(position);
-            holder.titleName.setText(model.getReferenceno());
-
+            holder.orderID.setText("#"+ getLastThree( model.getReferenceno()));
+            holder.titleName.setText("Aadhaar: "+model.getAdhaarnumber());
             holder.date.setText(model.getTimestamp());
             holder.amount.setText(model.getTransactiontype());
+
+            if (model.getAmount() == 0){
+                holder.balance.setText("₹ "+"0.00");
+            } else {
+                int i = model.getAmount();
+                float v = (float) i;
+                holder.balance.setText("₹ "+ v);
+            }
 
 //            String timestampStr = model.getTimestamp();
 //            if (timestampStr.matches("\\d+")) {
@@ -237,6 +256,13 @@ public class PayoutHistoryFragment extends Fragment {
 //            }
         }
 
+        public String getLastThree(String myString) {
+            if(myString.length() > 6)
+                return myString.substring(myString.length()-6);
+            else
+                return myString;
+        }
+
         private String formatTimestamp(long timestamp) {
             Date date = new Date(timestamp * 1000L);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -254,13 +280,16 @@ public class PayoutHistoryFragment extends Fragment {
             TextView titleName;
             TextView date;
             TextView amount;
+            TextView orderID;
+            TextView balance;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
-
                 titleName = itemView.findViewById(R.id.titleName);
                 date = itemView.findViewById(R.id.date);
                 amount = itemView.findViewById(R.id.amount);
+                orderID = itemView.findViewById(R.id.orderID);
+                balance = itemView.findViewById(R.id.balance);
             }
         }
     }

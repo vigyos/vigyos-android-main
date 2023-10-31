@@ -3,6 +3,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vigyos.vigyoscentercrm.Model.ServiceListModel;
@@ -36,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class SubCatServiceActivity extends AppCompatActivity {
 
     private Dialog dialog;
@@ -71,7 +74,7 @@ public class SubCatServiceActivity extends AppCompatActivity {
                 Log.i("45621", "onResponse "+ response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         if (jsonObject.has("data")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
                             for (int i = 0; i<jsonArray.length(); i++){
@@ -97,10 +100,12 @@ public class SubCatServiceActivity extends AppCompatActivity {
                             callShowAdapter();
                         }
                     } else {
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(SubCatServiceActivity.this, LoginActivity.class));
-                        finish();
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(SubCatServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(SubCatServiceActivity.this, LoginActivity.class));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -109,8 +114,9 @@ public class SubCatServiceActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                dismissDialog();
                 Log.i("45621", "onFailure "+ t);
+                dismissDialog();
+                Toast.makeText(SubCatServiceActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

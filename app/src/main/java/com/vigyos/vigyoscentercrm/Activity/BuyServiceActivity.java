@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,6 +76,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class BuyServiceActivity extends AppCompatActivity implements OnItemClickListener {
 
     private Dialog dialog;
@@ -196,7 +198,6 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
 
     private void buyServiceAPI() {
         pleaseWait();
-
         List<Map<String, Object>> buyServiceDocumentModels1 = new ArrayList<>();
         for (int i = 0; i < imageUris.size(); i++) {
             Map<String, Object> documentModel = new HashMap<>();
@@ -290,7 +291,10 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
 
                         buyServiceDocumentAdapter();
                     } else {
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                        Toast.makeText(BuyServiceActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(BuyServiceActivity.this, LoginActivity.class));
+                        finish();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -301,6 +305,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("2016", "onFailure " + t);
                 dismissDialog();
+                Toast.makeText(BuyServiceActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
             }
         });
     }

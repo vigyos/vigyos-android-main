@@ -33,9 +33,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,8 +52,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
-import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
@@ -63,7 +60,6 @@ import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
 import com.vigyos.vigyoscentercrm.Activity.UserActivity;
 import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
-import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
@@ -90,6 +86,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public View view;
@@ -434,7 +431,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     .withPermissions(
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.CAMERA,
-                            Manifest.permission.READ_MEDIA_IMAGES
+                            Manifest.permission.READ_MEDIA_IMAGES,
+                            Manifest.permission.POST_NOTIFICATIONS
                     )
                     .withListener(new MultiplePermissionsListener() {
                         @Override
@@ -580,8 +578,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                dismissDialog();
                 Log.i("2016", "onResponse "+ response);
+                dismissDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {

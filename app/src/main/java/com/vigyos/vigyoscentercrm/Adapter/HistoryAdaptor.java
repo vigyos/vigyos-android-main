@@ -3,6 +3,7 @@ package com.vigyos.vigyoscentercrm.Adapter;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -14,6 +15,7 @@ import com.vigyos.vigyoscentercrm.Fragment.PayoutHistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.ProcessingFragment;
 import com.vigyos.vigyoscentercrm.Fragment.WalletHistoryFragment;
 
+@BuildCompat.PrereleaseSdkCheck
 public class HistoryAdaptor extends FragmentStateAdapter {
 
     private Activity activity;

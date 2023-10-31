@@ -6,7 +6,7 @@ public class PayoutHistoryModel {
     private String commission;
     private String referenceno;
     private String transactiontype;
-    private String amount;
+    private int amount;
     private String timestamp;
     private String bene_id;
     private String adhaarnumber;
@@ -46,11 +46,11 @@ public class PayoutHistoryModel {
         this.transactiontype = transactiontype;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
                 Log.i("12121", "onResponse " + response);
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")){
@@ -144,6 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -151,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
-                Toast.makeText(LoginActivity.this, "Server is on Maintenance", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

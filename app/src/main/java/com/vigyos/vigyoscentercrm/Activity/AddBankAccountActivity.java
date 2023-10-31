@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -67,6 +68,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class AddBankAccountActivity extends AppCompatActivity {
 
     private ArrayList<String> bankNameArrayList = new ArrayList<>();
@@ -288,7 +290,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-//                dismissDialog();
                 Log.i("2019","onResponse"+ response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
@@ -299,9 +300,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         if (jsonObject.has("bene_id")) {
                             beneID = jsonObject.getString("bene_id");
                         }
-//                        if (jsonObject.has("message")) {
-//                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//                        }
                         if (documentTypeName.equalsIgnoreCase("PAN")) {
                             uploadPanDocumentApi(beneID);
                         } else {
@@ -544,10 +542,10 @@ public class AddBankAccountActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                Log.i("123654", "onResponse" + response);
+                Log.i("2016", "onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success") && jsonObject.getBoolean("success")){
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
                         bankNameArrayList.add(0,"Select your bank");
                         for (int i = 0; i < jsonArray.length(); i++){
@@ -563,10 +561,12 @@ public class AddBankAccountActivity extends AppCompatActivity {
                             bankListModels.add(listModel);
                         }
                     } else {
-                        Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(AddBankAccountActivity.this, LoginActivity.class));
-                        finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(AddBankAccountActivity.this, LoginActivity.class));
+                            finish();
+                        }
                     }
 
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(AddBankAccountActivity.this, android.R.layout.simple_spinner_item, bankNameArrayList); //selected item will look like a spinner set from XML
@@ -595,7 +595,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
                     selectAccountType();
                     selectDocumentType();
-
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

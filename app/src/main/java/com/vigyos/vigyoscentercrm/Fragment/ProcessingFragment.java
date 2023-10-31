@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -39,6 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class ProcessingFragment extends Fragment {
 
     private View view;
@@ -72,7 +75,8 @@ public class ProcessingFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    processingApi(page++);
+                    page++;
+                    processingApi(page);
                     isLoading = true;
                 }
             }
@@ -131,10 +135,10 @@ public class ProcessingFragment extends Fragment {
                         }
                         completedListAdapter.notifyDataSetChanged();
                     } else {
+                        Toast.makeText(getActivity(), "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
                         SplashActivity.prefManager.setClear();
                         startActivity(new Intent(getActivity(), LoginActivity.class));
                         getActivity().finish();
-                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

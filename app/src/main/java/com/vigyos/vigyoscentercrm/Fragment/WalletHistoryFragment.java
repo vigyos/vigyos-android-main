@@ -2,16 +2,10 @@ package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +17,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
-import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
-import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.Model.WalletHistoryModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -40,11 +40,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class WalletHistoryFragment extends Fragment {
 
     private Activity activity;
@@ -119,7 +121,8 @@ public class WalletHistoryFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    walletHistoryAPI(page++);
+                    page++;
+                    walletHistoryAPI(page);
                     isLoading = true;
                 }
             }
@@ -128,7 +131,6 @@ public class WalletHistoryFragment extends Fragment {
     }
 
     private void walletHistoryAPI(int page) {
-        Log.i("2014855", "trxType 2 "+ trxType);
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().walletHistory(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), page, trxType);
         objectCall.enqueue(new Callback<Object>() {
@@ -139,7 +141,7 @@ public class WalletHistoryFragment extends Fragment {
                 isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    Log.i("2016", "JSON Response: " + jsonObject.toString()); // Added this line for logging
+                    Log.i("2016", "JSON Response: " + jsonObject); // Added this line for logging
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -198,13 +200,17 @@ public class WalletHistoryFragment extends Fragment {
                             }
                             walletHistoryModel.add(historyModel);
                         }
-
                         if (walletHistoryModel.isEmpty()) {
                             animationView.setVisibility(View.VISIBLE);
                         } else {
                             animationView.setVisibility(View.GONE);
                         }
                         walletHistoryAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(activity, LoginActivity.class));
+                        activity.finish();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -269,10 +275,6 @@ public class WalletHistoryFragment extends Fragment {
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             WalletHistoryModel model = walletHistoryModels.get(position);
             holder.titleName.setText(model.getDescription());
-//            holder.balance.setText("Balance: "+ model.getUpdated_amount());
-            holder.date.setText(formatTimestamp(Long.parseLong(model.getTimestamp())));
-
-
             holder.orderID.setText("#"+ getLastThree(model.getTrx_id()));
 
             if (model.getUpdated_amount() == 0){
@@ -283,19 +285,19 @@ public class WalletHistoryFragment extends Fragment {
                 holder.balance.setText("Balance: ₹ "+ v);
             }
 
-//            String timestampStr = model.getTimestamp();
-//            if (timestampStr.matches("\\d+")) {
-//                long timestamp = Long.parseLong(timestampStr);
-//                holder.date.setText(formatTimestamp(timestamp));
-//            } else {
-//                try {
-//                    long timestamp = parseTimestamp(timestampStr);
-//                    holder.date.setText(formatTimestamp(timestamp));
-//                } catch (ParseException e) {
-//                    holder.date.setText("Invalid date format");
-//                    e.printStackTrace();
-//                }
-//            }
+            String timestampStr = model.getTimestamp();
+            if (timestampStr.matches("\\d+")) {
+                long timestamp = Long.parseLong(timestampStr);
+                holder.date.setText(formatTimestamp(timestamp));
+            } else {
+                try {
+                    long timestamp = parseTimestamp(timestampStr);
+                    holder.date.setText(formatTimestamp(timestamp));
+                } catch (ParseException e) {
+                    holder.date.setText("null");
+                    e.printStackTrace();
+                }
+            }
 
             if (model.getTrx_type().equalsIgnoreCase("CREDIT")) {
                 holder.amount.setTextColor(getResources().getColor(R.color.cr));
@@ -314,10 +316,9 @@ public class WalletHistoryFragment extends Fragment {
         }
 
         private String formatTimestamp(long timestamp) {
-            Date date = new Date(timestamp * 1000L);
-//            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm a");
-            return formatter.format(date);
+            Date date = new Date(timestamp * 1000L); // Convert seconds to milliseconds
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a", Locale.getDefault()); // Set your desired format
+            return sdf.format(date);
         }
 
         private long parseTimestamp(String timestampString) throws ParseException {

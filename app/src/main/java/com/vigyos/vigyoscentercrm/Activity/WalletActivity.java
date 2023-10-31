@@ -2,6 +2,7 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
@@ -42,6 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@BuildCompat.PrereleaseSdkCheck
 public class WalletActivity extends AppCompatActivity {
 
     private ImageView ivBack;
@@ -101,7 +105,8 @@ public class WalletActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!isLoading && !recyclerView.canScrollVertically(1)) {
-                    walletHistoryAPI(page++);
+                    page++;
+                    walletHistoryAPI(page);
                     isLoading = true;
                 }
             }
@@ -121,7 +126,6 @@ public class WalletActivity extends AppCompatActivity {
                 isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    Log.i("2016", "JSON Response: " + jsonObject.toString()); // Added this line for logging
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -187,6 +191,11 @@ public class WalletActivity extends AppCompatActivity {
                             animationView.setVisibility(View.GONE);
                         }
                         walletHistoryAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(WalletActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                        SplashActivity.prefManager.setClear();
+                        startActivity(new Intent(WalletActivity.this, LoginActivity.class));
+                        finish();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -295,7 +304,6 @@ public class WalletActivity extends AppCompatActivity {
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
-
                 titleName = itemView.findViewById(R.id.titleName);
                 date = itemView.findViewById(R.id.date);
                 amount = itemView.findViewById(R.id.amount);

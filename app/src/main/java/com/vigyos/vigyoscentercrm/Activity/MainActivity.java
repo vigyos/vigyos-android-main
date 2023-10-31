@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("852145", "onBack");
                         if (AppController.backCheck){
                             if (doubleBackToExitPressedOnce) {
-//                                super.onBackPressed();
                                 finishAffinity();
                                 return;
                             }
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         profileData();
-        getServicesData();
+//        getServicesData();
 
         meowBottomNavigation = findViewById(R.id.bottomNav);
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
@@ -107,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
-                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
-//                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
+//                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
+                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
 //                        AppController.backCheck = false;
 //                        finish();
                         break;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
-                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
+//                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
 //                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
                         break;
                     case 3:
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         AppController.backCheck = false;
                         break;
                     case 2:
-                        loadFragment(new SearchFragment(MainActivity.this , searchServicesModels), false);
+//                        loadFragment(new SearchFragment(MainActivity.this , searchServicesModels), false);
 //                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
                         break;
                     case 3:
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loadFragment(Fragment fragment, boolean flag){
+    public void loadFragment(Fragment fragment, boolean flag) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if(flag) {
@@ -206,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    private void profileData(){
+    private void profileData() {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().profile(SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
@@ -214,11 +213,14 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
                 Log.i("12121", "onResponse " + response);
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            if (jsonObject1.has("user_id")) {
+                                SplashActivity.prefManager.setUserID(jsonObject1.getString("user_id"));
+                            }
                             if (jsonObject1.has("first_name")) {
                                 SplashActivity.prefManager.setFirstName(jsonObject1.getString("first_name"));
                             }
@@ -258,20 +260,41 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("is_active")) {
                                 SplashActivity.prefManager.setIsActive(jsonObject1.getString("is_active"));
                             }
+                            if (jsonObject1.has("license_no")) {
+                                SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
+                            }
                             if (jsonObject1.has("city")) {
                                 SplashActivity.prefManager.setCity(jsonObject1.getString("city"));
                             }
                             if (jsonObject1.has("state")) {
                                 SplashActivity.prefManager.setState(jsonObject1.getString("state"));
                             }
-                            if (jsonObject1.has("license_no")) {
-                                SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
+                            if (jsonObject1.has("pincode")) {
+                                SplashActivity.prefManager.setPinCode(jsonObject1.getString("pincode"));
                             }
                             if (jsonObject1.has("profile_picture")){
                                 SplashActivity.prefManager.setProfilePicture(jsonObject1.getString("profile_picture"));
                             }
+                            if (jsonObject1.has("other_document")){
+                                SplashActivity.prefManager.setOtherDocument(jsonObject1.getString("other_document"));
+                            }
                             if (jsonObject1.has("create_time")){
                                 SplashActivity.prefManager.setJoinDate(jsonObject1.getInt("create_time"));
+                            }
+                            if (jsonObject1.has("update_time")){
+                                SplashActivity.prefManager.setUpdateTime(jsonObject1.getInt("update_time"));
+                            }
+                            if (jsonObject1.has("time_stamp")){
+                                SplashActivity.prefManager.setTimeStamp(jsonObject1.getInt("time_stamp"));
+                            }
+                            if (jsonObject1.has("createdby")){
+                                SplashActivity.prefManager.setCreatedBy(jsonObject1.getString("createdby"));
+                            }
+                            if (jsonObject1.has("sales_person")){
+                                SplashActivity.prefManager.setSalesPerson(jsonObject1.getString("sales_person"));
+                            }
+                            if (jsonObject1.has("updated_by")){
+                                SplashActivity.prefManager.setUpdatedBy(jsonObject1.getString("updated_by"));
                             }
                             if (jsonObject1.has("wallet_id")) {
                                 SplashActivity.prefManager.setWalletId(jsonObject1.getString("wallet_id"));
@@ -294,39 +317,41 @@ public class MainActivity extends AppCompatActivity {
                             if (jsonObject1.has("payout_balance")) {
                                 SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
-
-                            meowBottomNavigation.show(3,true);
-                            AppController.backCheck = true;
                         } else {
-                            Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
-                            SplashActivity.prefManager.setClear();
-                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                            finish();
+                            if (jsonObject.has("message")) {
+                                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                SplashActivity.prefManager.setClear();
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                finish();
+                            }
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
                     SplashActivity.prefManager.setClear();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 }
+                meowBottomNavigation.show(3,true);
+                AppController.backCheck = true;
             }
+
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
                 meowBottomNavigation.show(3,true);
                 AppController.backCheck = true;
-                Snackbar.make(findViewById(android.R.id.content), "Session expired please login again", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void getServicesData(){
+    private void getServicesData() {
 //        pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "100");
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "1000");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -367,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void pleaseWait(){
+    private void pleaseWait() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -376,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void dismissDialog(){
+    private void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }

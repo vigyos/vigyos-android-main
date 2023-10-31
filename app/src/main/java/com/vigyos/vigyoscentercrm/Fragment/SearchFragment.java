@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,6 +31,7 @@ import com.vigyos.vigyoscentercrm.R;
 
 import java.util.ArrayList;
 
+@BuildCompat.PrereleaseSdkCheck
 public class SearchFragment extends Fragment {
 
     private AutoCompleteTextView autoCompleteTextView;
