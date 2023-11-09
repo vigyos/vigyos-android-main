@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#D8E7F4"
+    tools:context=".Activity.BiometricLockActivity">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/vigyos">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginStart="10sp"
+            android:layout_centerVertical="true"
+            app:tint="@color/white"
+            android:src="@drawable/arrow_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10sp"
+            android:layout_toEndOf="@+id/ivBack"
+            android:text="Screen Lock"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
+        <ImageView
+            android:id="@+id/help"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10sp"
+            android:layout_centerVertical="true"
+            app:tint="@color/white"
+            android:src="@drawable/help_outline"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginTop="10dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8sp"
+            app:cardElevation="2sp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/item_img"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="5sp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/fingerprint" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@+id/item_img">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Screen Lock"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserrat_medium"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Biometric &amp; Screen lock"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/montserrat_regular"/>
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/idSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>

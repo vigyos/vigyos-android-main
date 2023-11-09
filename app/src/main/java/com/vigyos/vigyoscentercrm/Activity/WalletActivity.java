@@ -115,7 +115,6 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     private void walletHistoryAPI(int page) {
-        Log.i("2014855", "trxType 2 "+ trxType);
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().walletHistory(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), page, trxType);
         objectCall.enqueue(new Callback<Object>() {
@@ -192,10 +191,12 @@ public class WalletActivity extends AppCompatActivity {
                         }
                         walletHistoryAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(WalletActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(WalletActivity.this, LoginActivity.class));
-                        finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(WalletActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(WalletActivity.this, LoginActivity.class));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -207,6 +208,7 @@ public class WalletActivity extends AppCompatActivity {
                 Log.i("2016","onFailure " + t);
                 dismissDialog();
                 isLoading = false;
+                Toast.makeText(WalletActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

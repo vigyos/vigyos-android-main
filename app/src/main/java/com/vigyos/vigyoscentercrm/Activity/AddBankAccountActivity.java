@@ -137,7 +137,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddBankAccountActivity.this, PayOutActivity.class));
                 finish();
             }
         });
@@ -592,7 +591,6 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) { }
                     });
-
                     selectAccountType();
                     selectDocumentType();
                 } catch (JSONException e) {

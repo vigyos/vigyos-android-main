@@ -207,10 +207,12 @@ public class WalletHistoryFragment extends Fragment {
                         }
                         walletHistoryAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(activity, LoginActivity.class));
-                        activity.finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                            getActivity().finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -222,6 +224,7 @@ public class WalletHistoryFragment extends Fragment {
                 Log.i("2016","onFailure " + t);
                 dismissDialog();
                 isLoading = false;
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -337,7 +340,6 @@ public class WalletHistoryFragment extends Fragment {
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
-
                 titleName = itemView.findViewById(R.id.titleName);
                 date = itemView.findViewById(R.id.date);
                 amount = itemView.findViewById(R.id.amount);

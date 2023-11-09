@@ -10,4 +10,8 @@
         android:layout_height="180sp"
         android:layout_centerInParent="true"
         android:src="@drawable/vigyos_logo"/>
+<!--    <VideoView-->
+<!--        android:id="@+id/videoView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
 </RelativeLayout>

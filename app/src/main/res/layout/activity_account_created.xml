@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AccountCreatedActivity">
+    <TextView
+        android:id="@+id/phoneNumberText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:text="Account Created"
+        android:textSize="@dimen/_24sdp"
+        android:textColor="@color/dark_vigyos"
+        android:fontFamily="@font/poppins_semi_bold"/>
+    <TextView
+        android:id="@+id/detailLyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_below="@+id/phoneNumberText"
+        android:text="Your account has been created successfully. \nPress continue to continue using the app"
+        android:lineSpacingExtra="@dimen/_3sdp"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="#999999"
+        android:fontFamily="@font/poppins_regular"
+        android:textAlignment="center"/>
+
+    <RelativeLayout
+        android:id="@+id/Continue"
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:layout_above="@+id/byContinue"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="@drawable/next_button_filled">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Continue"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/byContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/termAndConditions"
+        android:text="By clicking continue, you agree to our"
+        android:textSize="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/dark_vigyos"/>
+
+    <TextView
+        android:id="@+id/termAndConditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/terms_and_conditions"
+        android:textColor="#333333"
+        android:textSize="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_medium"/>
+
+</RelativeLayout>

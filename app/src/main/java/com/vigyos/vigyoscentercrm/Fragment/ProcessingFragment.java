@@ -135,10 +135,12 @@ public class ProcessingFragment extends Fragment {
                         }
                         completedListAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(getActivity(), "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(getActivity(), LoginActivity.class));
-                        getActivity().finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                            getActivity().finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -150,6 +152,7 @@ public class ProcessingFragment extends Fragment {
                 Log.i("2016","onFailure" + t);
                 dismissDialog();
                 isLoading = false;
+                Toast.makeText(getActivity(), "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

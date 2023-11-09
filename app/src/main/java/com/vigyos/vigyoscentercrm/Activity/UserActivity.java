@@ -22,15 +22,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,15 +39,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.vigyos.vigyoscentercrm.Adapter.AdapterForUser;
-import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
@@ -68,7 +63,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -76,9 +70,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @BuildCompat.PrereleaseSdkCheck
-public class UserActivity extends AppCompatActivity implements UserItemListener {
+public class UserActivity extends AppCompatActivity {
 
-    private static final String TAG = "UserActivity";
+    private LinearLayout accountInformation, payOutBalance;
+    private LinearLayout screenLock, refundPolicy;
+    private LinearLayout termAndConditions, privacyPolicy;
+    private LinearLayout helpAndSupport, logout;
+    private ImageView ivBack;
     public PidData pidData = null;
     private Serializer serializer = null;
     public ArrayList<String> positions;
@@ -93,12 +91,23 @@ public class UserActivity extends AppCompatActivity implements UserItemListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        String[] list = {"Account Information", "Payout Balance", "Refund Policy", "Terms and Conditions", "Privacy Policy", "Help And Support", "Logout"};
-        int[] theBitmapIds = { R.drawable.person_dark, R.drawable.payout_icon, R.drawable.refund_icon, R.drawable.terms_icon, R.drawable.privacy_icon, R.drawable.help_icon, R.drawable.logout_icon};
-        RecyclerView recyclerView = findViewById(R.id.profile_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(UserActivity.this));
-        recyclerView.setAdapter(new AdapterForUser(list, UserActivity.this, theBitmapIds));
+        initialization();
+        declaration();
+    }
 
+    private void initialization() {
+        ivBack = findViewById(R.id.ivBack);
+        accountInformation = findViewById(R.id.accountInformation);
+        payOutBalance = findViewById(R.id.payOutBalance);
+        screenLock = findViewById(R.id.screenLock);
+        refundPolicy = findViewById(R.id.refundPolicy);
+        termAndConditions = findViewById(R.id.termAndConditions);
+        privacyPolicy = findViewById(R.id.privacyPolicy);
+        helpAndSupport = findViewById(R.id.helpAndSupport);
+        logout = findViewById(R.id.logout);
+    }
+
+    private void declaration() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (checkPermission()){
             getLocation();
@@ -110,23 +119,22 @@ public class UserActivity extends AppCompatActivity implements UserItemListener 
         serializer = new Persister();
         positions = new ArrayList<>();
 
-        ImageView ivBack = findViewById(R.id.ivBack);
-        ivBack.setOnClickListener(new View.OnClickListener() {
+
+        if (SplashActivity.prefManager.getBiometricSensor()) {
+            screenLock.setVisibility(View.GONE);
+        } else {
+            screenLock.setVisibility(View.VISIBLE);
+        }
+
+        accountInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
-                finish();
+                startActivity(new Intent(UserActivity.this, AccountActivity.class));
             }
         });
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        switch (position){
-            case 0:
-                startActivity(new Intent(UserActivity.this, AccountActivity.class));
-                break;
-            case 1:
+        payOutBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Log.i("741258", "time Aeps " + formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
@@ -170,25 +178,51 @@ public class UserActivity extends AppCompatActivity implements UserItemListener 
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                break;
-            case 2:
+            }
+        });
+        screenLock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserActivity.this, BiometricLockActivity.class));
+            }
+        });
+        refundPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent(UserActivity.this, RefundPolicyActivity.class));
-                break;
-            case 3:
+            }
+        });
+        termAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent(UserActivity.this, TermsAndConditionsActivity.class));
-                break;
-            case 4:
+            }
+        });
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent(UserActivity.this, PrivacyPolicyActivity.class));
-                break;
-            case 5:
+            }
+        });
+        helpAndSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent(UserActivity.this, HelpAndSupportActivity.class));
-                break;
-            case 6:
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 areYouSure();
-                break;
-            default:
-                break;
-        }
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
     }
 
     private void areYouSure(){

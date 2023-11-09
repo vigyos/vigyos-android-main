@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName, password;
     private TextView forgotPassword;
     private ImageView visibility;
+    private TextView signUp;
     private TextView termsAndConditions;
     private TextView privacyPolicy;
     private boolean showVisibility = true;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         forgotPassword = findViewById(R.id.forgotPassword);
         visibility = findViewById(R.id.passwordVisibility);
+        signUp = findViewById(R.id.signUp);
         termsAndConditions = findViewById(R.id.TermsAndConditions);
         privacyPolicy = findViewById(R.id.privacyPolicy);
     }
@@ -96,6 +98,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // calling a method to post the data and passing our name and job.
                 login(userName.getText().toString(), password.getText().toString());
+            }
+        });
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
         termsAndConditions.setOnClickListener(new View.OnClickListener() {

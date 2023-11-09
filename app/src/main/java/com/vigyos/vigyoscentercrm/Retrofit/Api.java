@@ -118,6 +118,23 @@ public interface Api {
     );
 
     @FormUrlEncoded
+    @POST("aeps/bank_registration")
+    Call<Object> bankRegistrationAPI(
+            @Header("Authorization") String Authorization,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("timestamp") String timestamp,
+            @Field("data") String data,
+            @Field("ipaddress") String ipaddress,
+            @Field("bank") String pipe,
+            @Field("submerchantid") String submerchantid
+    );
+
+
+    @FormUrlEncoded
     @POST("aeps/bank_registration/verify")
     Call<Object> AuthAPI(
             @Header("Authorization") String Authorization,

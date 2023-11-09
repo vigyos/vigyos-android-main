@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Fragment.Onboarding3Fragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:src="@drawable/onbording_page_image" />
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Heading"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/detailsText"
+                android:layout_width="261sp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/heading"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/very_easy_to"
+                android:textAlignment="center"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                android:lineSpacingExtra="5sp"/>
+            <LinearLayout
+                android:id="@+id/dots"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detailsText"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="8sp"
+                    android:layout_height="8sp"
+                    app:tint="#D8D4D4"
+                    android:src="@drawable/dot"
+                    tools:ignore="SmallSp" />
+                <ImageView
+                    android:layout_width="8sp"
+                    android:layout_height="8sp"
+                    android:layout_marginStart="24sp"
+                    app:tint="#D8D4D4"
+                    android:src="@drawable/dot"
+                    tools:ignore="SmallSp" />
+                <ImageView
+                    android:layout_width="8sp"
+                    android:layout_height="8sp"
+                    android:layout_marginStart="24sp"
+                    android:src="@drawable/dot_fill"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/createButton"
+                android:layout_width="match_parent"
+                android:layout_height="56sp"
+                android:layout_marginHorizontal="20sp"
+                android:layout_below="@+id/dots"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/next_button_filled">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="Create Account"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="56sp"
+                android:layout_marginHorizontal="20sp"
+                android:layout_below="@+id/createButton"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/next_button_border">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="Login Now"
+                    android:textColor="@color/dark_vigyos"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -305,7 +305,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("2016", "onFailure " + t);
                 dismissDialog();
-                Toast.makeText(BuyServiceActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuyServiceActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -405,6 +405,8 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                             // Hide the uploadImageLyt when image upload is successful
                             buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.GONE);
                             buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.VISIBLE);
+                        } else {
+
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -415,6 +417,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 @Override
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                     Log.i("12312","onFailure" + t);
+                    Toast.makeText(BuyServiceActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (IOException e) {

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E9F5FB"
+    tools:context=".Activity.RegisterHomeActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/vigyos">
+        <RelativeLayout
+            android:id="@+id/notification"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="15sp"
+            android:background="@drawable/notification_bg">
+            <ImageView
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/notification"
+                app:tint="@color/white" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerInside"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="animation_register.json"
+            app:lottie_loop="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/animation_view"
+            android:layout_marginTop="20sp"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:lineSpacingExtra="5dp"
+            android:text="@string/thank_you_for_reaching"
+            android:textAlignment="center"
+            android:textColor="#292e91"
+            android:textSize="16dp" />
+    </RelativeLayout>
+</RelativeLayout>
+
+
+
+

@@ -385,6 +385,7 @@ public class WithdrawalFragment extends Fragment{
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("123345","onFailure");
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -132,10 +132,12 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                         }
                         showAllServicesAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(SeeMoreServicesActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(SeeMoreServicesActivity.this, LoginActivity.class));
-                        finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(SeeMoreServicesActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(SeeMoreServicesActivity.this, LoginActivity.class));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -147,6 +149,7 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
                 dismissDialog();
                 Log.i("2016","onFailure" + t);
                 isLoading = false;
+                Toast.makeText(SeeMoreServicesActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

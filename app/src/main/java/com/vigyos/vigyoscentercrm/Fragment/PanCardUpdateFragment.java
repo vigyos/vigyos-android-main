@@ -31,6 +31,7 @@ import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanWebViewActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 import com.google.gson.Gson;
@@ -302,6 +303,7 @@ public class PanCardUpdateFragment extends Fragment{
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("85214","onFailure" + t);
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

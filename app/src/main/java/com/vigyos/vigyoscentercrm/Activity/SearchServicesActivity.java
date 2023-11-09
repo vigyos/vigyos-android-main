@@ -129,6 +129,7 @@ public class SearchServicesActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
+                Toast.makeText(SearchServicesActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

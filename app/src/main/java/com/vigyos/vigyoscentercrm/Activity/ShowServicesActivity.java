@@ -156,6 +156,7 @@ public class ShowServicesActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016", "onFailure" + t);
+                Toast.makeText(ShowServicesActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }

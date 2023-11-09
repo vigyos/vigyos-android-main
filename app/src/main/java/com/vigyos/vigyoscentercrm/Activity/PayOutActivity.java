@@ -2,11 +2,6 @@ package com.vigyos.vigyoscentercrm.Activity;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.os.BuildCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -36,11 +31,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -107,7 +106,7 @@ public class PayOutActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+//                onBackPressed();
                 finish();
             }
         });
@@ -363,6 +362,7 @@ public class PayOutActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016","onFailure" + t);
+                Toast.makeText(PayOutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -391,7 +391,6 @@ public class PayOutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.i("25214","onBackPressed");
         finish();
     }
 

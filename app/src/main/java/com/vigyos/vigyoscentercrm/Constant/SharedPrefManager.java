@@ -47,14 +47,37 @@ public class SharedPrefManager {
     private static final String last_verify_timestamp_aeps = "last_verify_timestamp_aeps";
     private static final String payout_balance = "payout_balance";
     private static final String login = "login";
+    private static final String register = "register";
     private static final String service_id = "service_id";
     private static final String service_name = "service_name";
     private static final String service_description = "service_description";
+    private static final String biometric_lock = "biometric_lock";
+    private static final String biometric_sensor = "biometric_sensor";
 
     public SharedPrefManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
+    }
+
+    public void setBiometricSensor(boolean BiometricSensor){
+        editor = pref.edit();
+        editor.putBoolean(biometric_sensor, BiometricSensor);
+        editor.commit();
+    }
+
+    public boolean getBiometricSensor(){
+        return pref.getBoolean(biometric_sensor, false);
+    }
+
+    public void setBiometricLock(boolean BiometricLock){
+        editor = pref.edit();
+        editor.putBoolean(biometric_lock, BiometricLock);
+        editor.commit();
+    }
+
+    public boolean getBiometricLock(){
+        return pref.getBoolean(biometric_lock, false);
     }
 
     public void setServiceDescription(String ServiceDescription){
@@ -87,7 +110,7 @@ public class SharedPrefManager {
         return pref.getString(service_id, "null");
     }
 
-    public void setLogin(boolean Login){
+    public void setLogin(boolean Login) {
         editor = pref.edit();
         editor.putBoolean(login, Login);
         editor.commit();
@@ -95,6 +118,16 @@ public class SharedPrefManager {
 
     public boolean getLogin(){
         return pref.getBoolean(login, false);
+    }
+
+    public void setRegister(boolean Register) {
+        editor = pref.edit();
+        editor.putBoolean(register, Register);
+        editor.commit();
+    }
+
+    public boolean getRegister(){
+        return pref.getBoolean(register, false);
     }
 
     public void setToken(String Token){

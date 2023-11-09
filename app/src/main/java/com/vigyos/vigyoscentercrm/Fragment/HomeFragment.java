@@ -283,9 +283,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.panService:
                 startActivity(new Intent(activity, PanCardActivity.class));
-//                Toast.makeText(activity, "Coming Soon...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.aeps:
+//                registerDialog();
+                if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
+                    registerDialog();
+                } else {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     try {
                         Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
@@ -328,6 +331,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                }
                 break;
             case R.id.notification:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -337,12 +341,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(activity, UserActivity.class));
                 break;
             case R.id.walletView:
-//                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, WalletActivity.class));
                 break;
             default:
                 break;
         }
+    }
+
+    private void registerDialog() {
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_user_message);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView enable = dialog.findViewById(R.id.enable);
+        enable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissDialog();
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                if (checkPermission()) {
+                    try {
+                        String pidOption = getPIDOptions();
+                        if (pidOption != null) {
+                            Log.e("PidOptions", pidOption);
+                            Intent intent9 = new Intent();
+                            intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                            intent9.putExtra("PID_OPTIONS", pidOption);
+                            startActivityForResult(intent9, 2);
+                        } else {
+                            Log.i("454545","Device not found!");
+                        }
+                    } catch (Exception e) {
+                        Log.e("Error", e.toString());
+                        Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    requestPermissions();
+                }
+            }
+        });
+        dialog.show();
     }
 
     private String formatTimestamp(long timestamp) {
@@ -398,6 +438,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
                             } else {
                                 AuthAPI(result);
+                                Log.i("78954", "case 2  result if : - " + pidData.toString());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.i("78954", "Error while deserialize pid data " + e);
+                    Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    if (data != null) {
+                        String result = data.getStringExtra("PID_DATA");
+                        if (result != null) {
+                            pidData = serializer.read(PidData.class, result);
+                            if (!pidData._Resp.errCode.equals("0")) {
+                                Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                bankRegistration(result);
                                 Log.i("78954", "case 2  result if : - " + pidData.toString());
                             }
                         }
@@ -569,6 +629,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         } else {
             requestPermissions();
         }
+    }
+
+    private void bankRegistration(String fingerData) {
+        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().bankRegistrationAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse "+ response);
+                dismissDialog();
+                Toast.makeText(activity, "AEPS service enable successfully!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
+                Log.i("2016", "onFailure "+ t);
+                Toast.makeText(activity, "Failed Authentication", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void AuthAPI(String fingerData) {

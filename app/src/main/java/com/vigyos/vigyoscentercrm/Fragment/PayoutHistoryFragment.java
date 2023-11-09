@@ -154,10 +154,12 @@ public class PayoutHistoryFragment extends Fragment {
                         }
                         payoutHistoryAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(activity, LoginActivity.class));
-                        activity.finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(activity, LoginActivity.class));
+                            activity.finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -168,6 +170,8 @@ public class PayoutHistoryFragment extends Fragment {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("20160","onFailure " + t);
                 dismissDialog();
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

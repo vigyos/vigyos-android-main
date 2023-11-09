@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Activity.AccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.Model.CompletedItemModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -139,10 +140,12 @@ public class CompletedFragment extends Fragment {
                         }
                         completedListAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(activity, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(activity, LoginActivity.class));
-                        activity.finish();
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            SplashActivity.prefManager.setClear();
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                            getActivity().finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -154,6 +157,7 @@ public class CompletedFragment extends Fragment {
                 Log.i("2016","onFailure" + t);
                 dismissDialog();
                 isLoading = false;
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
