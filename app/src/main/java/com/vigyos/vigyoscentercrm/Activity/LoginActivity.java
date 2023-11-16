@@ -36,11 +36,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private RelativeLayout loginButton;
     private EditText userName, password;
+    private RelativeLayout emailAddressLyt, passwordLyt;
     private TextView forgotPassword;
     private ImageView visibility;
     private TextView signUp;
-    private TextView termsAndConditions;
-    private TextView privacyPolicy;
     private boolean showVisibility = true;
     private Dialog dialog;
 
@@ -56,14 +55,30 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         userName = findViewById(R.id.userName);
         password = findViewById(R.id.password);
+        emailAddressLyt = findViewById(R.id.emailAddressLyt);
+        passwordLyt = findViewById(R.id.passwordLyt);
         forgotPassword = findViewById(R.id.forgotPassword);
         visibility = findViewById(R.id.passwordVisibility);
         signUp = findViewById(R.id.signUp);
-        termsAndConditions = findViewById(R.id.TermsAndConditions);
-        privacyPolicy = findViewById(R.id.privacyPolicy);
     }
 
     private void declaration() {
+        userName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border);
+                    passwordLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                emailAddressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                passwordLyt.setBackgroundResource(R.drawable.credential_border);
+            }
+        });
         visibility.setBackgroundResource(R.drawable.visibility_off_icon);
         visibility.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                     visibility.setBackgroundResource(R.drawable.visibility_icon);
                     showVisibility = false;
                     password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    password.setTextColor(getResources().getColor(R.color.dark_vigyos));
                 } else {
                     Log.i("12541"," else ");
                     visibility.setBackgroundResource(R.drawable.visibility_off_icon);
                     showVisibility = true;
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setTextColor(getResources().getColor(R.color.black));
                 }
             }
         });
@@ -85,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
-                startActivity(new Intent(LoginActivity.this, HelpAndSupportActivity.class));
+                startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -104,21 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            }
-        });
-        termsAndConditions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
-                startActivity(new Intent(LoginActivity.this, TermsAndConditionsActivity.class));
-            }
-        });
-        privacyPolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
-                startActivity(new Intent(LoginActivity.this, PrivacyPolicyActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             }
         });
     }

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.vigyos.vigyoscentercrm.Fragment.Onboarding1Fragment;
+import com.vigyos.vigyoscentercrm.Fragment.Onboarding3Fragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck
@@ -18,7 +19,11 @@ public class OnboardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
-        loadFragment(new Onboarding1Fragment());
+        if (SplashActivity.prefManager.getOnboarding()) {
+            loadFragment(new Onboarding3Fragment());
+        } else {
+            loadFragment(new Onboarding1Fragment());
+        }
     }
 
     public void loadFragment(Fragment fragment) {

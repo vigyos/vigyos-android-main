@@ -53,6 +53,7 @@ public class SharedPrefManager {
     private static final String service_description = "service_description";
     private static final String biometric_lock = "biometric_lock";
     private static final String biometric_sensor = "biometric_sensor";
+    private static final String onboarding = "onboarding";
 
     public SharedPrefManager(Context context){
         this.context = context;
@@ -60,7 +61,17 @@ public class SharedPrefManager {
         editor = pref.edit();
     }
 
-    public void setBiometricSensor(boolean BiometricSensor){
+    public void setOnboarding(boolean Onboarding) {
+        editor = pref.edit();
+        editor.putBoolean(onboarding, Onboarding);
+        editor.commit();
+    }
+
+    public boolean getOnboarding() {
+        return pref.getBoolean(onboarding, false);
+    }
+
+    public void setBiometricSensor(boolean BiometricSensor) {
         editor = pref.edit();
         editor.putBoolean(biometric_sensor, BiometricSensor);
         editor.commit();

@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
-import com.vigyos.vigyoscentercrm.Activity.CreateAccountActivity;
+import com.vigyos.vigyoscentercrm.Activity.SignUpActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck
@@ -33,7 +34,8 @@ public class Onboarding3Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.viewpush));
-                startActivity(new Intent(getActivity(), CreateAccountActivity.class));
+                startActivity(new Intent(getActivity(), SignUpActivity.class));
+                SplashActivity.prefManager.setOnboarding(true);
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +43,7 @@ public class Onboarding3Fragment extends Fragment {
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.viewpush));
                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                SplashActivity.prefManager.setOnboarding(true);
             }
         });
         return view;

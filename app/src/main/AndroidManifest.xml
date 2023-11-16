@@ -36,6 +36,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.ForgotActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.AccountCreatedActivity"
             android:exported="false" />
         <activity
@@ -45,7 +48,7 @@
             android:name=".Activity.SignUpWithPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.CreateAccountActivity"
+            android:name=".Activity.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.OnboardingActivity"

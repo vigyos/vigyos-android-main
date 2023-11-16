@@ -36,18 +36,33 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
-//                if (prefManager.getLogin()){
-//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                    finish();
-//                } else if (prefManager.getRegister()) {
-//                    startActivity(new Intent(SplashActivity.this, RegisterHomeActivity.class));
-//                    finish();
+                if (prefManager.getLogin()) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } else if(prefManager.getRegister()) {
+                    startActivity(new Intent(SplashActivity.this, RegisterHomeActivity.class));
+                    finish();
+                }  else {
+                    startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+                    finish();
+                }
+
+
+//                if (prefManager.getOnboarding()) {
+//                    if (prefManager.getLogin()){
+//                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                        finish();
+//                    } else if (prefManager.getRegister()) {
+//                        startActivity(new Intent(SplashActivity.this, RegisterHomeActivity.class));
+//                        finish();
+//                    } else {
+//                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+//                        finish();
+//                    }
 //                } else {
-//                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-//                    finish();
+//
 //                }
             }
-        }, 6000);
+        }, 3000);
     }
 }
