@@ -33,32 +33,47 @@
             android:textColor="#999999"
             android:fontFamily="@font/poppins_regular"
             android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/value"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/toAndValueLyt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="@dimen/_14sdp"
             android:layout_below="@+id/detailLyt"
-            android:text=""
-            android:lineSpacingExtra="@dimen/_3sdp"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/dark_vigyos"
-            android:fontFamily="@font/poppins_medium"
-            android:textAlignment="center"/>
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="to "
+                android:textSize="@dimen/_12sdp"
+                android:textColor="#999999"
+                android:fontFamily="@font/poppins_regular"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/to"
+                android:text=""
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/dark_vigyos"
+                android:fontFamily="@font/poppins_medium"
+                android:textAlignment="center"/>
+        </RelativeLayout>
         <com.chaos.view.PinView
             android:id="@+id/firstPinView"
             style="@style/PinWidget.PinView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_35sdp"
-            android:layout_below="@+id/value"
+            android:layout_below="@+id/toAndValueLyt"
             android:layout_centerHorizontal="true"
             android:cursorVisible="true"
             android:inputType="number"
             android:padding="10sp"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_vigyos"
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/hankengrotesk_medium"
@@ -84,12 +99,25 @@
             android:textSize="@dimen/_12sdp"
             android:textColor="#999999"/>
         <TextView
+            android:id="@+id/resend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dontText"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:visibility="gone"
             android:text="@string/resend_code"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/dark_vigyos"
+            android:fontFamily="@font/poppins_semi_bold"/>
+        <TextView
+            android:id="@+id/countDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dontText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="00"
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/dark_vigyos"
             android:fontFamily="@font/poppins_semi_bold"/>

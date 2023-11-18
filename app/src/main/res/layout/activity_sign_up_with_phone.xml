@@ -6,105 +6,106 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Activity.SignUpWithPhoneActivity">
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/phoneNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:text="Your Phone Number"
+            android:textSize="@dimen/_24sdp"
+            android:textColor="@color/dark_vigyos"
+            android:fontFamily="@font/poppins_semi_bold"/>
+        <TextView
+            android:id="@+id/detailLyt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_below="@+id/phoneNumberText"
+            android:text="Enter your mobile number to register an account"
+            android:lineSpacingExtra="@dimen/_3sdp"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="#999999"
+            android:fontFamily="@font/poppins_regular"
+            android:textAlignment="center"/>
+        <LinearLayout
+            android:id="@+id/numberLyt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginTop="@dimen/_32sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_below="@+id/detailLyt"
+            android:background="@drawable/credential_border">
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                app:ccp_contentColor="@color/dark_vigyos"
+                app:ccp_autoDetectCountry="false"
+                app:ccp_defaultNameCode="IND"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="false"
+                app:ccp_showNameCode="false"/>
+            <View
+                android:layout_width="2sp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_15sdp"
+                android:background="#999999"/>
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15sp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:inputType="phone"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/hankengrotesk_medium"
+                android:hint="Enter your number"
+                android:textColorHint="#999999"
+                android:textColor="@color/dark_vigyos" />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/sendCodeButton"
+            android:layout_width="match_parent"
+            android:layout_height="56sp"
+            android:layout_above="@+id/signUpWithEmail"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/next_button_filled">
             <TextView
-                android:id="@+id/phoneNumberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_100sdp"
-                android:text="Your Phone Number"
-                android:textSize="@dimen/_24sdp"
-                android:textColor="@color/dark_vigyos"
-                android:fontFamily="@font/poppins_semi_bold"/>
-            <TextView
-                android:id="@+id/detailLyt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="@dimen/_14sdp"
-                android:layout_below="@+id/phoneNumberText"
-                android:text="Enter your mobile number to register an account"
-                android:lineSpacingExtra="@dimen/_3sdp"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="#999999"
-                android:fontFamily="@font/poppins_regular"
-                android:textAlignment="center"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_44sdp"
-                    android:layout_marginTop="@dimen/_32sdp"
-                    android:layout_marginHorizontal="@dimen/_20sdp"
-                    android:layout_below="@+id/detailLyt"
-                    android:background="@drawable/credential_border">
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/country_code"
-                        android:layout_width="114dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        app:ccp_contentColor="@color/dark_vigyos"
-                        app:ccp_autoDetectCountry="false"
-                        app:ccp_defaultNameCode="IND"
-                        app:ccp_showFlag="true"
-                        app:ccp_showFullName="false"
-                        app:ccp_showNameCode="false"/>
-                    <View
-                        android:layout_width="2sp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="@dimen/_15sdp"
-                        android:background="#999999"/>
-                    <EditText
-                        android:id="@+id/phoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15sp"
-                        android:layout_gravity="center"
-                        android:background="@null"
-                        android:inputType="phone"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="@font/hankengrotesk_medium"
-                        android:hint="Enter your number"
-                        android:textColorHint="#999999"
-                        android:textColor="@color/dark_vigyos" />
-                </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/sendCodeButton"
-                android:layout_width="match_parent"
-                android:layout_height="56sp"
-                android:layout_above="@+id/signUpWithEmail"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/next_button_filled">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:text="Send Code"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/signUpWithEmail"
-                android:layout_width="match_parent"
-                android:layout_height="56sp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_25sdp"
-                android:background="@drawable/next_button_border">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:text="Sign Up With Email"
-                    android:textColor="@color/dark_vigyos"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Send Code"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/signUpWithEmail"
+            android:layout_width="match_parent"
+            android:layout_height="56sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:background="@drawable/next_button_border">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Sign Up With Email"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>
