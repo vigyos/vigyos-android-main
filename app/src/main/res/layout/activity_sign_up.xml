@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Full Name"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_medium"/>
                 <RelativeLayout
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="Email Address"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_medium"/>
                 <RelativeLayout
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="Phone Number"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_medium"/>
                 <RelativeLayout
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="Password"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_medium"/>
                 <RelativeLayout
@@ -187,7 +187,7 @@
                     android:layout_toEndOf="@+id/i_have"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/terms_and_condition"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="@dimen/_10sdp"/>
             </RelativeLayout>
@@ -249,7 +249,7 @@
                     android:layout_toEndOf="@+id/accountText"
                     android:fontFamily="@font/poppins_semi_bold"
                     android:text="Sign In"
-                    android:textColor="#333333"
+                    android:textColor="@color/light_black"
                     android:textSize="12sp" />
             </RelativeLayout>
         </RelativeLayout>

@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email Address"
-            android:textColor="#333333"
+            android:textColor="@color/light_black"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"/>
             <RelativeLayout
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:text="Password"
-            android:textColor="#333333"
+            android:textColor="@color/light_black"
             android:textSize="@dimen/_12sdp"
             android:fontFamily="@font/poppins_medium"/>
             <RelativeLayout

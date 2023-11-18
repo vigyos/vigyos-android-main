@@ -5,12 +5,652 @@
     android:id="@+id/home_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg">
+    android:background="#F8F7F7">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_220sdp"
+                android:background="@drawable/top_bar_bg"/>
+            <RelativeLayout
+                android:id="@+id/firstLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_36sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp">
+                <RelativeLayout
+                    android:id="@+id/nameLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/welcomeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome Back"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/userNameHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_below="@+id/welcomeText"
+                        android:text="Ayush Shrivastava"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sdp"
+                        android:fontFamily="@font/poppins_medium"/>
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/notification"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/secondLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/firstLayout"
+                android:background="@drawable/black_round_border">
+                <RelativeLayout
+                    android:id="@+id/balanceLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_12sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Balance"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/light_black"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="₹2887.65"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/light_black"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                </RelativeLayout>
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#F2F2F2"
+                    android:layout_below="@+id/balanceLyt"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_below="@+id/viewLine"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_11sdp"
+                    android:layout_marginTop="@dimen/_16sdp">
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/aeps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:src="@drawable/aeps_2" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AEPS"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/panService"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:src="@drawable/pan_card_services" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pan Card"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/gst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:src="@drawable/gst_servcices" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="GST"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/tax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:src="@drawable/tax"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="TAX"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/thirdLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/secondLyt">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Top Services"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/view_all"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/dark_vigyos"
+                    android:fontFamily="@font/poppins_medium"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/fourthLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/thirdLyt"
+                android:background="@drawable/black_round_border">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp">
+                    <GridLayout
+                        android:id="@+id/gridLyt1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/itrService"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/itr" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ITR"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/dsc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/dse" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="DSC"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/udyam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/msme" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Udyam"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/eway"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/eway"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="E-way"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gridLyt1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/accounting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/accounting" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Accounting"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/iec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/iec" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="IEC"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/ipr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/ipr" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="IPR"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/registration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/registration"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Registration"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/fifthLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/fourthLyt">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="BBPS"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/view_all"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/dark_vigyos"
+                    android:fontFamily="@font/poppins_medium"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/sixLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/fifthLyt"
+                android:background="@drawable/black_round_border">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp">
+                    <GridLayout
+                        android:id="@+id/gridLyt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/recharge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/recharge" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Recharge"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/dth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/dth" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="DTH"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/cableTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/cable_tv" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Cable TV"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/fastTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/fast_tag"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="FASTag"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gridLyt2"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/water"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/water" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Water"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/electricity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/electricity" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Electricity"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/cylinder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/cylinder" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Cylinder"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/pipedGas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/piped_gas"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Piped Gas"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+
     <RelativeLayout
         android:id="@+id/user_img"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_marginTop="30sp"
+        android:visibility="gone"
         android:layout_marginHorizontal="15sp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
@@ -35,7 +675,6 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/hankengrotesk_regular"/>
             <TextView
-                android:id="@+id/userNameHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Krishnkant sharma"
@@ -61,6 +700,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_below="@+id/user_img">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -120,101 +760,101 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="10dp">
-                    <GridLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:columnCount="5"
-                        android:rowCount="1">
-                        <LinearLayout
-                            android:id="@+id/aeps"
-                            android:layout_width="50sp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="35sp"
-                                android:layout_height="35sp"
-                                android:src="@drawable/aeps_2" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="AEPS"
-                                android:fontFamily="@font/hankengrotesk_regular"
-                                android:textAlignment="center"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/panService"
-                            android:layout_width="50sp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="35sp"
-                                android:layout_height="35sp"
-                                android:src="@drawable/pan_card_services" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:text="PanCard"
-                                android:fontFamily="@font/hankengrotesk_regular"
-                                android:textAlignment="center"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/gst"
-                            android:layout_width="50sp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="35sp"
-                                android:layout_height="35sp"
-                                android:src="@drawable/gst_servcices" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/hankengrotesk_regular"
-                                android:text="GST"
-                                android:textAlignment="center"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/udyam"
-                            android:layout_width="50sp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="35sp"
-                                android:layout_height="35sp"
-                                android:src="@drawable/udyam"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:fontFamily="@font/hankengrotesk_regular"
-                                android:text="Udyam"
-                                android:textAlignment="center"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-                    </GridLayout>
+                    <!--                    <GridLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center_vertical"-->
+                    <!--                        android:columnCount="5"-->
+                    <!--                        android:rowCount="1">-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:id="@+id/aeps"-->
+                    <!--                            android:layout_width="50sp"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_columnWeight="1"-->
+                    <!--                            android:layout_gravity="center_vertical|center_horizontal"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical">-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35sp"-->
+                    <!--                                android:layout_height="35sp"-->
+                    <!--                                android:src="@drawable/aeps_2" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="5dp"-->
+                    <!--                                android:text="AEPS"-->
+                    <!--                                android:fontFamily="@font/hankengrotesk_regular"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="@color/text_color"-->
+                    <!--                                android:textSize="12sp" />-->
+                    <!--                        </LinearLayout>-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:id="@+id/panService"-->
+                    <!--                            android:layout_width="50sp"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_columnWeight="1"-->
+                    <!--                            android:layout_gravity="center_vertical|center_horizontal"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical">-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35sp"-->
+                    <!--                                android:layout_height="35sp"-->
+                    <!--                                android:src="@drawable/pan_card_services" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="5dp"-->
+                    <!--                                android:text="PanCard"-->
+                    <!--                                android:fontFamily="@font/hankengrotesk_regular"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="@color/text_color"-->
+                    <!--                                android:textSize="12sp" />-->
+                    <!--                        </LinearLayout>-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:id="@+id/gst"-->
+                    <!--                            android:layout_width="50sp"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_columnWeight="1"-->
+                    <!--                            android:layout_gravity="center_vertical|center_horizontal"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical">-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35sp"-->
+                    <!--                                android:layout_height="35sp"-->
+                    <!--                                android:src="@drawable/gst_servcices" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="5dp"-->
+                    <!--                                android:fontFamily="@font/hankengrotesk_regular"-->
+                    <!--                                android:text="GST"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="@color/text_color"-->
+                    <!--                                android:textSize="12sp" />-->
+                    <!--                        </LinearLayout>-->
+                    <!--                        <LinearLayout-->
+                    <!--                            android:id="@+id/udyam"-->
+                    <!--                            android:layout_width="50sp"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_columnWeight="1"-->
+                    <!--                            android:layout_gravity="center_vertical|center_horizontal"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical">-->
+                    <!--                            <ImageView-->
+                    <!--                                android:layout_width="35sp"-->
+                    <!--                                android:layout_height="35sp"-->
+                    <!--                                android:src="@drawable/udyam"/>-->
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginTop="5dp"-->
+                    <!--                                android:fontFamily="@font/hankengrotesk_regular"-->
+                    <!--                                android:text="Udyam"-->
+                    <!--                                android:textAlignment="center"-->
+                    <!--                                android:textColor="@color/text_color"-->
+                    <!--                                android:textSize="12sp" />-->
+                    <!--                        </LinearLayout>-->
+                    <!--                    </GridLayout>-->
                 </androidx.cardview.widget.CardView>
                 <RelativeLayout
                     android:id="@+id/card"
@@ -247,264 +887,264 @@
                                     android:text="Top Services"
                                     android:textColor="@color/title_text"
                                     android:textSize="22sp" />
-                                <GridLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginHorizontal="10sp"
-                                    android:columnCount="4"
-                                    android:rowCount="2">
-                                    <LinearLayout
-                                        android:id="@+id/taxService"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_column="0"
-                                        android:layout_columnWeight="1"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="1sp"
-                                            app:cardCornerRadius="15dp">
-                                            <ImageView
-                                                android:layout_width="35sp"
-                                                android:layout_height="35sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="0dp"
-                                                android:src="@drawable/tax_services" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="Tax Service"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="15sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/dscService"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_column="1"
-                                        android:layout_columnWeight="1"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="35sp"
-                                                android:layout_height="35sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/dsc_services" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="DSC"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/itrService"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_column="2"
-                                        android:layout_columnWeight="1"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="30dp"
-                                                android:layout_height="30dp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/income_tax_return" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="ITR"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/eWay"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_column="3"
-                                        android:layout_columnWeight="1"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="40sp"
-                                                android:layout_height="40sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/e_way_bills" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="E-way"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/accounting"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="0"
-                                        android:layout_columnWeight="1"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:layout_marginTop="15sp"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="36dp"
-                                                android:layout_height="36sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/accounting" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="Accounting"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/iec"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="1"
-                                        android:layout_columnWeight="1"
-                                        android:layout_marginTop="15sp"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="36dp"
-                                                android:layout_height="36sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/iec" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="IEC"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/ipr"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_columnWeight="1"
-                                        android:layout_marginTop="15dp"
-                                        android:layout_column="2"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="36dp"
-                                                android:layout_height="36dp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:padding="3dp"
-                                                android:src="@drawable/ipr" />
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="IPR"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:id="@+id/seeMore"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:layout_column="3"
-                                        android:layout_columnWeight="1"
-                                        android:layout_marginTop="15sp"
-                                        android:gravity="center"
-                                        android:orientation="vertical">
-                                        <androidx.cardview.widget.CardView
-                                            android:id="@+id/seemore_topservices"
-                                            android:layout_width="60sp"
-                                            android:layout_height="60sp"
-                                            app:cardBackgroundColor="@color/icon_card"
-                                            app:cardElevation="2sp"
-                                            app:cardCornerRadius="12dp">
-                                            <ImageView
-                                                android:layout_width="28sp"
-                                                android:layout_height="28sp"
-                                                android:layout_gravity="center_horizontal|center_vertical"
-                                                android:src="@drawable/more_icon"
-                                                app:tint="@color/vigyos"/>
-                                        </androidx.cardview.widget.CardView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:text="See more"
-                                            android:textColor="@color/text_color"
-                                            android:textSize="16sp" />
-                                    </LinearLayout>
-                                </GridLayout>
+                                <!--                                <GridLayout-->
+                                <!--                                    android:layout_width="match_parent"-->
+                                <!--                                    android:layout_height="match_parent"-->
+                                <!--                                    android:layout_marginHorizontal="10sp"-->
+                                <!--                                    android:columnCount="4"-->
+                                <!--                                    android:rowCount="2">-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/taxService"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_column="0"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="1sp"-->
+                                <!--                                            app:cardCornerRadius="15dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="35sp"-->
+                                <!--                                                android:layout_height="35sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="0dp"-->
+                                <!--                                                android:src="@drawable/tax_services" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="Tax Service"-->
+                                <!--                                            android:textAlignment="center"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="15sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/dscService"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_column="1"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="35sp"-->
+                                <!--                                                android:layout_height="35sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="3dp"-->
+                                <!--                                                android:src="@drawable/dsc_services" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="DSC"-->
+                                <!--                                            android:textAlignment="center"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/itrService"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_column="2"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="30dp"-->
+                                <!--                                                android:layout_height="30dp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:src="@drawable/income_tax_return" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="ITR"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/eWay"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_column="3"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="40sp"-->
+                                <!--                                                android:layout_height="40sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="3dp"-->
+                                <!--                                                android:src="@drawable/e_way_bills" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="E-way"-->
+                                <!--                                            android:textAlignment="center"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/accounting"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_row="1"-->
+                                <!--                                        android:layout_column="0"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:layout_marginTop="15sp"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="36dp"-->
+                                <!--                                                android:layout_height="36sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="3dp"-->
+                                <!--                                                android:src="@drawable/accounting" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="Accounting"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/iec"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_row="1"-->
+                                <!--                                        android:layout_column="1"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_marginTop="15sp"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="36dp"-->
+                                <!--                                                android:layout_height="36sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="3dp"-->
+                                <!--                                                android:src="@drawable/iec" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="IEC"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/ipr"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_row="1"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_marginTop="15dp"-->
+                                <!--                                        android:layout_column="2"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="36dp"-->
+                                <!--                                                android:layout_height="36dp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:padding="3dp"-->
+                                <!--                                                android:src="@drawable/ipr" />-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="IPR"-->
+                                <!--                                            android:textAlignment="center"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                    <LinearLayout-->
+                                <!--                                        android:id="@+id/seeMore"-->
+                                <!--                                        android:layout_width="wrap_content"-->
+                                <!--                                        android:layout_height="wrap_content"-->
+                                <!--                                        android:layout_gravity="center_vertical|center_horizontal"-->
+                                <!--                                        android:layout_column="3"-->
+                                <!--                                        android:layout_columnWeight="1"-->
+                                <!--                                        android:layout_marginTop="15sp"-->
+                                <!--                                        android:gravity="center"-->
+                                <!--                                        android:orientation="vertical">-->
+                                <!--                                        <androidx.cardview.widget.CardView-->
+                                <!--                                            android:id="@+id/seemore_topservices"-->
+                                <!--                                            android:layout_width="60sp"-->
+                                <!--                                            android:layout_height="60sp"-->
+                                <!--                                            app:cardBackgroundColor="@color/icon_card"-->
+                                <!--                                            app:cardElevation="2sp"-->
+                                <!--                                            app:cardCornerRadius="12dp">-->
+                                <!--                                            <ImageView-->
+                                <!--                                                android:layout_width="28sp"-->
+                                <!--                                                android:layout_height="28sp"-->
+                                <!--                                                android:layout_gravity="center_horizontal|center_vertical"-->
+                                <!--                                                android:src="@drawable/more_icon"-->
+                                <!--                                                app:tint="@color/vigyos"/>-->
+                                <!--                                        </androidx.cardview.widget.CardView>-->
+                                <!--                                        <TextView-->
+                                <!--                                            android:layout_width="wrap_content"-->
+                                <!--                                            android:layout_height="wrap_content"-->
+                                <!--                                            android:layout_marginTop="5dp"-->
+                                <!--                                            android:text="See more"-->
+                                <!--                                            android:textColor="@color/text_color"-->
+                                <!--                                            android:textSize="16sp" />-->
+                                <!--                                    </LinearLayout>-->
+                                <!--                                </GridLayout>-->
                             </LinearLayout>
                         </LinearLayout>
                         <TextView

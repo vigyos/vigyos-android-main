@@ -62,5 +62,6 @@
     <string name="resend_code"><u>Resend Code</u></string>
     <string name="terms_and_conditions"><u>Terms and Conditions</u> </string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="view_all"><u>View All</u></string>
 
 </resources>

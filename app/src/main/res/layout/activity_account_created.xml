@@ -64,7 +64,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/terms_and_conditions"
-        android:textColor="#333333"
+        android:textColor="@color/light_black"
         android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/poppins_medium"/>
 </RelativeLayout>

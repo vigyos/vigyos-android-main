@@ -11,6 +11,7 @@
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#009306</color>
     <color name="dark_vigyos">#2C55A3</color>
+    <color name="light_black">#333333</color>
 
 
     <color name="vigyos">#2196F3</color>
