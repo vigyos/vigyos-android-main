@@ -27,6 +27,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:fontFamily="@font/poppins_semi_bold"
+                android:elegantTextHeight="true"
                 android:text="Heading"
                 android:textColor="@color/dark_vigyos"
                 android:textSize="20sp" />
@@ -38,6 +39,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
+                android:elegantTextHeight="true"
                 android:text="@string/you_can_request"
                 android:textAlignment="center"
                 android:textColor="#999999"
@@ -84,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/poppins_semi_bold"
+                    android:elegantTextHeight="true"
                     android:text="Next Step"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -95,6 +98,7 @@
                 android:layout_below="@+id/nextButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:elegantTextHeight="true"
                 android:text="@string/skip_this_step"
                 android:textSize="16sp"
                 android:textColor="@color/dark_vigyos"

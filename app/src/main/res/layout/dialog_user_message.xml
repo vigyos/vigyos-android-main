@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView
+    android:layout_height="match_parent">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:cardBackgroundColor="@color/white"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp">
-        <RelativeLayout
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/round_border_color">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:elegantTextHeight="true"
+            android:text="Title Name"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/light_black"
+            android:fontFamily="@font/poppins_semi_bold"/>
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:lineSpacingExtra="@dimen/_1sdp"
+            android:elegantTextHeight="true"
+            android:text="Enter Your Details here."
+            android:textSize="@dimen/_10sdp"
+            android:textColor="#4A4F53"
+            android:fontFamily="@font/poppins_regular"/>
+        <View
+            android:id="@+id/viewLine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:background="#C8C8C8"
+            android:layout_below="@+id/details"/>
+        <RelativeLayout
+            android:id="@+id/enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewLine"
+            android:layout_centerInParent="true"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/round_button_color">
             <TextView
-                android:id="@+id/text1"
+                android:id="@+id/buttonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-                android:textAlignment="center"
-                android:lineSpacingExtra="5dp"
-                android:layout_marginTop="20sp"
-                android:text="FingerPrint Authentication"
-                android:textSize="18sp"
-                android:textColor="#291F1F"
-                android:fontFamily="@font/montserrat_bold"/>
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text1"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginTop="10dp"
-                android:lineSpacingExtra="2dp"
-                android:text="@string/to_use_our_aeps_service"
-                android:textSize="14sp"
-                android:textColor="#4A4F53"
-                android:fontFamily="@font/montserrat_medium"/>
-            <View
-                android:id="@+id/viewLine"
-                android:layout_width="match_parent"
-                android:layout_marginTop="15sp"
-                android:layout_height="2dp"
-                android:background="#A6A6A6"
-                android:layout_below="@+id/text"/>
-            <RelativeLayout
-                android:id="@+id/register"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_below="@+id/viewLine">
-                <TextView
-                    android:id="@+id/enable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="enable"
-                    android:textColor="@color/vigyos"
-                    android:textSize="18sp" />
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Ok"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </RelativeLayout>

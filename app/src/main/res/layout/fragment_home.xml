@@ -5,7 +5,7 @@
     android:id="@+id/home_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F7F7">
+    android:background="#FFFFFF">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -30,6 +30,7 @@
                         android:id="@+id/welcomeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:elegantTextHeight="true"
                         android:text="Welcome Back"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp"
@@ -40,12 +41,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
                         android:layout_below="@+id/welcomeText"
+                        android:elegantTextHeight="true"
                         android:text="Ayush Shrivastava"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_16sdp"
                         android:fontFamily="@font/poppins_medium"/>
                 </RelativeLayout>
                 <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="@dimen/_55sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:scaleType="fitXY"
+                    android:layout_toStartOf="@+id/notificationIcon"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/search_icon"/>
+                <ImageView
+                    android:id="@+id/notificationIcon"
                     android:layout_width="@dimen/_22sdp"
                     android:layout_height="@dimen/_22sdp"
                     android:layout_centerVertical="true"
@@ -69,15 +81,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:elegantTextHeight="true"
                         android:text="My Balance"
                         android:textSize="@dimen/_12sdp"
                         android:textColor="@color/light_black"
                         android:fontFamily="@font/poppins_semi_bold"/>
                     <TextView
+                        android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="₹2887.65"
+                        android:elegantTextHeight="true"
+                        android:text="₹0.00"
                         android:textSize="@dimen/_14sdp"
                         android:textColor="@color/light_black"
                         android:fontFamily="@font/poppins_semi_bold"/>
@@ -114,10 +129,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/aeps_2" />
+                                android:src="@drawable/aeps" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="AEPS"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
@@ -134,10 +150,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/pan_card_services" />
+                                android:src="@drawable/pan_card" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="Pan Card"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textAlignment="center"
@@ -155,11 +172,12 @@
                             <ImageView
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="@dimen/_45sdp"
-                                android:src="@drawable/gst_servcices" />
+                                android:src="@drawable/gst" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="GST"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -181,6 +199,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="TAX"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -200,15 +219,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:elegantTextHeight="true"
                     android:text="Top Services"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_14sdp"
                     android:fontFamily="@font/poppins_semi_bold"/>
                 <TextView
+                    android:id="@+id/seeMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
+                    android:elegantTextHeight="true"
                     android:text="@string/view_all"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/dark_vigyos"
@@ -250,6 +272,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="ITR"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
@@ -266,10 +289,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/dse" />
+                                android:src="@drawable/dsc" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="DSC"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textAlignment="center"
@@ -277,7 +301,7 @@
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/udyam"
+                            android:id="@+id/accounting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
@@ -287,13 +311,13 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/msme" />
+                                android:src="@drawable/accounting" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text="Accounting"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Udyam"
-                                android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
@@ -313,6 +337,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="E-way"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -328,7 +353,7 @@
                         android:columnCount="5"
                         android:rowCount="1">
                         <LinearLayout
-                            android:id="@+id/accounting"
+                            android:id="@+id/udyam"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
@@ -338,12 +363,14 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/accounting" />
+                                android:src="@drawable/msme" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Accounting"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
+                                android:text="Udyam"
+                                android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
@@ -362,6 +389,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="IEC"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textAlignment="center"
@@ -384,6 +412,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="IPR"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -400,11 +429,12 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/registration"/>
+                                android:src="@drawable/registeration"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="Registration"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -424,6 +454,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:elegantTextHeight="true"
                     android:text="BBPS"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_14sdp"
@@ -433,6 +464,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
+                    android:elegantTextHeight="true"
                     android:text="@string/view_all"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/dark_vigyos"
@@ -475,6 +507,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="Recharge"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
@@ -495,6 +528,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="DTH"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textAlignment="center"
@@ -517,6 +551,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="Cable TV"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -538,6 +573,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="FASTag"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -567,6 +603,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="Water"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
@@ -587,6 +624,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
                                 android:text="Electricity"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textAlignment="center"
@@ -609,6 +647,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="Cylinder"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -630,6 +669,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
                                 android:text="Piped Gas"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
@@ -734,7 +774,7 @@
                         android:src="@drawable/currency_rupee"
                         app:tint="@color/white" />
                     <TextView
-                        android:id="@+id/amount"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

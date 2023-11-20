@@ -3,18 +3,22 @@ package com.vigyos.vigyoscentercrm.Activity;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
@@ -24,19 +28,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.Constant.LockScreenChecker;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
-import com.vigyos.vigyoscentercrm.Fragment.WishlistFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
@@ -45,17 +48,19 @@ import org.json.JSONObject;
 
 import java.util.concurrent.Executor;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @BuildCompat.PrereleaseSdkCheck
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static String TAG = "MainActivity";
-    public MeowBottomNavigation meowBottomNavigation;
+    private Typeface typefaceBold;
+    private Typeface typefaceRegular;
+    public LinearLayout home, history, order, profile;
+    private ImageView homeIcon, historyIcon, orderIcon, profileIcon;
+    private TextView homeText, historyText, orderText, profileText;
     private Dialog dialog;
     boolean doubleBackToExitPressedOnce = false;
     private BiometricPrompt biometricPrompt;
@@ -72,116 +77,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        meowBottomNavigation = findViewById(R.id.bottomNav);
+        home = findViewById(R.id.home);
+        history = findViewById(R.id.history);
+        order = findViewById(R.id.order);
+        profile = findViewById(R.id.profile);
+        homeIcon = findViewById(R.id.homeIcon);
+        historyIcon = findViewById(R.id.historyIcon);
+        orderIcon = findViewById(R.id.orderIcon);
+        profileIcon = findViewById(R.id.profileIcon);
+        homeText = findViewById(R.id.homeText);
+        historyText =  findViewById(R.id.historyText);
+        orderText =  findViewById(R.id.orderText);
+        profileText = findViewById(R.id.profileText);
+        home.setOnClickListener(this);
+        history.setOnClickListener(this);
+        order.setOnClickListener(this);
+        profile.setOnClickListener(this);
     }
 
     private void declaration() {
         checkBioMetricSupported();
-
         profileData();
-
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.nav_wishlist_icon));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.nav_search_icon));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.nav_home_icon));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.nav_order_icon));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(5, R.drawable.nav_history_icon));
-        meowBottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
-                Log.i("4545","model " + model);
-                switch (model.getId()){
-                    case 1:
-                        loadFragment(new WishlistFragment(), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 2:
-//                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
-                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
-//                        AppController.backCheck = false;
-//                        finish();
-                        break;
-                    case 3:
-                        loadFragment(new HomeFragment(MainActivity.this), true);
-                        AppController.backCheck = true;
-                        break;
-                    case 4:
-                        loadFragment(new OrderFragment(MainActivity.this), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 5:
-                        loadFragment(new HistoryFragment(MainActivity.this), false );
-                        AppController.backCheck = false;
-                        break;
-                    default:
-                        break;
-                }
-                return null;
-            }
-        });
-        meowBottomNavigation.setOnReselectListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                switch (model.getId()){
-                    case 1:
-                        Log.i("4545","setOnReselectListener ");
-                        loadFragment(new WishlistFragment(), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 2:
-//                        loadFragment(new SearchFragment(MainActivity.this, searchServicesModels), false);
-//                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
-                        break;
-                    case 3:
-                        loadFragment(new HomeFragment(MainActivity.this), true);
-                        AppController.backCheck = true;
-                        break;
-                    case 4:
-                        loadFragment(new OrderFragment(MainActivity.this), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 5:
-                        loadFragment(new HistoryFragment(MainActivity.this), false );
-                        AppController.backCheck = false;
-                        break;
-                    default:
-                        break;
-                }
-                return null;
-            }
-        });
-        meowBottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model model) {
-                // YOUR CODES
-                switch (model.getId()){
-                    case 1:
-                        Log.i("4545","setOnShowListener ");
-                        loadFragment(new WishlistFragment(), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 2:
-//                        loadFragment(new SearchFragment(MainActivity.this , searchServicesModels), false);
-//                        startActivity(new Intent(MainActivity.this, SearchServicesActivity.class));
-                        break;
-                    case 3:
-                        loadFragment(new HomeFragment(MainActivity.this), true);
-                        AppController.backCheck = true;
-                        break;
-                    case 4:
-                        loadFragment(new OrderFragment(MainActivity.this), false);
-                        AppController.backCheck = false;
-                        break;
-                    case 5:
-                        loadFragment(new HistoryFragment(MainActivity.this), false );
-                        AppController.backCheck = false;
-                        break;
-                    default:
-                        break;
-                }
-                return null;
-            }
-        });
+        typefaceBold = ResourcesCompat.getFont(MainActivity.this, R.font.poppins_semi_bold);
+        typefaceRegular = ResourcesCompat.getFont(MainActivity.this, R.font.poppins_regular);
         if (BuildCompat.isAtLeastT()) {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
                     OnBackInvokedDispatcher.PRIORITY_DEFAULT,
@@ -203,10 +121,80 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             loadFragment(new HomeFragment(MainActivity.this), true);
                             AppController.backCheck = true;
-                            meowBottomNavigation.show(3,true);
                         }
                     }
             );
+        }
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.home:
+                homeIcon.setImageResource(R.drawable.home_fill);
+                historyIcon.setImageResource(R.drawable.history);
+                orderIcon.setImageResource(R.drawable.order);
+                profileIcon.setImageResource(R.drawable.profile);
+                homeText.setTextColor(getColor(R.color.dark_vigyos));
+                homeText.setTypeface(typefaceBold);
+                historyText.setTextColor(getColor(R.color.light_black));
+                historyText.setTypeface(typefaceRegular);
+                orderText.setTextColor(getColor(R.color.light_black));
+                orderText.setTypeface(typefaceRegular);
+                profileText.setTextColor(getColor(R.color.light_black));
+                profileText.setTypeface(typefaceRegular);
+                loadFragment(new HomeFragment(MainActivity.this), true);
+                AppController.backCheck = true;
+                break;
+            case R.id.history:
+                homeIcon.setImageResource(R.drawable.home);
+                historyIcon.setImageResource(R.drawable.history_fill);
+                orderIcon.setImageResource(R.drawable.order);
+                profileIcon.setImageResource(R.drawable.profile);
+                homeText.setTextColor(getColor(R.color.light_black));
+                homeText.setTypeface(typefaceRegular);
+                historyText.setTextColor(getColor(R.color.dark_vigyos));
+                historyText.setTypeface(typefaceBold);
+                orderText.setTextColor(getColor(R.color.light_black));
+                orderText.setTypeface(typefaceRegular);
+                profileText.setTextColor(getColor(R.color.light_black));
+                profileText.setTypeface(typefaceRegular);
+                loadFragment(new HistoryFragment(MainActivity.this), false );
+                AppController.backCheck = false;
+                break;
+            case R.id.order:
+                homeIcon.setImageResource(R.drawable.home);
+                historyIcon.setImageResource(R.drawable.history);
+                orderIcon.setImageResource(R.drawable.order_fill);
+                profileIcon.setImageResource(R.drawable.profile);
+                homeText.setTextColor(getColor(R.color.light_black));
+                homeText.setTypeface(typefaceRegular);
+                historyText.setTextColor(getColor(R.color.light_black));
+                historyText.setTypeface(typefaceRegular);
+                orderText.setTextColor(getColor(R.color.dark_vigyos));
+                orderText.setTypeface(typefaceBold);
+                profileText.setTextColor(getColor(R.color.light_black));
+                profileText.setTypeface(typefaceRegular);
+                loadFragment(new OrderFragment(MainActivity.this), false);
+                AppController.backCheck = false;
+                break;
+            case R.id.profile:
+                homeIcon.setImageResource(R.drawable.home);
+                historyIcon.setImageResource(R.drawable.history);
+                orderIcon.setImageResource(R.drawable.order);
+                profileIcon.setImageResource(R.drawable.profile_fill);
+                homeText.setTextColor(getColor(R.color.light_black));
+                homeText.setTypeface(typefaceRegular);
+                historyText.setTextColor(getColor(R.color.light_black));
+                historyText.setTypeface(typefaceRegular);
+                orderText.setTextColor(getColor(R.color.light_black));
+                orderText.setTypeface(typefaceRegular);
+                profileText.setTextColor(getColor(R.color.dark_vigyos));
+                profileText.setTypeface(typefaceBold);
+
+                AppController.backCheck = false;
+                break;
         }
     }
 
@@ -224,21 +212,17 @@ public class MainActivity extends AppCompatActivity {
         switch (manager.canAuthenticate(BIOMETRIC_WEAK | BIOMETRIC_STRONG)) {
             case BiometricManager.BIOMETRIC_SUCCESS:
                 Log.d(TAG, "App can authenticate using biometrics.");
-//                Toast.makeText(this, "App can authenticate using biometrics.", Toast.LENGTH_SHORT).show();
                 SplashActivity.prefManager.setBiometricSensor(false);
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
                 Log.d(TAG, "This device does not have a biometric sensor");
-//                Toast.makeText(this, "This device does not have a biometric sensor", Toast.LENGTH_SHORT).show();
                 SplashActivity.prefManager.setBiometricSensor(true);
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 Log.d(TAG, "Biometric features are currently unavailable.");
-//                Toast.makeText(this, "Biometric features are currently unavailable.", Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
                 Log.d(TAG, "Need register at least one finger print");
-//                Toast.makeText(this, "Need register at least one finger print", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Log.d(TAG, "Unknown cause");
@@ -269,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Log.d(TAG, "Authentication error: "+ errString);
-//                Toast.makeText(getApplicationContext(), "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
                 isAuthenticated = false;
                 if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                     // User canceled the authentication
@@ -282,7 +265,6 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Log.d(TAG, "Authentication succeeded!");
-//                Toast.makeText(getApplicationContext(), "Authentication succeeded!" , Toast.LENGTH_SHORT).show();
                 isAuthenticated = true;
             }
 
@@ -291,7 +273,6 @@ public class MainActivity extends AppCompatActivity {
                 super.onAuthenticationFailed();
                 //attempt not regconized fingerprint
                 Log.d(TAG, "Authentication failed");
-//                Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
                 isAuthenticated = false;
             }
         });
@@ -337,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
             dialog1.dismiss();
             Log.i("4587456", "dialog1.dismiss");
         }
-//        isAuthenticated = false;
     }
 
     @Override
@@ -497,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 }
-                meowBottomNavigation.show(3,true);
+                loadFragment(new HomeFragment(MainActivity.this), true);
                 AppController.backCheck = true;
             }
 
@@ -505,7 +485,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
-                meowBottomNavigation.show(3,true);
+                loadFragment(new HomeFragment(MainActivity.this), true);
                 AppController.backCheck = true;
                 Toast.makeText(MainActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
@@ -552,7 +532,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             loadFragment(new HomeFragment(MainActivity.this), true);
             AppController.backCheck = true;
-            meowBottomNavigation.show(3,true);
         }
     }
 }

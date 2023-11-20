@@ -22,18 +22,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/v"
             android:layout_marginStart="@dimen/_30sdp"
+            android:elegantTextHeight="true"
             android:text="VIGYOS"
             android:textColor="@color/white"
             android:textSize="@dimen/_22ssp"
             android:fontFamily="@font/poppins_bold"/>
+
         <ImageView
             android:layout_width="@dimen/_252sdp"
             android:layout_height="@dimen/_252sdp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-117dp"
-            android:layout_marginEnd="-63dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/round_v"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="-65dp"
+            android:layout_marginBottom="-114dp"
+            android:src="@drawable/round_v" />
     </RelativeLayout>
     <TextView
         android:id="@+id/welcomeText"
@@ -42,6 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_below="@+id/top"
+        android:elegantTextHeight="true"
         android:text="Welcome Back!"
         android:textSize="@dimen/_22sdp"
         android:textColor="@color/dark_vigyos"
@@ -57,6 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elegantTextHeight="true"
             android:text="Email Address"
             android:textColor="@color/light_black"
             android:textSize="@dimen/_12sdp"
@@ -73,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:maxLines="1"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textEmailAddress|textImeMultiLine"
                     android:textColor="@color/dark_vigyos"
                     android:layout_marginHorizontal="@dimen/_15sdp"
                     android:fontFamily="@font/poppins_light"
@@ -85,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
+            android:elegantTextHeight="true"
             android:text="Password"
             android:textColor="@color/light_black"
             android:textSize="@dimen/_12sdp"
@@ -105,7 +110,7 @@
                     android:layout_marginHorizontal="@dimen/_15sdp"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:inputType="textPassword"
+                    android:inputType="textPassword|textImeMultiLine"
                     android:fontFamily="@font/poppins_light"
                     android:background= "@null"
                     android:hint=""
@@ -127,6 +132,7 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="28sp"
         android:layout_below="@+id/idPasswordLyt"
+        android:elegantTextHeight="true"
         android:text="Forgot Password ?"
         android:textColor="@color/dark_vigyos"
         android:textSize="12sp"
@@ -144,9 +150,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_semi_bold"
+            android:elegantTextHeight="true"
             android:text="Sign In"
-            android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -159,6 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:elegantTextHeight="true"
             android:text="Don't have account? "
             android:textColor="@color/dark_vigyos"
             android:textSize="12sp"
@@ -170,6 +178,7 @@
             android:layout_centerInParent="true"
             android:layout_toEndOf="@+id/accountText"
             android:fontFamily="@font/poppins_semi_bold"
+            android:elegantTextHeight="true"
             android:text="Sign Up"
             android:textColor="#100D40"
             android:textSize="12sp" />

@@ -7,7 +7,6 @@
     <string name="privacy_policy"><u>Privacy Policy</u> </string>
     <string name="terms_amp_conditions"><u>Terms &amp; Conditions</u></string>
     <string name="namaste">Namastey!</string>
-
     <string name="details">Simplify your One Person Company (OPC) registration process with our comprehensive service, excluding stamp duty. We assist individuals in registering their OPCs, ensuring compliance with legal requirements. Our expert team provides guidance and support throughout the registration process, making it convenient and hassle-free.</string>
 
     <!--Onesignal ID-->
@@ -53,7 +52,6 @@
     </string-array>
 
     <string name="thank_you_for_reaching">Thank you for reaching out. Our team will connect with you shortly to assist you with your inquiry. We appreciate your patience and look forward to helping you.</string>
-    <string name="to_use_our_aeps_service">To use our AEPS services, please enable fingerprint authentication</string>
     <string name="send_money">Send money easily and with one click everything will be sent every time you make a transaction</string>
     <string name="you_can_request">You can request money to friends or family to send as much money as you want</string>
     <string name="very_easy_to">Very easy to use and easy to understand for those of you who are beginners</string>
@@ -63,5 +61,9 @@
     <string name="terms_and_conditions"><u>Terms and Conditions</u> </string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="view_all"><u>View All</u></string>
+    <string name="fingerprint_authentication">FingerPrint Authentication</string>
+    <string name="to_use_our_aeps_service">To use our AEPS services, please enable fingerprint authentication</string>
+    <string name="required_permissions">Required Permissions!</string>
+    <string name="allow_to_access">Grant Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
 
 </resources>
