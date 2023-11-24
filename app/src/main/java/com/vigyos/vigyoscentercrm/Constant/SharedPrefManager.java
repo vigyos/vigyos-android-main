@@ -11,15 +11,14 @@ public class SharedPrefManager {
 
     private static final String PREF_NAME = "welcome";
 
+    //Profile Data variable start
     private static final String user_id = "id";
     private static final String token = "token";
     private static final String first_name = "first_name";
     private static final String last_name = "last_name";
     private static final String company = "company";
-    private static final String plan = "plan";
     private static final String email = "email";
     private static final String phone = "phone";
-    private static final String password = "password";
     private static final String aadhaar_number = "aadhar_number";
     private static final String aadhaar_attachment = "aadhar_attachment";
     private static final String pan_card_number = "pan_card_number";
@@ -40,12 +39,51 @@ public class SharedPrefManager {
     private static final String sales_person = "sales_person";
     private static final String updated_by = "updated_by";
     private static final String wallet_id = "wallet_id";
-    private static final String merchant_id = "merchant_id";
     private static final String amount = "amount";
+    private static final String dashboard = "dashboard";
+    private static final String services = "services";
+    private static final String add_to_wallet = "add_to_wallet";
+    private static final String service_request = "service_request";
+    private static final String users = "users";
+    private static final String buy_new_service = "buy_new_service";
+    private static final String pan = "pan";
+    private static final String bbps = "bbps";
+    private static final String aeps = "aeps";
+    private static final String wallet = "wallet";
+    private static final String my_orders = "my_orders";
+    private static final String my_profile = "my_profile";
+    private static final String contact_us = "contact_us";
+    private static final String plan = "plan";
+    private static final String user_plan_id = "user_plan_id";
+    private static final String plan_id = "user_plan_id";
+    private static final String plan_start_date = "plan_start_date";
+    private static final String plan_end_date = "plan_end_date";
+    private static final String plan_details = "plan_details";
+    //plan_id again
+    private static final String plan_details_2 = "plan_details";
+    private static final String plan_is_active = "plan_is_active";
+    private static final String plan_line = "plan_line";
+    private static final String plan_name = "plan_name";
+    private static final String plan_created_by = "plan_created_by";
+    private static final String plan_is_deleted = "plan_is_deleted";
+    private static final String plan_price = "plan_price";
+    private static final String plan_updated_by = "plan_updated_by";
+    private static final String plan_created_time = "plan_created_time";
+    private static final String plan_updated_time = "plan_updated_time";
+    private static final String plan_duration = "plan_duration";
+    private static final String plan_feature_name = "plan_feature_name";
+    private static final String plan_description = "plan_description";
+    private static final String plan_duration_type = "plan_duration_type";
+    private static final String plan_discounted_price = "plan_discounted_price";
+    private static final String merchant_id = "merchant_id";
     private static final String is_verified = "is_verified";
     private static final String bank_verified = "bank_verified";
     private static final String last_verify_timestamp_aeps = "last_verify_timestamp_aeps";
     private static final String payout_balance = "payout_balance";
+    private static final String bbps_commission_balance = "bbps_commission_balance";
+    private static final String aeps_commission_balance = "aeps_commission_balance";
+    //Profile Data variable End
+
     private static final String login = "login";
     private static final String register = "register";
     private static final String service_id = "service_id";
@@ -271,6 +309,136 @@ public class SharedPrefManager {
         return pref.getInt(amount, 0);
     }
 
+    public void setDashboard(boolean Dashboard){
+        editor = pref.edit();
+        editor.putBoolean(dashboard, Dashboard);
+        editor.commit();
+    }
+
+    public boolean getDashboard(){
+        return pref.getBoolean(dashboard, false);
+    }
+
+    public void setServices(boolean Services){
+        editor = pref.edit();
+        editor.putBoolean(services, Services);
+        editor.commit();
+    }
+
+    public boolean getServices(){
+        return pref.getBoolean(services, false);
+    }
+
+    public void setAddToWallet(boolean AddToWallet){
+        editor = pref.edit();
+        editor.putBoolean(add_to_wallet, AddToWallet);
+        editor.commit();
+    }
+
+    public boolean getAddToWallet(){
+        return pref.getBoolean(add_to_wallet, false);
+    }
+
+    public void setServiceRequest(boolean ServiceRequest){
+        editor = pref.edit();
+        editor.putBoolean(service_request, ServiceRequest);
+        editor.commit();
+    }
+
+    public boolean getServiceRequest(){
+        return pref.getBoolean(service_request, false);
+    }
+
+    public void setUsers(boolean Users){
+        editor = pref.edit();
+        editor.putBoolean(users, Users);
+        editor.commit();
+    }
+
+    public boolean getUsers(){
+        return pref.getBoolean(users, false);
+    }
+
+    public void setBuyNewService(boolean BuyNewService){
+        editor = pref.edit();
+        editor.putBoolean(buy_new_service, BuyNewService);
+        editor.commit();
+    }
+
+    public boolean getBuyNewService(){
+        return pref.getBoolean(buy_new_service, false);
+    }
+
+    public void setPan(boolean Pan){
+        editor = pref.edit();
+        editor.putBoolean(pan, Pan);
+        editor.commit();
+    }
+
+    public boolean getPan(){
+        return pref.getBoolean(pan, false);
+    }
+
+    public void setBBPS(boolean BBPS){
+        editor = pref.edit();
+        editor.putBoolean(bbps, BBPS);
+        editor.commit();
+    }
+
+    public boolean getBBPS(){
+        return pref.getBoolean(bbps, false);
+    }
+
+    public void setAEPS(boolean AEPS){
+        editor = pref.edit();
+        editor.putBoolean(aeps, AEPS);
+        editor.commit();
+    }
+
+    public boolean getAEPS(){
+        return pref.getBoolean(aeps, false);
+    }
+
+    public void setWallet(boolean Wallet){
+        editor = pref.edit();
+        editor.putBoolean(wallet, Wallet);
+        editor.commit();
+    }
+
+    public boolean getWallet(){
+        return pref.getBoolean(wallet, false);
+    }
+
+    public void setMyOrders(boolean MyOrders){
+        editor = pref.edit();
+        editor.putBoolean(my_orders, MyOrders);
+        editor.commit();
+    }
+
+    public boolean getMyOrders(){
+        return pref.getBoolean(my_orders, false);
+    }
+
+    public void setMyProfile(boolean MyProfile){
+        editor = pref.edit();
+        editor.putBoolean(my_profile, MyProfile);
+        editor.commit();
+    }
+
+    public boolean getMyProfile(){
+        return pref.getBoolean(my_profile, false);
+    }
+
+    public void setContactUs(boolean ContactUs){
+        editor = pref.edit();
+        editor.putBoolean(contact_us, ContactUs);
+        editor.commit();
+    }
+
+    public boolean getContactUs(){
+        return pref.getBoolean(contact_us, false);
+    }
+
     public void setProfilePicture(String profilePicture){
         editor = pref.edit();
         editor.putString(profile_picture, profilePicture);
@@ -479,6 +647,216 @@ public class SharedPrefManager {
 
     public long getLastVerifyTimeStampAeps(){
         return pref.getLong(last_verify_timestamp_aeps, 0);
+    }
+
+    public void setUserPlanId(String UserPlanId) {
+        editor = pref.edit();
+        editor.putString(user_plan_id, UserPlanId);
+        editor.commit();
+    }
+
+    public String getUserPlanId() {
+        return pref.getString(user_plan_id, "null");
+    }
+
+    public void setPlanId(String PlanId) {
+        editor = pref.edit();
+        editor.putString(plan_id, PlanId);
+        editor.commit();
+    }
+
+    public String getPlanId() {
+        return pref.getString(plan_id, "null");
+    }
+
+    public void setPlanStartDate(int PlanStartDate) {
+        editor = pref.edit();
+        editor.putInt(plan_start_date, PlanStartDate);
+        editor.commit();
+    }
+
+    public int getPlanStartDate() {
+        return pref.getInt(plan_start_date, 0);
+    }
+
+    public void setPlanEndDate(int PlanEndDate) {
+        editor = pref.edit();
+        editor.putInt(plan_end_date, PlanEndDate);
+        editor.commit();
+    }
+
+    public int getPlanEndDate() {
+        return pref.getInt(plan_end_date, 0);
+    }
+
+    public void setPlanDetails(String PlanDetails) {
+        editor = pref.edit();
+        editor.putString(plan_details, PlanDetails);
+        editor.commit();
+    }
+
+    public String getPlanDetails() {
+        return pref.getString(plan_details, "null");
+    }
+
+    public void setPlanIsActive(boolean PlanDetails) {
+        editor = pref.edit();
+        editor.putBoolean(plan_is_active, PlanDetails);
+        editor.commit();
+    }
+
+    public boolean getPlanIsActive() {
+        return pref.getBoolean(plan_is_active, false);
+    }
+
+    public void setPlanLine(String PlanLine) {
+        editor = pref.edit();
+        editor.putString(plan_line, PlanLine);
+        editor.commit();
+    }
+
+    public String getPlanLine() {
+        return pref.getString(plan_line, "null");
+    }
+
+    public void setPlanName(String PlanName) {
+        editor = pref.edit();
+        editor.putString(plan_name, PlanName);
+        editor.commit();
+    }
+
+    public String getPlanName() {
+        return pref.getString(plan_name, "null");
+    }
+
+    public void setPlanCreatedBy(String PlanCreatedBy) {
+        editor = pref.edit();
+        editor.putString(plan_created_by, PlanCreatedBy);
+        editor.commit();
+    }
+
+    public String getPlanCreatedBy() {
+        return pref.getString(plan_created_by, "null");
+    }
+
+    public void setPlanIsDeleted(boolean PlanIsDeleted) {
+        editor = pref.edit();
+        editor.putBoolean(plan_is_deleted, PlanIsDeleted);
+        editor.commit();
+    }
+
+    public boolean getPlanIsDeleted() {
+        return pref.getBoolean(plan_is_deleted, false);
+    }
+
+    public void setPlanPrice(int PlanPrice) {
+        editor = pref.edit();
+        editor.putInt(plan_price, PlanPrice);
+        editor.commit();
+    }
+
+    public int getPlanPrice() {
+        return pref.getInt(plan_price, 0);
+    }
+
+    public void setPlanUpdatedBy(String PlanUpdatedBy) {
+        editor = pref.edit();
+        editor.putString(plan_updated_by, PlanUpdatedBy);
+        editor.commit();
+    }
+
+    public String getPlanUpdatedBy() {
+        return pref.getString(plan_updated_by, "null");
+    }
+
+    public void setPlanCreatedTime(int PlanCreatedTime) {
+        editor = pref.edit();
+        editor.putInt(plan_created_time, PlanCreatedTime);
+        editor.commit();
+    }
+
+    public int getPlanCreatedTime() {
+        return pref.getInt(plan_created_time, 0);
+    }
+
+    public void setPlanUpdatedTime(String PlanUpdatedTime) {
+        editor = pref.edit();
+        editor.putString(plan_updated_time, PlanUpdatedTime);
+        editor.commit();
+    }
+
+    public String getPlanUpdatedTime() {
+        return pref.getString(plan_updated_time, "null");
+    }
+
+    public void setPlanDuration(int PlanDuration) {
+        editor = pref.edit();
+        editor.putInt(plan_duration, PlanDuration);
+        editor.commit();
+    }
+
+    public int getPlanDuration() {
+        return pref.getInt(plan_duration, 0);
+    }
+
+    public void setPlanFeatureName(String PlanFeatureName) {
+        editor = pref.edit();
+        editor.putString(plan_feature_name, PlanFeatureName);
+        editor.commit();
+    }
+
+    public String getPlanFeatureName() {
+        return pref.getString(plan_feature_name, "null");
+    }
+
+    public void setPlanDescription(String PlanDescription) {
+        editor = pref.edit();
+        editor.putString(plan_description, PlanDescription);
+        editor.commit();
+    }
+
+    public String getPlanDescription() {
+        return pref.getString(plan_description, "null");
+    }
+
+    public void setPlanDurationType(String PlanDescription) {
+        editor = pref.edit();
+        editor.putString(plan_duration_type, PlanDescription);
+        editor.commit();
+    }
+
+    public String getPlanDurationType() {
+        return pref.getString(plan_duration_type, "null");
+    }
+
+    public void setPlanDiscountedPrice(int PlanDescription) {
+        editor = pref.edit();
+        editor.putInt(plan_discounted_price, PlanDescription);
+        editor.commit();
+    }
+
+    public int getPlanDiscountedPrice() {
+        return pref.getInt(plan_discounted_price, 0);
+    }
+
+    public void setBBPSCommissionBalance(String BBPSCommissionBalance) {
+        editor = pref.edit();
+        editor.putString(bbps_commission_balance, BBPSCommissionBalance);
+        editor.commit();
+    }
+
+    public String getBBPSCommissionBalance() {
+        return pref.getString(bbps_commission_balance, "null");
+    }
+
+    public void setAEPSCommissionBalance(String AEPSCommissionBalance) {
+        editor = pref.edit();
+        editor.putString(aeps_commission_balance, AEPSCommissionBalance);
+        editor.commit();
+    }
+
+    public String getAEPSCommissionBalance() {
+        return pref.getString(aeps_commission_balance, "null");
     }
 
     public void setClear(){

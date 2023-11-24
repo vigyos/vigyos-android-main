@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -224,7 +225,7 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
 
             private ImageView iconImage;
             private TextView serviceTitle;
-            private CardView totalCardView;
+            private RelativeLayout totalCardView;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);

@@ -572,8 +572,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     .withPermissions(
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_MEDIA_IMAGES
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -593,15 +592,13 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         } else {
             Dexter.withActivity(this)
                     .withPermissions(
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -621,8 +618,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         }
     }
 
@@ -639,14 +635,12 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                         intent.setData(uri);
                         startActivityForResult(intent, 101);
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionDeniedDialog() {
@@ -659,8 +653,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                         dialog.dismiss();
                         requestPermissions(); // Try to request permissions again
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionRationaleDialog(final PermissionToken token) {
@@ -672,8 +665,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     public void onClick(DialogInterface dialog, int which) {
                         token.continuePermissionRequest();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         token.cancelPermissionRequest();

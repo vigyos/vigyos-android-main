@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.format.Formatter;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +53,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
+import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -140,8 +139,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ipr = view.findViewById(R.id.ipr);
         registration = view.findViewById(R.id.registration);
 
-
-        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
+//        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
     }
 
     private void declaration(){
@@ -166,7 +164,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (checkPermission()){
             getLocation();
         } else {
-            requiredPermission();
+            requiredPermissionDialog();
         }
         dateAndTime();
         iPAddress();
@@ -181,14 +179,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             float v = (float) i;
             amount.setText("₹"+v);
         }
-        bannerShow();
+//        bannerShow();
     }
 
-    private void requiredPermission() {
-        dialog = new Dialog(activity);
+    private void requiredPermissionDialog() {
+        dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_user_message);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.getWindow().setLayout(-1, -1);
@@ -201,16 +199,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dialog.findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
                 dismissDialog();
-                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 requestPermissions();
             }
         });
+        // Show the dialog when needed
         dialog.show();
     }
 
     private void bannerShow(){
-        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
+//        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
         BannerListModel bannerListModel = new BannerListModel();
         bannerListModel.setBannerImage("https://vigyos-upload-files.s3.amazonaws.com/68f0c22b-a037-41b5-9281-7e5ffba225c8");
         bannerListModel.setBannerImage("https://vigyos-upload-files.s3.amazonaws.com/f273d695-6fac-44f6-8557-502c5485d38b");
@@ -237,126 +237,175 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.registration:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent9 = new Intent(activity, SubCatServiceActivity.class);
-                intent9.putExtra("serviceName", "Registrations");
-                intent9.putExtra("serviceID", "1014");
-                startActivity(intent9);
+                Log.i("114","Registrations");
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent9 = new Intent(activity, SubCatServiceActivity.class);
+                    intent9.putExtra("serviceName", "Registrations");
+                    intent9.putExtra("serviceID", "1014");
+                    startActivity(intent9);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.ipr:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
-                intent8.putExtra("serviceName", "Intellectual Properties");
-                intent8.putExtra("serviceID", "1016");
-                startActivity(intent8);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
+                    intent8.putExtra("serviceName", "Intellectual Properties");
+                    intent8.putExtra("serviceID", "1016");
+                    startActivity(intent8);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.iec:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent7 = new Intent(activity, SubCatServiceActivity.class);
-                intent7.putExtra("serviceName", "IEC – Import/Export Code");
-                intent7.putExtra("serviceID", "1015");
-                startActivity(intent7);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent7 = new Intent(activity, SubCatServiceActivity.class);
+                    intent7.putExtra("serviceName", "IEC – Import/Export Code");
+                    intent7.putExtra("serviceID", "1015");
+                    startActivity(intent7);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.udyam:
-                Intent intent1 = new Intent(activity, SubCatServiceActivity.class);
-                intent1.putExtra("serviceName", "Registrations");
-                intent1.putExtra("serviceID", "1014");
-                startActivity(intent1);
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent1 = new Intent(activity, SubCatServiceActivity.class);
+                    intent1.putExtra("serviceName", "Registrations");
+                    intent1.putExtra("serviceID", "1014");
+                    startActivity(intent1);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.eway:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent5 = new Intent(activity, SubCatServiceActivity.class);
-                intent5.putExtra("serviceName", "E-Way Bills");
-                intent5.putExtra("serviceID", "1017");
-                startActivity(intent5);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent5 = new Intent(activity, SubCatServiceActivity.class);
+                    intent5.putExtra("serviceName", "E-Way Bills");
+                    intent5.putExtra("serviceID", "1017");
+                    startActivity(intent5);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.accounting:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent6 = new Intent(activity, SubCatServiceActivity.class);
-                intent6.putExtra("serviceName", "Accounting");
-                intent6.putExtra("serviceID", "1020");
-                startActivity(intent6);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent6 = new Intent(activity, SubCatServiceActivity.class);
+                    intent6.putExtra("serviceName", "Accounting");
+                    intent6.putExtra("serviceID", "1020");
+                    startActivity(intent6);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.dsc:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent3 = new Intent(activity, SubCatServiceActivity.class);
-                intent3.putExtra("serviceName", "DSC Services");
-                intent3.putExtra("serviceID", "1013");
-                startActivity(intent3);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent3 = new Intent(activity, SubCatServiceActivity.class);
+                    intent3.putExtra("serviceName", "DSC Services");
+                    intent3.putExtra("serviceID", "1013");
+                    startActivity(intent3);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.itrService:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent4 = new Intent(activity, SubCatServiceActivity.class);
-                intent4.putExtra("serviceName", "Income Tax Returns");
-                intent4.putExtra("serviceID", "1012");
-                startActivity(intent4);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent4 = new Intent(activity, SubCatServiceActivity.class);
+                    intent4.putExtra("serviceName", "Income Tax Returns");
+                    intent4.putExtra("serviceID", "1012");
+                    startActivity(intent4);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.seeMore:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, SeeMoreServicesActivity.class));
                 break;
-                case R.id.tax:
+            case R.id.tax:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent intent2 = new Intent(activity, SubCatServiceActivity.class);
-                intent2.putExtra("serviceName", "Tax Services");
-                intent2.putExtra("serviceID", "1018");
-                startActivity(intent2);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent2 = new Intent(activity, SubCatServiceActivity.class);
+                    intent2.putExtra("serviceName", "Tax Services");
+                    intent2.putExtra("serviceID", "1018");
+                    startActivity(intent2);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.gst:
-                Intent intent = new Intent(activity, SubCatServiceActivity.class);
-                intent.putExtra("serviceName", "GST");
-                intent.putExtra("serviceID", "1011");
-                startActivity(intent);
+                if (SplashActivity.prefManager.getServices()) {
+                    Intent intent = new Intent(activity, SubCatServiceActivity.class);
+                    intent.putExtra("serviceName", "GST");
+                    intent.putExtra("serviceID", "1011");
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.panService:
-                startActivity(new Intent(activity, PanCardActivity.class));
+                if (SplashActivity.prefManager.getPan()) {
+                    startActivity(new Intent(activity, PanCardActivity.class));
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
+                }
                 break;
             case R.id.aeps:
-//                registerDialog();
-                if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
-                    registerDialog();
-                } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    try {
-                        Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
-                        Calendar loginCalendar = Calendar.getInstance();
-                        loginCalendar.setTime(loginDate);
+                if (SplashActivity.prefManager.getAEPS()) {
+                    if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
+                        registerDialog();
+                    } else {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        try {
+                            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
+                            Calendar loginCalendar = Calendar.getInstance();
+                            loginCalendar.setTime(loginDate);
 
-                        Calendar currentCalendar = Calendar.getInstance();
-                        long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-                        long diffInHours = diffInMillis / (60 * 60 * 1000);
+                            Calendar currentCalendar = Calendar.getInstance();
+                            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+                            long diffInHours = diffInMillis / (60 * 60 * 1000);
 
-                        if(diffInHours >= 24) {
-                            // More than 24 hours have passed since the login
-                            // Prompt user to log in again
-                            Log.i("741258","More than 24 hours");
-                            if (checkPermission()) {
-                                try {
-                                    String pidOption = getPIDOptions();
-                                    if (pidOption != null) {
-                                        Log.e("PidOptions", pidOption);
-                                        Intent intent10 = new Intent();
-                                        intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-                                        intent10.putExtra("PID_OPTIONS", pidOption);
-                                        startActivityForResult(intent10, 1);
-                                    } else {
-                                        Log.i("454545","Device not found!");
+                            if(diffInHours >= 24) {
+                                // More than 24 hours have passed since the login
+                                // Prompt user to log in again
+                                Log.i("741258","More than 24 hours");
+                                if (checkPermission()) {
+                                    try {
+                                        String pidOption = getPIDOptions();
+                                        if (pidOption != null) {
+                                            Log.e("PidOptions", pidOption);
+                                            Intent intent10 = new Intent();
+                                            intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                                            intent10.putExtra("PID_OPTIONS", pidOption);
+                                            startActivityForResult(intent10, 1);
+                                        } else {
+                                            Log.i("454545","Device not found!");
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("Error", e.toString());
+                                        Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
                                     }
-                                } catch (Exception e) {
-                                    Log.e("Error", e.toString());
-                                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    requestPermissions();
                                 }
                             } else {
-                                requestPermissions();
+                                // Less than 24 hours have passed since the login
+                                // User is still logged in
+                                Log.i("741258","Less than 24 hours");
+                                startActivity(new Intent(activity, AEPSActivity.class));
                             }
-                        } else {
-                            // Less than 24 hours have passed since the login
-                            // User is still logged in
-                            Log.i("741258","Less than 24 hours");
-                            startActivity(new Intent(activity, AEPSActivity.class));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
+                } else {
+                    startActivity(new Intent(activity, PlansActivity.class));
                 }
                 break;
             case R.id.searchIcon:
@@ -366,9 +415,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.notificationIcon:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, NotificationActivity.class));
-                break;
-            case R.id.walletView:
-                startActivity(new Intent(activity, WalletActivity.class));
                 break;
             default:
                 break;
@@ -525,8 +571,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_MEDIA_IMAGES,
                             Manifest.permission.POST_NOTIFICATIONS
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -547,16 +592,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         } else {
             Dexter.withActivity(activity)
                     .withPermissions(
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -577,8 +620,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         }
     }
 
@@ -595,14 +637,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         intent.setData(uri);
                         startActivityForResult(intent, 101);
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionDeniedDialog() {
@@ -615,8 +655,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         dialog.dismiss();
                         requestPermissions(); // Try to request permissions again
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionRationaleDialog(final PermissionToken token) {
@@ -628,8 +667,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         token.continuePermissionRequest();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         token.cancelPermissionRequest();
@@ -651,8 +689,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 Log.i("874521", "Location not available");
                             }
                         }
-                    })
-                    .addOnFailureListener(activity, new OnFailureListener() {
+                    }).addOnFailureListener(activity, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.i("874521", "Error getting location");

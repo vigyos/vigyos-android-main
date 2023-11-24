@@ -3,49 +3,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PanCardActivity"
-    android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Activity.PanCardActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/vigyos">
+        android:layout_height="?actionBarSize">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:layout_marginStart="10sp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_back"/>
+            android:src="@drawable/arrow_back"
+            app:tint="@color/dark_vigyos"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/ivBack"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10sp"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/pan_services"
-            android:textColor="@color/white"
-            android:textSize="22sp"/>
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:visibility="gone"
         android:background="@color/white"
         android:paddingVertical="5dp">
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Pan" />
+            android:text="New" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Pan" />
+            android:text="Update" />
     </com.google.android.material.tabs.TabLayout>
+    <LinearLayout
+        android:id="@+id/tabLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_below="@+id/toolbar">
+        <RelativeLayout
+            android:id="@+id/newPan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/newText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="New"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="@dimen/_12sdp" />
+            <View
+                android:id="@+id/newLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/dark_vigyos"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/updatePan"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/updateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Update"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_12sdp" />
+            <View
+                android:id="@+id/updateLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+    </LinearLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tabLayout"/>
+        android:visibility="gone"
+        android:layout_below="@+id/tabLayout1"/>
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabLayout1"/>
 </RelativeLayout>

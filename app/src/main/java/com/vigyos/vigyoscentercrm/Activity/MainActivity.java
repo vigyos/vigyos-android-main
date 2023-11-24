@@ -40,9 +40,11 @@ import com.vigyos.vigyoscentercrm.Constant.LockScreenChecker;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
+import com.vigyos.vigyoscentercrm.Fragment.ProfileFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 orderText.setTypeface(typefaceRegular);
                 profileText.setTextColor(getColor(R.color.dark_vigyos));
                 profileText.setTypeface(typefaceBold);
-
+                loadFragment(new ProfileFragment(MainActivity.this), false);
                 AppController.backCheck = false;
                 break;
         }
@@ -313,17 +315,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("4587456", "onPause");
         if (dialog1 != null && dialog1.isShowing()) {
             dialog1.dismiss();
-            Log.i("4587456", "dialog1.dismiss");
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("4587456", "onResume");
         if (SplashActivity.prefManager.getBiometricLock()) {
             if (!isAuthenticated) {
                 if (isFirstLaunch) {
@@ -333,19 +332,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-//        // Check if the user has authenticated
-//        // Check if the app is being launched for the first time
-//        if (isFirstLaunch) {
-//            // This is the first launch, do not show the authentication prompt
-//            isFirstLaunch = false;
-//        } else {
-//            // This is not the first launch, check if the user has authenticated
-//            if (!isAuthenticated) {
-//                // User has not authenticated, show the authentication prompt again
-//                handleCancelAuth();
-//            }
-//        }
     }
 
     private void profileData() {
@@ -445,6 +431,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (jsonObject1.has("amount")) {
                                 SplashActivity.prefManager.setAmount(jsonObject1.getInt("amount"));
                             }
+                            if (jsonObject1.has("permissions")) {
+                                JSONObject objectPermissions = jsonObject1.getJSONObject("permissions");
+                                if (objectPermissions.has("dashboard")) {
+                                    SplashActivity.prefManager.setDashboard(objectPermissions.getBoolean("dashboard"));
+                                }
+                                if (objectPermissions.has("services")) {
+                                    SplashActivity.prefManager.setServices(objectPermissions.getBoolean("services"));
+                                }
+                                if (objectPermissions.has("add_to_wallet")) {
+                                    SplashActivity.prefManager.setAddToWallet(objectPermissions.getBoolean("add_to_wallet"));
+                                }
+                                if (objectPermissions.has("service_request")) {
+                                    SplashActivity.prefManager.setServiceRequest(objectPermissions.getBoolean("service_request"));
+                                }
+                                if (objectPermissions.has("users")) {
+                                    SplashActivity.prefManager.setUsers(objectPermissions.getBoolean("users"));
+                                }
+                                if (objectPermissions.has("buy_new_service")) {
+                                    SplashActivity.prefManager.setBuyNewService(objectPermissions.getBoolean("buy_new_service"));
+                                }
+                                if (objectPermissions.has("pan")) {
+                                    SplashActivity.prefManager.setPan(objectPermissions.getBoolean("pan"));
+                                }
+                                if (objectPermissions.has("bbps")) {
+                                    SplashActivity.prefManager.setBBPS(objectPermissions.getBoolean("bbps"));
+                                }
+                                if (objectPermissions.has("aeps")) {
+                                    SplashActivity.prefManager.setAEPS(objectPermissions.getBoolean("aeps"));
+                                }
+                                if (objectPermissions.has("wallet")) {
+                                    SplashActivity.prefManager.setWallet(objectPermissions.getBoolean("wallet"));
+                                }
+                                if (objectPermissions.has("my_orders")) {
+                                    SplashActivity.prefManager.setMyOrders(objectPermissions.getBoolean("my_orders"));
+                                }
+                                if (objectPermissions.has("my_profile")) {
+                                    SplashActivity.prefManager.setMyProfile(objectPermissions.getBoolean("my_profile"));
+                                }
+                                if (objectPermissions.has("contact_us")) {
+                                    SplashActivity.prefManager.setContactUs(objectPermissions.getBoolean("contact_us"));
+                                }
+                            }
                             if (jsonObject1.has("merchant_id")) {
                                 SplashActivity.prefManager.setMerchantId(jsonObject1.getString("merchant_id"));
                             }
@@ -459,6 +487,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             if (jsonObject1.has("payout_balance")) {
                                 SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
+                            }
+                            if (jsonObject1.has("plan")) {
+                                JSONObject jsonObject2 = jsonObject1.getJSONObject("plan");
+                                if (jsonObject2.has("user_plan_id")){
+                                    SplashActivity.prefManager.setUserPlanId(jsonObject2.getString("user_plan_id"));
+                                }
+                                if (jsonObject2.has("plan_id")) {
+                                    SplashActivity.prefManager.setPlanId(jsonObject2.getString("plan_id"));
+                                }
+                                if (jsonObject2.has("plan_start_date")) {
+                                    SplashActivity.prefManager.setPlanStartDate(jsonObject2.getInt("plan_start_date"));
+                                }
+                                if (jsonObject2.has("plan_end_date")) {
+                                    SplashActivity.prefManager.setPlanEndDate(jsonObject2.getInt("plan_end_date"));
+                                }
+                                if (jsonObject2.has("plan_details")) {
+                                    JSONObject jsonObject3 = jsonObject2.getJSONObject("plan_details");
+                                    if (jsonObject3.has("is_active")) {
+                                        SplashActivity.prefManager.setPlanIsActive(jsonObject3.getBoolean("is_active"));
+                                    }
+                                    if (jsonObject3.has("plan_line")) {
+                                        SplashActivity.prefManager.setPlanLine(jsonObject3.getString("plan_line"));
+                                    }
+                                    if (jsonObject3.has("plan_name")) {
+                                        SplashActivity.prefManager.setPlanName(jsonObject3.getString("plan_name"));
+                                    }
+                                    if (jsonObject3.has("created_by")) {
+                                        SplashActivity.prefManager.setPlanCreatedBy(jsonObject3.getString("created_by"));
+                                    }
+                                    if (jsonObject3.has("is_deleted")) {
+                                        SplashActivity.prefManager.setPlanIsDeleted(jsonObject3.getBoolean("is_deleted"));
+                                    }
+                                    if (jsonObject3.has("plan_price")) {
+                                        SplashActivity.prefManager.setPlanPrice(jsonObject3.getInt("plan_price"));
+                                    }
+                                    if (jsonObject3.has("updated_by")) {
+                                        SplashActivity.prefManager.setPlanUpdatedBy(jsonObject3.getString("updated_by"));
+                                    }
+                                    if (jsonObject3.has("updated_time")) {
+                                        SplashActivity.prefManager.setPlanUpdatedBy(jsonObject3.getString("updated_time"));
+                                    }
+                                    if (jsonObject3.has("plan_duration")) {
+                                        SplashActivity.prefManager.setPlanDuration(jsonObject3.getInt("plan_duration"));
+                                    }
+//                                    if (jsonObject3.has("plan_features")) {
+//                                        JSONArray jsonArray = jsonObject3.getJSONArray("plan_features");
+//                                        for (int i = 0; i<jsonArray.length(); i++) {
+//                                            JSONObject jsonObject4 = jsonArray.getJSONObject(i);
+//                                            if (jsonObject4.has("feature_name")) {
+//                                            }
+//                                        }
+//                                    }
+                                    if (jsonObject3.has("plan_description")) {
+                                        SplashActivity.prefManager.setPlanDescription(jsonObject3.getString("plan_description"));
+                                    }
+                                    if (jsonObject3.has("plan_duration_type")) {
+                                        SplashActivity.prefManager.setPlanDurationType(jsonObject3.getString("plan_duration_type"));
+                                    }
+                                    if (jsonObject3.has("plan_discounted_price")) {
+                                        SplashActivity.prefManager.setPlanDiscountedPrice(jsonObject3.getInt("plan_discounted_price"));
+                                    }
+                                }
                             }
                         } else {
                             if (jsonObject.has("message")) {

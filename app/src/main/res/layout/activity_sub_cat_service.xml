@@ -9,31 +9,55 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/vigyos">
+        android:layout_height="?actionBarSize">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:src="@drawable/arrow_back"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5sp"
-            app:tint="@color/white"/>
+            android:layout_marginStart="@dimen/_5sdp"
+            app:tint="@color/dark_vigyos"/>
         <TextView
             android:id="@+id/serviceName"
-            android:layout_width="250sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/ivBack"
-            android:layout_marginStart="10sp"
+            android:elegantTextHeight="true"
             android:maxLines="1"
             android:text="Service Name"
-            android:textColor="@color/white"
-            android:textSize="22sp"/>
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_135sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_below="@+id/toolbar"
+        tools:ignore="MissingConstrains">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="5sp">
+            <ImageView
+                android:id="@+id/bannerImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"/>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/banner"
+        tools:listitem="@layout/layout_service_list"/>
 </RelativeLayout>

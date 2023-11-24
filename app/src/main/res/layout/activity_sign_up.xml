@@ -206,7 +206,6 @@
                 android:layout_below="@+id/checkBoxLyt"
                 android:layout_marginTop="@dimen/_17sdp"
                 android:background="@drawable/next_button_filled">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

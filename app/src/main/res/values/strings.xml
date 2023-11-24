@@ -2,7 +2,7 @@
     <string name="app_name">Vigyos</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
-    <string name="pan_services">Pan Services</string>
+    <string name="pan_services">PAN CARD</string>
     <string name="by_successful">By Successful login you are Agreeing with our</string>
     <string name="privacy_policy"><u>Privacy Policy</u> </string>
     <string name="terms_amp_conditions"><u>Terms &amp; Conditions</u></string>
@@ -33,7 +33,7 @@
     </string-array>
 
     <string-array name="kycType">
-        <item>Select Kyc Type</item>
+        <item>Select KYC Type</item>
         <item>E - KYC</item>
         <item>E - Sign</item>
     </string-array>
@@ -64,6 +64,12 @@
     <string name="fingerprint_authentication">FingerPrint Authentication</string>
     <string name="to_use_our_aeps_service">To use our AEPS services, please enable fingerprint authentication</string>
     <string name="required_permissions">Required Permissions!</string>
-    <string name="allow_to_access">Grant Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
+    <string name="allow_to_access">Allow Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
+    <string name="log_out"><u>Log out</u></string>
+    <string name="important_notice">Important Notice!</string>
+
+    <string name="already_have_an_account">Already have an account? <font color='#01C6DB'>Login</font></string>
+
+    <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color= '#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Have documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
 
 </resources>

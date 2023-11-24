@@ -19,10 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
+import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
+import com.vigyos.vigyoscentercrm.Model.BannerListModel;
 import com.vigyos.vigyoscentercrm.Model.ServiceListModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -43,19 +47,20 @@ public class SubCatServiceActivity extends AppCompatActivity {
 
     private Dialog dialog;
     private ArrayList<ServiceListModel> serviceListModels = new ArrayList<>();
+    private ImageView bannerImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_cat_service);
+        bannerImageView = findViewById(R.id.bannerImageView);
         Intent intent = getIntent();
         String serviceID = intent.getStringExtra("serviceID");
         String serviceName = intent.getStringExtra("serviceName");
         TextView serName = findViewById(R.id.serviceName);
         serName.setText(serviceName);
-
+        Picasso.get().load("https://vigyos-upload-files.s3.amazonaws.com/0f90ae5e-d3b8-4599-a630-e2570f47fed5").into(bannerImageView);
         services(serviceID);
-
         findViewById(R.id.ivBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +178,9 @@ public class SubCatServiceActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             ServiceListModel listModel = serviceListModels.get(position);
             holder.service_name.setText(listModel.getService_name());
-            holder.amount.setText("₹ "+ listModel.getPrice());
+            int i = listModel.getPrice();
+            float v = (float) i;
+            holder.amount.setText("₹"+v);
             holder.cardNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

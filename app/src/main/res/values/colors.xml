@@ -6,12 +6,16 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#009306</color>
     <color name="dark_vigyos">#2C55A3</color>
     <color name="light_black">#333333</color>
+    <color name="dark_white">#FEFEFE</color>
+    <color name="not_click">#CCCCCC</color>
+
+
 
 
     <color name="vigyos">#2196F3</color>
@@ -23,5 +27,4 @@
     <color name="ucrop_color_toolbar">@color/white</color>
     <color name="ucrop_color_statusbar">@color/vigyos</color>
     <color name="ucrop_color_widget_active">@color/black</color>
-
 </resources>

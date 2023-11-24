@@ -36,6 +36,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.PlansActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ForgotActivity"
             android:exported="false" />
         <activity
@@ -158,6 +161,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"></activity>
 
         <receiver
             android:name=".UsbReceiver"
