@@ -31,8 +31,7 @@ import org.w3c.dom.Text;
 @BuildCompat.PrereleaseSdkCheck
 public class PanCardActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager2;
+    private ImageView ivBack;
     private RelativeLayout newPan, updatePan;
     private TextView newText, updateText;
     private View newLine, updateLine;
@@ -43,28 +42,21 @@ public class PanCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pan_card);
-        ImageView ivBack = findViewById(R.id.ivBack);
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager2 = findViewById(R.id.viewpager);
-        PanCardFragmentAdapter adapter = new PanCardFragmentAdapter(PanCardActivity.this, PanCardActivity.this);
-        viewPager2.setAdapter(adapter);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
-        });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
-            }
-        });
+        initialization();
+        declaration();
+    }
+
+    private void initialization() {
+        ivBack = findViewById(R.id.ivBack);
+        newPan  = findViewById(R.id.newPan);
+        updatePan  = findViewById(R.id.updatePan);
+        newText  = findViewById(R.id.newText);
+        updateText  = findViewById(R.id.updateText);
+        newLine  = findViewById(R.id.newLine);
+        updateLine  = findViewById(R.id.updateLine);
+    }
+
+    private void declaration() {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,16 +64,7 @@ public class PanCardActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        newPan  = findViewById(R.id.newPan);
-        updatePan  = findViewById(R.id.updatePan);
-        newText  = findViewById(R.id.newText);
-        updateText  = findViewById(R.id.updateText);
-        newLine  = findViewById(R.id.newLine);
-        updateLine  = findViewById(R.id.updateLine);
-
         loadFragment(new PanCardCreateFragment(PanCardActivity.this), false);
-
         tabLayout();
     }
 

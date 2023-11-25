@@ -65,10 +65,11 @@ public class ShowServicesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_sesrvices);
+        initialization();
+        declaration();
+    }
 
-        intent = getIntent();
-        service = intent.getStringExtra("id");
-
+    private void initialization() {
         ivBack = findViewById(R.id.ivBack);
         serviceNameText = findViewById(R.id.serviceName);
         serviceDetailsText = findViewById(R.id.serviceDetails);
@@ -76,9 +77,12 @@ public class ShowServicesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         spinner = findViewById(R.id.spinner);
         applyNow = findViewById(R.id.applyNow);
+    }
 
+    private void declaration() {
+        intent = getIntent();
+        service = intent.getStringExtra("id");
         serviceData();
-
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,10 +94,14 @@ public class ShowServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(ShowServicesActivity.this, R.anim.viewpush));
-                Intent intent1 = new Intent(ShowServicesActivity.this, BuyServiceActivity.class);
-                intent1.putExtra("serviceID", service);
-                intent1.putExtra("serviceName", serviceName);
-                startActivity(intent1);
+                if (!SplashActivity.prefManager.getServices()) {
+                    Intent intent1 = new Intent(ShowServicesActivity.this, BuyServiceActivity.class);
+                    intent1.putExtra("serviceID", service);
+                    intent1.putExtra("serviceName", serviceName);
+                    startActivity(intent1);
+                } else {
+                    startActivity(new Intent(ShowServicesActivity.this, PlansActivity.class));
+                }
             }
         });
     }

@@ -29,4 +29,32 @@
         <item name="android:textSize">11sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="myToastSuccess">
+        <item name="stTextColor">#fff</item>
+        <item name="stTextSize">@dimen/_10sdp</item>
+        <item name="stIconStart">@drawable/success</item>
+        <item name="iconSize">@dimen/_25sdp</item>
+        <item name="stColorBackground">#00944E</item>
+        <item name="stRadius">@dimen/_30sdp</item>
+    </style>
+
+    <style name="myToastWarning">
+        <item name="stTextColor">#fff</item>
+        <item name="stTextSize">@dimen/_10sdp</item>
+        <item name="stIconStart">@drawable/warning</item>
+        <item name="iconSize">@dimen/_25sdp</item>
+        <item name="stColorBackground">#001646</item>
+        <item name="stRadius">@dimen/_30sdp</item>
+    </style>
+
+    <style name="myToastError">
+        <item name="stTextColor">#fff</item>
+        <item name="stTextSize">@dimen/_10sdp</item>
+        <item name="stIconStart">@drawable/error</item>
+        <item name="iconSize">@dimen/_25sdp</item>
+        <item name="stColorBackground">#F00024</item>
+        <item name="stRadius">@dimen/_30sdp</item>
+    </style>
+
 </resources>

@@ -49,6 +49,7 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -323,7 +324,7 @@ public class PanCardUpdateFragment extends Fragment{
                 if (titleCreateUpdate.getSelectedItem().toString().trim().equals("Select Title Type")) {
                     userTitleLytUpdate.startAnimation(animation);
                     titleFocusUpdate.getParent().requestChildFocus(titleFocusUpdate, titleFocusUpdate);
-                    Toast.makeText(activity, "Select your Title", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Select your Title", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (TextUtils.isEmpty(firstNameUpdate.getText().toString())) {
@@ -331,7 +332,7 @@ public class PanCardUpdateFragment extends Fragment{
                     firstNameUpdate.requestFocus();
                     firstNameLytUpdate.startAnimation(animation);
                     firstNameFocusUpdate.getParent().requestChildFocus(firstNameFocusUpdate, firstNameFocusUpdate);
-                    Toast.makeText(activity, "Enter First Name", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Enter First Name", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (TextUtils.isEmpty(lastNameUpdate.getText().toString())) {
@@ -339,25 +340,25 @@ public class PanCardUpdateFragment extends Fragment{
                     lastNameUpdate.requestFocus();
                     lastNameLytUpdate.startAnimation(animation);
                     lastNameFocusUpdate.getParent().requestChildFocus(lastNameFocusUpdate, lastNameFocusUpdate);
-                    Toast.makeText(activity, "Enter Last Name", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Enter Last Name", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (genderUpdate.getSelectedItem().toString().trim().equals("Select your Gender")) {
                     genderLytUpdate.startAnimation(animation);
                     genderFocusUpdate.getParent().requestChildFocus(genderFocusUpdate, genderFocusUpdate);
-                    Toast.makeText(activity, "Select your Gender", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Select your Gender", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (cardTypeUpdate.getSelectedItem().toString().trim().equals("Select Pan Type")) {
                     cardTypeLytUpdate.startAnimation(animation);
                     cardFocusUpdate.getParent().requestChildFocus(cardFocusUpdate, cardFocusUpdate);
-                    Toast.makeText(activity, "Select Pan Type", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Select Pan Type", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (kycTypeSpinnerUpdate.getSelectedItem().toString().trim().equals("Select KYC Type")) {
                     kycTypeSpinnerLytUpdate.startAnimation(animation);
                     kycTypeFocusUpdate.getParent().requestChildFocus(kycTypeFocusUpdate, kycTypeFocusUpdate);
-                    Toast.makeText(activity, "Select KYC Type", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Select KYC Type", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if ((TextUtils.isEmpty(mobileNumberUpdate.getText().toString())) ) {
@@ -365,7 +366,7 @@ public class PanCardUpdateFragment extends Fragment{
                     mobileNumberUpdate.requestFocus();
                     mobileNumberLytUpdate.startAnimation(animation);
                     mobileNumberFocusUpdate.getParent().requestChildFocus(mobileNumberFocusUpdate, mobileNumberFocusUpdate);
-                    Toast.makeText(activity, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Enter Mobile Number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 } else {
                     if (!isValidPhone(mobileNumberUpdate.getText().toString())){
@@ -373,7 +374,7 @@ public class PanCardUpdateFragment extends Fragment{
                         mobileNumberUpdate.requestFocus();
                         mobileNumberLytUpdate.startAnimation(animation);
                         mobileNumberFocusUpdate.getParent().requestChildFocus(mobileNumberFocusUpdate, mobileNumberFocusUpdate);
-                        Toast.makeText(activity, "Invalid Number", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(activity, "Invalid Number", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -382,7 +383,7 @@ public class PanCardUpdateFragment extends Fragment{
                     emailUpdate.requestFocus();
                     emailLytUpdate.startAnimation(animation);
                     emailFocusUpdate.getParent().requestChildFocus(emailFocusUpdate, emailFocusUpdate);
-                    Toast.makeText(activity, "Enter Email ID", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Enter Email ID", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 } else {
                     if (!isValidMail(emailUpdate.getText().toString())){
@@ -399,7 +400,7 @@ public class PanCardUpdateFragment extends Fragment{
                     addressUpdate.requestFocus();
                     addressLytUpdate.startAnimation(animation);
                     addressFocusUpdate.getParent().requestChildFocus(addressFocusUpdate, addressFocusUpdate);
-                    Toast.makeText(activity, "Enter Address", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Enter Address", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
 
@@ -509,7 +510,7 @@ public class PanCardUpdateFragment extends Fragment{
                         startActivity(intent);
                     } else {
                         if (jsonObject.has("message")){
-                            Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         }
                     }
                 } catch (JSONException e) {
@@ -521,7 +522,7 @@ public class PanCardUpdateFragment extends Fragment{
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("85214","onFailure" + t);
-                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_LONG, R.style.myToastError).show();
             }
         });
     }

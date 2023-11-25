@@ -51,6 +51,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
@@ -81,6 +82,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -238,91 +240,59 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.registration:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 Log.i("114","Registrations");
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent9 = new Intent(activity, SubCatServiceActivity.class);
-                    intent9.putExtra("serviceName", "Registrations");
-                    intent9.putExtra("serviceID", "1014");
-                    startActivity(intent9);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent9 = new Intent(activity, SubCatServiceActivity.class);
+                intent9.putExtra("serviceName", "Registrations");
+                intent9.putExtra("serviceID", "1014");
+                startActivity(intent9);
                 break;
             case R.id.ipr:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
-                    intent8.putExtra("serviceName", "Intellectual Properties");
-                    intent8.putExtra("serviceID", "1016");
-                    startActivity(intent8);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent8 = new Intent(activity, SubCatServiceActivity.class);
+                intent8.putExtra("serviceName", "Intellectual Properties");
+                intent8.putExtra("serviceID", "1016");
+                startActivity(intent8);
                 break;
             case R.id.iec:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent7 = new Intent(activity, SubCatServiceActivity.class);
-                    intent7.putExtra("serviceName", "IEC – Import/Export Code");
-                    intent7.putExtra("serviceID", "1015");
-                    startActivity(intent7);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent7 = new Intent(activity, SubCatServiceActivity.class);
+                intent7.putExtra("serviceName", "IEC – Import/Export Code");
+                intent7.putExtra("serviceID", "1015");
+                startActivity(intent7);
                 break;
             case R.id.udyam:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent1 = new Intent(activity, SubCatServiceActivity.class);
-                    intent1.putExtra("serviceName", "Registrations");
-                    intent1.putExtra("serviceID", "1014");
-                    startActivity(intent1);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent1 = new Intent(activity, SubCatServiceActivity.class);
+                intent1.putExtra("serviceName", "Registrations");
+                intent1.putExtra("serviceID", "1014");
+                startActivity(intent1);
                 break;
             case R.id.eway:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent5 = new Intent(activity, SubCatServiceActivity.class);
-                    intent5.putExtra("serviceName", "E-Way Bills");
-                    intent5.putExtra("serviceID", "1017");
-                    startActivity(intent5);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent5 = new Intent(activity, SubCatServiceActivity.class);
+                intent5.putExtra("serviceName", "E-Way Bills");
+                intent5.putExtra("serviceID", "1017");
+                startActivity(intent5);
                 break;
             case R.id.accounting:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent6 = new Intent(activity, SubCatServiceActivity.class);
-                    intent6.putExtra("serviceName", "Accounting");
-                    intent6.putExtra("serviceID", "1020");
-                    startActivity(intent6);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent6 = new Intent(activity, SubCatServiceActivity.class);
+                intent6.putExtra("serviceName", "Accounting");
+                intent6.putExtra("serviceID", "1020");
+                startActivity(intent6);
                 break;
             case R.id.dsc:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent3 = new Intent(activity, SubCatServiceActivity.class);
-                    intent3.putExtra("serviceName", "DSC Services");
-                    intent3.putExtra("serviceID", "1013");
-                    startActivity(intent3);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent3 = new Intent(activity, SubCatServiceActivity.class);
+                intent3.putExtra("serviceName", "DSC Services");
+                intent3.putExtra("serviceID", "1013");
+                startActivity(intent3);
                 break;
             case R.id.itrService:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent4 = new Intent(activity, SubCatServiceActivity.class);
-                    intent4.putExtra("serviceName", "Income Tax Returns");
-                    intent4.putExtra("serviceID", "1012");
-                    startActivity(intent4);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent4 = new Intent(activity, SubCatServiceActivity.class);
+                intent4.putExtra("serviceName", "Income Tax Returns");
+                intent4.putExtra("serviceID", "1012");
+                startActivity(intent4);
                 break;
             case R.id.seeMore:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -330,24 +300,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tax:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent2 = new Intent(activity, SubCatServiceActivity.class);
-                    intent2.putExtra("serviceName", "Tax Services");
-                    intent2.putExtra("serviceID", "1018");
-                    startActivity(intent2);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent2 = new Intent(activity, SubCatServiceActivity.class);
+                intent2.putExtra("serviceName", "Tax Services");
+                intent2.putExtra("serviceID", "1018");
+                startActivity(intent2);
                 break;
             case R.id.gst:
-                if (SplashActivity.prefManager.getServices()) {
-                    Intent intent = new Intent(activity, SubCatServiceActivity.class);
-                    intent.putExtra("serviceName", "GST");
-                    intent.putExtra("serviceID", "1011");
-                    startActivity(intent);
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                Intent intent = new Intent(activity, SubCatServiceActivity.class);
+                intent.putExtra("serviceName", "GST");
+                intent.putExtra("serviceID", "1011");
+                startActivity(intent);
                 break;
             case R.id.panService:
                 if (SplashActivity.prefManager.getPan()) {
@@ -357,56 +319,58 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.aeps:
-                if (SplashActivity.prefManager.getAEPS()) {
-                    if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
-                        registerDialog();
-                    } else {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        try {
-                            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
-                            Calendar loginCalendar = Calendar.getInstance();
-                            loginCalendar.setTime(loginDate);
+                startActivity(new Intent(activity, AEPSActivity.class));
 
-                            Calendar currentCalendar = Calendar.getInstance();
-                            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-                            long diffInHours = diffInMillis / (60 * 60 * 1000);
-
-                            if(diffInHours >= 24) {
-                                // More than 24 hours have passed since the login
-                                // Prompt user to log in again
-                                Log.i("741258","More than 24 hours");
-                                if (checkPermission()) {
-                                    try {
-                                        String pidOption = getPIDOptions();
-                                        if (pidOption != null) {
-                                            Log.e("PidOptions", pidOption);
-                                            Intent intent10 = new Intent();
-                                            intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-                                            intent10.putExtra("PID_OPTIONS", pidOption);
-                                            startActivityForResult(intent10, 1);
-                                        } else {
-                                            Log.i("454545","Device not found!");
-                                        }
-                                    } catch (Exception e) {
-                                        Log.e("Error", e.toString());
-                                        Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    requestPermissions();
-                                }
-                            } else {
-                                // Less than 24 hours have passed since the login
-                                // User is still logged in
-                                Log.i("741258","Less than 24 hours");
-                                startActivity(new Intent(activity, AEPSActivity.class));
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+//                if (SplashActivity.prefManager.getAEPS()) {
+//                    if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
+//                        registerDialog();
+//                    } else {
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                        try {
+//                            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
+//                            Calendar loginCalendar = Calendar.getInstance();
+//                            loginCalendar.setTime(loginDate);
+//
+//                            Calendar currentCalendar = Calendar.getInstance();
+//                            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+//                            long diffInHours = diffInMillis / (60 * 60 * 1000);
+//
+//                            if(diffInHours >= 24) {
+//                                // More than 24 hours have passed since the login
+//                                // Prompt user to log in again
+//                                Log.i("741258","More than 24 hours");
+//                                if (checkPermission()) {
+//                                    try {
+//                                        String pidOption = getPIDOptions();
+//                                        if (pidOption != null) {
+//                                            Log.e("PidOptions", pidOption);
+//                                            Intent intent10 = new Intent();
+//                                            intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+//                                            intent10.putExtra("PID_OPTIONS", pidOption);
+//                                            startActivityForResult(intent10, 1);
+//                                        } else {
+//                                            Log.i("454545","Device not found!");
+//                                        }
+//                                    } catch (Exception e) {
+//                                        Log.e("Error", e.toString());
+//                                        StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+//                                    }
+//                                } else {
+//                                    requestPermissions();
+//                                }
+//                            } else {
+//                                // Less than 24 hours have passed since the login
+//                                // User is still logged in
+//                                Log.i("741258","Less than 24 hours");
+//                                startActivity(new Intent(activity, AEPSActivity.class));
+//                            }
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                } else {
+//                    startActivity(new Intent(activity, PlansActivity.class));
+//                }
                 break;
             case R.id.searchIcon:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -453,7 +417,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         }
                     } catch (Exception e) {
                         Log.e("Error", e.toString());
-                        Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     }
                 } else {
                     requestPermissions();
@@ -522,7 +486,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 } catch (Exception e) {
                     Log.i("78954", "Error while deserialize pid data " + e);
-                    Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
             }
         } else {
@@ -542,7 +506,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 } catch (Exception e) {
                     Log.i("78954", "Error while deserialize pid data " + e);
-                    Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
             }
         }
@@ -709,14 +673,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 Log.i("2016", "onResponse "+ response);
                 dismissDialog();
-                Toast.makeText(activity, "AEPS service enable successfully!", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(activity, "AEPS service enable successfully!", Toast.LENGTH_LONG, R.style.myToastSuccess).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016", "onFailure "+ t);
-                Toast.makeText(activity, "Failed Authentication", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(activity, "Failed Authentication", Toast.LENGTH_LONG, R.style.myToastError).show();
             }
         });
     }
@@ -733,11 +697,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
                         startActivity(new Intent(activity, AEPSActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
-                            Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
+                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         }
                     }
                 } catch (JSONException e) {
@@ -749,7 +713,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016", "onFailure "+ t);
-                Toast.makeText(activity, "Failed Authentication", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(activity, "Failed Authentication", Toast.LENGTH_LONG, R.style.myToastError).show();
             }
         });
     }

@@ -50,7 +50,6 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:scaleType="fitXY"
-                    android:visibility="gone"
                     android:layout_toStartOf="@+id/notificationIcon"
                     android:layout_centerVertical="true"
                     android:src="@drawable/search_icon"/>

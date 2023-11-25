@@ -315,7 +315,9 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+
                         Toast.makeText(BuyServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
                         startActivity(new Intent(BuyServiceActivity.this, MainActivity.class));
                         finish();
                     }

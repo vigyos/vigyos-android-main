@@ -1,9 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,6 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -27,6 +27,7 @@ import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
                 if (userName.getText().toString().isEmpty() && password.getText().toString().isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 // calling a method to post the data and passing our name and job.
@@ -147,17 +148,17 @@ public class LoginActivity extends AppCompatActivity {
 
                             SplashActivity.prefManager.setLogin(true);
 
-                            Toast.makeText(LoginActivity.this, "Login Successfully" , Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_LONG, R.style.myToastSuccess).show();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Please enter valid email id & password", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(LoginActivity.this, "Please enter valid email id & password", Toast.LENGTH_LONG, R.style.myToastError).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
             }
 
@@ -165,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("12121", "onFailure " + t);
-                Toast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(LoginActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_LONG, R.style.myToastError).show();
             }
         });
     }
