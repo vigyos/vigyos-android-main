@@ -3,21 +3,26 @@ package com.vigyos.vigyoscentercrm.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -45,6 +50,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.UserActivity;
+import com.vigyos.vigyoscentercrm.Model.ProfileDataModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
@@ -79,6 +85,7 @@ public class ProfileFragment extends Fragment {
     private CardView personalProfile, document, security;
     private CardView refundAndPolicy, helpAndPrivacy;
     private TextView logOut;
+    private Dialog dialog;
 
     private static final int REQUEST_CODE_IMAGE_PICKER = 123;
 
@@ -201,30 +208,51 @@ public class ProfileFragment extends Fragment {
     }
 
     private void areYouSure(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-        builder1.setMessage("Are you sure, You want to logout ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(activity, LoginActivity.class));
-                        activity.finish();
-                    }
-                });
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_yes_or_no);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView title = dialog.findViewById(R.id.title);
+        title.setText("Logout!");
+        TextView details = dialog.findViewById(R.id.details);
+        details.setText("Are you sure, You want to logout ?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
+                dismissDialog();
+                SplashActivity.prefManager.setClear();
+                startActivity(new Intent(activity, LoginActivity.class));
+                activity.finish();
+            }
+        });
+        dialog.show();
     }
 
+    private void dismissDialog(){
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        dismissDialog();
+        super.onDestroy();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -243,27 +271,6 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE_IMAGE_PICKER) {
-//            handleImagePickerResult(resultCode, data);
-//        }
-//    }
-//
-//    private void handleImagePickerResult(int resultCode, Intent data) {
-//        if (resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-//            Uri selectedImageUri = data.getData();
-//            Log.d("Profile Fragment", "Image selected: " + selectedImageUri.toString());
-//            // Your logic to handle the selected image
-//            uploadImageToServer(selectedImageUri);
-//        } else if (resultCode == getActivity().RESULT_CANCELED) {
-//            Toast.makeText(requireContext(), "Image selection canceled", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(requireContext(), "Image selection failed", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     private void uploadImageToServer(Uri selectedImageUri) {
         //Image Upload code Start

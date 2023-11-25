@@ -2,24 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5sp">
+    android:layout_marginHorizontal="@dimen/_2sdp">
     <TextView
         android:id="@+id/dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5sp"
-        android:layout_marginHorizontal="5sp"
+        android:layout_marginTop="0dp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:text="•"
-        android:textSize="20sp"
-        android:textColor="#5C5A5A" />
+        android:textSize="@dimen/_20sdp"
+        android:textColor="@color/dark_vigyos" />
     <TextView
         android:id="@+id/service1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/dot"
-        android:layout_marginTop="5sp"
-        android:layout_marginHorizontal="5sp"
-        android:text="1. Pan Card"
-        android:textSize="18sp"
-        android:textColor="#5C5A5A" />
+        android:layout_marginHorizontal="@dimen/_3sdp"
+        android:elegantTextHeight="true"
+        android:text="PAN Card."
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/dark_vigyos"
+        android:fontFamily="@font/poppins_regular"/>
 </RelativeLayout>

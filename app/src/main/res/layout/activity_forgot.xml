@@ -71,6 +71,7 @@
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_light"
                 android:background="@null"
+                android:imeOptions="actionDone"
                 android:hint="xxxx@gmail.com"
                 android:textSize="@dimen/_14sdp"
                 android:textColorHint="#999999"/>

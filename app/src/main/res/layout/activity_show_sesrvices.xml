@@ -9,139 +9,155 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/vigyos">
+        android:layout_height="?attr/actionBarSize">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:src="@drawable/arrow_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5sp"
-            app:tint="@color/white"/>
+            android:src="@drawable/arrow_back"
+            app:tint="@color/dark_vigyos"/>
         <TextView
             android:id="@+id/serviceName"
-            android:layout_width="250sp"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/ivBack"
-            android:layout_marginStart="10sp"
-            android:maxLines="1"
+            android:elegantTextHeight="true"
+            android:lines="1"
+            android:textAlignment="center"
             android:text="Service Name"
-            android:textColor="@color/white"
-            android:textSize="22sp"/>
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"/>
     </RelativeLayout>
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@+id/toolbar">-->
-
-        <androidx.core.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="@dimen/_48sdp">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginBottom="60sp">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+            <RelativeLayout
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                tools:ignore="MissingConstrains">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_centerVertical="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10sp"
+                    app:cardElevation="5sp">
+                    <ImageView
+                        android:id="@+id/bannerImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"/>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/overView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:elegantTextHeight="true"
+                android:text="Overview"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_semi_bold"/>
+            <TextView
+                android:id="@+id/serviceDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:elegantTextHeight="true"
+                android:text="@string/details"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/dark_vigyos"
+                android:fontFamily="@font/poppins_regular"/>
+            <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:elegantTextHeight="true"
+                android:text="Price"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_semi_bold"/>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:elegantTextHeight="true"
+                android:text="₹500.00"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/dark_vigyos"
+                android:fontFamily="@font/poppins_medium"/>
+            <TextView
+                android:id="@+id/requiredDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:elegantTextHeight="true"
+                android:text="Required Documents"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_semi_bold"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:visibility="gone"
                 android:layout_marginHorizontal="10sp"
-                android:layout_marginBottom="20sp"
-                android:layout_marginTop="20sp">
-                <TextView
-                    android:id="@+id/overView"
+                android:background="@drawable/round_bg">
+                <Spinner
+                    android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5sp"
-                    android:layout_marginTop="5sp"
-                    android:text="Overview"
-                    android:textSize="18sp"
-                    android:textColor="#232222"
-                    android:fontFamily="@font/montserrat_bold"/>
-                <TextView
-                    android:id="@+id/serviceDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5sp"
-                    android:layout_marginTop="5sp"
-                    android:text="@string/details"
-                    android:textSize="18sp"
-                    android:textColor="#5C5A5A" />
-                <TextView
-                    android:id="@+id/priceTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5sp"
-                    android:layout_marginTop="20sp"
-                    android:text="Price"
-                    android:textSize="18sp"
-                    android:textColor="#232222"
-                    android:fontFamily="@font/montserrat_bold"/>
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginHorizontal="5sp"
-                    android:text="₹500.00"
-                    android:textSize="18sp"
-                    android:textColor="#5C5A5A" />
-                <TextView
-                    android:id="@+id/requiredDocument"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5sp"
-                    android:layout_marginTop="20sp"
-                    android:text="Required Document"
-                    android:textSize="18sp"
-                    android:textColor="#232222"
-                    android:fontFamily="@font/montserrat_bold"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10sp"
-                    android:layout_marginTop="5sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30sp"
-                    android:visibility="gone"
-                    android:layout_marginHorizontal="10sp"
-                    android:background="@drawable/round_bg">
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/recyclerView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-        </androidx.core.widget.NestedScrollView>
-
-<!--    </ScrollView>-->
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <RelativeLayout
         android:id="@+id/applyNow"
         android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10sp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/button_submit">
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/next_button_filled">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:elegantTextHeight="true"
             android:text="Apply Now"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:fontFamily="@font/montserrat_bold"/>
+            android:textSize="@dimen/_12sdp" />
     </RelativeLayout>
 </RelativeLayout>

@@ -67,6 +67,7 @@
                 android:layout_marginStart="15sp"
                 android:layout_gravity="center"
                 android:background="@null"
+                android:imeOptions="actionDone"
                 android:inputType="phone|textImeMultiLine"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/hankengrotesk_medium"

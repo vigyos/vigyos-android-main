@@ -14,6 +14,52 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="?attr/actionBarSize"/>
         <RelativeLayout
+            android:id="@+id/firstLayout11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_36sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp">
+            <RelativeLayout
+                android:id="@+id/nameLyt11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/welcomeText11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_regular"/>
+                <TextView
+                    android:id="@+id/userNameHome11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/welcomeText11"
+                    android:elegantTextHeight="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    android:fontFamily="@font/poppins_medium"/>
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/searchIcon11"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:scaleType="fitXY"
+                android:layout_toStartOf="@+id/notificationIcon11"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search_icon"/>
+            <ImageView
+                android:id="@+id/notificationIcon11"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_52sdp"
             android:layout_alignParentBottom="true"

@@ -46,6 +46,12 @@
                         android:id="@+id/iconLyt"
                         android:layout_width="@dimen/_45sdp"
                         android:layout_height="@dimen/_45sdp">
+                        <ProgressBar
+                            android:id="@+id/progress_bar"
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:indeterminateTint="@color/dark_vigyos"
+                            android:layout_centerInParent="true"/>
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/userIcon"
                             android:layout_width="@dimen/_45sdp"
@@ -53,17 +59,11 @@
                             android:layout_centerVertical="true"
                             app:civ_border_width="0dp"
                             app:civ_border_color="@color/white"/>
-                        <ProgressBar
-                            android:id="@+id/progress_bar"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:visibility="gone"
-                            android:indeterminateTint="@color/dark_vigyos"
-                            android:layout_centerInParent="true"/>
                         <ImageView
                             android:id="@+id/changeIcon"
                             android:layout_width="@dimen/_18sdp"
                             android:layout_height="@dimen/_18sdp"
+                            android:visibility="gone"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
                             android:src="@drawable/edit_icon"/>

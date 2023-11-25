@@ -51,6 +51,7 @@
         <item>MS</item>
     </string-array>
 
+    <string name="already_have_an_account">Already have an account? <font color='#01C6DB'>Login</font></string>
     <string name="thank_you_for_reaching">Thank you for reaching out. Our team will connect with you shortly to assist you with your inquiry. We appreciate your patience and look forward to helping you.</string>
     <string name="send_money">Send money easily and with one click everything will be sent every time you make a transaction</string>
     <string name="you_can_request">You can request money to friends or family to send as much money as you want</string>
@@ -67,9 +68,6 @@
     <string name="allow_to_access">Allow Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
     <string name="log_out"><u>Log out</u></string>
     <string name="important_notice">Important Notice!</string>
-
-    <string name="already_have_an_account">Already have an account? <font color='#01C6DB'>Login</font></string>
-
-    <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color= '#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Have documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
+    <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color= '#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Keep your documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
 
 </resources>

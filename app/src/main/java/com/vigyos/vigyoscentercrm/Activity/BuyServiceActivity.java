@@ -33,8 +33,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +84,15 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
 
     private Dialog dialog;
     private ImageView ivBack;
+    private Animation animation;
+    private LinearLayout customerNameFocus, phoneNumberFocus;
+    private LinearLayout emailAddressFocus, addressFocus;
+    private RelativeLayout customerNameLyt, phoneNumberLyt;
+    private RelativeLayout emailAddressLyt, addressLyt;
+    private RelativeLayout remarkLyt;
+    private EditText customerName, phoneNumber;
+    private EditText emailAddress, address;
+    private EditText remark;
     private ArrayList<BuyServiceDocumentModel> buyServiceDocumentModels = new ArrayList<>();
     private TextView serviceName1;
     private String serviceName;
@@ -92,11 +104,6 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     private int selectedPosition;
     private ArrayList<String> imageUris;
     private ArrayList<String> imageUrisForShow;
-    private EditText customerName;
-    private EditText phoneNumber;
-    private EditText emailAddress;
-    private EditText address;
-    private EditText remark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,13 +119,22 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
         serviceID = intent.getStringExtra("serviceID");
         ivBack = findViewById(R.id.ivBack);
         serviceName1 = findViewById(R.id.serviceName1);
-        recyclerView = findViewById(R.id.recyclerView);
-        buyService = findViewById(R.id.buyService);
+        customerNameFocus = findViewById(R.id.customerNameFocus);
+        phoneNumberFocus = findViewById(R.id.phoneNumberFocus);
+        emailAddressFocus = findViewById(R.id.emailAddressFocus);
+        addressFocus = findViewById(R.id.addressFocus);
+        customerNameLyt = findViewById(R.id.customerNameLyt);
+        phoneNumberLyt = findViewById(R.id.phoneNumberLyt);
+        emailAddressLyt = findViewById(R.id.emailAddressLyt);
+        addressLyt = findViewById(R.id.addressLyt);
+        remarkLyt = findViewById(R.id.remarkLyt);
         customerName = findViewById(R.id.customerName);
         phoneNumber = findViewById(R.id.phoneNumber);
         emailAddress = findViewById(R.id.emailAddress);
         address = findViewById(R.id.address);
         remark = findViewById(R.id.remark);
+        recyclerView = findViewById(R.id.recyclerView);
+        buyService = findViewById(R.id.buyService);
         // Initialize imageUris array list
         imageUris = new ArrayList<>();
         imageUrisForShow = new ArrayList<>();
@@ -133,21 +149,91 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 finish();
             }
         });
+        customerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    customerNameLyt.setBackgroundResource(R.drawable.credential_border);
+                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    customerNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        emailAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    customerNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    customerNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        remark.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    customerNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    emailAddressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border);
+                }
+            }
+        });
+        animation = AnimationUtils.loadAnimation(BuyServiceActivity.this, R.anim.shake_animation);
         buyService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(TextUtils.isEmpty(customerName.getText().toString())){
                     customerName.setError("This field is required");
+                    customerName.requestFocus();
+                    customerNameLyt.startAnimation(animation);
+                    customerNameFocus.getParent().requestChildFocus(customerNameFocus, customerNameFocus);
                     Toast.makeText(BuyServiceActivity.this, "Enter Customer Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if ((TextUtils.isEmpty(phoneNumber.getText().toString())) ) {
                     phoneNumber.setError("This field is required");
+                    phoneNumber.requestFocus();
+                    phoneNumberLyt.startAnimation(animation);
+                    phoneNumberFocus.getParent().requestChildFocus(phoneNumberFocus, phoneNumberFocus);
                     Toast.makeText(BuyServiceActivity.this, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     if (!isValidPhone(phoneNumber.getText().toString())){
                         phoneNumber.setError("Invalid Mobile Number");
+                        phoneNumber.requestFocus();
+                        phoneNumberLyt.startAnimation(animation);
+                        phoneNumberFocus.getParent().requestChildFocus(phoneNumberFocus, phoneNumberFocus);
                         Toast.makeText(BuyServiceActivity.this, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -170,7 +256,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 if (isAnyNull) {
                     // None of the elements in imageUris is null and buyServiceDocumentModels is not null
                     // You can now work with your arrays
-                    Toast.makeText(BuyServiceActivity.this, "Select All Documents", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuyServiceActivity.this, "Select All required Documents", Toast.LENGTH_SHORT).show();
                 } else {
                     areYouSure();
                 }
@@ -406,7 +492,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                             buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.GONE);
                             buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.VISIBLE);
                         } else {
-
+                            Toast.makeText(BuyServiceActivity.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -493,7 +579,8 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             // Set the image from the imageUris array list
             if (position < imageUrisForShow.size() && imageUrisForShow.get(position) != null) {
                 Uri uri = Uri.parse(imageUrisForShow.get(position));
-                holder.documentImage.setImageURI(uri);
+                holder.showImage.setImageURI(uri);
+                holder.documentImage.setVisibility(View.GONE);
                 Log.d("BuyServiceAdapter", "Image set at position: " + position);
             }
 
@@ -506,7 +593,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 Log.d("BuyServiceAdapter", "Image set at position: " + position);
             }
 
-            holder.documentImageCV.setOnClickListener(new View.OnClickListener() {
+            holder.documentImage_rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onItemClick(position);
@@ -531,16 +618,18 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
         public class Holder extends RecyclerView.ViewHolder {
 
             TextView documentName;
-            CardView documentImageCV;
-            ImageView documentImage;
+            RelativeLayout documentImage_rl;
+            RelativeLayout documentImage;
             RelativeLayout uploadImageLyt;
+            ImageView showImage;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
                 documentName = itemView.findViewById(R.id.documentName);
-                documentImageCV = itemView.findViewById(R.id.documentImageCV);
+                documentImage_rl = itemView.findViewById(R.id.documentImage_rl);
                 documentImage = itemView.findViewById(R.id.documentImage);
                 uploadImageLyt = itemView.findViewById(R.id.uploadImageLyt);
+                showImage = itemView.findViewById(R.id.showImage);
             }
         }
     }

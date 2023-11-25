@@ -109,6 +109,7 @@
                     android:layout_toStartOf="@+id/passwordVisibility"
                     android:layout_marginHorizontal="@dimen/_15sdp"
                     android:maxLines="1"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/black"
                     android:inputType="textPassword|textImeMultiLine"
                     android:fontFamily="@font/poppins_light"

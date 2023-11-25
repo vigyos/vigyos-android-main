@@ -413,19 +413,11 @@ public class PanCardCreateFragment extends Fragment {
         dialog.setContentView(R.layout.dialog_yes_or_no);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.getWindow().setLayout(-1, -1);
-
         TextView title = dialog.findViewById(R.id.title);
         title.setText(getString(R.string.important_notice));
-
         TextView details = dialog.findViewById(R.id.details);
         details.setText(getFormattedText(getString(R.string.complete_your_pan_card)));
         details.setMovementMethod(LinkMovementMethod.getInstance());
-
-//        TextView noLyt = dialog.findViewById(R.id.buttonText);
-//        noLyt.setText("CANCEL");
-//        TextView yesText = dialog.findViewById(R.id.yesText);
-//        yesText.setText("CONTINUE");
-
         dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -434,7 +426,6 @@ public class PanCardCreateFragment extends Fragment {
                 dismissDialog();
             }
         });
-
         dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

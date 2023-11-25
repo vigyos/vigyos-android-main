@@ -137,7 +137,8 @@ public class ShowServicesActivity extends AppCompatActivity {
                         }
                         serviceNameText.setText(serviceName);
                         serviceDetailsText.setText(serviceDetails);
-                        priceText.setText("₹"+price);
+                        float v = (float) price;
+                        priceText.setText("₹"+v);
                         serviceDocuments();
                     } else {
                         if (jsonObject.has("message")) {
