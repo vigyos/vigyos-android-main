@@ -22,8 +22,8 @@
     <color name="text_color">#1d1031</color>
     <color name="title_text">#0e0023</color>
     <color name="icon_card">#FCEAF5FA</color>
-    <color name="cr">#4CAF50</color>
-    <color name="dr">#F44336</color>
+    <color name="cr">#00944E</color>
+    <color name="dr">#F00024</color>
     <color name="ucrop_color_toolbar">@color/white</color>
     <color name="ucrop_color_statusbar">@color/vigyos</color>
     <color name="ucrop_color_widget_active">@color/black</color>

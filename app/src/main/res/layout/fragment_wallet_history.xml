@@ -8,8 +8,8 @@
     tools:context=".Fragment.WalletHistoryFragment">
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="300sp"
-        android:layout_height="300sp"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_280sdp"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         app:lottie_autoPlay="true"
@@ -19,21 +19,21 @@
         android:id="@+id/topLyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15sp">
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_22sdp">
         <TextView
             android:id="@+id/transactionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
             android:text="Transaction"
-            android:textColor="@color/title_text"
-            android:textSize="22sp" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"/>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10sp"
             android:background="@drawable/spinner_round_border">
             <Spinner
                 android:id="@+id/spinner"
@@ -45,6 +45,8 @@
         android:id="@+id/walletRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/topLyt"/>
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_below="@+id/topLyt"
+        tools:listitem="@layout/layout_wallet_history"/>
 </RelativeLayout>

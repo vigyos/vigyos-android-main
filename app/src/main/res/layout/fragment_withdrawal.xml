@@ -14,26 +14,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10sp"
-            android:layout_marginHorizontal="5sp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
             android:background="@color/white">
             <LinearLayout
+                android:id="@+id/aadhaarNumberFocus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginTop="@dimen/_10sdp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Aadhaar Number"
-                        android:id="@+id/aadhaar_number_heading"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/vigyos"
-                        android:textSize="18sp" />
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,45 +41,47 @@
                         android:textColor="#FF0303"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
+                <RelativeLayout
+                    android:id="@+id/aadhaarNumberLyt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#F9FCFF"
-                    app:cardElevation="4dp"
-                    app:cardCornerRadius="10dp">
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <EditText
-                        android:id="@+id/aadhaar_number"
+                        android:id="@+id/aadhaarNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:hint="Ex. 1234 1234 1234"
-                        android:layout_marginHorizontal="15sp"
-                        android:lines="1"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/grey_font"
-                        android:inputType="number" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_vigyos"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:fontFamily="@font/poppins_light"
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/bankNameFocus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginTop="@dimen/_16sdp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
                         android:text="Bank Name"
-                        android:id="@+id/bank_name_heading"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/vigyos" />
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,40 +89,39 @@
                         android:textColor="#FF0303"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
+                <RelativeLayout
+                    android:id="@+id/bankNameLyt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="10dp"
-                    android:backgroundTint="#F9FCFF"
-                    app:cardElevation="4dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <Spinner
-                        android:id="@+id/bank_name"
+                        android:id="@+id/bankNameSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="5dp" />
-                </androidx.cardview.widget.CardView>
+                        android:paddingVertical="5dp" />
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/amountFocus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginTop="@dimen/_16sdp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Amount"
-                        android:textSize="18sp"
-                        android:id="@+id/amount_heading"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/vigyos" />
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -128,41 +129,47 @@
                         android:textColor="#FF0303"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
+                <RelativeLayout
+                    android:id="@+id/amountLyt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="10sp"
-                    android:backgroundTint="#F9FCFF"
-                    app:cardElevation="4dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <EditText
                         android:id="@+id/amount"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:hint="0"
-                        android:lines="1"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:layout_marginHorizontal="15sp"
-                        android:textColorHint="@color/grey_font"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_vigyos"
+                        android:inputType="numberDecimal|textImeMultiLine"
+                        android:fontFamily="@font/poppins_light"
                         android:drawableEnd="@drawable/currency_rupee"
-                        android:inputType="numberDecimal" />
-                </androidx.cardview.widget.CardView>
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/mobileNumberFocus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginTop="@dimen/_16sdp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mobile Number"
-                        android:id="@+id/mobile_number_heading"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/vigyos"
-                        android:textSize="18sp" />
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,62 +177,80 @@
                         android:textColor="#FF0303"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
+                <RelativeLayout
+                    android:id="@+id/mobileNumberLyt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="10dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#F9FCFF"
-                    app:cardElevation="4dp">
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <EditText
-                        android:id="@+id/mobile_number"
+                        android:id="@+id/mobileNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:hint="Ex. 9876543210"
-                        android:lines="1"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:layout_marginHorizontal="15sp"
-                        android:textColorHint="@color/grey_font"
-                        android:inputType="number" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_vigyos"
+                        android:inputType="number|textImeMultiLine"
+                        android:fontFamily="@font/poppins_light"
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/remarkFocus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Remark (Optional)"
-                    android:id="@+id/remark_heading"
-                    android:layout_marginHorizontal="20dp"
-                    android:textColor="@color/vigyos"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="12dp" />
-                <androidx.cardview.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#F9FCFF"
-                    app:cardElevation="4dp"
-                    app:cardCornerRadius="10dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_16sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remark (Optional)"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:visibility="gone"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="5dp"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/remarkLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <EditText
                         android:id="@+id/remark"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:hint="Remark"
-                        android:lines="1"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:layout_marginHorizontal="15sp"
-                        android:textColorHint="@color/grey_font" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_vigyos"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:fontFamily="@font/poppins_light"
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
             </LinearLayout>
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,26 +304,25 @@
                         app:tint="#89FF00"/>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
+
+
             <RelativeLayout
-                android:id="@+id/button_done"
+                android:id="@+id/process"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20sp"
-                android:background="@drawable/button_submit"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:focusable="true">
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_17sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/next_button_filled">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
-                    android:text="DONE"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:elegantTextHeight="true"
+                    android:text="Process"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/montserrat_bold"/>
+                    android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

@@ -24,12 +24,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -76,6 +80,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -84,10 +89,15 @@ import retrofit2.Response;
 public class MiniStatementFragment extends Fragment {
 
     private View view;
-    private Spinner spinner;
+    private LinearLayout aadhaarNumberFocus, bankNameFocus;
+    private LinearLayout mobileNumberFocus, remarkFocus;
+    private RelativeLayout aadhaarNumberLyt, bankNameLyt;
+    private RelativeLayout mobileNumberLyt, remarkLyt;
+    private EditText aadhaarNumberMini, mobileNumberMini;
+    private EditText remarkEnquiryMini;
+    private Spinner bankNameMini;
+    private RelativeLayout process;
     private final Activity activity;
-    private EditText aadhaar_num, mobile_number, remark;
-    private RelativeLayout button_done;
     private CardView captureFingerPrint;
     private ArrayList<BankListModel> bankListModels = new ArrayList<>();
     private ArrayList<String> bankListArray = new ArrayList<>();
@@ -106,6 +116,7 @@ public class MiniStatementFragment extends Fragment {
     public ArrayList<String> positions;
     private boolean fingerCapture = false;
     private ImageView fingerPrintDone;
+    private Animation animation;
 
     public MiniStatementFragment(Activity activity) {
         this.activity = activity;
@@ -122,12 +133,21 @@ public class MiniStatementFragment extends Fragment {
     }
 
     private void initialization() {
-        aadhaar_num = view.findViewById(R.id.aadhaarNumberMini);
-        spinner = view.findViewById(R.id.bankNameMini);
-        mobile_number = view.findViewById(R.id.mobileNumberMini);
-        remark = view.findViewById(R.id.remarkEnquiryMini);
+        aadhaarNumberFocus = view.findViewById(R.id.aadhaarNumberFocus);
+        bankNameFocus = view.findViewById(R.id.bankNameFocus);
+        mobileNumberFocus = view.findViewById(R.id.mobileNumberFocus);
+        remarkFocus = view.findViewById(R.id.remarkFocus);
+        aadhaarNumberLyt = view.findViewById(R.id.aadhaarNumberLyt);
+        bankNameLyt = view.findViewById(R.id.bankNameLyt);
+        mobileNumberLyt = view.findViewById(R.id.mobileNumberLyt);
+        remarkLyt = view.findViewById(R.id.remarkLyt);
+        aadhaarNumberMini = view.findViewById(R.id.aadhaarNumberMini);
+        mobileNumberMini = view.findViewById(R.id.mobileNumberMini);
+        remarkEnquiryMini = view.findViewById(R.id.remarkEnquiryMini);
+        bankNameMini = view.findViewById(R.id.bankNameMini);
+        process = view.findViewById(R.id.process);
+
         captureFingerPrint = view.findViewById(R.id.captureFingerPrintMini);
-        button_done = view.findViewById(R.id.buttonDoneMini);
         fingerPrintDone = view.findViewById(R.id.captureDataMini);
     }
 
@@ -135,85 +155,139 @@ public class MiniStatementFragment extends Fragment {
         serializer = new Persister();
         positions = new ArrayList<>();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+        animation = AnimationUtils.loadAnimation(activity, R.anim.shake_animation);
+        aadhaarNumberMini.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        mobileNumberMini.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    mobileNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        remarkEnquiryMini.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                remarkLyt.setBackgroundResource(R.drawable.credential_border);
+            }
+        });
+
         captureFingerPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(aadhaar_num.getText().toString())  ){
-                    aadhaar_num.setError("This field is required");
-                    Toast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(aadhaarNumberMini.getText().toString())  ){
+                    aadhaarNumberMini.setError("This field is required");
+                    aadhaarNumberMini.requestFocus();
+                    aadhaarNumberLyt.startAnimation(animation);
+                    aadhaarNumberFocus.getParent().requestChildFocus(aadhaarNumberFocus, aadhaarNumberFocus);
+                    StyleableToast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 } else {
-                    if (!isValidAadhaarNumber(aadhaar_num.getText().toString())){
-                        aadhaar_num.setError("Enter a valid Aadhaar number");
-                        Toast.makeText(activity, "Enter a valid Aadhaar number", Toast.LENGTH_SHORT).show();
+                    if (!isValidAadhaarNumber(aadhaarNumberMini.getText().toString())){
+                        aadhaarNumberMini.setError("Enter a valid Aadhaar number");
+                        aadhaarNumberMini.requestFocus();
+                        aadhaarNumberLyt.startAnimation(animation);
+                        aadhaarNumberFocus.getParent().requestChildFocus(aadhaarNumberFocus, aadhaarNumberFocus);
                         return;
                     }
                 }
-                if (spinner.getSelectedItem().toString().trim().equals("Select your bank")) {
-                    Toast.makeText(activity,"Select your bank",Toast.LENGTH_SHORT).show();
+                if (bankNameMini.getSelectedItem().toString().trim().equals("Select your bank")) {
+                    bankNameLyt.startAnimation(animation);
+                    bankNameFocus.getParent().requestChildFocus(bankNameFocus, bankNameFocus);
+                    StyleableToast.makeText(activity, "Select your bank", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
-                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
-                    mobile_number.setError("This field is required");
-                    Toast.makeText(activity, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
+                if ((TextUtils.isEmpty(mobileNumberMini.getText().toString())) ) {
+                    mobileNumberMini.setError("This field is required");
+                    mobileNumberMini.requestFocus();
+                    mobileNumberLyt.startAnimation(animation);
+                    mobileNumberFocus.getParent().requestChildFocus(mobileNumberFocus, mobileNumberFocus);
+                    StyleableToast.makeText(activity, "Enter Mobile Number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 } else {
-                    if (!isValidPhone(mobile_number.getText().toString())){
-                        mobile_number.setError("Invalid Mobile Number");
-                        Toast.makeText(activity, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                    if (!isValidPhone(mobileNumberMini.getText().toString())){
+                        mobileNumberMini.setError("Invalid Mobile Number");
+                        mobileNumberMini.requestFocus();
+                        mobileNumberLyt.startAnimation(animation);
+                        mobileNumberFocus.getParent().requestChildFocus(mobileNumberFocus, mobileNumberFocus);
                         return;
                     }
                 }
-                aadhaar_num.clearFocus();
-                mobile_number.clearFocus();
-                remark.clearFocus();
+                aadhaarNumberMini.clearFocus();
+                mobileNumberMini.clearFocus();
+                remarkEnquiryMini.clearFocus();
 
                 scanFingerPrint();
             }
         });
-        button_done.setOnClickListener(new View.OnClickListener() {
+        process.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                if(TextUtils.isEmpty(aadhaar_num.getText().toString())  ){
-                    aadhaar_num.setError("This field is required");
-                    Toast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    if (!isValidAadhaarNumber(aadhaar_num.getText().toString())){
-                        aadhaar_num.setError("Enter a valid Aadhaar number");
-                        Toast.makeText(activity, "Enter a valid Aadhaar number", Toast.LENGTH_SHORT).show();
+                    if(TextUtils.isEmpty(aadhaarNumberMini.getText().toString())  ){
+                        aadhaarNumberMini.setError("This field is required");
+                        aadhaarNumberMini.requestFocus();
+                        aadhaarNumberLyt.startAnimation(animation);
+                        aadhaarNumberFocus.getParent().requestChildFocus(aadhaarNumberFocus, aadhaarNumberFocus);
+                        StyleableToast.makeText(activity, "Enter Aadhaar number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                        return;
+                    } else {
+                        if (!isValidAadhaarNumber(aadhaarNumberMini.getText().toString())){
+                            aadhaarNumberMini.setError("Enter a valid Aadhaar number");
+                            aadhaarNumberMini.requestFocus();
+                            aadhaarNumberLyt.startAnimation(animation);
+                            aadhaarNumberFocus.getParent().requestChildFocus(aadhaarNumberFocus, aadhaarNumberFocus);
+                            return;
+                        }
+                    }
+                    if (bankNameMini.getSelectedItem().toString().trim().equals("Select your bank")) {
+                        bankNameLyt.startAnimation(animation);
+                        bankNameFocus.getParent().requestChildFocus(bankNameFocus, bankNameFocus);
+                        StyleableToast.makeText(activity, "Select your bank", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         return;
                     }
-                }
-                if (spinner.getSelectedItem().toString().trim().equals("Select your bank")) {
-                    Toast.makeText(activity,"Select your bank",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if ((TextUtils.isEmpty(mobile_number.getText().toString())) ) {
-                    mobile_number.setError("This field is required");
-                    Toast.makeText(activity, "Enter a Mobile Number", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    if (!isValidPhone(mobile_number.getText().toString())){
-                        mobile_number.setError("Invalid Mobile Number");
-                        Toast.makeText(activity, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
+                    if ((TextUtils.isEmpty(mobileNumberMini.getText().toString())) ) {
+                        mobileNumberMini.setError("This field is required");
+                        mobileNumberMini.requestFocus();
+                        mobileNumberLyt.startAnimation(animation);
+                        mobileNumberFocus.getParent().requestChildFocus(mobileNumberFocus, mobileNumberFocus);
+                        StyleableToast.makeText(activity, "Enter Mobile Number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         return;
+                    } else {
+                        if (!isValidPhone(mobileNumberMini.getText().toString())){
+                            mobileNumberMini.setError("Invalid Mobile Number");
+                            mobileNumberMini.requestFocus();
+                            mobileNumberLyt.startAnimation(animation);
+                            mobileNumberFocus.getParent().requestChildFocus(mobileNumberFocus, mobileNumberFocus);
+                            return;
+                        }
                     }
-                }
-                aadhaar_num.clearFocus();
-                mobile_number.clearFocus();
-                remark.clearFocus();
+                    aadhaarNumberMini.clearFocus();
+                    mobileNumberMini.clearFocus();
+                    remarkEnquiryMini.clearFocus();
 
                 if(fingerCapture){
                     if(fingerData != null){
-                        miniStatement(aadhaar_num.getText().toString(), currentDateAndTime, fingerData, iinno, remark.getText().toString(), mobile_number.getText().toString() );
+                        miniStatement(aadhaarNumberMini.getText().toString(), currentDateAndTime, fingerData, iinno, remarkEnquiryMini.getText().toString(), mobileNumberMini.getText().toString() );
                     } else {
-                        Toast.makeText(activity, "FingerPrint Data Null", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(activity, "FingerPrint Data Null", Toast.LENGTH_LONG, R.style.myToastError).show();
                     }
                     fingerCapture = false;
                     fingerPrintDone.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(activity, "Capture FingerPrint", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Capture fingerprint first!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
             }
         });
@@ -243,11 +317,11 @@ public class MiniStatementFragment extends Fragment {
                         Intent intent2 = new Intent();
                         intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
                         intent2.putExtra("PID_OPTIONS", pidOption);
-                        startActivityForResult(intent2, 2);
+                        startActivityForResult(intent2, 100);
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
-                    Toast.makeText(activity, "Device not found!", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
             }
         });
@@ -321,15 +395,16 @@ public class MiniStatementFragment extends Fragment {
                             Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
                         }
                     }
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, bankListArray); //selected item will look like a spinner set from XML
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, R.layout.layout_spinner_item, bankListArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner.setAdapter(spinnerArrayAdapter);
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    bankNameMini.setAdapter(spinnerArrayAdapter);
+                    bankNameMini.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if (parent.getItemAtPosition(position).equals("Select your bank")) {
                                 Log.i("12121", "Select your bank");
                             } else {
+                                ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
                                 String selectedItem = (String) parent.getItemAtPosition(position);
                                 for (BankListModel bankListModel : bankListModels) {
                                     if (bankListModel.getBankName().equalsIgnoreCase(selectedItem)) {
@@ -405,7 +480,7 @@ public class MiniStatementFragment extends Fragment {
                         startActivity(intent);
                     } else {
                         if (jsonObject.has("message")){
-                            Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
+                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
                             fingerCapture = false;
                             fingerPrintDone.setVisibility(View.GONE);
                         }
@@ -483,51 +558,29 @@ public class MiniStatementFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 1:
-                if (resultCode == Activity.RESULT_OK) {
-                    try {
-                        if (data != null) {
-                            String result = data.getStringExtra("DEVICE_INFO");
-                            String rdService = data.getStringExtra("RD_SERVICE_INFO");
-                            String display = "";
-                            if (rdService != null) {
-                                display = "RD Service Info :\n" + rdService + "\n\n";
+        if (requestCode == 100) {
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    if (data != null) {
+                        String result = data.getStringExtra("PID_DATA");
+                        if (result != null) {
+                            pidData = serializer.read(PidData.class, result);
+                            if (!pidData._Resp.errCode.equals("0")) {
+                                StyleableToast.makeText(activity, "Device Not Found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                            } else {
+                                fingerData = result;
+                                fingerCapture = true;
+                                fingerPrintDone.setVisibility(View.VISIBLE);
+                                Log.i("78954","pidData " + result);
                             }
-                            if (result != null) {
-                                display += "Device Info :\n" + result;
-//                                textView.setText(display);
-                            }
+                            dismissDialog();
                         }
-                    } catch (Exception e) {
-                        Log.e("Error", "Error while deserialize device info", e);
                     }
+                } catch (Exception e) {
+                    Log.e("Error", "Error while deserialize pid data", e);
+                    StyleableToast.makeText(activity, "Failed to Capture FingerPrint", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
-                break;
-            case 2:
-                if (resultCode == Activity.RESULT_OK) {
-                    try {
-                        if (data != null) {
-                            String result = data.getStringExtra("PID_DATA");
-                            if (result != null) {
-                                pidData = serializer.read(PidData.class, result);
-                                if (!pidData._Resp.errCode.equals("0")) {
-                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    fingerData = result;
-                                    fingerCapture = true;
-                                    fingerPrintDone.setVisibility(View.VISIBLE);
-                                    Log.i("78954","pidData " + result);
-                                }
-                                dismissDialog();
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e("Error", "Error while deserialize pid data", e);
-                        Toast.makeText(activity, "Failed to Capture FingerPrint", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                break;
+            }
         }
     }
 

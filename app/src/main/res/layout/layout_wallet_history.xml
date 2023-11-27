@@ -2,42 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-    <androidx.cardview.widget.CardView
+    android:orientation="vertical"
+    android:layout_marginVertical="@dimen/_6sdp">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginEnd="10sp"
-        android:layout_marginBottom="10sp"
-        app:cardBackgroundColor="#FCEAF5FA"
-        app:cardCornerRadius="10sp"
-        app:cardElevation="2dp">
+        android:background="@drawable/outline_border">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10sp">
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/orderID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:elegantTextHeight="true"
                     android:lines="1"
                     android:text="#000000"
-                    android:textColor="#3C3842"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:textColor="#80333333"
+                    android:textSize="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:visibility="gone"
                     android:layout_toEndOf="@+id/orderID"
                     android:background="@drawable/completed">
                     <TextView
@@ -55,48 +49,52 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="+ ₹0"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/montserrat_medium" />
+                    android:elegantTextHeight="true"
+                    android:text="-₹000.00"
+                    android:textSize="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_medium" />
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_below="@+id/top"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/titleName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="Title Name"
-                    android:textColor="@color/title_text"
-                    android:textSize="16sp" />
+                    android:fontFamily="@font/poppins_medium"
+                    android:elegantTextHeight="true"
+                    android:text="Amount debited for service order of New PAN Card [Physical Pan]"
+                    android:textColor="#001646"
+                    android:textSize="@dimen/_10sdp" />
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_4sdp">
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:text="00/00/000"
-                        android:textSize="14sp"
-                        android:textColor="@color/vigyos"
-                        android:fontFamily="@font/montserrat_regular"/>
+                        android:elegantTextHeight="true"
+                        android:text="01:14 AM, 13 Oct 2023"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/dark_vigyos"
+                        android:fontFamily="@font/poppins_regular"/>
                     <TextView
                         android:id="@+id/balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_alignParentEnd="true"
-                        android:text="Balance: 00.0"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"/>
+                        android:elegantTextHeight="true"
+                        android:text="Balance: ₹28630.00"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="#001646"
+                        android:fontFamily="@font/poppins_regular"/>
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </RelativeLayout>

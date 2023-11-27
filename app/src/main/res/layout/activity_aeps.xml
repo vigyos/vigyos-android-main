@@ -47,7 +47,7 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:text="Withdrawal"
                 android:textColor="@color/dark_vigyos"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_10sdp" />
             <View
                 android:id="@+id/withdrawalLine"
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="Enquiry"
                 android:textColor="#CCCCCC"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_10sdp" />
             <View
                 android:id="@+id/enquiryLine"
                 android:layout_width="match_parent"
@@ -77,7 +77,6 @@
                 android:layout_alignParentBottom="true"
                 android:background="#CCCCCC"/>
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/miniStatementLyt"
             android:layout_width="0dp"
@@ -92,7 +91,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="Mini Statement"
                 android:textColor="#CCCCCC"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_10sdp" />
             <View
                 android:id="@+id/miniStatementLine"
                 android:layout_width="match_parent"

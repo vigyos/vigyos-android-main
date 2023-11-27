@@ -281,11 +281,11 @@ public class WalletHistoryFragment extends Fragment {
             holder.orderID.setText("#"+ getLastThree(model.getTrx_id()));
 
             if (model.getUpdated_amount() == 0){
-                holder.balance.setText("Balance: ₹ "+"0.00");
+                holder.balance.setText("Balance: ₹"+"0.00");
             } else {
                 int i = model.getUpdated_amount();
                 float v = (float) i;
-                holder.balance.setText("Balance: ₹ "+ v);
+                holder.balance.setText("Balance: ₹"+ v);
             }
 
             String timestampStr = model.getTimestamp();
@@ -304,10 +304,10 @@ public class WalletHistoryFragment extends Fragment {
 
             if (model.getTrx_type().equalsIgnoreCase("CREDIT")) {
                 holder.amount.setTextColor(getResources().getColor(R.color.cr));
-                holder.amount.setText("+ ₹"+model.getTrx_amount());
+                holder.amount.setText("+₹"+model.getTrx_amount());
             } else {
                 holder.amount.setTextColor(getResources().getColor(R.color.dr));
-                holder.amount.setText("- ₹"+model.getTrx_amount());
+                holder.amount.setText("-₹"+model.getTrx_amount());
             }
         }
 

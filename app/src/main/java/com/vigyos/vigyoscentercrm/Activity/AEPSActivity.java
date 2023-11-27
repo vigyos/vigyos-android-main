@@ -62,7 +62,6 @@ public class AEPSActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
                 finish();
-
             }
         });
         loadFragment(new WithdrawalFragment(AEPSActivity.this), false);
@@ -78,11 +77,9 @@ public class AEPSActivity extends AppCompatActivity {
                 withdrawalText.setTextColor(getColor(R.color.dark_vigyos));
                 withdrawalText.setTypeface(typefaceBold);
                 withdrawalLine.setBackgroundColor(getColor(R.color.dark_vigyos));
-
                 enquiryText.setTextColor(getColor(R.color.not_click));
                 enquiryText.setTypeface(typefaceRegular);
                 enquiryLine.setBackgroundColor(getColor(R.color.not_click));
-
                 miniStatementText.setTextColor(getColor(R.color.not_click));
                 miniStatementText.setTypeface(typefaceRegular);
                 miniStatementLine.setBackgroundColor(getColor(R.color.not_click));
@@ -96,11 +93,9 @@ public class AEPSActivity extends AppCompatActivity {
                 withdrawalText.setTextColor(getColor(R.color.not_click));
                 withdrawalText.setTypeface(typefaceRegular);
                 withdrawalLine.setBackgroundColor(getColor(R.color.not_click));
-
                 enquiryText.setTextColor(getColor(R.color.dark_vigyos));
                 enquiryText.setTypeface(typefaceBold);
                 enquiryLine.setBackgroundColor(getColor(R.color.dark_vigyos));
-
                 miniStatementText.setTextColor(getColor(R.color.not_click));
                 miniStatementText.setTypeface(typefaceRegular);
                 miniStatementLine.setBackgroundColor(getColor(R.color.not_click));
@@ -114,11 +109,9 @@ public class AEPSActivity extends AppCompatActivity {
                 withdrawalText.setTextColor(getColor(R.color.not_click));
                 withdrawalText.setTypeface(typefaceRegular);
                 withdrawalLine.setBackgroundColor(getColor(R.color.not_click));
-
                 enquiryText.setTextColor(getColor(R.color.not_click));
                 enquiryText.setTypeface(typefaceRegular);
                 enquiryLine.setBackgroundColor(getColor(R.color.not_click));
-
                 miniStatementText.setTextColor(getColor(R.color.dark_vigyos));
                 miniStatementText.setTypeface(typefaceBold);
                 miniStatementLine.setBackgroundColor(getColor(R.color.dark_vigyos));

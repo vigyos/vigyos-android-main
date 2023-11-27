@@ -8,171 +8,93 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/vigyos">
+        android:layout_height="?attr/actionBarSize">
         <TextView
-            android:id="@+id/walletTV"
+            android:id="@+id/history_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:layout_marginStart="15sp"
             android:text="History"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"/>
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_below="@+id/toolbar">
+        <RelativeLayout
+            android:id="@+id/walletLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/walletText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Wallet"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="@dimen/_12sdp" />
+            <View
+                android:id="@+id/walletLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/dark_vigyos"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/aepsLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/aepsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="AEPS"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_12sdp" />
+            <View
+                android:id="@+id/aepsLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/payoutLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/payoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Payout"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_12sdp" />
+            <View
+                android:id="@+id/payoutLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/frameContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:visibility="gone"
-            tools:ignore="UselessParent">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/aepsText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="AEPS"
-                        android:textColor="@color/vigyos"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/payoutText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Payout"
-                        android:textColor="#5C5C5C"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:visibility="gone"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/walletText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Wallet"
-                        android:textColor="#5C5C5C"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:visibility="gone"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/panCardText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Pan Card"
-                        android:textColor="#5C5C5C"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:visibility="gone"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/gstText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="GST"
-                        android:textColor="#5C5C5C"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:visibility="gone"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="80sp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/itrText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="ITR Service"
-                        android:textColor="#5C5C5C"
-                        android:textSize="16sp" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2sp"
-                        android:visibility="gone"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/vigyos"/>
-                </RelativeLayout>
-            </LinearLayout>
-        </HorizontalScrollView>
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingVertical="10dp">
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wallet" />
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AEPS" />
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Payout" />
-            </com.google.android.material.tabs.TabLayout>
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10sp"/>
-        </LinearLayout>
-    </RelativeLayout>
+        android:layout_below="@+id/tabLayout"/>
 </RelativeLayout>
