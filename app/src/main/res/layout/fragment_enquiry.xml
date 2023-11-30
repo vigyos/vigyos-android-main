@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/aadhaarNumberLyt"
@@ -86,7 +86,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/bankNameLyt"
@@ -100,7 +100,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="5dp" />
+                        android:paddingVertical="@dimen/_3sdp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/mobileNumberLyt"
@@ -175,7 +175,7 @@
                         android:text="*"
                         android:visibility="gone"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/remarkLyt"

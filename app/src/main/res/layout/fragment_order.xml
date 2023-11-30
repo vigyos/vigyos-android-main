@@ -1,61 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".Fragment.OrderFragment">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="#2196F3">
+        android:layout_height="?attr/actionBarSize">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15sp"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
             android:text="Orders"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"/>
     </RelativeLayout>
     <LinearLayout
-        android:background="@color/white"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_below="@+id/toolbar">
+        <RelativeLayout
+            android:id="@+id/pendingLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/pendingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Pending"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="@dimen/_10sdp" />
+            <View
+                android:id="@+id/pendingLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/dark_vigyos"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/processingLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/processingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Processing"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_10sdp" />
+            <View
+                android:id="@+id/processingLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/completedLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/completedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Completed"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_10sdp" />
+            <View
+                android:id="@+id/completedLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rejectedLyt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/rejectedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Rejected"
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/_10sdp" />
+            <View
+                android:id="@+id/rejectedLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_alignParentBottom="true"
+                android:background="#CCCCCC"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/frameContainerOrder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:tabTextAppearance="@style/CustomTextStyle"
-            android:paddingVertical="10dp"
-            app:tabMode="fixed">
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pending" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Processing" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Completed" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rejected" />
-        </com.google.android.material.tabs.TabLayout>
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10sp"/>
-    </LinearLayout>
-</FrameLayout>
+        android:layout_below="@+id/tabLayout"/>
+</RelativeLayout>

@@ -74,13 +74,13 @@
             android:layout_centerHorizontal="true"
             android:cursorVisible="true"
             android:inputType="number"
-            android:padding="10sp"
+            android:padding="@dimen/_8sdp"
             android:textColor="@color/dark_vigyos"
-            android:textSize="18sp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
             android:fontFamily="@font/hankengrotesk_medium"
             app:cursorColor="@color/dark_vigyos"
-            app:cursorWidth="2dp"
+            app:cursorWidth="@dimen/_1sdp"
             app:hideLineWhenFilled="false"
             app:itemCount="4"
             app:itemHeight="@dimen/_40sdp"
@@ -88,7 +88,7 @@
             app:itemRadius="10dp"
             app:itemSpacing="15dp"
             app:lineColor="@color/dark_vigyos"
-            app:lineWidth="2dp"
+            app:lineWidth="@dimen/_1sdp"
             app:viewType="rectangle" />
         <TextView
             android:id="@+id/dontText"
@@ -128,7 +128,7 @@
         <RelativeLayout
             android:id="@+id/verifyNow"
             android:layout_width="match_parent"
-            android:layout_height="56sp"
+            android:layout_height="@dimen/_46sdp"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="20sp"
             android:layout_marginBottom="@dimen/_23sdp"
@@ -141,7 +141,7 @@
                 android:elegantTextHeight="true"
                 android:text="Verify Now"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14sdp" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

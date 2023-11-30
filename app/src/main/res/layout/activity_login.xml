@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginHorizontal="25sp"
+        android:layout_marginHorizontal="@dimen/_23sdp"
         android:layout_below="@+id/welcomeText">
         <TextView
             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginBottom="5sp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:background="@drawable/credential_border_fill">
                 <EditText
                     android:id="@+id/password"
@@ -118,9 +118,9 @@
                     android:textSize="@dimen/_14sdp" />
                 <ImageView
                     android:id="@+id/passwordVisibility"
-                    android:layout_width="30sp"
-                    android:layout_height="30sp"
-                    android:layout_marginEnd="15sp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
@@ -131,18 +131,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="28sp"
+        android:layout_marginEnd="@dimen/_23sdp"
         android:layout_below="@+id/idPasswordLyt"
         android:elegantTextHeight="true"
         android:text="Forgot Password ?"
         android:textColor="@color/dark_vigyos"
-        android:textSize="12sp"
+        android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/poppins_medium"/>
     <RelativeLayout
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="56sp"
-        android:layout_marginHorizontal="28sp"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_marginHorizontal="@dimen/_26sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/next_button_filled"
         android:layout_below="@+id/forgotPassword">
@@ -154,12 +154,12 @@
             android:elegantTextHeight="true"
             android:text="Sign In"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="@dimen/_13sdp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/loginButton">
         <TextView
@@ -170,7 +170,7 @@
             android:elegantTextHeight="true"
             android:text="Don't have account? "
             android:textColor="@color/dark_vigyos"
-            android:textSize="12sp"
+            android:textSize="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"/>
         <TextView
             android:id="@+id/signUp"
@@ -182,6 +182,6 @@
             android:elegantTextHeight="true"
             android:text="Sign Up"
             android:textColor="#100D40"
-            android:textSize="12sp" />
+            android:textSize="@dimen/_10sdp" />
     </RelativeLayout>
 </RelativeLayout>

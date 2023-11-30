@@ -11,10 +11,11 @@
         android:layout_height="match_parent"
         android:text="No Service Completed"
         android:gravity="center_vertical|center_horizontal"
-        android:textSize="33sp"
+        android:textSize="@dimen/_28sdp"
         android:textColor="@color/vigyos"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_10sdp"/>
 </RelativeLayout>

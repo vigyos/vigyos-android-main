@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
+import com.vigyos.vigyoscentercrm.Adapter.CustomArrayAdapter;
 import com.vigyos.vigyoscentercrm.Model.AEPSHistoryModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -41,6 +42,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,9 +84,9 @@ public class AepsHistoryFragment extends Fragment {
     }
 
     private void declaration() {
-        ArrayAdapter<CharSequence> adapter2 = new ArrayAdapter<>(activity, R.layout.spinner_item, android.R.id.text1, getResources().getStringArray(R.array.aepsHistoryType));
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter2);
+        CustomArrayAdapter adapter = new CustomArrayAdapter(activity, R.layout.spinner_item, getResources().getStringArray(R.array.aepsHistoryType));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,12 +95,16 @@ public class AepsHistoryFragment extends Fragment {
                     trxType = "ALL";
                     aepsHistoryModels.clear();
                     page = 1;
-                } else if (type.equalsIgnoreCase("CW")) {
+                } else if (type.equalsIgnoreCase("Cash Withdrawal")) {
                     trxType = "CW";
                     aepsHistoryModels.clear();
                     page = 1;
-                } else if (type.equalsIgnoreCase("BE")) {
+                } else if (type.equalsIgnoreCase("Balance Enquiry")) {
                     trxType = "BE";
+                    aepsHistoryModels.clear();
+                    page = 1;
+                } else if (type.equalsIgnoreCase("Aadhaar Pay")) {
+                    trxType = "FM";
                     aepsHistoryModels.clear();
                     page = 1;
                 } else {
@@ -106,9 +112,10 @@ public class AepsHistoryFragment extends Fragment {
                     aepsHistoryModels.clear();
                     page = 1;
                 }
-                Log.i("2014855" ,"trxType " + trxType);
+                Log.i("8521456" ,"trxType ----- " + trxType);
                 aepsAdapter();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
@@ -136,6 +143,9 @@ public class AepsHistoryFragment extends Fragment {
 
     private void aepsHistoryApi(int page) {
         pleaseWait();
+
+        Log.i("8521456","aepsHistoryApi  " + trxType);
+
         Call<Object> objectCall = RetrofitClient.getApi().aepsHistory(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), page, trxType);
         objectCall.enqueue(new Callback<Object>() {
             @Override
@@ -259,36 +269,45 @@ public class AepsHistoryFragment extends Fragment {
             holder.orderID.setText("#"+ getLastThree( model.getReferenceno()));
             holder.titleName.setText("Aadhaar: "+model.getAdhaarnumber());
             holder.date.setText(model.getTimestamp());
-            holder.amount.setText(model.getTransactiontype());
 
             if (model.getAmount() == 0){
-                holder.balance.setText("₹ "+"0.00");
+                holder.amount.setText("₹0.00");
             } else {
                 int i = model.getAmount();
                 float v = (float) i;
-                holder.balance.setText("₹ "+ v);
+                holder.amount.setText("₹"+ v);
+            }
+
+            if (model.getTransactiontype().equalsIgnoreCase("CW")) {
+                holder.type.setText("Cash Withdrawal");
+            } else if (model.getTransactiontype().equalsIgnoreCase("MS")) {
+                holder.type.setText("Mini Statement");
+                holder.amount.setText("");
+            } else if (model.getTransactiontype().equalsIgnoreCase("BE")) {
+                holder.type.setText("Balance Enquiry");
+                holder.amount.setText("");
+            } else if (model.getTransactiontype().equalsIgnoreCase("FM")){
+                holder.type.setText("Aadhaar Pay");
+            } else {
+                holder.type.setText(model.getTransactiontype());
             }
 
 //            String timestampStr = model.getTimestamp();
-//            if (timestampStr.matches("\\d+")) {
+//            if (timestampStr != null && timestampStr.matches("\\d+")) {
 //                long timestamp = Long.parseLong(timestampStr);
 //                holder.date.setText(formatTimestamp(timestamp));
 //            } else {
 //                try {
-//                    long timestamp = parseTimestamp(timestampStr);
-//                    holder.date.setText(formatTimestamp(timestamp));
+//                    if (timestampStr != null) {
+//                        long timestamp = parseTimestamp(timestampStr);
+//                        holder.date.setText(formatTimestamp(timestamp));
+//                    } else {
+//                        holder.date.setText("Invalid date format");
+//                    }
 //                } catch (ParseException e) {
 //                    holder.date.setText("Invalid date format");
 //                    e.printStackTrace();
 //                }
-//            }
-
-//            if (model.getTrx_type().equalsIgnoreCase("CREDIT")) {
-//                holder.amount.setTextColor(getResources().getColor(R.color.cr));
-//                holder.amount.setText("+ ₹"+model.getTrx_amount());
-//            } else {
-//                holder.amount.setTextColor(getResources().getColor(R.color.dr));
-//                holder.amount.setText("- ₹"+model.getTrx_amount());
 //            }
         }
 
@@ -301,12 +320,12 @@ public class AepsHistoryFragment extends Fragment {
 
         private String formatTimestamp(long timestamp) {
             Date date = new Date(timestamp * 1000L);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm a");
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
             return formatter.format(date);
         }
 
         private long parseTimestamp(String timestampString) throws ParseException {
-            SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+            SimpleDateFormat parser = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
             Date date = parser.parse(timestampString);
             return date.getTime() / 1000;
         }
@@ -317,16 +336,15 @@ public class AepsHistoryFragment extends Fragment {
             TextView date;
             TextView amount;
             TextView orderID;
-            TextView balance;
+            TextView type;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
-
                 titleName = itemView.findViewById(R.id.titleName);
                 date = itemView.findViewById(R.id.date);
                 amount = itemView.findViewById(R.id.amount);
                 orderID = itemView.findViewById(R.id.orderID);
-                balance = itemView.findViewById(R.id.balance);
+                type = itemView.findViewById(R.id.type);
             }
         }
     }

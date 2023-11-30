@@ -40,6 +40,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +51,6 @@ public class PayoutHistoryFragment extends Fragment {
 
     private Activity activity;
     private Dialog dialog;
-    private Spinner spinner;
     private LottieAnimationView animationView;
     private ArrayList<PayoutHistoryModel> payoutHistoryModels = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -79,8 +79,6 @@ public class PayoutHistoryFragment extends Fragment {
     private void initialization(View view) {
         animationView = view.findViewById(R.id.animationView);
         recyclerView = view.findViewById(R.id.payoutRecyclerView);
-        spinner = view.findViewById(R.id.spinner);
-        spinner.setBackgroundResource(android.R.color.transparent);
     }
 
     private void aepsAdapter() {
@@ -227,36 +225,32 @@ public class PayoutHistoryFragment extends Fragment {
             holder.orderID.setText("#"+ getLastThree( model.getReferenceno()));
             holder.titleName.setText("Aadhaar: "+model.getAdhaarnumber());
             holder.date.setText(model.getTimestamp());
-            holder.amount.setText(model.getTransactiontype());
+            holder.type.setText(model.getTransactiontype());
 
             if (model.getAmount() == 0){
-                holder.balance.setText("₹ "+"0.00");
+                holder.amount.setText("₹0.00");
             } else {
                 int i = model.getAmount();
                 float v = (float) i;
-                holder.balance.setText("₹ "+ v);
+                holder.amount.setText("₹"+ v);
             }
 
 //            String timestampStr = model.getTimestamp();
-//            if (timestampStr.matches("\\d+")) {
+//            if (timestampStr != null && timestampStr.matches("\\d+")) {
 //                long timestamp = Long.parseLong(timestampStr);
 //                holder.date.setText(formatTimestamp(timestamp));
 //            } else {
 //                try {
-//                    long timestamp = parseTimestamp(timestampStr);
-//                    holder.date.setText(formatTimestamp(timestamp));
+//                    if (timestampStr != null) {
+//                        long timestamp = parseTimestamp(timestampStr);
+//                        holder.date.setText(formatTimestamp(timestamp));
+//                    } else {
+//                        holder.date.setText("Invalid date format");
+//                    }
 //                } catch (ParseException e) {
 //                    holder.date.setText("Invalid date format");
 //                    e.printStackTrace();
 //                }
-//            }
-
-//            if (model.getTrx_type().equalsIgnoreCase("CREDIT")) {
-//                holder.amount.setTextColor(getResources().getColor(R.color.cr));
-//                holder.amount.setText("+ ₹"+model.getTrx_amount());
-//            } else {
-//                holder.amount.setTextColor(getResources().getColor(R.color.dr));
-//                holder.amount.setText("- ₹"+model.getTrx_amount());
 //            }
         }
 
@@ -269,12 +263,12 @@ public class PayoutHistoryFragment extends Fragment {
 
         private String formatTimestamp(long timestamp) {
             Date date = new Date(timestamp * 1000L);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
             return formatter.format(date);
         }
 
         private long parseTimestamp(String timestampString) throws ParseException {
-            SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+            SimpleDateFormat parser = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
             Date date = parser.parse(timestampString);
             return date.getTime() / 1000;
         }
@@ -285,7 +279,7 @@ public class PayoutHistoryFragment extends Fragment {
             TextView date;
             TextView amount;
             TextView orderID;
-            TextView balance;
+            TextView type;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
@@ -293,7 +287,7 @@ public class PayoutHistoryFragment extends Fragment {
                 date = itemView.findViewById(R.id.date);
                 amount = itemView.findViewById(R.id.amount);
                 orderID = itemView.findViewById(R.id.orderID);
-                balance = itemView.findViewById(R.id.balance);
+                type = itemView.findViewById(R.id.type);
             }
         }
     }

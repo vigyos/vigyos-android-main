@@ -4,16 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
+        android:layout_width="@dimen/_270sdp"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_margin="@dimen/_3sdp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10sp"
-        app:cardElevation="5sp">
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_3sdp">
         <ImageView
             android:id="@+id/bannerImageView"
             android:layout_width="match_parent"
-            android:layout_height="200sp"
+            android:layout_height="@dimen/_150sdp"
             android:scaleType="fitXY"/>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

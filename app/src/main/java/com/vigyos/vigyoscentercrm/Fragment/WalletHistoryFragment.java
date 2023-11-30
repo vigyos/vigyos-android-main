@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Adapter.CustomArrayAdapter;
 import com.vigyos.vigyoscentercrm.Model.WalletHistoryModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -82,9 +84,9 @@ public class WalletHistoryFragment extends Fragment {
     }
 
     private void declaration() {
-        ArrayAdapter<CharSequence> adapter2 = new ArrayAdapter<>(activity, R.layout.spinner_item, android.R.id.text1, getResources().getStringArray(R.array.walletHistoryType));
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter2);
+        CustomArrayAdapter adapter = new CustomArrayAdapter(activity, R.layout.spinner_item, getResources().getStringArray(R.array.walletHistoryType));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -102,9 +104,10 @@ public class WalletHistoryFragment extends Fragment {
                     walletHistoryModel.clear();
                     page = 1;
                 }
-                Log.i("2014855" ,"trxType " + trxType);
+                Log.i("2014855", "trxType " + trxType);
                 walletAdapter();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
@@ -289,15 +292,19 @@ public class WalletHistoryFragment extends Fragment {
             }
 
             String timestampStr = model.getTimestamp();
-            if (timestampStr.matches("\\d+")) {
+            if (timestampStr != null && timestampStr.matches("\\d+")) {
                 long timestamp = Long.parseLong(timestampStr);
                 holder.date.setText(formatTimestamp(timestamp));
             } else {
                 try {
-                    long timestamp = parseTimestamp(timestampStr);
-                    holder.date.setText(formatTimestamp(timestamp));
+                    if (timestampStr != null) {
+                        long timestamp = parseTimestamp(timestampStr);
+                        holder.date.setText(formatTimestamp(timestamp));
+                    } else {
+                        holder.date.setText("Invalid date format");
+                    }
                 } catch (ParseException e) {
-                    holder.date.setText("null");
+                    holder.date.setText("Invalid date format");
                     e.printStackTrace();
                 }
             }
@@ -319,13 +326,13 @@ public class WalletHistoryFragment extends Fragment {
         }
 
         private String formatTimestamp(long timestamp) {
-            Date date = new Date(timestamp * 1000L); // Convert seconds to milliseconds
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a", Locale.getDefault()); // Set your desired format
-            return sdf.format(date);
+            Date date = new Date(timestamp * 1000L);
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
+            return formatter.format(date);
         }
 
         private long parseTimestamp(String timestampString) throws ParseException {
-            SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ssa");
+            SimpleDateFormat parser = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
             Date date = parser.parse(timestampString);
             return date.getTime() / 1000;
         }

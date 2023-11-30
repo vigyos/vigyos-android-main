@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -61,6 +63,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -74,20 +77,19 @@ public class AddBankAccountActivity extends AppCompatActivity {
     private ArrayList<String> bankNameArrayList = new ArrayList<>();
     private ArrayList<PayoutAddAccountBankListModel> bankListModels = new ArrayList<>();
     private ImageView ivBack;
-    private Spinner bankNameSpinner;
-    private Spinner accountType;
-    private EditText accountNumber;
-    private EditText ifscNumber;
-    private EditText accountHolderName;
-    private ImageView passbookImage;
-    private Spinner selectDocumentType;
-    private LinearLayout panCardMainLyt, aadhaarFrontLyt;
-    private LinearLayout aadhaarBackLyt;
-    private CardView passbookImageCV, panCardImageCV;
-    private CardView aadhaarFrontImageCV, aadhaarBackImageCV;
-    private ImageView panCardImage;
-    private ImageView aadhaarFrontImage;
-    private ImageView aadhaarBackImage;
+    private LinearLayout bankNameFocus, accountNumberFocus, ifscNumberFocus;
+    private LinearLayout accountHolderNameFocus, accountTypeFocus, documentTypeFocus;
+    private RelativeLayout bankNameLyt, accountNumberLyt, ifscNumberLyt;
+    private RelativeLayout accountHolderNameLyt, accountTypeLyt, documentTypeLyt;
+    private Spinner bankNameSpinner, accountType, selectDocumentType;
+    private EditText accountNumber, ifscNumber, accountHolderName;
+    //Image Pick Layouts
+    private LinearLayout passbookImageFocus, panCardFocus, aadhaarFrontFocus, aadhaarBackFocus;
+    private RelativeLayout passbookImageLyt, panCardLyt, aadhaarFrontLyt, aadhaarBackLyt;
+    //Show Image
+    private ImageView passbookImage, panCardImage, aadhaarFrontImage, aadhaarBackImage;
+    private RelativeLayout passbookNoImageLyt, panCardNoImageLyt, aadhaarFrontNoImageLyt, aadhaarBackNoImageLyt;
+    private RelativeLayout uploadImageLyt, uploadPanCardLyt, aadhaarFrontUploadLyt, aadhaarBackUploadLyt;
     private RelativeLayout addAccountButton;
     private String BankName;
     private int bankId;
@@ -101,6 +103,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
     private boolean aadhaarFront = false;
     private boolean aadhaarBack = false;
     private String beneID;
+    private Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,27 +115,49 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
     private void initialization() {
         ivBack = findViewById(R.id.ivBack);
+        bankNameFocus = findViewById(R.id.bankNameFocus);
+        accountNumberFocus = findViewById(R.id.accountNumberFocus);
+        ifscNumberFocus = findViewById(R.id.ifscNumberFocus);
+        accountHolderNameFocus = findViewById(R.id.accountHolderNameFocus);
+        accountTypeFocus = findViewById(R.id.accountTypeFocus);
+        documentTypeFocus = findViewById(R.id.documentTypeFocus);
+        bankNameLyt = findViewById(R.id.bankNameLyt);
+        accountNumberLyt = findViewById(R.id.accountNumberLyt);
+        ifscNumberLyt = findViewById(R.id.ifscNumberLyt);
+        accountHolderNameLyt = findViewById(R.id.accountHolderNameLyt);
+        accountTypeLyt = findViewById(R.id.accountTypeLyt);
+        documentTypeLyt = findViewById(R.id.documentTypeLyt);
         bankNameSpinner = findViewById(R.id.bankNameSpinner);
+        accountType = findViewById(R.id.accountType);
+        selectDocumentType = findViewById(R.id.selectDocumentType);
         accountNumber = findViewById(R.id.accountNumber);
         ifscNumber = findViewById(R.id.ifscNumber);
         accountHolderName = findViewById(R.id.accountHolderName);
-        accountType = findViewById(R.id.accountType);
-        passbookImageCV = findViewById(R.id.passbookImageCV);
-        passbookImage = findViewById(R.id.passbookImage);
-        selectDocumentType = findViewById(R.id.selectDocumentType);
-        panCardMainLyt = findViewById(R.id.panCardMainLyt);
-        panCardImageCV = findViewById(R.id.panCardImageCV);
-        panCardImage = findViewById(R.id.panCardImage);
+        passbookImageFocus = findViewById(R.id.passbookImageFocus);
+        panCardFocus = findViewById(R.id.panCardFocus);
+        aadhaarFrontFocus = findViewById(R.id.aadhaarFrontFocus);
+        aadhaarBackFocus = findViewById(R.id.aadhaarBackFocus);
+        passbookImageLyt = findViewById(R.id.passbookImageLyt);
+        panCardLyt = findViewById(R.id.panCardLyt);
         aadhaarFrontLyt = findViewById(R.id.aadhaarFrontLyt);
-        aadhaarFrontImageCV = findViewById(R.id.aadhaarFrontImageCV);
-        aadhaarFrontImage = findViewById(R.id.aadhaarFrontImage);
         aadhaarBackLyt = findViewById(R.id.aadhaarBackLyt);
-        aadhaarBackImageCV = findViewById(R.id.aadhaarBackImageCV);
+        passbookImage = findViewById(R.id.passbookImage);
+        panCardImage = findViewById(R.id.panCardImage);
+        aadhaarFrontImage = findViewById(R.id.aadhaarFrontImage);
         aadhaarBackImage = findViewById(R.id.aadhaarBackImage);
+        passbookNoImageLyt = findViewById(R.id.passbookNoImageLyt);
+        panCardNoImageLyt = findViewById(R.id.panCardNoImageLyt);
+        aadhaarFrontNoImageLyt = findViewById(R.id.aadhaarFrontNoImageLyt);
+        aadhaarBackNoImageLyt = findViewById(R.id.aadhaarBackNoImageLyt);
+        uploadImageLyt = findViewById(R.id.uploadImageLyt);
+        uploadPanCardLyt = findViewById(R.id.uploadPanCardLyt);
+        aadhaarFrontUploadLyt = findViewById(R.id.aadhaarFrontUploadLyt);
+        aadhaarBackUploadLyt = findViewById(R.id.aadhaarBackUploadLyt);
         addAccountButton = findViewById(R.id.addAccountButton);
     }
 
     private void declaration() {
+        animation = AnimationUtils.loadAnimation(AddBankAccountActivity.this, R.anim.shake_animation);
         payoutBanks();
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,12 +165,43 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 finish();
             }
         });
-        passbookImageCV.setOnClickListener(new View.OnClickListener() {
+        accountNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    accountNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    ifscNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    accountHolderNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        ifscNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    accountNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    ifscNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    accountHolderNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        accountHolderName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    accountNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    ifscNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    accountHolderNameLyt.setBackgroundResource(R.drawable.credential_border);
+                }
+            }
+        });
+        passbookImageLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+
                     ImagePicker.with(AddBankAccountActivity.this)
                             .crop()
                             .compress(1024)
@@ -156,7 +212,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 }
             }
         });
-        panCardImageCV.setOnClickListener(new View.OnClickListener() {
+        panCardLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -172,7 +228,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 }
             }
         });
-        aadhaarFrontImageCV.setOnClickListener(new View.OnClickListener() {
+        aadhaarFrontLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -188,7 +244,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 }
             }
         });
-        aadhaarBackImageCV.setOnClickListener(new View.OnClickListener() {
+        aadhaarBackLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(AddBankAccountActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
@@ -209,47 +265,70 @@ public class AddBankAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(AddBankAccountActivity.this, R.anim.viewpush));
                 if (bankNameSpinner.getSelectedItem().toString().trim().equals("Select your bank")) {
-                    Toast.makeText(AddBankAccountActivity.this,"Select your bank",Toast.LENGTH_SHORT).show();
+                    bankNameLyt.startAnimation(animation);
+                    bankNameFocus.getParent().requestChildFocus(bankNameFocus, bankNameFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Select your bank", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if(TextUtils.isEmpty(accountNumber.getText().toString())){
                     accountNumber.setError("This field is required");
-                    Toast.makeText(AddBankAccountActivity.this, "Enter Account Number", Toast.LENGTH_SHORT).show();
+                    accountNumber.requestFocus();
+                    accountNumberLyt.startAnimation(animation);
+                    accountNumberFocus.getParent().requestChildFocus(accountNumberFocus, accountNumberFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Enter Account Number", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if(TextUtils.isEmpty(ifscNumber.getText().toString())){
                     ifscNumber.setError("This field is required");
-                    Toast.makeText(AddBankAccountActivity.this, "Enter IFSC Code", Toast.LENGTH_SHORT).show();
+                    ifscNumber.requestFocus();
+                    ifscNumberLyt.startAnimation(animation);
+                    ifscNumberFocus.getParent().requestChildFocus(ifscNumberFocus, ifscNumberFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Enter IFSC Code", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if(TextUtils.isEmpty(accountHolderName.getText().toString())){
                     accountHolderName.setError("This field is required");
-                    Toast.makeText(AddBankAccountActivity.this, "Enter Account Holder Name", Toast.LENGTH_SHORT).show();
+                    accountHolderName.requestFocus();
+                    accountHolderNameLyt.startAnimation(animation);
+                    accountHolderNameFocus.getParent().requestChildFocus(accountHolderNameFocus, accountHolderNameFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Enter Account Holder Name", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (accountType.getSelectedItem().toString().trim().equals("Select Account Type")) {
-                    Toast.makeText(AddBankAccountActivity.this,"Select Account Type",Toast.LENGTH_SHORT).show();
+                    accountTypeLyt.startAnimation(animation);
+                    accountTypeFocus.getParent().requestChildFocus(accountTypeFocus, accountTypeFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Select Account Type", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (!passbook) {
-                    Toast.makeText(AddBankAccountActivity.this,"Select PassBook Image",Toast.LENGTH_SHORT).show();
+                    passbookImageLyt.startAnimation(animation);
+                    passbookImageFocus.getParent().requestChildFocus(passbookImageFocus, passbookImageFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Select PassBook Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (selectDocumentType.getSelectedItem().toString().trim().equals("Select Document Type")) {
-                    Toast.makeText(AddBankAccountActivity.this,"Select Document Type",Toast.LENGTH_SHORT).show();
+                    documentTypeLyt.startAnimation(animation);
+                    documentTypeFocus.getParent().requestChildFocus(documentTypeFocus, documentTypeFocus);
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Select Document Type", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 if (documentTypeName.equalsIgnoreCase("PAN")) {
                     if (!panCard){
-                        Toast.makeText(AddBankAccountActivity.this,"Select Pan Card Image",Toast.LENGTH_SHORT).show();
+                        panCardLyt.startAnimation(animation);
+                        panCardFocus.getParent().requestChildFocus(panCardFocus, panCardFocus);
+                        StyleableToast.makeText(AddBankAccountActivity.this, "Select Pan Card Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         return;
                     }
                 } else {
                     if (!aadhaarFront){
-                        Toast.makeText(AddBankAccountActivity.this,"Select Aadhaar Front Image",Toast.LENGTH_SHORT).show();
+                        aadhaarFrontLyt.startAnimation(animation);
+                        aadhaarFrontFocus.getParent().requestChildFocus(aadhaarFrontFocus, aadhaarFrontFocus);
+                        StyleableToast.makeText(AddBankAccountActivity.this, "Select Aadhaar Front Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         return;
                     } else if (!aadhaarBack) {
-                        Toast.makeText(AddBankAccountActivity.this,"Select Aadhaar Back Image",Toast.LENGTH_SHORT).show();
+                        aadhaarBackLyt.startAnimation(animation);
+                        aadhaarBackFocus.getParent().requestChildFocus(aadhaarBackFocus, aadhaarBackFocus);
+                        StyleableToast.makeText(AddBankAccountActivity.this, "Select Aadhaar Back Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         return;
                     }
                 }
@@ -307,7 +386,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     } else {
                         dismissDialog();
                         if (jsonObject.has("message")) {
-                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         }
                     }
                 } catch (JSONException e) {
@@ -354,11 +433,11 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
                             startActivity(new Intent(AddBankAccountActivity.this, PayOutActivity.class));
                             finish();
                         } else {
-                            Toast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_LONG, R.style.myToastError).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -369,7 +448,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                     Log.i("2019", "onFailure: " + t);
                     dismissDialog();
-                    Toast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
             });
         } catch (IOException e) {
@@ -416,9 +495,9 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
                         } else {
-                            Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                            StyleableToast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -429,7 +508,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                     Log.i("2019", "onFailure: " + t);
                     dismissDialog();
-                    Toast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
             });
         } catch (IOException e) {
@@ -484,11 +563,13 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         Log.i("12121"," image " + passbookImageUri);
                         passbookImage.setImageURI(passbookImageUri);
                         passbook = true;
+                        passbookNoImageLyt.setVisibility(View.GONE);
+                        uploadImageLyt.setVisibility(View.GONE);
                     }
                 } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
                 } else {
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
                 break;
             case 101:
@@ -498,11 +579,14 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         Log.i("12121"," image " + panCardImageUri);
                         panCardImage.setImageURI(panCardImageUri);
                         panCard = true;
+
+                        panCardNoImageLyt.setVisibility(View.GONE);
+                        uploadPanCardLyt.setVisibility(View.GONE);
                     }
                 } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
                 } else {
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
                 break;
             case 102:
@@ -512,11 +596,13 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         Log.i("12121"," image " + aadhaarImageFrontUri);
                         aadhaarFrontImage.setImageURI(aadhaarImageFrontUri);
                         aadhaarFront = true;
+                        aadhaarFrontNoImageLyt.setVisibility(View.GONE);
+                        aadhaarFrontUploadLyt.setVisibility(View.GONE);
                     }
                 } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
                 } else {
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
                 break;
             case 103:
@@ -526,11 +612,13 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         Log.i("12121"," image " + aadhaarImageBackUri);
                         aadhaarBackImage.setImageURI(aadhaarImageBackUri);
                         aadhaarBack = true;
+                        aadhaarBackNoImageLyt.setVisibility(View.GONE);
+                        aadhaarBackUploadLyt.setVisibility(View.GONE);
                     }
                 } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
                 } else {
-                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddBankAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
                 break;
         }
@@ -561,14 +649,11 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         }
                     } else {
                         if (jsonObject.has("message")) {
-                            Toast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            SplashActivity.prefManager.setClear();
-                            startActivity(new Intent(AddBankAccountActivity.this, LoginActivity.class));
-                            finish();
+                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
                         }
                     }
 
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(AddBankAccountActivity.this, android.R.layout.simple_spinner_item, bankNameArrayList); //selected item will look like a spinner set from XML
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(AddBankAccountActivity.this, R.layout.layout_spinner_item, bankNameArrayList); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     bankNameSpinner.setAdapter(spinnerArrayAdapter);
                     bankNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -577,6 +662,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                             if (parent.getItemAtPosition(position).equals("Select your bank")) {
                                 Log.i("12121","Select your bank");
                             } else {
+                                ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
                                 String selectedItem = (String) parent.getItemAtPosition(position);
                                 for (PayoutAddAccountBankListModel listModel: bankListModels){
                                     if(listModel.getBank_name().equalsIgnoreCase(selectedItem)){
@@ -607,7 +693,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
     private void selectAccountType(){
         String[] courses = { "Select Account Type", "Primary", "Relative" };
-        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, courses);
+        ArrayAdapter ad = new ArrayAdapter(this, R.layout.layout_spinner_item, courses);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountType.setAdapter(ad);
         accountType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -616,6 +702,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 if (parent.getItemAtPosition(position).equals("Select Account Type")) {
                     Log.i("12121","Select Account Type");
                 } else {
+                    ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
                     String selectedItem = (String) parent.getItemAtPosition(position);
                     if (selectedItem.equalsIgnoreCase("Primary")) {
                         accountTypeName = "PRIMARY";
@@ -632,7 +719,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
     private void selectDocumentType() {
         String[] document = { "Select Document Type", "Pan Card", "Aadhaar Card" };
-        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, document);
+        ArrayAdapter ad = new ArrayAdapter(this, R.layout.layout_spinner_item, document);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectDocumentType.setAdapter(ad);
         selectDocumentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -641,17 +728,18 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 if (parent.getItemAtPosition(position).equals("Select Document Type")) {
                     Log.i("12121","Select Document Type");
                 } else {
+                    ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
                     String selectedItem = (String) parent.getItemAtPosition(position);
                     if (selectedItem.equalsIgnoreCase("Pan Card")) {
                         documentTypeName = "PAN";
-                        panCardMainLyt.setVisibility(View.VISIBLE);
-                        aadhaarFrontLyt.setVisibility(View.GONE);
-                        aadhaarBackLyt.setVisibility(View.GONE);
+                        panCardFocus.setVisibility(View.VISIBLE);
+                        aadhaarFrontFocus.setVisibility(View.GONE);
+                        aadhaarBackFocus.setVisibility(View.GONE);
                     } else {
                         documentTypeName = "AADHAAR";
-                        aadhaarFrontLyt.setVisibility(View.VISIBLE);
-                        aadhaarBackLyt.setVisibility(View.VISIBLE);
-                        panCardMainLyt.setVisibility(View.GONE);
+                        panCardFocus.setVisibility(View.GONE);
+                        aadhaarFrontFocus.setVisibility(View.VISIBLE);
+                        aadhaarBackFocus.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -706,8 +794,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     .withPermissions(
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_MEDIA_IMAGES
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -727,15 +814,13 @@ public class AddBankAccountActivity extends AppCompatActivity {
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         } else {
             Dexter.withActivity(this)
                     .withPermissions(
                             Manifest.permission.CAMERA,
                             Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    .withListener(new MultiplePermissionsListener() {
+                    ).withListener(new MultiplePermissionsListener() {
                         @Override
                         public void onPermissionsChecked(MultiplePermissionsReport report) {
                             if (report.areAllPermissionsGranted()) {
@@ -755,8 +840,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                             // Handle permission rationale. Show a dialog explaining why the permission is needed
                             showPermissionRationaleDialog(token);
                         }
-                    })
-                    .check();
+                    }).check();
         }
     }
 
@@ -773,14 +857,12 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         intent.setData(uri);
                         startActivityForResult(intent, 101);
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionDeniedDialog() {
@@ -793,8 +875,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                         dialog.dismiss();
                         requestPermissions(); // Try to request permissions again
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showPermissionRationaleDialog(final PermissionToken token) {
@@ -806,8 +887,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         token.continuePermissionRequest();
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         token.cancelPermissionRequest();

@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginStart="15sp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:elegantTextHeight="true"
             android:text="History"
             android:textColor="@color/light_black"
             android:textSize="@dimen/_14sdp"
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/poppins_semi_bold"
+                android:elegantTextHeight="true"
                 android:text="Wallet"
                 android:textColor="@color/dark_vigyos"
                 android:textSize="@dimen/_12sdp" />
@@ -59,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/poppins_regular"
+                android:elegantTextHeight="true"
                 android:text="AEPS"
                 android:textColor="#CCCCCC"
                 android:textSize="@dimen/_12sdp" />
@@ -81,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/poppins_regular"
+                android:elegantTextHeight="true"
                 android:text="Payout"
                 android:textColor="#CCCCCC"
                 android:textSize="@dimen/_12sdp" />

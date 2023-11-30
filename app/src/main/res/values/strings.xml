@@ -46,9 +46,10 @@
 
     <string-array name="aepsHistoryType">
         <item>ALL</item>
-        <item>CW</item>
-        <item>BE</item>
-        <item>MS</item>
+        <item>Cash Withdrawal</item>
+        <item>Aadhaar Pay</item>
+        <item>Balance Enquiry</item>
+        <item>Mini Statement</item>
     </string-array>
 
     <string name="already_have_an_account">Already have an account? <font color='#01C6DB'>Login</font></string>

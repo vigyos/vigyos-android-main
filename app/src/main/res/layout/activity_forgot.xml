@@ -79,7 +79,7 @@
         <RelativeLayout
             android:id="@+id/sendCodeVerification"
             android:layout_width="match_parent"
-            android:layout_height="56sp"
+            android:layout_height="@dimen/_48sdp"
             android:layout_marginHorizontal="28sp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/next_button_filled"
@@ -92,7 +92,7 @@
                 android:elegantTextHeight="true"
                 android:text="Send Verification Code"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_14sdp" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

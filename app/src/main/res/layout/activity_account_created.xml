@@ -34,12 +34,11 @@
     <RelativeLayout
         android:id="@+id/Continue"
         android:layout_width="match_parent"
-        android:layout_height="56sp"
+        android:layout_height="@dimen/_46sdp"
         android:layout_above="@+id/byContinue"
-        android:layout_marginHorizontal="20sp"
+        android:layout_marginHorizontal="@dimen/_18sdp"
         android:layout_marginBottom="@dimen/_15sdp"
         android:background="@drawable/next_button_filled">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +47,7 @@
             android:elegantTextHeight="true"
             android:text="Continue"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
     <TextView
         android:id="@+id/byContinue"

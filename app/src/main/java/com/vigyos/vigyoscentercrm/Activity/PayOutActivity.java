@@ -246,9 +246,9 @@ public class PayOutActivity extends AppCompatActivity {
                         } else {
                             if (jsonObject.has("message")) {
                                 Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                SplashActivity.prefManager.setClear();
-                                startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
-                                finish();
+//                                SplashActivity.prefManager.setClear();
+//                                startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+//                                finish();
                             }
                         }
                     } catch (JSONException e) {
@@ -314,9 +314,9 @@ public class PayOutActivity extends AppCompatActivity {
                         bankNameArray.add(0,"Select your bank");
                         if (jsonObject.has("message")) {
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            SplashActivity.prefManager.setClear();
-                            startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
-                            finish();
+//                            SplashActivity.prefManager.setClear();
+//                            startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
+//                            finish();
                         }
                     }
 

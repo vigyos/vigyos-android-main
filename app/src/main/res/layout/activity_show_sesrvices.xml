@@ -56,8 +56,8 @@
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_centerVertical="true"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10sp"
-                    app:cardElevation="5sp">
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_3sdp">
                     <ImageView
                         android:id="@+id/bannerImageView"
                         android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30sp"
                 android:visibility="gone"
-                android:layout_marginHorizontal="10sp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@drawable/round_bg">
                 <Spinner
                     android:id="@+id/spinner"

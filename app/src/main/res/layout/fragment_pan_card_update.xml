@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/userTitleLytUpdate"
@@ -51,7 +51,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="5dp" />
+                        android:paddingVertical="@dimen/_3sdp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -77,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/firstNameLytUpdate"
@@ -125,7 +125,7 @@
                         android:text="*"
                         android:visibility="gone"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/middleNameLytUpdate"
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/lastNameLytUpdate"
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/genderLytUpdate"
@@ -234,7 +234,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="5dp" />
+                        android:paddingVertical="@dimen/_3sdp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -260,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/cardTypeLytUpdate"
@@ -274,7 +274,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="5dp" />
+                        android:paddingVertical="@dimen/_3sdp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -300,7 +300,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/kycTypeSpinnerLytUpdate"
@@ -314,7 +314,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_12sdp"
                         android:inputType="none"
-                        android:paddingVertical="5dp" />
+                        android:paddingVertical="@dimen/_3sdp" />
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -340,7 +340,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/mobileNumberLytUpdate"
@@ -387,7 +387,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/emailLytUpdate"
@@ -434,7 +434,7 @@
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/addressLytUpdate"

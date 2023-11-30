@@ -43,8 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
             android:text="You Don't Have any Notification"
-            android:textSize="22sp"
-            android:textColor="@color/vigyos"/>
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/vigyos"
+            android:fontFamily="@font/poppins_regular"/>
     </RelativeLayout>
 </RelativeLayout>

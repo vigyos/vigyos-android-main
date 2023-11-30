@@ -326,8 +326,8 @@ public class PanCardCreateFragment extends Fragment {
                     return;
                 }
                 if (TextUtils.isEmpty(firstName.getText().toString())) {
-                    firstName.requestFocus();
                     firstName.setError("This field is required");
+                    firstName.requestFocus();
                     firstNameLyt.startAnimation(animation);
                     firstNameFocus.getParent().requestChildFocus(firstNameFocus, firstNameFocus);
                     StyleableToast.makeText(activity, "Enter First Name", Toast.LENGTH_LONG, R.style.myToastWarning).show();

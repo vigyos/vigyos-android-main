@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:layout_margin="@dimen/_5sdp"
     android:gravity="center_vertical">
-
     <TextView
-        android:id="@android:id/text1"
-        android:layout_width="wrap_content"
+        android:id="@+id/spinner_item_text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black" />
+        android:elegantTextHeight="true"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/dark_vigyos"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:gravity="start|center_vertical"/>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/drop_down" />
+        android:id="@+id/spinner_item_icon"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:src="@drawable/drop_down"
+        android:layout_gravity="end|center_vertical"/>
 </LinearLayout>

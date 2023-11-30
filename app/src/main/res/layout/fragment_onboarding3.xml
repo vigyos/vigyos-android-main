@@ -30,10 +30,10 @@
                 android:elegantTextHeight="true"
                 android:text="Heading"
                 android:textColor="@color/dark_vigyos"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_18sdp" />
             <TextView
                 android:id="@+id/detailsText"
-                android:layout_width="261sp"
+                android:layout_width="@dimen/_250sdp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/heading"
                 android:layout_centerHorizontal="true"
@@ -43,40 +43,40 @@
                 android:text="@string/very_easy_to"
                 android:textAlignment="center"
                 android:textColor="#999999"
-                android:textSize="14sp"
-                android:lineSpacingExtra="5sp"/>
+                android:textSize="@dimen/_12sdp"
+                android:lineSpacingExtra="@dimen/_3sdp"/>
             <LinearLayout
                 android:id="@+id/dots"
-                android:layout_width="72dp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/detailsText"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="horizontal">
                 <ImageView
-                    android:layout_width="8sp"
-                    android:layout_height="8sp"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
                     app:tint="#D8D4D4"
                     android:src="@drawable/dot"
                     tools:ignore="SmallSp" />
                 <ImageView
-                    android:layout_width="8sp"
-                    android:layout_height="8sp"
-                    android:layout_marginStart="24sp"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_22sdp"
                     app:tint="#D8D4D4"
                     android:src="@drawable/dot"
                     tools:ignore="SmallSp" />
                 <ImageView
-                    android:layout_width="8sp"
-                    android:layout_height="8sp"
-                    android:layout_marginStart="24sp"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_22sdp"
                     android:src="@drawable/dot_fill"
                     tools:ignore="SmallSp" />
             </LinearLayout>
             <RelativeLayout
                 android:id="@+id/createButton"
                 android:layout_width="match_parent"
-                android:layout_height="56sp"
+                android:layout_height="@dimen/_42sdp"
                 android:layout_marginHorizontal="20sp"
                 android:layout_below="@+id/dots"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -89,12 +89,12 @@
                     android:elegantTextHeight="true"
                     android:text="Create Account"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/_14sdp" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
-                android:layout_height="56sp"
+                android:layout_height="@dimen/_42sdp"
                 android:layout_marginHorizontal="20sp"
                 android:layout_below="@+id/createButton"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -108,7 +108,7 @@
                     android:fontFamily="@font/poppins_semi_bold"
                     android:text="Login Now"
                     android:textColor="@color/dark_vigyos"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/_14sdp" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

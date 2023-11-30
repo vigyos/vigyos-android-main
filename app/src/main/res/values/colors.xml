@@ -14,6 +14,10 @@
     <color name="light_black">#333333</color>
     <color name="dark_white">#FEFEFE</color>
     <color name="not_click">#CCCCCC</color>
+    <color name="pending">#FC6A00</color>
+    <color name="processing">#FC6A00</color>
+    <color name="completed">#00944E</color>
+    <color name="rejected">#F00024</color>
 
 
 

@@ -36,7 +36,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -203,13 +207,41 @@ public class PendingFragment extends Fragment {
             ProcessingItemModel itemModel = processingItemModels.get(position);
             holder.serviceName.setText(itemModel.getService_name());
             holder.orderID.setText("#"+itemModel.getUser_service_id());
-            holder.price.setText("₹ "+ itemModel.getPrice());
+            holder.price.setText("₹"+ itemModel.getPrice());
             holder.status.setText(itemModel.getStatus());
-            holder.status.setTextColor(Color.parseColor("#FFA900"));
-            holder.statusBackground.setBackgroundResource(R.drawable.pending);
-            holder.emailID.setText(itemModel.getCustomer_email());
+            holder.status.setTextColor(getResources().getColor(R.color.pending));
             holder.phoneNumber.setText("+91-"+itemModel.getCustomer_phone());
             holder.customerName.setText(itemModel.getCustomer_name());
+
+            String timestampStr = itemModel.getCreated_time();
+            if (timestampStr != null && timestampStr.matches("\\d+")) {
+                long timestamp = Long.parseLong(timestampStr);
+                holder.date.setText(formatTimestamp(timestamp));
+            } else {
+                try {
+                    if (timestampStr != null) {
+                        long timestamp = parseTimestamp(timestampStr);
+                        holder.date.setText(formatTimestamp(timestamp));
+                    } else {
+                        holder.date.setText("Invalid date format");
+                    }
+                } catch (ParseException e) {
+                    holder.date.setText("Invalid date format");
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private String formatTimestamp(long timestamp) {
+            Date date = new Date(timestamp * 1000L);
+            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
+            return formatter.format(date);
+        }
+
+        private long parseTimestamp(String timestampString) throws ParseException {
+            SimpleDateFormat parser = new SimpleDateFormat("hh:mm:ss a, dd MMM yyyy", Locale.getDefault());
+            Date date = parser.parse(timestampString);
+            return date.getTime() / 1000;
         }
 
         @Override
@@ -223,10 +255,9 @@ public class PendingFragment extends Fragment {
             public TextView orderID;
             public TextView price;
             public TextView status;
-            public TextView emailID;
             public TextView phoneNumber;
             public TextView customerName;
-            public RelativeLayout statusBackground;
+            public TextView date;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
@@ -234,10 +265,9 @@ public class PendingFragment extends Fragment {
                 orderID = itemView.findViewById(R.id.orderID);
                 price = itemView.findViewById(R.id.price);
                 status = itemView.findViewById(R.id.status);
-                statusBackground = itemView.findViewById(R.id.statusBackground);
-                emailID = itemView.findViewById(R.id.emailID);
                 phoneNumber = itemView.findViewById(R.id.phoneNumber);
-                customerName = itemView.findViewById(R.id.customerName);
+                customerName = itemView.findViewById(R.id.Name);
+                date = itemView.findViewById(R.id.date);
             }
         }
     }

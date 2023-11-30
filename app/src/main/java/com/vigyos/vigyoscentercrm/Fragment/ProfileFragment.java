@@ -48,6 +48,8 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.UserActivity;
 import com.vigyos.vigyoscentercrm.Model.ProfileDataModel;
@@ -126,7 +128,7 @@ public class ProfileFragment extends Fragment {
             Picasso.get().load(SplashActivity.prefManager.getProfilePicture()).into(userIcon);
         }
         userName.setText(SplashActivity.prefManager.getFirstName()+ " " +SplashActivity.prefManager.getLastName());
-        phoneNumber.setText("+91 "+SplashActivity.prefManager.getPhone());
+        phoneNumber.setText("+91-"+SplashActivity.prefManager.getPhone());
         changeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,14 +155,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, PayOutActivity.class));
             }
         });
         changePlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, PlansActivity.class));
             }
         });
         personalProfile.setOnClickListener(new View.OnClickListener() {
