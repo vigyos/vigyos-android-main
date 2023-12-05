@@ -457,6 +457,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:fontFamily="@font/poppins_semi_bold"/>
                 <TextView
+                    android:id="@+id/bbpsAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

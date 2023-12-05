@@ -301,4 +301,36 @@ public interface Api {
             @Query("page") int page,
             @Query("trx_type") String trx_type
     );
+
+    @GET("bbps_paysprint/bill_payment/operator_list")
+    Call<Object> payBillOperator(
+            @Header("Authorization") String Authorization,
+            @Query("mode") String mode
+    );
+
+    @FormUrlEncoded
+    @POST("razorpay/create_order")
+    Call<Object> razorpayCreateOrder(
+            @Header("Authorization") String Authorization,
+            @Field("amount") int amount,
+            @Field("currency") String currency,
+            @Field("user_id") String user_id,
+            @Field("description") String description,
+            @Field("name") String name,
+            @Field("mobile") String mobile,
+            @Field("email") String email,
+            @Field("policy_name") String policy_name,
+            @Field("transaction_type") String transaction_type
+    );
+
+    @FormUrlEncoded
+    @POST("razorpay/callback_order")
+    Call<Object> razorpayCallBackOrder(
+            @Header("Authorization") String Authorization,
+            @Field("order_id") String order_id,
+            @Field("success") String success,
+            @Field("plan_id") String plan_id,
+            @Field("plan_start_date") String plan_start_date,
+            @Field("plan_end_date") String plan_end_date
+    );
 }

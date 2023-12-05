@@ -230,8 +230,8 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
             public Holder(@NonNull View itemView) {
                 super(itemView);
                 iconImage =  itemView.findViewById(R.id.iconImage);
-                serviceTitle =  itemView.findViewById(R.id.serviceTitle);
-                totalCardView =  itemView.findViewById(R.id.TotalCardView);
+                serviceTitle =  itemView.findViewById(R.id.titleName);
+                totalCardView =  itemView.findViewById(R.id.totalCardView);
             }
         }
     }

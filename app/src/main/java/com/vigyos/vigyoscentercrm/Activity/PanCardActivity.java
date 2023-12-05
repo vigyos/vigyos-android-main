@@ -1,32 +1,22 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.vigyos.vigyoscentercrm.Adapter.OrderAdapter;
-import com.vigyos.vigyoscentercrm.Adapter.PanCardFragmentAdapter;
 import com.vigyos.vigyoscentercrm.Fragment.PanCardCreateFragment;
 import com.vigyos.vigyoscentercrm.Fragment.PanCardUpdateFragment;
-import com.vigyos.vigyoscentercrm.Fragment.ProfileFragment;
 import com.vigyos.vigyoscentercrm.R;
-import com.google.android.material.tabs.TabLayout;
-
-import org.w3c.dom.Text;
 
 @BuildCompat.PrereleaseSdkCheck
 public class PanCardActivity extends AppCompatActivity {

@@ -51,10 +51,13 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPSServicesActivity;
+import com.vigyos.vigyoscentercrm.Activity.CategoryDetailsActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
+import com.vigyos.vigyoscentercrm.Activity.RazorPayActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -96,9 +99,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private RecyclerView bannerRecyclerView;
     private ImageView searchIcon, notification;
     private LinearLayout aeps, panCard, gst, tax;
-    private TextView seeMore;
+    private TextView seeMore, bbpsAll;
     private LinearLayout itrService, dsc, accounting, eway;
     private LinearLayout udyam, iec, ipr, registration;
+    private LinearLayout recharge, dth, cableTv, fastTag;
+    private LinearLayout water, electricity, cylinder, pipedGas;
     private String ipAddress;
     private FusedLocationProviderClient fusedLocationClient;
     private double latitude;
@@ -140,6 +145,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         iec = view.findViewById(R.id.iec);
         ipr = view.findViewById(R.id.ipr);
         registration = view.findViewById(R.id.registration);
+        bbpsAll = view.findViewById(R.id.bbpsAll);
+        recharge = view.findViewById(R.id.recharge);
+        dth = view.findViewById(R.id.dth);
+        cableTv = view.findViewById(R.id.cableTv);
+        fastTag = view.findViewById(R.id.fastTag);
+        water = view.findViewById(R.id.water);
+        electricity = view.findViewById(R.id.electricity);
+        cylinder = view.findViewById(R.id.cylinder);
+        pipedGas = view.findViewById(R.id.pipedGas);
 
 //        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
     }
@@ -161,6 +175,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         iec.setOnClickListener(this);
         ipr.setOnClickListener(this);
         registration.setOnClickListener(this);
+        bbpsAll.setOnClickListener(this);
+        recharge.setOnClickListener(this);
+        dth.setOnClickListener(this);
+        cableTv.setOnClickListener(this);
+        fastTag.setOnClickListener(this);
+        water.setOnClickListener(this);
+        electricity.setOnClickListener(this);
+        cylinder.setOnClickListener(this);
+        pipedGas.setOnClickListener(this);
+        amount.setOnClickListener(this);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (checkPermission()){
@@ -237,6 +261,58 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.pipedGas:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Gas = new Intent(activity,  CategoryDetailsActivity.class);
+                Gas.putExtra("categoryData", "Gas");
+                startActivity(Gas);
+                break;
+            case R.id.cylinder:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent LPG = new Intent(activity,  CategoryDetailsActivity.class);
+                LPG.putExtra("categoryData", "LPG");
+                startActivity(LPG);
+                break;
+            case R.id.electricity:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Electricity = new Intent(activity,  CategoryDetailsActivity.class);
+                Electricity.putExtra("categoryData", "Electricity");
+                startActivity(Electricity);
+                break;
+            case R.id.water:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Water = new Intent(activity,  CategoryDetailsActivity.class);
+                Water.putExtra("categoryData", "Water");
+                startActivity(Water);
+                break;
+//            case R.id.fastTag:
+//                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+//                Intent Cable = new Intent(activity,  CategoryDetailsActivity.class);
+//                Cable.putExtra("categoryData", "Cable");
+//                startActivity(Cable);
+//                break;
+            case R.id.cableTv:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Cable = new Intent(activity,  CategoryDetailsActivity.class);
+                Cable.putExtra("categoryData", "Cable");
+                startActivity(Cable);
+                break;
+            case R.id.dth:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent DTH = new Intent(activity,  CategoryDetailsActivity.class);
+                DTH.putExtra("categoryData", "DTH");
+                startActivity(DTH);
+                break;
+            case R.id.recharge:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Prepaid = new Intent(activity,  CategoryDetailsActivity.class);
+                Prepaid.putExtra("categoryData", "Prepaid");
+                startActivity(Prepaid);
+                break;
+            case R.id.bbpsAll:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                startActivity(new Intent(activity, BBPSServicesActivity.class));
+                break;
             case R.id.registration:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 Log.i("114","Registrations");
@@ -371,6 +447,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                } else {
 //                    startActivity(new Intent(activity, PlansActivity.class));
 //                }
+                break;
+
+            case R.id.amount:
+                startActivity(new Intent(activity, RazorPayActivity.class));
                 break;
             case R.id.searchIcon:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));

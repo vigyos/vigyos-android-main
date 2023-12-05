@@ -79,4 +79,6 @@ dependencies {
     //Image Pickers
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    implementation 'com.razorpay:checkout:1.6.36'
 }

@@ -69,6 +69,6 @@
     <string name="allow_to_access">Allow Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
     <string name="log_out"><u>Log out</u></string>
     <string name="important_notice">Important Notice!</string>
-    <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color= '#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Keep your documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
+    <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color='#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Keep your documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
 
 </resources>

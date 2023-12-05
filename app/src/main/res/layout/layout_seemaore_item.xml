@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:id="@+id/TotalCardView"
+        android:id="@+id/totalCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_margin="@dimen/_10sdp"
@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <RelativeLayout
-                android:id="@+id/cardLyt"
+                android:id="@+id/iconLyt"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_marginStart="@dimen/_10sdp"
@@ -31,14 +31,14 @@
                     android:layout_gravity="center_horizontal|center_vertical" />
             </RelativeLayout>
             <TextView
-                android:id="@+id/serviceTitle"
+                android:id="@+id/titleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/cardLyt"
+                android:layout_toEndOf="@+id/iconLyt"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:elegantTextHeight="true"
-                android:text="Wallet"
+                android:text="item Name"
                 android:lines="1"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/_10sdp"
