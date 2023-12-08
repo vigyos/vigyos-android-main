@@ -70,5 +70,8 @@
     <string name="log_out"><u>Log out</u></string>
     <string name="important_notice">Important Notice!</string>
     <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color='#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Keep your documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_your_preferred">Choose your preferred bank for AEPS transactions: \nFino Payment Bank or Paytm Payment Bank. \nSelect one to proceed with secure and convenient Aadhaar-enabled payments.</string>
 
 </resources>

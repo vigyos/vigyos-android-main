@@ -54,6 +54,7 @@ public interface Api {
             @Query("page") int page
     );
 
+    //Fino AEPS API Start
     @GET("aeps/bank_list")
     Call<Object> bankList(
             @Header("Authorization") String Authorization
@@ -133,7 +134,6 @@ public interface Api {
             @Field("submerchantid") String submerchantid
     );
 
-
     @FormUrlEncoded
     @POST("aeps/bank_registration/verify")
     Call<Object> AuthAPI(
@@ -149,6 +149,93 @@ public interface Api {
             @Field("bank") String pipe,
             @Field("submerchantid") String submerchantid
     );
+    //Fino AEPS API End
+
+    //Paytm AEPS API Start
+    @GET("aeps/paytm/bank_list")
+    Call<Object> paytmBankList(
+            @Header("Authorization") String Authorization
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/withdrawl")
+    Call<Object> paytmWithdrawal(
+            @Header("Authorization") String Authorization,
+            @Field("merchant_name") String merchant_name,
+            @Field("pannumber") String pannumber,
+            @Field("address") String address,
+            @Field("city") String city,
+            @Field("pincode") String pincode,
+            @Field("statecode") String statecode,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("ipaddress") String ipaddress,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("merchantmobilenumber") String merchantmobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("nationalbankidentification") String nationalbankidentification,
+            @Field("pipe") String pipe,
+            @Field("transcationtype") String transcationtype,
+            @Field("requestremarks") String requestremarks,
+            @Field("submerchantid") String submerchantid,
+            @Field("data") String data,
+            @Field("timestamp") String timestamp,
+            @Field("amount") String amount
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/balance_enquiry")
+    Call<Object> paytmEnquiry(
+            @Header("Authorization") String Authorization,
+            @Field("merchant_name") String merchant_name,
+            @Field("pannumber") String pannumber,
+            @Field("address") String address,
+            @Field("city") String city,
+            @Field("pincode") String pincode,
+            @Field("statecode") String statecode,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("ipaddress") String ipaddress,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("merchantmobilenumber") String merchantmobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("nationalbankidentification") String nationalbankidentification,
+            @Field("pipe") String pipe,
+            @Field("transcationtype") String transcationtype,
+            @Field("requestremarks") String requestremarks,
+            @Field("submerchantid") String submerchantid,
+            @Field("data") String data,
+            @Field("timestamp") String timestamp
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/mini_statement")
+    Call<Object> paytmMiniStatement(
+            @Header("Authorization") String Authorization,
+            @Field("merchant_name") String merchant_name,
+            @Field("pannumber") String pannumber,
+            @Field("address") String address,
+            @Field("city") String city,
+            @Field("pincode") String pincode,
+            @Field("statecode") String statecode,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("ipaddress") String ipaddress,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("merchantmobilenumber") String merchantmobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("nationalbankidentification") String nationalbankidentification,
+            @Field("pipe") String pipe,
+            @Field("transcationtype") String transcationtype,
+            @Field("requestremarks") String requestremarks,
+            @Field("submerchantid") String submerchantid,
+            @Field("data") String data,
+            @Field("timestamp") String timestamp
+    );
+    //Paytm AEPS API End
 
     @FormUrlEncoded
     @POST("pan/generateNewUrl")

@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.vigyos.vigyoscentercrm.Fragment.EnquiryFragment;
-import com.vigyos.vigyoscentercrm.Fragment.MiniStatementFragment;
-import com.vigyos.vigyoscentercrm.Fragment.WithdrawalFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.EnquiryFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.MiniStatementFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.WithdrawalFragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck

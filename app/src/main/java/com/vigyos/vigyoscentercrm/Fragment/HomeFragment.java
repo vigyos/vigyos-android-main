@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.media.Image;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -28,6 +29,7 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +53,13 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.AddBankAccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.BBPSServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.CategoryDetailsActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
+import com.vigyos.vigyoscentercrm.Activity.PaytmAEPSActivity;
 import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.RazorPayActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
@@ -114,6 +118,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public ArrayList<String> positions;
     private ArrayList<BannerListModel> bannerListModels = new ArrayList<>();
     private Dialog dialog;
+    private int bank = 0;
 
     public HomeFragment(Activity activity) {
         this.activity = activity;
@@ -395,60 +400,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.aeps:
-                startActivity(new Intent(activity, AEPSActivity.class));
-
-//                if (SplashActivity.prefManager.getAEPS()) {
-//                    if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
-//                        registerDialog();
-//                    } else {
-//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                        try {
-//                            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
-//                            Calendar loginCalendar = Calendar.getInstance();
-//                            loginCalendar.setTime(loginDate);
-//
-//                            Calendar currentCalendar = Calendar.getInstance();
-//                            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-//                            long diffInHours = diffInMillis / (60 * 60 * 1000);
-//
-//                            if(diffInHours >= 24) {
-//                                // More than 24 hours have passed since the login
-//                                // Prompt user to log in again
-//                                Log.i("741258","More than 24 hours");
-//                                if (checkPermission()) {
-//                                    try {
-//                                        String pidOption = getPIDOptions();
-//                                        if (pidOption != null) {
-//                                            Log.e("PidOptions", pidOption);
-//                                            Intent intent10 = new Intent();
-//                                            intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                                            intent10.putExtra("PID_OPTIONS", pidOption);
-//                                            startActivityForResult(intent10, 1);
-//                                        } else {
-//                                            Log.i("454545","Device not found!");
-//                                        }
-//                                    } catch (Exception e) {
-//                                        Log.e("Error", e.toString());
-//                                        StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-//                                    }
-//                                } else {
-//                                    requestPermissions();
-//                                }
-//                            } else {
-//                                // Less than 24 hours have passed since the login
-//                                // User is still logged in
-//                                Log.i("741258","Less than 24 hours");
-//                                startActivity(new Intent(activity, AEPSActivity.class));
-//                            }
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                } else {
-//                    startActivity(new Intent(activity, PlansActivity.class));
-//                }
+                SelectAEPS();
                 break;
-
             case R.id.amount:
                 startActivity(new Intent(activity, RazorPayActivity.class));
                 break;
@@ -463,6 +416,126 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void SelectAEPS() {
+        dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_select_aeps);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        RelativeLayout finoLyt = dialog.findViewById(R.id.finoLyt);
+        ImageView finoIcon = dialog.findViewById(R.id.finoIcon);
+        RelativeLayout PaytmLyt = dialog.findViewById(R.id.PaytmLyt);
+        ImageView PaytmIcon = dialog.findViewById(R.id.PaytmIcon);
+        RelativeLayout okButton = dialog.findViewById(R.id.okButton);
+        TextView okText = dialog.findViewById(R.id.okText);
+        finoLyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finoLyt.setBackgroundResource(R.drawable.round_button_color);
+                finoIcon.setImageResource(R.drawable.fino_bank_white);
+                PaytmLyt.setBackgroundResource(R.drawable.outline_border);
+                PaytmIcon.setImageResource(R.drawable.paytm_bank_icon);
+                okButton.setBackgroundResource(R.drawable.round_button_color);
+                okText.setTextColor(getResources().getColor(R.color.white));
+                bank = 1;
+            }
+        });
+        PaytmLyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finoLyt.setBackgroundResource(R.drawable.outline_border);
+                finoIcon.setImageResource(R.drawable.fino_bank_icon);
+                PaytmLyt.setBackgroundResource(R.drawable.round_button_color);
+                PaytmIcon.setImageResource(R.drawable.paytm_bank_white);
+                okButton.setBackgroundResource(R.drawable.round_button_color);
+                okText.setTextColor(getResources().getColor(R.color.white));
+                bank = 2;
+            }
+        });
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
+                if (bank == 0){
+                    StyleableToast.makeText(activity, "Choose your preferred bank for AEPS!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                    return;
+                }
+                if (bank == 1) {
+//                    startActivity(new Intent(activity, AEPSActivity.class));
+                    finoAeps();
+                } else if (bank == 2) {
+                    PaytmAeps();
+                }
+                bank = 0;
+                dismissDialog();
+            }
+        });
+        // Show the dialog when needed
+        dialog.show();
+    }
+
+    private void finoAeps() {
+        startActivity(new Intent(activity, AEPSActivity.class));
+
+//        if (SplashActivity.prefManager.getAEPS()) {
+//            if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
+//                registerDialog();
+//            } else {
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                try {
+//                    Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
+//                    Calendar loginCalendar = Calendar.getInstance();
+//                    loginCalendar.setTime(loginDate);
+//
+//                    Calendar currentCalendar = Calendar.getInstance();
+//                    long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+//                    long diffInHours = diffInMillis / (60 * 60 * 1000);
+//
+//                    if(diffInHours >= 24) {
+//                        // More than 24 hours have passed since the login
+//                        // Prompt user to log in again
+//                        Log.i("741258","More than 24 hours");
+//                        if (checkPermission()) {
+//                            try {
+//                                String pidOption = getPIDOptions();
+//                                if (pidOption != null) {
+//                                    Log.e("PidOptions", pidOption);
+//                                    Intent intent10 = new Intent();
+//                                    intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+//                                    intent10.putExtra("PID_OPTIONS", pidOption);
+//                                    startActivityForResult(intent10, 1);
+//                                } else {
+//                                    Log.i("454545","Device not found!");
+//                                }
+//                            } catch (Exception e) {
+//                                Log.e("Error", e.toString());
+//                                StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+//                            }
+//                        } else {
+//                            requestPermissions();
+//                        }
+//                    } else {
+//                        // Less than 24 hours have passed since the login
+//                        // User is still logged in
+//                        Log.i("741258","Less than 24 hours");
+//                        startActivity(new Intent(activity, AEPSActivity.class));
+//                    }
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        } else {
+//            startActivity(new Intent(activity, PlansActivity.class));
+//        }
+    }
+
+    private void PaytmAeps() {
+        startActivity(new Intent(activity, PaytmAEPSActivity.class));
     }
 
     private void registerDialog() {

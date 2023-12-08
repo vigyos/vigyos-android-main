@@ -36,6 +36,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.PaytmAEPSActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RazorPayActivity"
             android:exported="true" />
         <activity
@@ -185,43 +188,16 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <!-- Add your API key here -->
-<!--        <meta-data-->
-<!--            android:name="com.razorpay.ApiKey"-->
-<!--            android:value="rzp_test_uGEFDaUck79dOI" />-->
-
+            android:required="false" /> <!-- Add your API key here -->
+        <!-- <meta-data -->
+        <!-- android:name="com.razorpay.ApiKey" -->
+        <!-- android:value="rzp_test_uGEFDaUck79dOI" /> -->
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_4AIEZmGDgq7mp5" />
-
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
-        
-<!--        <activity-->
-<!--            android:name="com.razorpay.CheckoutActivity"-->
-<!--            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"-->
-<!--            android:exported="true">-->
-
-<!--            <intent-filter >-->
-<!--                <action android:name="android.intent.action.MAIN"/>-->
-
-<!--                <data android:host="rzp.io"-->
-<!--                    android:scheme="io.rzp"/>-->
-
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
-<!--        <receiver-->
-<!--            android:name="com.razorpay.RzpTokenReceiver"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter >-->
-<!--                <action android:name="rzp.device_token.share"/>-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".Fragment.WithdrawalFragment">
+    tools:context=".Fragment.AEPS.FinoBank.WithdrawalFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -212,7 +212,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remark (Optional)"
+                        android:text="Remark"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/_12sdp"
                         android:elegantTextHeight="true"
@@ -221,7 +221,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="*"
-                        android:visibility="gone"
                         android:textColor="#FF0303"
                         android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
@@ -248,65 +247,61 @@
                         android:textColorHint="#D3D1D1"/>
                 </RelativeLayout>
             </LinearLayout>
-
-
-
             <LinearLayout
+                android:id="@+id/captureFingerPrintWiFocus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginTop="@dimen/_16sdp">
                     <TextView
-                        android:id="@+id/remark_headg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Finger Print"
-                        android:layout_marginStart="20sp"
-                        android:textColor="@color/vigyos"
-                        android:textSize="18sp" />
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="*"
                         android:textColor="#FF0303"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/captureFingerPrint"
+                <RelativeLayout
+                    android:id="@+id/captureFingerPrintWiLyt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:cardElevation="4dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="@color/vigyos"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
                     <TextView
+                        android:id="@+id/captureFingerPrintWiText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15sp"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/poppins_regular"
+                        android:elegantTextHeight="true"
                         android:text="Capture Finger Print"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"/>
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/light_black"/>
                     <ImageView
-                        android:id="@+id/captureData"
+                        android:id="@+id/captureDataWi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="15sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:visibility="gone"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         android:layout_gravity="center_vertical|end"
                         android:src="@drawable/done_icon"
-                        app:tint="#89FF00"/>
-                </androidx.cardview.widget.CardView>
+                        app:tint="@color/white"/>
+                </RelativeLayout>
             </LinearLayout>
-
-
-
             <RelativeLayout
                 android:id="@+id/process"
                 android:layout_width="match_parent"
