@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -37,7 +36,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
-import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -46,13 +44,16 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.vigyos.vigyoscentercrm.Activity.BiometricLockActivity;
+import com.vigyos.vigyoscentercrm.Activity.DocumentsActivity;
+import com.vigyos.vigyoscentercrm.Activity.HelpAndSupportActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.PersonalProfileActivity;
 import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
+import com.vigyos.vigyoscentercrm.Activity.PrivacyPolicyActivity;
+import com.vigyos.vigyoscentercrm.Activity.RefundPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
-import com.vigyos.vigyoscentercrm.Activity.UserActivity;
-import com.vigyos.vigyoscentercrm.Model.ProfileDataModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
@@ -83,9 +84,11 @@ public class ProfileFragment extends Fragment {
     private TextView userName;
     private TextView phoneNumber;
     private RelativeLayout plan;
+    private TextView planName;
     private CardView payout, changePlan;
     private CardView personalProfile, document, security;
-    private CardView refundAndPolicy, helpAndPrivacy;
+    private CardView refundAndPolicy, privacyPolicy;
+    private CardView helpAndSupport;
     private TextView logOut;
     private Dialog dialog;
 
@@ -117,8 +120,10 @@ public class ProfileFragment extends Fragment {
         document = view.findViewById(R.id.document);
         security = view.findViewById(R.id.security);
         refundAndPolicy = view.findViewById(R.id.refundAndPolicy);
-        helpAndPrivacy = view.findViewById(R.id.helpAndPrivacy);
+        privacyPolicy = view.findViewById(R.id.privacyPolicy);
+        helpAndSupport = view.findViewById(R.id.helpAndSupport);
         logOut = view.findViewById(R.id.logOut);
+        planName = view.findViewById(R.id.planName);
     }
 
     private void declaration() {
@@ -129,6 +134,8 @@ public class ProfileFragment extends Fragment {
         }
         userName.setText(SplashActivity.prefManager.getFirstName()+ " " +SplashActivity.prefManager.getLastName());
         phoneNumber.setText("+91-"+SplashActivity.prefManager.getPhone());
+//        planName.setText(SplashActivity.prefManager.getPlanName());
+
         changeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,35 +176,42 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, PersonalProfileActivity.class));
             }
         });
         document.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, DocumentsActivity.class));
             }
         });
         security.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, BiometricLockActivity.class));
             }
         });
         refundAndPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, RefundPolicyActivity.class));
             }
         });
-        helpAndPrivacy.setOnClickListener(new View.OnClickListener() {
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-
+                startActivity(new Intent(activity, PrivacyPolicyActivity.class));
+            }
+        });
+        helpAndSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                startActivity(new Intent(activity, HelpAndSupportActivity.class));
             }
         });
         logOut.setOnClickListener(new View.OnClickListener() {

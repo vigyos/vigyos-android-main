@@ -11,8 +11,9 @@
         android:layout_height="match_parent"
         android:text="No Service Completed"
         android:gravity="center_vertical|center_horizontal"
-        android:textSize="@dimen/_28sdp"
-        android:textColor="@color/vigyos"/>
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="@dimen/_24sdp"
+        android:textColor="@color/dark_vigyos"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

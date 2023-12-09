@@ -443,7 +443,7 @@ public class EnquiryFragment extends Fragment {
     private void enquiry(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String mobile) {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().enquiry(SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
-                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank2", SplashActivity.prefManager.getMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "BE");
+                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank2", SplashActivity.prefManager.getFinoMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "BE");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

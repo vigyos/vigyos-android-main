@@ -457,7 +457,7 @@ public class PtmEnquiryFragment extends Fragment {
         Call<Object> objectCall = RetrofitClient.getApi().paytmEnquiry(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName(),
                 SplashActivity.prefManager.getPanCardNumber(), SplashActivity.prefManager.getCity()+" "+SplashActivity.prefManager.getState()+"India", SplashActivity.prefManager.getCity(),
                 SplashActivity.prefManager.getPinCode(), "MP", ptmMobileNumber.getText().toString(), "APP", ipAddress, aadhaarNumber, SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), String.valueOf(nationalbankidentification), "bank5", "BE", requestremarks, SplashActivity.prefManager.getMerchantId(),
+                String.valueOf(latitude), String.valueOf(longitude), String.valueOf(nationalbankidentification), "bank5", "BE", requestremarks, SplashActivity.prefManager.getPaytmMerchantId(),
                 fingerData, timeStamp);
         objectCall.enqueue(new Callback<Object>() {
             @Override

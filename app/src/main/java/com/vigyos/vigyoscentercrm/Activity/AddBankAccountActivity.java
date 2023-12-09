@@ -363,7 +363,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
     private void addBankAccount() {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().addBankAccountForPayOut(SplashActivity.prefManager.getToken(), bankId , SplashActivity.prefManager.getMerchantId(), accountNumber.getText().toString(),
+        Call<Object> objectCall = RetrofitClient.getApi().addBankAccountForPayOut(SplashActivity.prefManager.getToken(), bankId , SplashActivity.prefManager.getFinoMerchantId(), accountNumber.getText().toString(),
                 ifscNumber.getText().toString(), accountHolderName.getText().toString(), accountTypeName);
         objectCall.enqueue(new Callback<Object>() {
             @Override

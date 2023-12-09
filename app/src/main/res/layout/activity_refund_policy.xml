@@ -9,25 +9,24 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/vigyos">
+        android:layout_height="?actionBarSize">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:layout_marginStart="10sp"
-            android:src="@drawable/arrow_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_centerVertical="true"
-            app:tint="@color/white" />
+            android:src="@drawable/arrow_back"
+            app:tint="@color/dark_vigyos"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10sp"
-            android:layout_toEndOf="@+id/ivBack"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_medium"
             android:text="Refund Policy"
-            android:textSize="22sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,18 +36,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@color/vigyos"
             android:text="Coming Soon..."
-            android:textSize="26sp"/>
-<!--        <WebView-->
-<!--            android:id="@+id/refundWebView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
-<!--        <ProgressBar-->
-<!--            android:id="@+id/progress_bar"-->
-<!--            android:layout_width="50sp"-->
-<!--            android:layout_height="50sp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:backgroundTint="@color/vigyos" />-->
+            android:visibility="gone"
+            android:textColor="@color/dark_vigyos"
+            android:textSize="@dimen/_24sdp" />
+        <WebView
+            android:id="@+id/refundWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/vigyos" />
     </RelativeLayout>
 </RelativeLayout>

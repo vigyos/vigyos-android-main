@@ -15,9 +15,9 @@ public class RefundPolicyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refund_policy);
-//        WebView refundWebView = findViewById(R.id.refundWebView);
-//        refundWebView.getSettings().setJavaScriptEnabled(true);
-//        refundWebView.loadUrl("https://vigyos.com/");
+        WebView refundWebView = findViewById(R.id.refundWebView);
+        refundWebView.getSettings().setJavaScriptEnabled(true);
+        refundWebView.loadUrl("https://vigyos.com/cancellation-and-refund/");
         ImageView ivBack = findViewById(R.id.ivBack);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

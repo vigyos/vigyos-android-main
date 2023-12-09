@@ -521,7 +521,7 @@ public class PtmWithdrawalFragment extends Fragment {
         Call<Object> objectCall = RetrofitClient.getApi().paytmWithdrawal(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName(),
                 SplashActivity.prefManager.getPanCardNumber(), SplashActivity.prefManager.getCity()+" "+SplashActivity.prefManager.getState(), SplashActivity.prefManager.getCity(),
                 SplashActivity.prefManager.getPinCode(), "MP", mobile, "APP", ipAddress, aadhaarNumber, SplashActivity.prefManager.getPhone(), String.valueOf(latitude),
-                String.valueOf(longitude), String.valueOf(nationalbankidentification), "bank5", "MS", requestremarks, SplashActivity.prefManager.getMerchantId(), fingerData, timeStamp, amount);
+                String.valueOf(longitude), String.valueOf(nationalbankidentification), "bank5", "MS", requestremarks, SplashActivity.prefManager.getPaytmMerchantId(), fingerData, timeStamp, amount);
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

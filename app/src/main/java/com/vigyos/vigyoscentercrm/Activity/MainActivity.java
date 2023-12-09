@@ -17,8 +17,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +44,6 @@ import com.vigyos.vigyoscentercrm.Fragment.ProfileFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -361,9 +358,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (jsonObject1.has("company")) {
                                 SplashActivity.prefManager.setCompany(jsonObject1.getString("company"));
                             }
-                            if (jsonObject1.has("plan")) {
-                                SplashActivity.prefManager.setPlan(jsonObject1.getString("plan"));
-                            }
                             if (jsonObject1.has("email")){
                                 SplashActivity.prefManager.setEmail(jsonObject1.getString("email"));
                             }
@@ -391,9 +385,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (jsonObject1.has("is_active")) {
                                 SplashActivity.prefManager.setIsActive(jsonObject1.getString("is_active"));
                             }
-                            if (jsonObject1.has("license_no")) {
-                                SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
-                            }
                             if (jsonObject1.has("city")) {
                                 SplashActivity.prefManager.setCity(jsonObject1.getString("city"));
                             }
@@ -415,6 +406,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (jsonObject1.has("update_time")){
                                 SplashActivity.prefManager.setUpdateTime(jsonObject1.getInt("update_time"));
                             }
+                            if (jsonObject1.has("license_no")) {
+                                SplashActivity.prefManager.setLicenseNumber(jsonObject1.getString("license_no"));
+                            }
                             if (jsonObject1.has("time_stamp")){
                                 SplashActivity.prefManager.setTimeStamp(jsonObject1.getInt("time_stamp"));
                             }
@@ -432,63 +426,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             if (jsonObject1.has("amount")) {
                                 SplashActivity.prefManager.setAmount(jsonObject1.getInt("amount"));
-                            }
-                            if (jsonObject1.has("permissions")) {
-                                JSONObject objectPermissions = jsonObject1.getJSONObject("permissions");
-                                if (objectPermissions.has("dashboard")) {
-                                    SplashActivity.prefManager.setDashboard(objectPermissions.getBoolean("dashboard"));
-                                }
-                                if (objectPermissions.has("services")) {
-                                    SplashActivity.prefManager.setServices(objectPermissions.getBoolean("services"));
-                                }
-                                if (objectPermissions.has("add_to_wallet")) {
-                                    SplashActivity.prefManager.setAddToWallet(objectPermissions.getBoolean("add_to_wallet"));
-                                }
-                                if (objectPermissions.has("service_request")) {
-                                    SplashActivity.prefManager.setServiceRequest(objectPermissions.getBoolean("service_request"));
-                                }
-                                if (objectPermissions.has("users")) {
-                                    SplashActivity.prefManager.setUsers(objectPermissions.getBoolean("users"));
-                                }
-                                if (objectPermissions.has("buy_new_service")) {
-                                    SplashActivity.prefManager.setBuyNewService(objectPermissions.getBoolean("buy_new_service"));
-                                }
-                                if (objectPermissions.has("pan")) {
-                                    SplashActivity.prefManager.setPan(objectPermissions.getBoolean("pan"));
-                                }
-                                if (objectPermissions.has("bbps")) {
-                                    SplashActivity.prefManager.setBBPS(objectPermissions.getBoolean("bbps"));
-                                }
-                                if (objectPermissions.has("aeps")) {
-                                    SplashActivity.prefManager.setAEPS(objectPermissions.getBoolean("aeps"));
-                                }
-                                if (objectPermissions.has("wallet")) {
-                                    SplashActivity.prefManager.setWallet(objectPermissions.getBoolean("wallet"));
-                                }
-                                if (objectPermissions.has("my_orders")) {
-                                    SplashActivity.prefManager.setMyOrders(objectPermissions.getBoolean("my_orders"));
-                                }
-                                if (objectPermissions.has("my_profile")) {
-                                    SplashActivity.prefManager.setMyProfile(objectPermissions.getBoolean("my_profile"));
-                                }
-                                if (objectPermissions.has("contact_us")) {
-                                    SplashActivity.prefManager.setContactUs(objectPermissions.getBoolean("contact_us"));
-                                }
-                            }
-                            if (jsonObject1.has("merchant_id")) {
-                                SplashActivity.prefManager.setMerchantId(jsonObject1.getString("merchant_id"));
-                            }
-                            if (jsonObject1.has("is_verified")){
-                                SplashActivity.prefManager.setIsVerified(jsonObject1.getString("is_verified"));
-                            }
-                            if (jsonObject1.has("bank_verified")) {
-                                SplashActivity.prefManager.setBankVerified(jsonObject1.getString("bank_verified"));
-                            }
-                            if (jsonObject1.has("last_verify_timestamp_aeps")) {
-                                SplashActivity.prefManager.setLastVerifyTimeStampAeps(jsonObject1.getLong("last_verify_timestamp_aeps"));
-                            }
-                            if (jsonObject1.has("payout_balance")) {
-                                SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
                             if (jsonObject1.has("plan")) {
                                 JSONObject jsonObject2 = jsonObject1.getJSONObject("plan");
@@ -527,6 +464,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     if (jsonObject3.has("updated_by")) {
                                         SplashActivity.prefManager.setPlanUpdatedBy(jsonObject3.getString("updated_by"));
                                     }
+                                    if (jsonObject3.has("created_time")) {
+                                        SplashActivity.prefManager.setPlanCreatedTime(jsonObject3.getInt("created_time"));
+                                    }
                                     if (jsonObject3.has("updated_time")) {
                                         SplashActivity.prefManager.setPlanUpdatedBy(jsonObject3.getString("updated_time"));
                                     }
@@ -551,6 +491,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         SplashActivity.prefManager.setPlanDiscountedPrice(jsonObject3.getInt("plan_discounted_price"));
                                     }
                                 }
+                            }
+                            if (jsonObject1.has("BANK2")) {
+                                JSONObject bank2Object = jsonObject1.getJSONObject("BANK2");
+                                if (bank2Object.has("merchant_id")) {
+                                    SplashActivity.prefManager.setFinoMerchantId(bank2Object.getString("merchant_id"));
+                                }
+                                if (bank2Object.has("bank")) {
+                                    SplashActivity.prefManager.setFinoBank(bank2Object.getString("bank"));
+                                }
+                                if (bank2Object.has("verification_url")) {
+                                    SplashActivity.prefManager.setFinoVerificationUrl(bank2Object.getString("verification_url"));
+                                }
+                                if (bank2Object.has("is_verified")) {
+                                    SplashActivity.prefManager.setFinoIsVerified(bank2Object.getString("is_verified"));
+                                }
+                                if (bank2Object.has("bank_verified")) {
+                                    SplashActivity.prefManager.setFinoBank(bank2Object.getString("bank_verified"));
+                                }
+                                if (bank2Object.has("last_verify_timestamp_aeps")) {
+                                    SplashActivity.prefManager.setFinoLastVerifyTimestampAeps(bank2Object.getLong("last_verify_timestamp_aeps"));
+                                }
+                                if (bank2Object.has("payout_balance")) {
+                                    SplashActivity.prefManager.setFinoPayoutBalance(bank2Object.getInt("payout_balance"));
+                                }
+                            }
+                            if (jsonObject1.has("BANK5")) {
+                                JSONObject bank5Object = jsonObject1.getJSONObject("BANK5");
+                                if (bank5Object.has("merchant_id")) {
+                                    SplashActivity.prefManager.setPaytmMerchantId(bank5Object.getString("merchant_id"));
+                                }
+                                if (bank5Object.has("bank")) {
+                                    SplashActivity.prefManager.setPaytmBank(bank5Object.getString("bank"));
+                                }
+                                if (bank5Object.has("verification_url")) {
+                                    SplashActivity.prefManager.setPaytmVerificationUrl(bank5Object.getString("verification_url"));
+                                }
+                                if (bank5Object.has("is_verified")) {
+                                    SplashActivity.prefManager.setPaytmIsVerified(bank5Object.getString("is_verified"));
+                                }
+                                if (bank5Object.has("bank_verified")) {
+                                    SplashActivity.prefManager.setPaytmBankVerified(bank5Object.getString("bank_verified"));
+                                }
+                                if (bank5Object.has("last_verify_timestamp_aeps")) {
+                                    SplashActivity.prefManager.setPaytmLastVerifyTimestampAeps(bank5Object.getLong("last_verify_timestamp_aeps"));
+                                }
+                                if (bank5Object.has("state_code")) {
+                                    SplashActivity.prefManager.setPaytmStateCode(bank5Object.getString("state_code"));
+                                }
+                                if (bank5Object.has("payout_balance")) {
+                                    SplashActivity.prefManager.setPaytmPayoutBalance(bank5Object.getInt("payout_balance"));
+                                }
+                            }
+                            if (jsonObject1.has("bbps_commission_balance")) {
+                                SplashActivity.prefManager.setBBPSCommissionBalance(jsonObject1.getString("bbps_commission_balance"));
                             }
                         } else {
                             if (jsonObject.has("message")) {

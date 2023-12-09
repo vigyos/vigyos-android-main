@@ -36,6 +36,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.DocumentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PersonalProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PaytmAEPSActivity"
             android:exported="false" />
         <activity

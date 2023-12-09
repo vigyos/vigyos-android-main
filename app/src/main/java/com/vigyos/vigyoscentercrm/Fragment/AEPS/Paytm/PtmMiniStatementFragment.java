@@ -456,7 +456,7 @@ public class PtmMiniStatementFragment extends Fragment {
         Call<Object> objectCall = RetrofitClient.getApi().paytmMiniStatement(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName(),
                 SplashActivity.prefManager.getPanCardNumber(), SplashActivity.prefManager.getCity()+" "+SplashActivity.prefManager.getState(), SplashActivity.prefManager.getCity(), SplashActivity.prefManager.getPinCode(),
                 "MP", mobile, "APP", ipAddress, aadhaarNumber, SplashActivity.prefManager.getPhone(), String.valueOf(latitude), String.valueOf(longitude), String.valueOf(nationalbankidentification),
-                "bank5", "MS", requestremarks, SplashActivity.prefManager.getMerchantId(), fingerData, timeStamp);
+                "bank5", "MS", requestremarks, SplashActivity.prefManager.getPaytmMerchantId(), fingerData, timeStamp);
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

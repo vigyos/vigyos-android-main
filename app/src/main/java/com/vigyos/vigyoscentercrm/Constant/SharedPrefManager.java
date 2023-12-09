@@ -75,15 +75,7 @@ public class SharedPrefManager {
     private static final String plan_description = "plan_description";
     private static final String plan_duration_type = "plan_duration_type";
     private static final String plan_discounted_price = "plan_discounted_price";
-    private static final String merchant_id = "merchant_id";
-    private static final String is_verified = "is_verified";
-    private static final String bank_verified = "bank_verified";
-    private static final String last_verify_timestamp_aeps = "last_verify_timestamp_aeps";
-    private static final String payout_balance = "payout_balance";
-    private static final String bbps_commission_balance = "bbps_commission_balance";
-    private static final String aeps_commission_balance = "aeps_commission_balance";
     //Profile Data variable End
-
     private static final String login = "login";
     private static final String register = "register";
     private static final String service_id = "service_id";
@@ -92,11 +84,177 @@ public class SharedPrefManager {
     private static final String biometric_lock = "biometric_lock";
     private static final String biometric_sensor = "biometric_sensor";
     private static final String onboarding = "onboarding";
+    private static final String fino_merchant_id = "fino_merchant_id";
+    private static final String fino_bank = "fino_bank";
+    private static final String fino_verification_url = "fino_verification_url";
+    private static final String fino_is_verified = "fino_is_verified";
+    private static final String fino_bank_verified = "fino_bank_verified";
+    private static final String fino_last_verify_timestamp_aeps = "fino_last_verify_timestamp_aeps";
+    private static final String fino_payout_balance = "fino_payout_balance";
+    private static final String paytm_merchant_id = "paytm_merchant_id";
+    private static final String paytm_bank = "paytm_bank";
+    private static final String paytm_verification_url = "paytm_verification_url";
+    private static final String paytm_is_verified = "paytm_is_verified";
+    private static final String paytm_bank_verified = "paytm_bank_verified";
+    private static final String paytm_last_verify_timestamp_aeps = "paytm_last_verify_timestamp_aeps";
+    private static final String paytm_state_code = "paytm_state_code";
+    private static final String paytm_payout_balance = "paytm_payout_balance";
+    private static final String bbps_commission_balance = "bbps_commission_balance";
 
     public SharedPrefManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
+    }
+
+    public void setPaytmPayoutBalance(int PaytmPayoutBalance){
+        editor = pref.edit();
+        editor.putInt(paytm_payout_balance, PaytmPayoutBalance);
+        editor.commit();
+    }
+
+    public int getPaytmPayoutBalance(){
+        return pref.getInt(paytm_payout_balance, 0);
+    }
+
+    public void setPaytmStateCode(String PaytmStateCode){
+        editor = pref.edit();
+        editor.putString(paytm_state_code, PaytmStateCode);
+        editor.commit();
+    }
+
+    public String getPaytmStateCode(){
+        return pref.getString(paytm_state_code, "null");
+    }
+
+    public void setPaytmLastVerifyTimestampAeps(long PaytmLastVerifyTimestampAeps){
+        editor = pref.edit();
+        editor.putLong(paytm_last_verify_timestamp_aeps, PaytmLastVerifyTimestampAeps);
+        editor.commit();
+    }
+
+    public long getPaytmLastVerifyTimestampAeps(){
+        return pref.getLong(paytm_last_verify_timestamp_aeps, 0);
+    }
+
+    public void setPaytmBankVerified(String PaytmBankVerified){
+        editor = pref.edit();
+        editor.putString(paytm_bank_verified, PaytmBankVerified);
+        editor.commit();
+    }
+
+    public String getPaytmBankVerified(){
+        return pref.getString(paytm_bank_verified, "null");
+    }
+
+    public void setPaytmIsVerified(String PaytmIsVerified){
+        editor = pref.edit();
+        editor.putString(paytm_is_verified, PaytmIsVerified);
+        editor.commit();
+    }
+
+    public String getPaytmIsVerified(){
+        return pref.getString(paytm_is_verified, "null");
+    }
+
+    public void setPaytmVerificationUrl(String PaytmVerificationUrl){
+        editor = pref.edit();
+        editor.putString(paytm_verification_url, PaytmVerificationUrl);
+        editor.commit();
+    }
+
+    public String getPaytmVerificationUrl(){
+        return pref.getString(paytm_verification_url, "null");
+    }
+
+    public void setPaytmBank(String PaytmBank){
+        editor = pref.edit();
+        editor.putString(paytm_bank, PaytmBank);
+        editor.commit();
+    }
+
+    public String getPaytmBank(){
+        return pref.getString(paytm_bank, "null");
+    }
+
+    public void setPaytmMerchantId(String PaytmMerchantId){
+        editor = pref.edit();
+        editor.putString(paytm_merchant_id, PaytmMerchantId);
+        editor.commit();
+    }
+
+    public String getPaytmMerchantId(){
+        return pref.getString(paytm_merchant_id, "null");
+    }
+
+    public void setFinoPayoutBalance(int FinoPayoutBalance){
+        editor = pref.edit();
+        editor.putInt(fino_payout_balance, FinoPayoutBalance);
+        editor.commit();
+    }
+
+    public int getFinoPayoutBalance(){
+        return pref.getInt(fino_payout_balance, 0);
+    }
+
+    public void setFinoLastVerifyTimestampAeps(long FinoLastVerifyTimestampAeps){
+        editor = pref.edit();
+        editor.putLong(fino_last_verify_timestamp_aeps, FinoLastVerifyTimestampAeps);
+        editor.commit();
+    }
+
+    public long getFinoLastVerifyTimestampAeps(){
+        return pref.getLong(fino_last_verify_timestamp_aeps, 0);
+    }
+
+    public void setFinoBankVerified(String FinoBankVerified){
+        editor = pref.edit();
+        editor.putString(fino_bank_verified, FinoBankVerified);
+        editor.commit();
+    }
+
+    public String getFinoBankVerified(){
+        return pref.getString(fino_bank_verified, "null");
+    }
+
+    public void setFinoIsVerified(String FinoIsVerified){
+        editor = pref.edit();
+        editor.putString(fino_is_verified, FinoIsVerified);
+        editor.commit();
+    }
+
+    public String getFinoIsVerified(){
+        return pref.getString(fino_is_verified, "null");
+    }
+
+    public void setFinoVerificationUrl(String FinoVerificationUrl){
+        editor = pref.edit();
+        editor.putString(fino_verification_url, FinoVerificationUrl);
+        editor.commit();
+    }
+
+    public String getFinoVerificationUrl(){
+        return pref.getString(fino_verification_url, "null");
+    }
+
+    public void setFinoBank(String FinoBank){
+        editor = pref.edit();
+        editor.putString(fino_bank, FinoBank);
+        editor.commit();
+    }
+
+    public String getFinoBank(){
+        return pref.getString(fino_bank, "null");
+    }
+
+    public void setFinoMerchantId(String FinoMerchantId){
+        editor = pref.edit();
+        editor.putString(fino_merchant_id, FinoMerchantId);
+        editor.commit();
+    }
+
+    public String getFinoMerchantId(){
+        return pref.getString(fino_merchant_id, "null");
     }
 
     public void setOnboarding(boolean Onboarding) {
@@ -287,16 +445,6 @@ public class SharedPrefManager {
 
     public String getLicenseNumber(){
         return pref.getString(license_no, "null");
-    }
-
-    public void setMerchantId(String MerchantId){
-        editor = pref.edit();
-        editor.putString(merchant_id, MerchantId);
-        editor.commit();
-    }
-
-    public String getMerchantId(){
-        return pref.getString(merchant_id, "null");
     }
 
     public void setAmount(int Amount){
@@ -519,16 +667,6 @@ public class SharedPrefManager {
         return pref.getString(updated_by, "null");
     }
 
-    public void setPayoutBalance(int PayoutBalance){
-        editor = pref.edit();
-        editor.putInt(payout_balance, PayoutBalance);
-        editor.commit();
-    }
-
-    public int getPayoutBalance(){
-        return pref.getInt(payout_balance, 0);
-    }
-
     public void setCompany(String Company){
         editor = pref.edit();
         editor.putString(company, Company);
@@ -617,36 +755,6 @@ public class SharedPrefManager {
 
     public String getWalletId(){
         return pref.getString(wallet_id, "null");
-    }
-
-    public void setIsVerified(String IsVerified){
-        editor = pref.edit();
-        editor.putString(is_verified, IsVerified);
-        editor.commit();
-    }
-
-    public String getIsVerified(){
-        return pref.getString(is_verified, "null");
-    }
-
-    public void setBankVerified(String BankVerified){
-        editor = pref.edit();
-        editor.putString(bank_verified, BankVerified);
-        editor.commit();
-    }
-
-    public String getBankVerified(){
-        return pref.getString(bank_verified, "null");
-    }
-
-    public void setLastVerifyTimeStampAeps(long LastVerifyTimeStampAeps){
-        editor = pref.edit();
-        editor.putLong(last_verify_timestamp_aeps, LastVerifyTimeStampAeps);
-        editor.commit();
-    }
-
-    public long getLastVerifyTimeStampAeps(){
-        return pref.getLong(last_verify_timestamp_aeps, 0);
     }
 
     public void setUserPlanId(String UserPlanId) {
@@ -847,16 +955,6 @@ public class SharedPrefManager {
 
     public String getBBPSCommissionBalance() {
         return pref.getString(bbps_commission_balance, "null");
-    }
-
-    public void setAEPSCommissionBalance(String AEPSCommissionBalance) {
-        editor = pref.edit();
-        editor.putString(aeps_commission_balance, AEPSCommissionBalance);
-        editor.commit();
-    }
-
-    public String getAEPSCommissionBalance() {
-        return pref.getString(aeps_commission_balance, "null");
     }
 
     public void setClear(){

@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
+        android:fontFamily="@font/poppins_medium"
         android:text="No Service Cancelled"
-        android:textColor="@color/vigyos"
-        android:textSize="@dimen/_28sdp" />
+        android:textColor="@color/dark_vigyos"
+        android:textSize="@dimen/_24sdp" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

@@ -152,6 +152,23 @@ public interface Api {
     //Fino AEPS API End
 
     //Paytm AEPS API Start
+    @FormUrlEncoded
+    @POST("aeps/paytm/onboard_user")
+    Call<Object> paytmOnBoardUser(
+            @Header("Authorization") String Authorization,
+            @Field("user_id") String user_id,
+            @Field("merchantmobilenumber") String merchantmobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("statecode") String statecode,
+            @Field("merchant_name") String merchant_name,
+            @Field("address") String address,
+            @Field("pannumber") String pannumber,
+            @Field("pincode") String pincode,
+            @Field("city") String city
+    );
+
+
     @GET("aeps/paytm/bank_list")
     Call<Object> paytmBankList(
             @Header("Authorization") String Authorization
@@ -234,6 +251,21 @@ public interface Api {
             @Field("submerchantid") String submerchantid,
             @Field("data") String data,
             @Field("timestamp") String timestamp
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/bank_registration/verify")
+    Call<Object> paytmAuthAPI(
+            @Header("Authorization") String Authorization,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("timestamp") String timestamp,
+            @Field("data") String data,
+            @Field("ipaddress") String ipaddress,
+            @Field("submerchantid") String submerchantid
     );
     //Paytm AEPS API End
 

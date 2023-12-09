@@ -18,14 +18,17 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,6 +71,8 @@ import retrofit2.Response;
 public class PayOutActivity extends AppCompatActivity {
 
     private ImageView ivBack;
+    private LinearLayout payoutBankNameFocus, payoutAmountFocus;
+    private RelativeLayout payoutBankNameLyt, payoutAmountLyt;
     private TextView payoutBalance;
     private RelativeLayout addBank;
     private String bankName;
@@ -83,6 +88,7 @@ public class PayOutActivity extends AppCompatActivity {
     private double latitude;
     private double longitude;
     private String currentDateAndTime;
+    private Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,57 +105,72 @@ public class PayOutActivity extends AppCompatActivity {
         payoutBankName = findViewById(R.id.payoutBankName);
         payoutAmount = findViewById(R.id.payoutAmount);
         createPayout = findViewById(R.id.createPayout);
+        payoutBankNameFocus = findViewById(R.id.payoutBankNameFocus);
+        payoutAmountFocus = findViewById(R.id.payoutAmountFocus);
+        payoutBankNameLyt = findViewById(R.id.payoutBankNameLyt);
+        payoutAmountLyt = findViewById(R.id.payoutAmountLyt);
     }
 
     private void declaration() {
+        animation = AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.shake_animation);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(PayOutActivity.this);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                onBackPressed();
                 finish();
             }
         });
-
-        if (SplashActivity.prefManager.getPayoutBalance() == 0){
+        if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
             payoutBalance.setText("₹"+"0.00");
         } else {
-            int i = SplashActivity.prefManager.getPayoutBalance();
+            int i = SplashActivity.prefManager.getFinoPayoutBalance();
             float v = (float) i;
             payoutBalance.setText("₹"+ v);
         }
-
         addBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
                 startActivity(new Intent(PayOutActivity.this, AddBankAccountActivity.class));
-//                finish();
             }
         });
         payoutList();
-
+        payoutAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    payoutAmountLyt.setBackgroundResource(R.drawable.credential_border);
+                }
+            }
+        });
         createPayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
                 if (payoutBankName.getSelectedItem().toString().trim().equals("Select your bank")) {
+                    payoutBankNameLyt.startAnimation(animation);
+                    payoutBankNameFocus.getParent().requestChildFocus(payoutBankNameFocus, payoutBankNameFocus);
                     Toast.makeText(PayOutActivity.this,"Select your bank",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(payoutAmount.getText().toString())){
                     payoutAmount.setError("This field is required");
+                    payoutAmount.requestFocus();
+                    payoutAmountLyt.startAnimation(animation);
+                    payoutAmountFocus.getParent().requestChildFocus(payoutAmountFocus, payoutAmountFocus);
                     Toast.makeText(PayOutActivity.this, "Enter a Amount", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     if (!isNumeric(payoutAmount.getText().toString())){
                         payoutAmount.setError("Enter a valid Amount");
+                        payoutAmount.requestFocus();
+                        payoutAmountLyt.startAnimation(animation);
+                        payoutAmountFocus.getParent().requestChildFocus(payoutAmountFocus, payoutAmountFocus);
                         Toast.makeText(PayOutActivity.this, "Enter a valid Amount", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
                 payoutAmount.clearFocus();
-
                 if (checkPermission()) {
                     areYouSure();
                 } else {
@@ -160,26 +181,36 @@ public class PayOutActivity extends AppCompatActivity {
     }
 
     private void areYouSure(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(PayOutActivity.this);
-        builder1.setMessage("Are you sure, You want to Create Payout ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        createPayoutAPI();
-                    }
-                });
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        dialog = new Dialog(PayOutActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_yes_or_no);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView title = dialog.findViewById(R.id.title);
+        title.setText("Create Payout!");
+        TextView details = dialog.findViewById(R.id.details);
+        details.setText("Are you sure, You want to Create Payout?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(PayOutActivity.this, R.anim.viewpush));
+                dismissDialog();
+                createPayoutAPI();
+            }
+        });
+        dialog.show();
     }
 
     public static boolean isNumeric(String strNum){
@@ -189,7 +220,7 @@ public class PayOutActivity extends AppCompatActivity {
 
     private void createPayoutAPI() {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().createPayOutAPI(SplashActivity.prefManager.getToken(), beneId, payoutAmount.getText().toString(), "IMPS", SplashActivity.prefManager.getMerchantId(),
+        Call<Object> objectCall = RetrofitClient.getApi().createPayOutAPI(SplashActivity.prefManager.getToken(), beneId, payoutAmount.getText().toString(), "IMPS", SplashActivity.prefManager.getFinoMerchantId(),
                 "APP", currentDateAndTime, SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(), String.valueOf(latitude), String.valueOf(longitude), ipAddress);
         objectCall.enqueue(new Callback<Object>() {
             @Override
@@ -234,21 +265,18 @@ public class PayOutActivity extends AppCompatActivity {
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                             if (jsonObject1.has("payout_balance")) {
-                                SplashActivity.prefManager.setPayoutBalance(jsonObject1.getInt("payout_balance"));
+                                SplashActivity.prefManager.setFinoPayoutBalance(jsonObject1.getInt("payout_balance"));
                             }
-                            if (SplashActivity.prefManager.getPayoutBalance() == 0){
+                            if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
                                 payoutBalance.setText("₹"+"0.00");
                             } else {
-                                int i = SplashActivity.prefManager.getPayoutBalance();
+                                int i = SplashActivity.prefManager.getFinoPayoutBalance();
                                 float v = (float) i;
                                 payoutBalance.setText("₹"+ v);
                             }
                         } else {
                             if (jsonObject.has("message")) {
                                 Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//                                SplashActivity.prefManager.setClear();
-//                                startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
-//                                finish();
                             }
                         }
                     } catch (JSONException e) {
@@ -272,7 +300,7 @@ public class PayOutActivity extends AppCompatActivity {
 
     private void payoutList(){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().payoutList(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getMerchantId());
+        Call<Object> objectCall = RetrofitClient.getApi().payoutList(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getFinoMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -314,13 +342,10 @@ public class PayOutActivity extends AppCompatActivity {
                         bankNameArray.add(0,"Select your bank");
                         if (jsonObject.has("message")) {
                             Toast.makeText(PayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//                            SplashActivity.prefManager.setClear();
-//                            startActivity(new Intent(PayOutActivity.this, LoginActivity.class));
-//                            finish();
                         }
                     }
 
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(PayOutActivity.this, android.R.layout.simple_spinner_item, bankNameArray); //selected item will look like a spinner set from XML
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(PayOutActivity.this, R.layout.layout_spinner_item, bankNameArray); //selected item will look like a spinner set from XML
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     payoutBankName.setAdapter(spinnerArrayAdapter);
                     payoutBankName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -329,6 +354,7 @@ public class PayOutActivity extends AppCompatActivity {
                             if (parent.getItemAtPosition(position).equals("Select your bank")) {
                                 Log.i("12121","Select your bank");
                             } else {
+                                ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
                                 String selectedItem = (String) parent.getItemAtPosition(position);
                                 for (PayoutBankNameModel bankNameModel: bankNameModels){
                                     if(bankNameModel.getBankname().equalsIgnoreCase(selectedItem)){
@@ -471,8 +497,7 @@ public class PayOutActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // User canceled the permission request, handle this case as needed
                     }
-                })
-                .show();
+                }).show();
     }
 
     private void showSettingsDialog() {

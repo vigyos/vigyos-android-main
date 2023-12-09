@@ -139,18 +139,25 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")){
-                            JSONObject jsonObjectData = jsonObject.getJSONObject("data");
-
-                            SplashActivity.prefManager.setUserID(jsonObjectData.getString("userId"));
-                            SplashActivity.prefManager.setToken("Bearer "+ jsonObjectData.getString("token"));
-                            SplashActivity.prefManager.setFirstName(jsonObjectData.getString("first_name"));
-                            SplashActivity.prefManager.setLastName(jsonObjectData.getString("last_name"));
-
-                            SplashActivity.prefManager.setLogin(true);
-
-                            StyleableToast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_LONG, R.style.myToastSuccess).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            if (jsonObject.has("data")) {
+                                JSONObject jsonObjectData = jsonObject.getJSONObject("data");
+                                if (jsonObjectData.has("userId")) {
+                                    SplashActivity.prefManager.setUserID(jsonObjectData.getString("userId"));
+                                }
+                                if (jsonObjectData.has("token")) {
+                                    SplashActivity.prefManager.setToken("Bearer "+ jsonObjectData.getString("token"));
+                                }
+                                if (jsonObjectData.has("first_name")) {
+                                    SplashActivity.prefManager.setFirstName(jsonObjectData.getString("first_name"));
+                                }
+                                if (jsonObjectData.has("last_name")) {
+                                    SplashActivity.prefManager.setLastName(jsonObjectData.getString("last_name"));
+                                }
+                                SplashActivity.prefManager.setLogin(true);
+                                StyleableToast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            }
                         } else {
                             StyleableToast.makeText(LoginActivity.this, "Please enter valid email id & password", Toast.LENGTH_LONG, R.style.myToastError).show();
                         }

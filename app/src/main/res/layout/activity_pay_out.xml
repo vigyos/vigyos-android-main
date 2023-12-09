@@ -3,59 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vigyos"
+    android:background="@color/dark_vigyos"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.PayOutActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/vigyos">
+        android:background="@color/dark_vigyos">
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:layout_marginStart="10sp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"
             app:tint="@color/white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10sp"
-            android:layout_toEndOf="@+id/ivBack"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_medium"
             android:text="Payout"
             android:textColor="@color/white"
-            android:textSize="22sp"/>
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/payLyt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_margin="10sp">
+        android:layout_margin="@dimen/_8sdp">
         <RelativeLayout
             android:id="@+id/textLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:layout_marginStart="10sp">
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_8sdp">
             <TextView
                 android:id="@+id/payoutTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:elegantTextHeight="true"
                 android:text="Total Balance"
-                android:textSize="18sp"
-                android:textColor="@color/white"/>
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_medium"/>
             <TextView
                 android:id="@+id/payoutBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2sp"
                 android:layout_below="@+id/payoutTextView"
+                android:elegantTextHeight="true"
                 android:text="₹0.00"
-                android:textSize="30sp"
+                android:textSize="@dimen/_24sdp"
                 android:textColor="@color/white"/>
         </RelativeLayout>
         <RelativeLayout
@@ -64,116 +66,144 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textLyt"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30sp"
-            android:padding="5sp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:padding="@dimen/_5sdp"
             android:background="@drawable/done_button_bg">
             <ImageView
                 android:id="@+id/addIcon"
                 android:layout_width="20sp"
                 android:layout_height="20sp"
-                android:src="@drawable/add_icon"/>
+                android:src="@drawable/add_icon"
+                app:tint="@color/light_black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/addIcon"
                 android:layout_marginStart="5sp"
                 android:text="Add Account"
-                android:textColor="@color/black"
+                android:textColor="@color/light_black"
                 android:textSize="14sp"/>
         </RelativeLayout>
     </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/payLyt"
         android:orientation="vertical"
         android:background="@drawable/home_round_bg">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/selectAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:layout_marginStart="20sp"
-                android:text="Select Account"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:layout_toEndOf="@+id/selectAccount"
-                android:text="*"
-                android:textColor="#FF0000"/>
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/payoutBankNameFocus"
                 android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_below="@+id/selectAccount"
-                android:layout_marginTop="10sp"
-                android:layout_marginHorizontal="20sp"
-                android:background="@drawable/spinner_bg">
-                <Spinner
-                    android:id="@+id/payoutBankName"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/enterAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:layout_marginStart="20sp"
-                android:text="Amount"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:layout_toEndOf="@+id/enterAmount"
-                android:text="*"
-                android:textColor="#FF0000"/>
-            <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Account"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="@dimen/_3sdp"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/payoutBankNameLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
+                    <Spinner
+                        android:id="@+id/payoutBankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:inputType="none"
+                        android:paddingVertical="@dimen/_3sdp" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/payoutAmountFocus"
                 android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_below="@+id/enterAmount"
-                android:layout_marginTop="10sp"
-                android:layout_marginHorizontal="20sp"
-                android:background="@drawable/spinner_bg">
-                <EditText
-                    android:id="@+id/payoutAmount"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:paddingStart="10sp"
-                    android:hint="0.0"
-                    android:lines="1"
-                    android:textSize="15sp"
-                    android:textColorHint="@color/grey_font" />
-            </RelativeLayout>
-        </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_16sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_12sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="#FF0303"
+                        android:layout_marginStart="@dimen/_3sdp"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/payoutAmountLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
+                    <EditText
+                        android:id="@+id/payoutAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:maxLines="1"
+                        android:elegantTextHeight="true"
+                        android:textColor="@color/dark_vigyos"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:fontFamily="@font/poppins_light"
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
         <RelativeLayout
             android:id="@+id/createPayout"
             android:layout_width="match_parent"
-            android:layout_height="50sp"
-            android:layout_marginHorizontal="28sp"
-            android:layout_marginTop="40sp"
-            android:background="@drawable/login_gradient">
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_35sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/next_button_filled">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:fontFamily="@font/montserrat_bold"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/poppins_semi_bold"
                 android:text="Create Payout"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_12sdp" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

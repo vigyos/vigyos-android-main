@@ -67,7 +67,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private void declaration(){
         userName.setText(SplashActivity.prefManager.getFirstName() + " " + SplashActivity.prefManager.getLastName());
-        userPhone.setText(SplashActivity.prefManager.getPhone());
+        userPhone.setText(String.valueOf(SplashActivity.prefManager.getPhone()));
         userEmail.setText(SplashActivity.prefManager.getEmail());
         userAddress.setText(SplashActivity.prefManager.getCity() + ", "+ SplashActivity.prefManager.getState());
         userAadhaar.setText(SplashActivity.prefManager.getAadhaarNumber());

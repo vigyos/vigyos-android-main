@@ -10,8 +10,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
 
-//    public static String BASE_URL = "https://dev.api.vigyos.in/";
-    public static String BASE_URL = "https://api.vigyos.in/";
+    public static String BASE_URL = "https://dev.api.vigyos.in/";
+//    public static String BASE_URL = "https://api.vigyos.in/";
 
     public static Retrofit retrofit;
 

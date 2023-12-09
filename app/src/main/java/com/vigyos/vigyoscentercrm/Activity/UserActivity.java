@@ -131,10 +131,10 @@ public class UserActivity extends AppCompatActivity {
         payOutBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("741258", "time Aeps " + formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
+                Log.i("741258", "time Aeps " + formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
-                    Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
+                    Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
                     Calendar loginCalendar = Calendar.getInstance();
                     loginCalendar.setTime(loginDate);
 
@@ -395,7 +395,7 @@ public class UserActivity extends AppCompatActivity {
     private void AuthAPI(String fingerData) {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

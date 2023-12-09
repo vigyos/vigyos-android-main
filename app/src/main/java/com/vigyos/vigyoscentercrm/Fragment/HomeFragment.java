@@ -14,7 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
-import android.media.Image;
+import android.media.metrics.PlaybackErrorEvent;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -45,7 +45,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -53,20 +52,17 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.AddBankAccountActivity;
 import com.vigyos.vigyoscentercrm.Activity.BBPSServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.CategoryDetailsActivity;
-import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.PaytmAEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.RazorPayActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
-import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
@@ -117,7 +113,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Serializer serializer = null;
     public ArrayList<String> positions;
     private ArrayList<BannerListModel> bannerListModels = new ArrayList<>();
-    private Dialog dialog;
+    private Dialog dialog, dialog1;
     private int bank = 0;
 
     public HomeFragment(Activity activity) {
@@ -393,14 +389,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.panService:
-                if (SplashActivity.prefManager.getPan()) {
-                    startActivity(new Intent(activity, PanCardActivity.class));
-                } else {
-                    startActivity(new Intent(activity, PlansActivity.class));
-                }
+                startActivity(new Intent(activity, PanCardActivity.class));
                 break;
             case R.id.aeps:
-                SelectAEPS();
+                selectAEPS();
                 break;
             case R.id.amount:
                 startActivity(new Intent(activity, RazorPayActivity.class));
@@ -418,7 +410,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void SelectAEPS() {
+    private void selectAEPS() {
         dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -466,12 +458,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
                 if (bank == 1) {
-//                    startActivity(new Intent(activity, AEPSActivity.class));
                     finoAeps();
                 } else if (bank == 2) {
                     PaytmAeps();
                 }
-                bank = 0;
                 dismissDialog();
             }
         });
@@ -480,91 +470,89 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void finoAeps() {
-        startActivity(new Intent(activity, AEPSActivity.class));
+            if (SplashActivity.prefManager.getFinoBankVerified().equalsIgnoreCase("APPROVED")) {
+                bank = 0;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+                    Calendar loginCalendar = Calendar.getInstance();
+                    loginCalendar.setTime(loginDate);
 
-//        if (SplashActivity.prefManager.getAEPS()) {
-//            if (!SplashActivity.prefManager.getBankVerified().equalsIgnoreCase("APPROVED")) {
-//                registerDialog();
-//            } else {
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                try {
-//                    Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getLastVerifyTimeStampAeps()));
-//                    Calendar loginCalendar = Calendar.getInstance();
-//                    loginCalendar.setTime(loginDate);
-//
-//                    Calendar currentCalendar = Calendar.getInstance();
-//                    long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-//                    long diffInHours = diffInMillis / (60 * 60 * 1000);
-//
-//                    if(diffInHours >= 24) {
-//                        // More than 24 hours have passed since the login
-//                        // Prompt user to log in again
-//                        Log.i("741258","More than 24 hours");
-//                        if (checkPermission()) {
-//                            try {
-//                                String pidOption = getPIDOptions();
-//                                if (pidOption != null) {
-//                                    Log.e("PidOptions", pidOption);
-//                                    Intent intent10 = new Intent();
-//                                    intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                                    intent10.putExtra("PID_OPTIONS", pidOption);
-//                                    startActivityForResult(intent10, 1);
-//                                } else {
-//                                    Log.i("454545","Device not found!");
-//                                }
-//                            } catch (Exception e) {
-//                                Log.e("Error", e.toString());
-//                                StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-//                            }
-//                        } else {
-//                            requestPermissions();
-//                        }
-//                    } else {
-//                        // Less than 24 hours have passed since the login
-//                        // User is still logged in
-//                        Log.i("741258","Less than 24 hours");
-//                        startActivity(new Intent(activity, AEPSActivity.class));
-//                    }
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        } else {
-//            startActivity(new Intent(activity, PlansActivity.class));
-//        }
+                    Calendar currentCalendar = Calendar.getInstance();
+                    long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+                    long diffInHours = diffInMillis / (60 * 60 * 1000);
+
+                    if(diffInHours >= 24) {
+                        // More than 24 hours have passed since the login
+                        // Prompt user to log in again
+                        Log.i("741258","More than 24 hours");
+                        if (checkPermission()) {
+                            try {
+                                String pidOption = getPIDOptions();
+                                if (pidOption != null) {
+                                    Log.e("PidOptions", pidOption);
+                                    Intent intent10 = new Intent();
+                                    intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                                    intent10.putExtra("PID_OPTIONS", pidOption);
+                                    startActivityForResult(intent10, 1);
+                                } else {
+                                    Log.i("454545","Device not found!");
+                                }
+                            } catch (Exception e) {
+                                Log.e("Error", e.toString());
+                                StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                            }
+                        } else {
+                            requestPermissions();
+                        }
+                    } else {
+                        // Less than 24 hours have passed since the login
+                        // User is still logged in
+                        Log.i("741258","Less than 24 hours");
+                        startActivity(new Intent(activity, AEPSActivity.class));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                BankVerificationDialog();
+            }
     }
 
-    private void PaytmAeps() {
-        startActivity(new Intent(activity, PaytmAEPSActivity.class));
-    }
-
-    private void registerDialog() {
-        dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.dialog_user_message);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        dialog.getWindow().setLayout(-1, -1);
-        TextView title = dialog.findViewById(R.id.title);
+    private void BankVerificationDialog() {
+        dialog1 = new Dialog(activity);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setCancelable(true);
+        dialog1.setContentView(R.layout.dialog_user_message);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog1.getWindow().setLayout(-1, -1);
+        TextView title = dialog1.findViewById(R.id.title);
         title.setText(R.string.fingerprint_authentication);
-        TextView details = dialog.findViewById(R.id.details);
+        TextView details = dialog1.findViewById(R.id.details);
         details.setText(getString(R.string.to_use_our_aeps_service));
-        TextView buttonText = dialog.findViewById(R.id.buttonText);
+        TextView buttonText = dialog1.findViewById(R.id.buttonText);
         buttonText.setText("ENABLE");
-        dialog.findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
+        dialog1.findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismissDialog();
+                dismissDialog1();
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 if (checkPermission()) {
                     try {
                         String pidOption = getPIDOptions();
                         if (pidOption != null) {
                             Log.e("PidOptions", pidOption);
-                            Intent intent9 = new Intent();
-                            intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-                            intent9.putExtra("PID_OPTIONS", pidOption);
-                            startActivityForResult(intent9, 2);
+                            if (bank == 1) {
+                                Intent intent9 = new Intent();
+                                intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                                intent9.putExtra("PID_OPTIONS", pidOption);
+                                startActivityForResult(intent9, 2);
+                            } else if (bank == 2) {
+                                Intent intent9 = new Intent();
+                                intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                                intent9.putExtra("PID_OPTIONS", pidOption);
+                                startActivityForResult(intent9, 3);
+                            }
                         } else {
                             Log.i("454545","Device not found!");
                         }
@@ -577,7 +565,90 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        dialog.show();
+        dialog1.show();
+    }
+
+    private void PaytmAeps() {
+        if (SplashActivity.prefManager.getPaytmMerchantId().equalsIgnoreCase("null") || SplashActivity.prefManager.getPaytmMerchantId().equalsIgnoreCase("")) {
+            onBoardingDialog();
+        } else {
+            if (SplashActivity.prefManager.getPaytmIsVerified().equalsIgnoreCase("Accepted")) {
+
+                if (SplashActivity.prefManager.getPaytmBankVerified().equalsIgnoreCase("APPROVED")) {
+                    bank = 0;
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    try {
+                        Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+                        Calendar loginCalendar = Calendar.getInstance();
+                        loginCalendar.setTime(loginDate);
+
+                        Calendar currentCalendar = Calendar.getInstance();
+                        long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+                        long diffInHours = diffInMillis / (60 * 60 * 1000);
+
+                        if(diffInHours >= 24) {
+                            // More than 24 hours have passed since the login
+                            // Prompt user to log in again
+                            Log.i("741258","More than 24 hours");
+                            if (checkPermission()) {
+                                try {
+                                    String pidOption = getPIDOptions();
+                                    if (pidOption != null) {
+                                        Log.e("PidOptions", pidOption);
+                                        Intent intent10 = new Intent();
+                                        intent10.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                                        intent10.putExtra("PID_OPTIONS", pidOption);
+                                        startActivityForResult(intent10, 1);
+                                    } else {
+                                        Log.i("454545","Device not found!");
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("Error", e.toString());
+                                    StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                                }
+                            } else {
+                                requestPermissions();
+                            }
+                        } else {
+                            // Less than 24 hours have passed since the login
+                            // User is still logged in
+                            Log.i("741258","Less than 24 hours");
+                            startActivity(new Intent(activity, PaytmAEPSActivity.class));
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    BankVerificationDialog();
+                }
+            } else {
+                Toast.makeText(activity, "Bank Verification Pending", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void onBoardingDialog() {
+        dialog1 = new Dialog(activity);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setCancelable(true);
+        dialog1.setContentView(R.layout.dialog_user_message);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog1.getWindow().setLayout(-1, -1);
+        TextView title = dialog1.findViewById(R.id.title);
+        title.setText(R.string.welcome);
+        TextView details = dialog1.findViewById(R.id.details);
+        details.setText(R.string.to_access_the_aeps_feature);
+        TextView buttonText = dialog1.findViewById(R.id.buttonText);
+        buttonText.setText("ACCESS");
+        dialog1.findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissDialog1();
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                paytmOnBoarding();
+            }
+        });
+        dialog1.show();
     }
 
     private String formatTimestamp(long timestamp) {
@@ -622,46 +693,74 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                try {
-                    if (data != null) {
-                        String result = data.getStringExtra("PID_DATA");
-                        if (result != null) {
-                            pidData = serializer.read(PidData.class, result);
-                            if (!pidData._Resp.errCode.equals("0")) {
-                                Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                AuthAPI(result);
-                                Log.i("78954", "case 2  result if : - " + pidData.toString());
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    AuthAPI(result);
+                                    Log.i("78954", "case 2  result if : - " + pidData.toString());
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        Log.i("78954", "Error while deserialize pid data " + e);
+                        StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     }
-                } catch (Exception e) {
-                    Log.i("78954", "Error while deserialize pid data " + e);
-                    StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
-            }
-        } else {
-            if (resultCode == Activity.RESULT_OK) {
-                try {
-                    if (data != null) {
-                        String result = data.getStringExtra("PID_DATA");
-                        if (result != null) {
-                            pidData = serializer.read(PidData.class, result);
-                            if (!pidData._Resp.errCode.equals("0")) {
-                                Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                bankRegistration(result);
-                                Log.i("78954", "case 2  result if : - " + pidData.toString());
+                break;
+            case 2:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    bankRegistration(result);
+                                    Log.i("78954", "case 2  result if : - " + pidData.toString());
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        Log.i("78954", "Error while deserialize pid data " + e);
+                        StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     }
-                } catch (Exception e) {
-                    Log.i("78954", "Error while deserialize pid data " + e);
-                    StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
-            }
+                break;
+            case 3:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    Toast.makeText(activity, "Device Not Found!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    paytmAuthAPI(result);
+                                    Log.i("78954", "case 2  result if : - " + pidData.toString());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.i("78954", "Error while deserialize pid data " + e);
+                        StyleableToast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                    }
+                }
+                break;
+            case 4:
+                break;
+            default:
+                break;
         }
     }
 
@@ -820,7 +919,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void bankRegistration(String fingerData) {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().bankRegistrationAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -841,7 +940,94 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void AuthAPI(String fingerData) {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
-                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getMerchantId());
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse "+ response);
+                dismissDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                        startActivity(new Intent(activity, AEPSActivity.class));
+                    } else {
+                        if (jsonObject.has("message")) {
+                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
+                Log.i("2016", "onFailure "+ t);
+                StyleableToast.makeText(activity, "Failed Authentication", Toast.LENGTH_LONG, R.style.myToastError).show();
+            }
+        });
+    }
+
+    private void paytmOnBoarding() {
+        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().paytmOnBoardUser(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getUserID(), SplashActivity.prefManager.getPhone(),
+                String.valueOf(latitude), String.valueOf(longitude), "MP", SplashActivity.prefManager.getFirstName()+" "+SplashActivity.prefManager.getLastName(),
+                SplashActivity.prefManager.getCity()+" "+SplashActivity.prefManager.getState()+ " India", SplashActivity.prefManager.getPanCardNumber(), SplashActivity.prefManager.getPinCode(),
+                SplashActivity.prefManager.getCity());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2019","onResponse " + response);
+                dismissDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("success") && jsonObject.getString("success").equalsIgnoreCase("true")) {
+                        onBoardingProcessDialog();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("2019","onFailure " + t);
+                dismissDialog();
+                Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void onBoardingProcessDialog() {
+        dialog1 = new Dialog(activity);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setCancelable(true);
+        dialog1.setContentView(R.layout.dialog_user_message);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog1.getWindow().setLayout(-1, -1);
+        TextView title = dialog1.findViewById(R.id.title);
+        title.setText(R.string.verification_in_progress);
+        TextView details = dialog1.findViewById(R.id.details);
+        details.setText(R.string.your_aeps_onboarding_is_underway);
+        TextView buttonText = dialog1.findViewById(R.id.buttonText);
+        buttonText.setText("OKAY");
+        dialog1.findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                dismissDialog1();
+                startActivity(new Intent(activity, MainActivity.class));
+            }
+        });
+        dialog1.show();
+    }
+
+    private void paytmAuthAPI(String fingerData) {
+        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().paytmAuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, SplashActivity.prefManager.getPaytmMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -886,9 +1072,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void dismissDialog1() {
+        if (dialog1 != null && dialog1.isShowing()) {
+            dialog1.dismiss();
+        }
+    }
+
     @Override
     public void onDestroy() {
         dismissDialog();
+        dismissDialog1();
         super.onDestroy();
     }
 }
