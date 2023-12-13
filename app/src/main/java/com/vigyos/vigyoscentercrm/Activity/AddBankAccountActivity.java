@@ -368,7 +368,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                Log.i("2019","onResponse"+ response);
+                Log.i("2016","onResponse"+ response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
@@ -397,7 +397,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
-                Log.i("2019","onFailure"+ t);
+                Log.i("2016","onFailure"+ t);
             }
         });
     }
@@ -428,7 +428,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
             objectCall.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                    Log.i("2019","onResponse: " + response);
+                    Log.i("2016","onResponse: " + response);
                     dismissDialog();
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
@@ -446,7 +446,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                    Log.i("2019", "onFailure: " + t);
+                    Log.i("2016", "onFailure: " + t);
                     dismissDialog();
                     StyleableToast.makeText(AddBankAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
@@ -490,7 +490,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
             objectCall.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                    Log.i("2019","onResponse: " + response);
+                    Log.i("2016","onResponse: " + response);
                     dismissDialog();
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
@@ -506,7 +506,7 @@ public class AddBankAccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                    Log.i("2019", "onFailure: " + t);
+                    Log.i("2016", "onFailure: " + t);
                     dismissDialog();
                     StyleableToast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }

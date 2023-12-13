@@ -82,7 +82,7 @@ public class RazorPayActivity extends AppCompatActivity implements PaymentResult
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
-                Log.i("2019", "onResponse " + response);
+                Log.i("2016", "onResponse " + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     String amount_due = null, amount_paid = null;
@@ -135,7 +135,7 @@ public class RazorPayActivity extends AppCompatActivity implements PaymentResult
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
-                Log.i("2019", "onFailure " + t);
+                Log.i("2016", "onFailure " + t);
 
             }
         });

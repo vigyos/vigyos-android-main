@@ -137,7 +137,7 @@ public class EnquiryFragment extends Fragment {
         bankNameSpinner = view.findViewById(R.id.bankNameSpinner);
         process = view.findViewById(R.id.process);
         captureFingerPrintEnFocus = view.findViewById(R.id.captureFingerPrintEnFocus);
-        fingerPrintDone = view.findViewById(R.id.captureData);
+        fingerPrintDone = view.findViewById(R.id.captureDataEn);
         remarkFocus = view.findViewById(R.id.remarkFocus);
         remarkLyt = view.findViewById(R.id.remarkLyt);
         captureFingerPrintEnLyt = view.findViewById(R.id.captureFingerPrintEnLyt);
@@ -155,6 +155,7 @@ public class EnquiryFragment extends Fragment {
                 if (hasFocus) {
                     aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border);
                     mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
                 }
             }
         });
@@ -164,9 +165,21 @@ public class EnquiryFragment extends Fragment {
                 if (hasFocus) {
                     aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     mobileNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border_fill);
                 }
             }
         });
+        remarkEnquiry.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border);
+                }
+            }
+        });
+
         captureFingerPrintEnLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -443,7 +456,7 @@ public class EnquiryFragment extends Fragment {
     private void enquiry(String aadhaarNumber, String timeStamp, String fingerData, int nationalbankidentification, String requestremarks , String mobile) {
         pleaseWait();
         Call<Object> objectCall = RetrofitClient.getApi().enquiry(SplashActivity.prefManager.getToken(), "APP", aadhaarNumber, mobile,
-                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank2", SplashActivity.prefManager.getFinoMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "BE");
+                String.valueOf(latitude), String.valueOf(longitude), timeStamp, fingerData, ipAddress, "bank1", SplashActivity.prefManager.getFinoMerchantId(), String.valueOf(nationalbankidentification), requestremarks, "BE");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -462,7 +475,7 @@ public class EnquiryFragment extends Fragment {
 
                         Intent intent = new Intent(activity, ProcessDoneActivity.class);
                         intent.putExtra("fragmentName", "Enquiry");
-                        intent.putExtra("messageStatus", "Enquiry Successful!");
+                        intent.putExtra("messageStatus", "Enquiry");
                         intent.putExtra("message", message);
                         intent.putExtra("bankName", bankName);
                         intent.putExtra("ackno", ackno);

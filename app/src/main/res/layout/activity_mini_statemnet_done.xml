@@ -3,13 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vigyos"
+    android:background="@color/dark_vigyos"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.MiniStatementDoneActivity">
     <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_back"
+            app:tint="@color/white"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Mini Statement"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
         android:id="@+id/iconLyt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="wrap_content"

@@ -154,7 +154,7 @@
             android:name=".Activity.PanCardActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AEPSActivity"
+            android:name=".Activity.FinoAEPSActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.ShowServicesActivity"

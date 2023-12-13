@@ -63,7 +63,7 @@
     <string name="terms_and_conditions"><u>Terms and Conditions</u> </string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="view_all"><u>View All</u></string>
-    <string name="fingerprint_authentication">FingerPrint Authentication</string>
+    <string name="fingerprint_authentication">FingerPrint Authentication!</string>
     <string name="to_use_our_aeps_service">To use our AEPS services, please enable fingerprint authentication</string>
     <string name="required_permissions">Required Permissions!</string>
     <string name="allow_to_access">Allow Vigyos to access your camera, location, and local storage to take photos, retrieve images, receive location-based features, timely notifications, and unlock more app capabilities.</string>
@@ -73,7 +73,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_your_preferred">Choose your preferred bank for AEPS transactions: \nFino Payment Bank or Paytm Payment Bank. \nSelect one to proceed with secure and convenient Aadhaar-enabled payments.</string>
-    <string name="welcome">Welcome!</string>
+    <string name="welcome">Welcome to AEPS!</string>
     <string name="to_access_the_aeps_feature">To access the AEPS feature, please complete the onboarding process first. We look forward to serving you securely and conveniently</string>
     <string name="verification_in_progress">Verification in Progress</string>
     <string name="your_aeps_onboarding_is_underway">Your AEPS onboarding is underway. We\'re working to verify your details. You\'ll be notified once completed. Thanks for your patience!</string>

@@ -226,7 +226,7 @@ public class PayOutActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
                 dismissDialog();
-                Log.i("2019", "onResponse" + response);
+                Log.i("2016", "onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")){
@@ -247,7 +247,7 @@ public class PayOutActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
-                Log.i("2019", "onFailure" + t);
+                Log.i("2016", "onFailure" + t);
                 Toast.makeText(PayOutActivity.this, "Payout Failed", Toast.LENGTH_SHORT).show();
             }
         });

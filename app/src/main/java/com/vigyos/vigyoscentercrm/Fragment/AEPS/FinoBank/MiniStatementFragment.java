@@ -182,9 +182,11 @@ public class MiniStatementFragment extends Fragment {
         remarkEnquiryMini.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
-                mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
-                remarkLyt.setBackgroundResource(R.drawable.credential_border);
+                if (hasFocus) {
+                    aadhaarNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    mobileNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    remarkLyt.setBackgroundResource(R.drawable.credential_border);
+                }
             }
         });
         captureFingerPrintMiniLyt.setOnClickListener(new View.OnClickListener() {

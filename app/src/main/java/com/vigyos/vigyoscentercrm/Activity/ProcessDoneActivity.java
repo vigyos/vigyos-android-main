@@ -37,30 +37,35 @@ public class ProcessDoneActivity extends AppCompatActivity {
         String bankiin = intent.getStringExtra("bankiin");
         String clientrefno = intent.getStringExtra("clientrefno");
 
-        TextView paySuccess = findViewById(R.id.paySuccess);
+        TextView title = findViewById(R.id.title);
         TextView bankName1 = findViewById(R.id.backName);
         TextView amountT = findViewById(R.id.amount);
         TextView balance = findViewById(R.id.balance);
         TextView aadhaarNumber1 = findViewById(R.id.aadhaarNumber);
         TextView ackNo = findViewById(R.id.ackNo);
         TextView reference = findViewById(R.id.reference);
-        TextView message1 = findViewById(R.id.message);
+
         LinearLayout transactionLyt = findViewById(R.id.transactionLyt);
 
-        if (messageStatus.equalsIgnoreCase("Enquiry Successful!")){
+        if (messageStatus.equalsIgnoreCase("Enquiry")){
             transactionLyt.setVisibility(View.GONE);
         } else {
-            amountT.setText(amount);
+            amountT.setText("-₹"+amount);
         }
 
-        paySuccess.setText(messageStatus);
+        title.setText(messageStatus);
         bankName1.setText(bankName);
-        balance.setText(balanceamount);
+        balance.setText("₹"+balanceamount);
         aadhaarNumber1.setText(aadhaarNumber);
         ackNo.setText(ackno);
         reference.setText(clientrefno);
-        message1.setText(message);
 
+        findViewById(R.id.ivBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         findViewById(R.id.Continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

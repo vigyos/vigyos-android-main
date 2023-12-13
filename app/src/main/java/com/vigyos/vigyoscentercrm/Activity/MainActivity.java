@@ -41,9 +41,11 @@ import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
 import com.vigyos.vigyoscentercrm.Fragment.ProfileFragment;
+import com.vigyos.vigyoscentercrm.Model.StateCodeModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -507,7 +509,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     SplashActivity.prefManager.setFinoIsVerified(bank2Object.getString("is_verified"));
                                 }
                                 if (bank2Object.has("bank_verified")) {
-                                    SplashActivity.prefManager.setFinoBank(bank2Object.getString("bank_verified"));
+                                    SplashActivity.prefManager.setFinoBankVerified(bank2Object.getString("bank_verified"));
                                 }
                                 if (bank2Object.has("last_verify_timestamp_aeps")) {
                                     SplashActivity.prefManager.setFinoLastVerifyTimestampAeps(bank2Object.getLong("last_verify_timestamp_aeps"));
@@ -546,6 +548,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (jsonObject1.has("bbps_commission_balance")) {
                                 SplashActivity.prefManager.setBBPSCommissionBalance(jsonObject1.getString("bbps_commission_balance"));
                             }
+
+                            stateListAPI();
                         } else {
                             if (jsonObject.has("message")) {
                                 Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -578,10 +582,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    private void stateListAPI() {
+        Call<Object> objectCall = RetrofitClient.getApi().stateList(SplashActivity.prefManager.getToken());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                        if (jsonObject.has("statecodelist")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("statecodelist");
+                            if (jsonObject1.has("data")) {
+                                JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject stateObject = jsonArray.getJSONObject(i);
+                                    if (stateObject.has("statename") && stateObject.getString("statename").equalsIgnoreCase(SplashActivity.prefManager.getState())) {
+                                        SplashActivity.prefManager.setStateCode(stateObject.getString("statecode"));
+                                        Log.i("5852141","stateCode " +  SplashActivity.prefManager.getStateCode());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("2016", "onFailure " + t);
+            }
+        });
+    }
+
     private void pleaseWait() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_loader);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();

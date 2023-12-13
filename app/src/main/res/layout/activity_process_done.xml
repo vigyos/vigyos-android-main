@@ -4,260 +4,259 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vigyos"
+    android:background="@color/dark_vigyos"
     tools:context=".Activity.ProcessDoneActivity">
     <RelativeLayout
-        android:id="@+id/iconLyt"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+        android:layout_height="?actionBarSize">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_back"
+            app:tint="@color/white"/>
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:scaleType="centerInside"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="done_icon.json"
-            app:lottie_loop="false" />
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/iconLyt">
+        android:layout_below="@+id/toolbar">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/paySuccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:background="@drawable/process_done_bg">
+            <RelativeLayout
+                android:id="@+id/animLyt"
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
-                android:text="Message!"
-                android:textSize="30sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/thankYou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/paySuccess"
-                android:layout_marginTop="5sp"
-                android:layout_centerHorizontal="true"
-                android:text="Thank you for using AEPS."
-                android:textSize="16sp"
-                android:textColor="#F6F2F2"
-                android:textStyle="bold"/>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/paymentDetails"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_160sdp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="done_icon.json"
+                    app:lottie_loop="false" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/detailsLyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/thankYou"
-                android:layout_marginHorizontal="12sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="5sp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5sp"
-                app:cardElevation="2sp">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginHorizontal="@dimen/_22sdp"
+                android:layout_below="@+id/animLyt"
+                android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/backNameLyt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginHorizontal="8sp"
-                    android:layout_marginVertical="12sp"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:id="@+id/backNameLyt"
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/backIdentification"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/backIdentification"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Bank Identification:"
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/backName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="Bank Name"
-                            android:textColor="#272727"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/transactionLyt"
-                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:text="Bank Identification:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:id="@+id/backName"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/transactionTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Transaction: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/amount"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="₹0"
-                            android:textColor="#1A811E"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/currentBalanceLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/yourBalanceTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="You Current Balance: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/balance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="₹0"
-                            android:textColor="#1A811E"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/AadhaarLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/aadhaarNumberTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="You Aadhaar Number: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/aadhaarNumber"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="0000000000000"
-                            android:textColor="#272727"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ackNoLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/ackNoTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Ack No.: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/ackNo"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:text="11111111111"
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/referenceLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/referenceTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Client Reference Number: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/reference"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/hankengrotesk_bold"
-                            android:text="22222222222222222"
-                            android:textColor="#272727"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/messageLyt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10sp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/messageTextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Message: "
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/message"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:text="Message"
-                            android:textColor="#252525"
-                            android:textSize="16sp" />
-                    </LinearLayout>
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:text="Bank Name"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold"/>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:id="@+id/transactionLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/transactionTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Transaction:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium" />
+                    <TextView
+                        android:id="@+id/amount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:text="-₹2499.00"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/currentBalanceLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/yourBalanceTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Current Balance:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:id="@+id/balance"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="₹2,52,469.00"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/AadhaarLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/aadhaarNumberTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Aadhaar Number:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium" />
+                    <TextView
+                        android:id="@+id/aadhaarNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:text="88XX XXXX 5268"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/referenceLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/referenceTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reference Number:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"  />
+                    <TextView
+                        android:id="@+id/reference"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="4546absh82920"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ackNoLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/ackNoTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Acknowledgement No.:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_medium"  />
+                    <TextView
+                        android:id="@+id/ackNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:text="4546absh82920"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_10sdp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/poppins_semi_bold" />
+                </LinearLayout>
+            </LinearLayout>
             <RelativeLayout
                 android:id="@+id/Continue"
                 android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="20sp"
-                android:layout_below="@+id/paymentDetails"
-                android:layout_marginHorizontal="12sp"
-                android:background="@drawable/done_button_bg">
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_43sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:background="@drawable/next_button_filled"
+                android:layout_below="@+id/detailsLyt">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:elegantTextHeight="true"
                     android:text="Done"
-                    android:textColor="@color/vigyos"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp" />
             </RelativeLayout>
         </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
 </RelativeLayout>

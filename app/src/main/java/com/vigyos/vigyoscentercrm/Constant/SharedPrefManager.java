@@ -28,6 +28,7 @@ public class SharedPrefManager {
     private static final String is_active = "is_active";
     private static final String city = "city";
     private static final String state = "state";
+    private static final String state_code = "state_code";
     private static final String pincode = "pincode";
     private static final String profile_picture = "profile_picture";
     private static final String other_document = "other_document";
@@ -735,6 +736,16 @@ public class SharedPrefManager {
 
     public String getState(){
         return pref.getString(state, "null");
+    }
+
+    public void setStateCode(String StateCode){
+        editor = pref.edit();
+        editor.putString(state_code, StateCode);
+        editor.commit();
+    }
+
+    public String getStateCode(){
+        return pref.getString(state_code, "null");
     }
 
     public void setPinCode(String PinCode){

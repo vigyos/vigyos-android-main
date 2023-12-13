@@ -152,6 +152,11 @@ public interface Api {
     //Fino AEPS API End
 
     //Paytm AEPS API Start
+    @GET("aeps/paytm/state_list")
+    Call<Object> stateList(
+            @Header("Authorization") String Authorization
+    );
+
     @FormUrlEncoded
     @POST("aeps/paytm/onboard_user")
     Call<Object> paytmOnBoardUser(
@@ -168,6 +173,29 @@ public interface Api {
             @Field("city") String city
     );
 
+    @FormUrlEncoded
+    @POST("aeps/paytm/onboard/status")
+    Call<Object> onBoardStatus(
+            @Header("Authorization") String Authorization,
+            @Field("merchantcode") String merchantcode,
+            @Field("mobile") String mobile,
+            @Field("pipe") String pipe
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/bank_registration/verify")
+    Call<Object> paytmAuthAPI(
+            @Header("Authorization") String Authorization,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("timestamp") String timestamp,
+            @Field("data") String data,
+            @Field("ipaddress") String ipaddress,
+            @Field("submerchantid") String submerchantid
+    );
 
     @GET("aeps/paytm/bank_list")
     Call<Object> paytmBankList(
@@ -251,21 +279,6 @@ public interface Api {
             @Field("submerchantid") String submerchantid,
             @Field("data") String data,
             @Field("timestamp") String timestamp
-    );
-
-    @FormUrlEncoded
-    @POST("aeps/paytm/bank_registration/verify")
-    Call<Object> paytmAuthAPI(
-            @Header("Authorization") String Authorization,
-            @Field("accessmodetype") String accessmodetype,
-            @Field("adhaarnumber") String adhaarnumber,
-            @Field("mobilenumber") String mobilenumber,
-            @Field("latitude") String latitude,
-            @Field("longitude") String longitude,
-            @Field("timestamp") String timestamp,
-            @Field("data") String data,
-            @Field("ipaddress") String ipaddress,
-            @Field("submerchantid") String submerchantid
     );
     //Paytm AEPS API End
 

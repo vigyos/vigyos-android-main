@@ -145,7 +145,7 @@ public class WithdrawalFragment extends Fragment{
         bankNameSpinner = view.findViewById(R.id.bankNameSpinner);
         process = view.findViewById(R.id.process);
         remarkFocus = view.findViewById(R.id.remarkFocus);
-        fingerPrintDone = view.findViewById(R.id.captureData);
+        fingerPrintDone = view.findViewById(R.id.captureDataWi);
         captureFingerPrintWiFocus = view.findViewById(R.id.captureFingerPrintWiFocus);
         captureFingerPrintWiLyt = view.findViewById(R.id.captureFingerPrintWiLyt);
         captureFingerPrintWiText = view.findViewById(R.id.captureFingerPrintWiText);
@@ -537,7 +537,7 @@ public class WithdrawalFragment extends Fragment{
 
                         Intent intent = new Intent(activity, ProcessDoneActivity.class);
                         intent.putExtra("fragmentName", "Withdrawal");
-                        intent.putExtra("messageStatus", "Payment Successful!");
+                        intent.putExtra("messageStatus", "Withdrawal");
                         intent.putExtra("message", message);
                         intent.putExtra("bankName", bankName);
                         intent.putExtra("ackno", ackno);
