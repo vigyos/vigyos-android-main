@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
         android:layout_centerInParent="true"
         android:scaleType="centerInside"
         app:lottie_fileName="loader.json"
@@ -17,10 +17,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5sp"
+        android:layout_marginTop="@dimen/_3sdp"
         android:layout_below="@+id/animation_view"
+        android:elegantTextHeight="true"
         android:text="Please wait..."
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:fontFamily="@font/montserrat_bold" />
+        android:textColor="@color/dark_vigyos"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_medium" />
 </RelativeLayout>

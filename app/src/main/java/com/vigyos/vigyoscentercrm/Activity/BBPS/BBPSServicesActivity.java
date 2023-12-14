@@ -1,4 +1,4 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.BBPS;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Adapter.MunicipalityAdapter;
 import com.vigyos.vigyoscentercrm.Adapter.MunicipalityItem;
 import com.vigyos.vigyoscentercrm.R;
@@ -39,12 +40,10 @@ public class BBPSServicesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bbpsservices);
-
         fetchDataFromApi();
     }
 
     private void fetchDataFromApi() {
-
         // Assuming you have a RecyclerView in your layout with the id recyclerViewMunicipality
         RecyclerView recyclerView = findViewById(R.id.recyclerViewBBPS);
         List<MunicipalityItem> municipalityList = new ArrayList<>(); // Populate this list with your data
@@ -62,21 +61,21 @@ public class BBPSServicesActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONObject dataObject = jsonObject.getJSONObject("data");
-
-                        // Iterate through keys in the "data" object
-                        Iterator<String> keys = dataObject.keys();
-                        while (keys.hasNext()) {
-                            String categoryName = keys.next();
-                            JSONObject categoryObject = dataObject.getJSONObject(categoryName);
-                            String categoryIconUrl = categoryObject.getString("icon");
-
-                            // Add category name and icon to the list
-                            municipalityList.add(new MunicipalityItem(categoryName, categoryIconUrl));
+                        if (jsonObject.has("data")) {
+                            JSONObject dataObject = jsonObject.getJSONObject("data");
+                            // Iterate through keys in the "data" object
+                            Iterator<String> keys = dataObject.keys();
+                            while (keys.hasNext()) {
+                                String categoryName = keys.next();
+                                JSONObject categoryObject = dataObject.getJSONObject(categoryName);
+                                if (categoryObject.has("icon")) {
+                                    String categoryIconUrl = categoryObject.getString("icon");
+                                    municipalityList.add(new MunicipalityItem(categoryName, categoryIconUrl));
+                                }
+                            }
+                            // Notify the adapter that the data set has changed
+                            adapter.notifyDataSetChanged();
                         }
-
-                        // Notify the adapter that the data set has changed
-                        adapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

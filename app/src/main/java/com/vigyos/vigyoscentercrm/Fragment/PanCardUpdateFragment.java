@@ -501,13 +501,20 @@ public class PanCardUpdateFragment extends Fragment{
                 try {
                     JSONObject jsonObject  = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                        String url = jsonObject1.getString("url");
-                        String encData = jsonObject1.getString("encdata");
-                        Intent intent = new Intent(activity, PanWebViewActivity.class);
-                        intent.putExtra("url", url);
-                        intent.putExtra("encData", encData);
-                        startActivity(intent);
+                        if (jsonObject.has("data")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            String url = null, encData = null;
+                            if (jsonObject1.has("url")) {
+                                url = jsonObject1.getString("url");
+                            }
+                            if (jsonObject1.has("encdata")) {
+                                encData = jsonObject1.getString("encdata");
+                            }
+                            Intent intent = new Intent(activity, PanWebViewActivity.class);
+                            intent.putExtra("url", url);
+                            intent.putExtra("encData", encData);
+                            startActivity(intent);
+                        }
                     } else {
                         if (jsonObject.has("message")){
                             StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();

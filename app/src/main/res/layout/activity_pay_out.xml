@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_vigyos"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Activity.PayOutActivity">
+    tools:context=".Activity.AEPS.PayOutActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

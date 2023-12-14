@@ -102,44 +102,46 @@ public class PendingFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for(int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            if (jsonObject1.getString("status").equalsIgnoreCase("PENDING")){
-                                ProcessingItemModel processingItemModel = new ProcessingItemModel();
-                                if (jsonObject1.has("service_name")) {
-                                    processingItemModel.setService_name(jsonObject1.getString("service_name"));
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                if (jsonObject1.has("status") && jsonObject1.getString("status").equalsIgnoreCase("PENDING")){
+                                    ProcessingItemModel processingItemModel = new ProcessingItemModel();
+                                    if (jsonObject1.has("service_name")) {
+                                        processingItemModel.setService_name(jsonObject1.getString("service_name"));
+                                    }
+                                    if (jsonObject1.has("status")) {
+                                        processingItemModel.setStatus(jsonObject1.getString("status"));
+                                    }
+                                    if (jsonObject1.has("user_service_id")) {
+                                        processingItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                    }
+                                    if (jsonObject1.has("customer_name")) {
+                                        processingItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                    }
+                                    if (jsonObject1.has("customer_phone")) {
+                                        processingItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                    }
+                                    if (jsonObject1.has("customer_email")) {
+                                        processingItemModel.setCustomer_email(jsonObject1.getString("customer_email"));
+                                    }
+                                    if (jsonObject1.has("price")) {
+                                        processingItemModel.setPrice(jsonObject1.getInt("price"));
+                                    }
+                                    if (jsonObject1.has("created_time")) {
+                                        processingItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                    }
+                                    processingItemModels.add(processingItemModel);
                                 }
-                                if (jsonObject1.has("status")) {
-                                    processingItemModel.setStatus(jsonObject1.getString("status"));
-                                }
-                                if (jsonObject1.has("user_service_id")) {
-                                    processingItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                }
-                                if (jsonObject1.has("customer_name")) {
-                                    processingItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                }
-                                if (jsonObject1.has("customer_phone")) {
-                                    processingItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                }
-                                if (jsonObject1.has("customer_email")) {
-                                    processingItemModel.setCustomer_email(jsonObject1.getString("customer_email"));
-                                }
-                                if (jsonObject1.has("price")) {
-                                    processingItemModel.setPrice(jsonObject1.getInt("price"));
-                                }
-                                if (jsonObject1.has("created_time")) {
-                                    processingItemModel.setCreated_time(jsonObject1.getString("created_time"));
-                                }
-                                processingItemModels.add(processingItemModel);
                             }
+                            if(processingItemModels.isEmpty()){
+                                noPending.setVisibility(View.VISIBLE);
+                            } else {
+                                noPending.setVisibility(View.GONE);
+                            }
+                            completedListAdapter.notifyDataSetChanged();
                         }
-                        if(processingItemModels.isEmpty()){
-                            noPending.setVisibility(View.VISIBLE);
-                        } else {
-                            noPending.setVisibility(View.GONE);
-                        }
-                        completedListAdapter.notifyDataSetChanged();
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

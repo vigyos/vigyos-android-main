@@ -424,7 +424,7 @@
                             android:id="@+id/icon6"
                             android:layout_width="@dimen/_22sdp"
                             android:layout_height="@dimen/_22sdp"
-                            android:src="@drawable/help"
+                            android:src="@drawable/privacy_policy"
                             android:layout_centerVertical="true"/>
                         <TextView
                             android:layout_width="wrap_content"

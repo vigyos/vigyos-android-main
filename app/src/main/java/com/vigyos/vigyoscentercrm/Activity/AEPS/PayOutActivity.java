@@ -1,4 +1,4 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -50,6 +50,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -263,16 +265,18 @@ public class PayOutActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                            if (jsonObject1.has("payout_balance")) {
-                                SplashActivity.prefManager.setFinoPayoutBalance(jsonObject1.getInt("payout_balance"));
-                            }
-                            if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
-                                payoutBalance.setText("₹"+"0.00");
-                            } else {
-                                int i = SplashActivity.prefManager.getFinoPayoutBalance();
-                                float v = (float) i;
-                                payoutBalance.setText("₹"+ v);
+                            if (jsonObject.has("data")) {
+                                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                if (jsonObject1.has("payout_balance")) {
+                                    SplashActivity.prefManager.setFinoPayoutBalance(jsonObject1.getInt("payout_balance"));
+                                }
+                                if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
+                                    payoutBalance.setText("₹"+"0.00");
+                                } else {
+                                    int i = SplashActivity.prefManager.getFinoPayoutBalance();
+                                    float v = (float) i;
+                                    payoutBalance.setText("₹"+ v);
+                                }
                             }
                         } else {
                             if (jsonObject.has("message")) {
@@ -308,35 +312,37 @@ public class PayOutActivity extends AppCompatActivity {
                 Log.i("2016","onResponse" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("status") && jsonObject.getBoolean("status") ){
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        bankNameArray.add(0,"Select your bank");
-                        for (int i = 0; i < jsonArray.length(); i ++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            PayoutBankNameModel bankNameModel = new PayoutBankNameModel();
-                            if (jsonObject1.has("beneid")) {
-                                bankNameModel.setBeneid(jsonObject1.getString("beneid"));
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            bankNameArray.add(0,"Select your bank");
+                            for (int i = 0; i < jsonArray.length(); i ++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                PayoutBankNameModel bankNameModel = new PayoutBankNameModel();
+                                if (jsonObject1.has("beneid")) {
+                                    bankNameModel.setBeneid(jsonObject1.getString("beneid"));
+                                }
+                                if (jsonObject1.has("merchantcode")) {
+                                    bankNameModel.setMerchantcode(jsonObject1.getString("merchantcode"));
+                                }
+                                if (jsonObject1.has("bankname")) {
+                                    bankNameModel.setBankname(jsonObject1.getString("bankname"));
+                                }
+                                if (jsonObject1.has("account")) {
+                                    bankNameModel.setAccount(jsonObject1.getString("account"));
+                                }
+                                if (jsonObject1.has("ifsc")) {
+                                    bankNameModel.setIfsc(jsonObject1.getString("ifsc"));
+                                }
+                                if (jsonObject1.has("name")) {
+                                    bankNameModel.setName(jsonObject1.getString("name"));
+                                    bankNameArray.add(jsonObject1.getString("bankname"));
+                                }
+                                if (jsonObject1.has("account_type")) {
+                                    bankNameModel.setAccount_type(jsonObject1.getString("account_type"));
+                                }
+                                bankNameModels.add(bankNameModel);
                             }
-                            if (jsonObject1.has("merchantcode")) {
-                                bankNameModel.setMerchantcode(jsonObject1.getString("merchantcode"));
-                            }
-                            if (jsonObject1.has("bankname")) {
-                                bankNameModel.setBankname(jsonObject1.getString("bankname"));
-                            }
-                            if (jsonObject1.has("account")) {
-                                bankNameModel.setAccount(jsonObject1.getString("account"));
-                            }
-                            if (jsonObject1.has("ifsc")) {
-                                bankNameModel.setIfsc(jsonObject1.getString("ifsc"));
-                            }
-                            if (jsonObject1.has("name")) {
-                                bankNameModel.setName(jsonObject1.getString("name"));
-                                bankNameArray.add(jsonObject1.getString("bankname"));
-                            }
-                            if (jsonObject1.has("account_type")) {
-                                bankNameModel.setAccount_type(jsonObject1.getString("account_type"));
-                            }
-                            bankNameModels.add(bankNameModel);
                         }
                     } else {
                         bankNameArray.add(0,"Select your bank");

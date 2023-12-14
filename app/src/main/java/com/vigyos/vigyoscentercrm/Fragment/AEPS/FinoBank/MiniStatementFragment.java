@@ -15,7 +15,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
@@ -37,16 +36,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
-import com.vigyos.vigyoscentercrm.Activity.MiniStatementDoneActivity;
-import com.vigyos.vigyoscentercrm.Activity.ProcessDoneActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.MiniStatementDoneActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
@@ -345,7 +341,7 @@ public class MiniStatementFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
-                    StyleableToast.makeText(activity, "Device not found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
                 }
             }
         });
@@ -380,43 +376,47 @@ public class MiniStatementFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
-                        JSONArray jsonArray = jsonObject1.getJSONArray("data");
-                        bankListArray.add(0, "Select your bank");
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                            BankListModel bankListModel = new BankListModel();
-                            if (jsonObject2.has("id")){
-                                bankListModel.setId(jsonObject2.getInt("id"));
-                            } else {
-                                bankListModel.setId(0);
+                        if (jsonObject.has("banklist")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
+                            if (jsonObject1.has("data")) {
+                                JSONArray jsonArray = jsonObject1.getJSONArray("data");
+                                bankListArray.add(0, "Select your bank");
+                                for (int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                                    BankListModel bankListModel = new BankListModel();
+                                    if (jsonObject2.has("id")){
+                                        bankListModel.setId(jsonObject2.getInt("id"));
+                                    } else {
+                                        bankListModel.setId(0);
+                                    }
+                                    if(jsonObject2.has("bankName")){
+                                        bankListModel.setBankName(jsonObject2.getString("bankName"));
+                                        bankListArray.add(jsonObject2.getString("bankName"));
+                                    } else {
+                                        bankListModel.setBankName("Bank Name");
+                                    }
+                                    if (jsonObject2.has("iinno")){
+                                        bankListModel.setIinno(jsonObject2.getInt("iinno"));
+                                    } else {
+                                        bankListModel.setIinno(0);
+                                    }
+                                    if (jsonObject2.has("activeFlag")){
+                                        bankListModel.setActiveFlag(jsonObject2.getString("activeFlag"));
+                                    } else {
+                                        bankListModel.setActiveFlag("0");
+                                    }
+                                    if (jsonObject2.has("aadharpayiinno")){
+                                        bankListModel.setAadharpayiinno(jsonObject2.getString("aadharpayiinno"));
+                                    } else {
+                                        bankListModel.setAadharpayiinno("aadharpayiinno");
+                                    }
+                                    bankListModels.add(bankListModel);
+                                }
                             }
-                            if(jsonObject2.has("bankName")){
-                                bankListModel.setBankName(jsonObject2.getString("bankName"));
-                                bankListArray.add(jsonObject2.getString("bankName"));
-                            } else {
-                                bankListModel.setBankName("Bank Name");
-                            }
-                            if (jsonObject2.has("iinno")){
-                                bankListModel.setIinno(jsonObject2.getInt("iinno"));
-                            } else {
-                                bankListModel.setIinno(0);
-                            }
-                            if (jsonObject2.has("activeFlag")){
-                                bankListModel.setActiveFlag(jsonObject2.getString("activeFlag"));
-                            } else {
-                                bankListModel.setActiveFlag("0");
-                            }
-                            if (jsonObject2.has("aadharpayiinno")){
-                                bankListModel.setAadharpayiinno(jsonObject2.getString("aadharpayiinno"));
-                            } else {
-                                bankListModel.setAadharpayiinno("aadharpayiinno");
-                            }
-                            bankListModels.add(bankListModel);
                         }
                     } else {
-                        if (jsonObject.has("message")){
-                            Snackbar.make(activity.findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();
+                        if (jsonObject.has("message")) {
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, R.layout.layout_spinner_item, bankListArray); //selected item will look like a spinner set from XML
@@ -474,21 +474,43 @@ public class MiniStatementFragment extends Fragment {
                 Log.i("2016", "onResponse " + response);
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("status") && jsonObject.getBoolean("status")){
-                        String  ackno = jsonObject.getString("ackno");
-                        double  balanceamount = jsonObject.getDouble("balanceamount");
-                        String  bankrrn = jsonObject.getString("bankrrn");
-                        String  bankiin = jsonObject.getString("bankiin");
-                        String  message = jsonObject.getString("message");
-                        JSONArray jsonArray = jsonObject.getJSONArray("ministatement");
-                        for (int i = 0; i <jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            MiniStatementModel statementModel = new MiniStatementModel();
-                            statementModel.setDate(jsonObject1.getString("date"));
-                            statementModel.setTxnType(jsonObject1.getString("txnType"));
-                            statementModel.setAmount(jsonObject1.getDouble("amount"));
-                            statementModel.setNarration(jsonObject1.getString("narration"));
-                            miniStatementModels.add(statementModel);
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        String  ackno = null, bankrrn = null,bankiin = null, message = null;
+                        double balanceamount = 0;
+                        if (jsonObject.has("ackno")) {
+                            ackno = jsonObject.getString("ackno");
+                        }
+                        if (jsonObject.has("balanceamount")) {
+                            balanceamount = jsonObject.getDouble("balanceamount");
+                        }
+                        if (jsonObject.has("bankrrn")) {
+                            bankrrn = jsonObject.getString("bankrrn");
+                        }
+                        if (jsonObject.has("bankiin")) {
+                            bankiin = jsonObject.getString("bankiin");
+                        }
+                        if (jsonObject.has("message")) {
+                            message = jsonObject.getString("message");
+                        }
+                        if (jsonObject.has("ministatement")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("ministatement");
+                            for (int i = 0; i <jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                MiniStatementModel statementModel = new MiniStatementModel();
+                                if (jsonObject1.has("date")) {
+                                    statementModel.setDate(jsonObject1.getString("date"));
+                                }
+                                if (jsonObject1.has("txnType")) {
+                                    statementModel.setTxnType(jsonObject1.getString("txnType"));
+                                }
+                                if (jsonObject1.has("amount")) {
+                                    statementModel.setAmount(jsonObject1.getDouble("amount"));
+                                }
+                                if (jsonObject1.has("narration")) {
+                                    statementModel.setNarration(jsonObject1.getString("narration"));
+                                }
+                                miniStatementModels.add(statementModel);
+                            }
                         }
 
                         Intent intent = new Intent(activity, MiniStatementDoneActivity.class);
@@ -504,7 +526,7 @@ public class MiniStatementFragment extends Fragment {
                         startActivity(intent);
                     } else {
                         if (jsonObject.has("message")){
-                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                             fingerCapture = false;
                             fingerPrintDone.setVisibility(View.GONE);
                             captureFingerPrintMiniLyt.setBackgroundResource(R.drawable.credential_border_fill);
@@ -594,7 +616,7 @@ public class MiniStatementFragment extends Fragment {
                         if (result != null) {
                             pidData = serializer.read(PidData.class, result);
                             if (!pidData._Resp.errCode.equals("0")) {
-                                StyleableToast.makeText(activity, "Device Not Found!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                                DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
                             } else {
                                 fingerData = result;
                                 fingerCapture = true;

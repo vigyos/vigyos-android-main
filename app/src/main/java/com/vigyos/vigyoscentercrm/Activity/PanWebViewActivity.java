@@ -155,13 +155,20 @@ public class PanWebViewActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                        String amount = jsonObject1.getString("amount");
-                        String ackno = jsonObject1.getString("ackno");
-//                        String message = jsonObject1.getString("message");
-                        Toast.makeText(activity, jsonObject1.getString("message"), Toast.LENGTH_SHORT).show();
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        activity.finish();
+                        if (jsonObject.has("data")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            if (jsonObject1.has("amount")) {
+                                String amount = jsonObject1.getString("amount");
+                            }
+                            if (jsonObject1.has("ackno")) {
+                                String ackno = jsonObject1.getString("ackno");
+                            }
+                            if (jsonObject1.has("message")) {
+                                Toast.makeText(activity, jsonObject1.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                            activity.startActivity(new Intent(activity, MainActivity.class));
+                            activity.finish();
+                        }
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

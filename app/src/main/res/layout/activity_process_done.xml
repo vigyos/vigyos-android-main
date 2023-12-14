@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_vigyos"
-    tools:context=".Activity.ProcessDoneActivity">
+    tools:context=".Activity.AEPS.ProcessDoneActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -62,181 +62,188 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginHorizontal="@dimen/_22sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:layout_below="@+id/animLyt"
+                android:background="@drawable/credential_border"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:id="@+id/backNameLyt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/backIdentification"
-                        android:layout_width="0dp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/backNameLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Bank Identification:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium"/>
-                    <TextView
-                        android:id="@+id/backName"
-                        android:layout_width="0dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/backIdentification"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bank Identification:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/backName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:text="Bank Name"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/transactionLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:layout_weight="1"
-                        android:text="Bank Name"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/transactionLyt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/transactionTextView"
-                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/transactionTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Transaction:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium" />
+                        <TextView
+                            android:id="@+id/amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:text="-₹0.00"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/currentBalanceLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Transaction:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium" />
-                    <TextView
-                        android:id="@+id/amount"
-                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/yourBalanceTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Current Balance:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/balance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="₹0.00"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/AadhaarLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:layout_weight="1"
-                        android:text="-₹2499.00"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/currentBalanceLyt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/yourBalanceTextView"
-                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/aadhaarNumberTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Aadhaar Number:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium" />
+                        <TextView
+                            android:id="@+id/aadhaarNumber"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:text="XXXX XXXX XXXX"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/referenceLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Current Balance:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium"/>
-                    <TextView
-                        android:id="@+id/balance"
-                        android:layout_width="0dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/referenceTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Reference Number:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium"  />
+                        <TextView
+                            android:id="@+id/reference"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="XXXXXXXXX"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ackNoLyt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="₹2,52,469.00"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/AadhaarLyt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/aadhaarNumberTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Aadhaar Number:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium" />
-                    <TextView
-                        android:id="@+id/aadhaarNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:layout_weight="1"
-                        android:text="88XX XXXX 5268"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/referenceLyt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/referenceTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Reference Number:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium"  />
-                    <TextView
-                        android:id="@+id/reference"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="4546absh82920"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ackNoLyt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/ackNoTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Acknowledgement No.:"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_medium"  />
-                    <TextView
-                        android:id="@+id/ackNo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="end"
-                        android:layout_weight="1"
-                        android:text="4546absh82920"
-                        android:textColor="@color/dark_vigyos"
-                        android:textSize="@dimen/_10sdp"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/poppins_semi_bold" />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/ackNoTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Acknowledgement No.:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_medium"  />
+                        <TextView
+                            android:id="@+id/ackNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:layout_weight="1"
+                            android:text="XXXXXXXXXX"
+                            android:textColor="@color/dark_vigyos"
+                            android:textSize="@dimen/_10sdp"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/poppins_semi_bold" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <RelativeLayout

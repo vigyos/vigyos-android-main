@@ -315,9 +315,9 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-
-                        Toast.makeText(BuyServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
+                        if (jsonObject.has("message")) {
+                            Toast.makeText(BuyServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
                         startActivity(new Intent(BuyServiceActivity.this, MainActivity.class));
                         finish();
                     }
@@ -351,33 +351,47 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                            serviceGroupId = jsonObject2.getString("services_group_id");
-                            JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
-                            for(int k = 0; k <jsonArray1.length(); k++){
-                                JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
-                                BuyServiceDocumentModel documentModel = new BuyServiceDocumentModel();
-                                documentModel.setKey(jsonObject1.getString("key"));
-                                documentModel.setDocument_name(jsonObject1.getString("document_name"));
-                                documentModel.setDocument_type(jsonObject1.getString("document_type"));
-                                documentModel.setDocument_label(jsonObject1.getString("document_label"));
-                                buyServiceDocumentModels.add(documentModel);
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                                if (jsonObject2.has("services_group_id")) {
+                                    serviceGroupId = jsonObject2.getString("services_group_id");
+                                }
+                                if (jsonObject2.has("required_data")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
+                                    for(int k = 0; k <jsonArray1.length(); k++){
+                                        JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
+                                        BuyServiceDocumentModel documentModel = new BuyServiceDocumentModel();
+                                        if (jsonObject1.has("key")) {
+                                            documentModel.setKey(jsonObject1.getString("key"));
+                                        }
+                                        if (jsonObject1.has("document_name")) {
+                                            documentModel.setDocument_name(jsonObject1.getString("document_name"));
+                                        }
+                                        if (jsonObject1.has("document_type")) {
+                                            documentModel.setDocument_type(jsonObject1.getString("document_type"));
+                                        }
+                                        if (jsonObject1.has("document_label")) {
+                                            documentModel.setDocument_label(jsonObject1.getString("document_label"));
+                                        }
+                                        buyServiceDocumentModels.add(documentModel);
+                                    }
+                                }
                             }
-                        }
 
-                        // Initialize imageUris array list
-                        for (int i = 0; i < buyServiceDocumentModels.size(); i++) {
-                            imageUris.add(null);
-                        }
+                            // Initialize imageUris array list
+                            for (int i = 0; i < buyServiceDocumentModels.size(); i++) {
+                                imageUris.add(null);
+                            }
 
-                        // Initialize imageUris array list
-                        for (int i = 0; i < buyServiceDocumentModels.size(); i++) {
-                            imageUrisForShow.add(null);
-                        }
+                            // Initialize imageUris array list
+                            for (int i = 0; i < buyServiceDocumentModels.size(); i++) {
+                                imageUrisForShow.add(null);
+                            }
 
-                        buyServiceDocumentAdapter();
+                            buyServiceDocumentAdapter();
+                        }
                     } else {
                         Toast.makeText(BuyServiceActivity.this, "Your session has expired. Please log in again to continue.", Toast.LENGTH_SHORT).show();
                         SplashActivity.prefManager.setClear();
@@ -485,14 +499,16 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                            String imageUrl = jsonObject.getString("url");
-                            // Update the URI in the imageUris array list
-                            imageUris.set(selectedPosition, imageUrl);
-                            imageUrisForShow.set(selectedPosition, selectedImageUri.toString());
+                            if (jsonObject.has("url")) {
+                                String imageUrl = jsonObject.getString("url");
+                                // Update the URI in the imageUris array list
+                                imageUris.set(selectedPosition, imageUrl);
+                                imageUrisForShow.set(selectedPosition, selectedImageUri.toString());
 
-                            // Hide the uploadImageLyt when image upload is successful
-                            buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.GONE);
-                            buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.VISIBLE);
+                                // Hide the uploadImageLyt when image upload is successful
+                                buyServiceAdapter.setVisibilityOfUploadImageLyt(selectedPosition, View.GONE);
+                                buyServiceAdapter.setVisibilityOfDocumentImage(selectedPosition, View.VISIBLE);
+                            }
                         } else {
                             Toast.makeText(BuyServiceActivity.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
                         }

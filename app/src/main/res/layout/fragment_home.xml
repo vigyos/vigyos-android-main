@@ -350,7 +350,7 @@
                         android:columnCount="5"
                         android:rowCount="1">
                         <LinearLayout
-                            android:id="@+id/udyam"
+                            android:id="@+id/govtServices"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_columnWeight="1"
@@ -360,13 +360,13 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/msme" />
+                                android:src="@drawable/govt_serviece" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
                                 android:elegantTextHeight="true"
-                                android:text="Udyam"
+                                android:text="Govt. Services"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />
@@ -506,7 +506,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:elegantTextHeight="true"
-                                android:text="Recharge"
+                                android:text="Prepaid"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />

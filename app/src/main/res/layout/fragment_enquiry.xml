@@ -256,7 +256,7 @@
             <RelativeLayout
                 android:id="@+id/process"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_17sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:background="@drawable/next_button_filled">

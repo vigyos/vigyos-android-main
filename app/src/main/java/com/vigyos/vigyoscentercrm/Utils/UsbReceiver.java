@@ -1,4 +1,4 @@
-package com.vigyos.vigyoscentercrm;
+package com.vigyos.vigyoscentercrm.Utils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

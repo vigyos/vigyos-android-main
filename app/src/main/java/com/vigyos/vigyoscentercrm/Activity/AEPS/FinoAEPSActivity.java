@@ -1,4 +1,4 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import android.graphics.Typeface;
 import android.os.Bundle;

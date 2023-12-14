@@ -146,69 +146,71 @@ public class WalletHistoryFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     Log.i("2016", "JSON Response: " + jsonObject); // Added this line for logging
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            WalletHistoryModel historyModel = new WalletHistoryModel();
-                            if (jsonObject1.has("trx_id")) {
-                                historyModel.setTrx_id(jsonObject1.getString("trx_id"));
-                            }
-                            if (jsonObject1.has("user_id")) {
-                                historyModel.setUser_id(jsonObject1.getString("user_id"));
-                            }
-                            if (jsonObject1.has("trx_amount")) {
-                                historyModel.setTrx_amount(jsonObject1.getInt("trx_amount"));
-                            }
-                            if (jsonObject1.has("trx_status")) {
-                                historyModel.setTrx_status(jsonObject1.getString("trx_status"));
-                            }
-                            if (jsonObject1.has("trx_type")) {
-                                historyModel.setTrx_type(jsonObject1.getString("trx_type"));
-                            }
-                            if (jsonObject1.has("description")) {
-                                historyModel.setDescription(jsonObject1.getString("description"));
-                            }
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                WalletHistoryModel historyModel = new WalletHistoryModel();
+                                if (jsonObject1.has("trx_id")) {
+                                    historyModel.setTrx_id(jsonObject1.getString("trx_id"));
+                                }
+                                if (jsonObject1.has("user_id")) {
+                                    historyModel.setUser_id(jsonObject1.getString("user_id"));
+                                }
+                                if (jsonObject1.has("trx_amount")) {
+                                    historyModel.setTrx_amount(jsonObject1.getInt("trx_amount"));
+                                }
+                                if (jsonObject1.has("trx_status")) {
+                                    historyModel.setTrx_status(jsonObject1.getString("trx_status"));
+                                }
+                                if (jsonObject1.has("trx_type")) {
+                                    historyModel.setTrx_type(jsonObject1.getString("trx_type"));
+                                }
+                                if (jsonObject1.has("description")) {
+                                    historyModel.setDescription(jsonObject1.getString("description"));
+                                }
 //                            if (jsonObject1.has("entity_id")) {
 //                                historyModel.setEntity_id(jsonObject1.getInt("entity_id"));
 //                            }
-                            if (jsonObject1.has("entity_type")) {
-                                historyModel.setEntity_type(jsonObject1.getString("entity_type"));
+                                if (jsonObject1.has("entity_type")) {
+                                    historyModel.setEntity_type(jsonObject1.getString("entity_type"));
+                                }
+                                if (jsonObject1.has("amount_type")) {
+                                    historyModel.setAmount_type(jsonObject1.getString("amount_type"));
+                                }
+                                if (jsonObject1.has("timestamp")) {
+                                    historyModel.setTimestamp(jsonObject1.getString("timestamp"));
+                                }
+                                if (jsonObject1.has("proof")) {
+                                    historyModel.setProof(jsonObject1.getString("proof"));
+                                }
+                                if (jsonObject1.has("wallet_id")) {
+                                    historyModel.setWallet_id(jsonObject1.getString("wallet_id"));
+                                }
+                                if (jsonObject1.has("created_at")) {
+                                    historyModel.setCreated_at(jsonObject1.getString("created_at"));
+                                }
+                                if (jsonObject1.has("record_count")) {
+                                    historyModel.setRecord_count(jsonObject1.getInt("record_count"));
+                                }
+                                if (jsonObject1.has("first_name")) {
+                                    historyModel.setFirst_name(jsonObject1.getString("first_name"));
+                                }
+                                if (jsonObject1.has("last_name")) {
+                                    historyModel.setLast_name(jsonObject1.getString("last_name"));
+                                }
+                                if (jsonObject1.has("updated_amount")) {
+                                    historyModel.setUpdated_amount(jsonObject1.getInt("updated_amount"));
+                                }
+                                walletHistoryModel.add(historyModel);
                             }
-                            if (jsonObject1.has("amount_type")) {
-                                historyModel.setAmount_type(jsonObject1.getString("amount_type"));
+                            if (walletHistoryModel.isEmpty()) {
+                                animationView.setVisibility(View.VISIBLE);
+                            } else {
+                                animationView.setVisibility(View.GONE);
                             }
-                            if (jsonObject1.has("timestamp")) {
-                                historyModel.setTimestamp(jsonObject1.getString("timestamp"));
-                            }
-                            if (jsonObject1.has("proof")) {
-                                historyModel.setProof(jsonObject1.getString("proof"));
-                            }
-                            if (jsonObject1.has("wallet_id")) {
-                                historyModel.setWallet_id(jsonObject1.getString("wallet_id"));
-                            }
-                            if (jsonObject1.has("created_at")) {
-                                historyModel.setCreated_at(jsonObject1.getString("created_at"));
-                            }
-                            if (jsonObject1.has("record_count")) {
-                                historyModel.setRecord_count(jsonObject1.getInt("record_count"));
-                            }
-                            if (jsonObject1.has("first_name")) {
-                                historyModel.setFirst_name(jsonObject1.getString("first_name"));
-                            }
-                            if (jsonObject1.has("last_name")) {
-                                historyModel.setLast_name(jsonObject1.getString("last_name"));
-                            }
-                            if (jsonObject1.has("updated_amount")) {
-                                historyModel.setUpdated_amount(jsonObject1.getInt("updated_amount"));
-                            }
-                            walletHistoryModel.add(historyModel);
+                            walletHistoryAdapter.notifyDataSetChanged();
                         }
-                        if (walletHistoryModel.isEmpty()) {
-                            animationView.setVisibility(View.VISIBLE);
-                        } else {
-                            animationView.setVisibility(View.GONE);
-                        }
-                        walletHistoryAdapter.notifyDataSetChanged();
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

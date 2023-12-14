@@ -1,9 +1,8 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
 
@@ -41,13 +40,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Model.PayoutAddAccountBankListModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -433,7 +432,9 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                            if (jsonObject.has("message")) {
+                                StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                            }
                             startActivity(new Intent(AddBankAccountActivity.this, PayOutActivity.class));
                             finish();
                         } else {
@@ -495,7 +496,9 @@ public class AddBankAccountActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                            if (jsonObject.has("message")) {
+                                StyleableToast.makeText(AddBankAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                            }
                         } else {
                             StyleableToast.makeText(AddBankAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
                         }
@@ -633,19 +636,21 @@ public class AddBankAccountActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
-                        bankNameArrayList.add(0,"Select your bank");
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            PayoutAddAccountBankListModel listModel = new PayoutAddAccountBankListModel();
-                            if (jsonObject1.has("bank_id")) {
-                                listModel.setBank_id(jsonObject1.getInt("bank_id"));
+                        if (jsonObject.has("bank_list")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
+                            bankNameArrayList.add(0,"Select your bank");
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                PayoutAddAccountBankListModel listModel = new PayoutAddAccountBankListModel();
+                                if (jsonObject1.has("bank_id")) {
+                                    listModel.setBank_id(jsonObject1.getInt("bank_id"));
+                                }
+                                if (jsonObject1.has("bank_name")) {
+                                    listModel.setBank_name(jsonObject1.getString("bank_name"));
+                                    bankNameArrayList.add(jsonObject1.getString("bank_name"));
+                                }
+                                bankListModels.add(listModel);
                             }
-                            if (jsonObject1.has("bank_name")) {
-                                listModel.setBank_name(jsonObject1.getString("bank_name"));
-                                bankNameArrayList.add(jsonObject1.getString("bank_name"));
-                            }
-                            bankListModels.add(listModel);
                         }
                     } else {
                         if (jsonObject.has("message")) {

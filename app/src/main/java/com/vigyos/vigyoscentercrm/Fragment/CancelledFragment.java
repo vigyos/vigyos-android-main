@@ -107,44 +107,46 @@ public class CancelledFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for(int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            if (jsonObject1.getString("status").equalsIgnoreCase("REJECTED") ){
-                                CancelledItemModel cancelledItemModel = new CancelledItemModel();
-                                if (jsonObject1.has("service_name")) {
-                                    cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                if (jsonObject1.has("status") && jsonObject1.getString("status").equalsIgnoreCase("REJECTED") ){
+                                    CancelledItemModel cancelledItemModel = new CancelledItemModel();
+                                    if (jsonObject1.has("service_name")) {
+                                        cancelledItemModel.setService_name(jsonObject1.getString("service_name"));
+                                    }
+                                    if (jsonObject1.has("status")) {
+                                        cancelledItemModel.setStatus(jsonObject1.getString("status"));
+                                    }
+                                    if (jsonObject1.has("user_service_id")) {
+                                        cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
+                                    }
+                                    if (jsonObject1.has("customer_name")) {
+                                        cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
+                                    }
+                                    if (jsonObject1.has("customer_phone")) {
+                                        cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
+                                    }
+                                    if (jsonObject1.has("customer_email")) {
+                                        cancelledItemModel.setCustomer_email(jsonObject1.getString("customer_email"));
+                                    }
+                                    if (jsonObject1.has("price")) {
+                                        cancelledItemModel.setPrice(jsonObject1.getInt("price"));
+                                    }
+                                    if (jsonObject1.has("created_time")) {
+                                        cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
+                                    }
+                                    cancelledItemModels.add(cancelledItemModel);
                                 }
-                                if (jsonObject1.has("status")) {
-                                    cancelledItemModel.setStatus(jsonObject1.getString("status"));
-                                }
-                                if (jsonObject1.has("user_service_id")) {
-                                    cancelledItemModel.setUser_service_id(jsonObject1.getString("user_service_id"));
-                                }
-                                if (jsonObject1.has("customer_name")) {
-                                    cancelledItemModel.setCustomer_name(jsonObject1.getString("customer_name"));
-                                }
-                                if (jsonObject1.has("customer_phone")) {
-                                    cancelledItemModel.setCustomer_phone(jsonObject1.getString("customer_phone"));
-                                }
-                                if (jsonObject1.has("customer_email")) {
-                                    cancelledItemModel.setCustomer_email(jsonObject1.getString("customer_email"));
-                                }
-                                if (jsonObject1.has("price")) {
-                                    cancelledItemModel.setPrice(jsonObject1.getInt("price"));
-                                }
-                                if (jsonObject1.has("created_time")) {
-                                    cancelledItemModel.setCreated_time(jsonObject1.getString("created_time"));
-                                }
-                                cancelledItemModels.add(cancelledItemModel);
                             }
+                            if(cancelledItemModels.isEmpty()){
+                                noCancelled.setVisibility(View.VISIBLE);
+                            } else {
+                                noCancelled.setVisibility(View.GONE);
+                            }
+                            cancelledListAdapter.notifyDataSetChanged();
                         }
-                        if(cancelledItemModels.isEmpty()){
-                            noCancelled.setVisibility(View.VISIBLE);
-                        } else {
-                            noCancelled.setVisibility(View.GONE);
-                        }
-                        cancelledListAdapter.notifyDataSetChanged();
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

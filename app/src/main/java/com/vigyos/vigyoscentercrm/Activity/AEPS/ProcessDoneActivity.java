@@ -1,18 +1,12 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vigyos.vigyoscentercrm.R;

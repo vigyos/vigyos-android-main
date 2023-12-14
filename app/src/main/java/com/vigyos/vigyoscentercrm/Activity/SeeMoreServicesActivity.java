@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -209,7 +210,16 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             SeeMoreServiceModel serviceModel = seeMoreServiceModels.get(position);
             holder.serviceTitle.setText(serviceModel.getServiceName());
-            Picasso.get().load(serviceModel.getServiceIcon()).into(holder.iconImage);
+            Picasso.get()
+                    .load(serviceModel.getServiceIcon())
+                    .into(holder.iconImage, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+                        @Override
+                        public void onError(Exception e) { }
+                    });
             holder.totalCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -223,15 +233,17 @@ public class SeeMoreServicesActivity extends AppCompatActivity {
 
         private class Holder extends RecyclerView.ViewHolder{
 
-            private ImageView iconImage;
-            private TextView serviceTitle;
-            private RelativeLayout totalCardView;
+            public ImageView iconImage;
+            public TextView serviceTitle;
+            public RelativeLayout totalCardView;
+            public ProgressBar progressBar;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
                 iconImage =  itemView.findViewById(R.id.iconImage);
                 serviceTitle =  itemView.findViewById(R.id.titleName);
                 totalCardView =  itemView.findViewById(R.id.totalCardView);
+                progressBar =  itemView.findViewById(R.id.progressBar);
             }
         }
     }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.FinoAEPSActivity"
+    tools:context=".Activity.AEPS.FinoAEPSActivity"
     android:background="@color/white">
     <RelativeLayout
         android:id="@+id/toolbar"

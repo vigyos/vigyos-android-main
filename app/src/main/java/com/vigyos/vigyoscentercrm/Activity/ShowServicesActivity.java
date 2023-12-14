@@ -127,27 +127,39 @@ public class ShowServicesActivity extends AppCompatActivity {
                 try {
                     JSONObject  jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i < jsonArray.length(); i++){
-                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                            serviceName = jsonObject2.getString("service_name");
-                            serviceDetails = jsonObject2.getString("description");
-                            serviceDetails = serviceDetails.replaceAll("<p>", "").replaceAll("</p>", "");
-                            price = jsonObject2.getInt("price");
-                            JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
-                            for(int k = 0; k <jsonArray1.length(); k++){
-                                JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
-                                DocumentItemModel itemModel = new DocumentItemModel();
-                                itemModel.setDocument_name(jsonObject1.getString("document_name"));
-                                documentItemModels.add(itemModel);
-                                documentsName.add(jsonObject1.getString("document_name"));
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                                if (jsonObject2.has("service_name")) {
+                                    serviceName = jsonObject2.getString("service_name");
+                                }
+                                if (jsonObject2.has("description")) {
+                                    serviceDetails = jsonObject2.getString("description");
+                                    serviceDetails = serviceDetails.replaceAll("<p>", "").replaceAll("</p>", "");
+                                }
+                                if (jsonObject2.has("price")) {
+                                    price = jsonObject2.getInt("price");
+                                }
+                                if (jsonObject2.has("required_data")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("required_data");
+                                    for(int k = 0; k <jsonArray1.length(); k++){
+                                        JSONObject jsonObject1 = jsonArray1.getJSONObject(k);
+                                        DocumentItemModel itemModel = new DocumentItemModel();
+                                        if (jsonObject1.has("document_name")) {
+                                            itemModel.setDocument_name(jsonObject1.getString("document_name"));
+                                            documentItemModels.add(itemModel);
+                                            documentsName.add(jsonObject1.getString("document_name"));
+                                        }
+                                    }
+                                }
                             }
+                            serviceNameText.setText(serviceName);
+                            serviceDetailsText.setText(serviceDetails);
+                            float v = (float) price;
+                            priceText.setText("₹"+v);
+                            serviceDocuments();
                         }
-                        serviceNameText.setText(serviceName);
-                        serviceDetailsText.setText(serviceDetails);
-                        float v = (float) price;
-                        priceText.setText("₹"+v);
-                        serviceDocuments();
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(ShowServicesActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

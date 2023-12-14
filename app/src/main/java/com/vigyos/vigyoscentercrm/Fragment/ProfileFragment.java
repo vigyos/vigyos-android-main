@@ -48,7 +48,7 @@ import com.vigyos.vigyoscentercrm.Activity.BiometricLockActivity;
 import com.vigyos.vigyoscentercrm.Activity.DocumentsActivity;
 import com.vigyos.vigyoscentercrm.Activity.HelpAndSupportActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
-import com.vigyos.vigyoscentercrm.Activity.PayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.PayOutActivity;
 import com.vigyos.vigyoscentercrm.Activity.PersonalProfileActivity;
 import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.PrivacyPolicyActivity;
@@ -169,7 +169,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                startActivity(new Intent(activity, PlansActivity.class));
+//                startActivity(new Intent(activity, PlansActivity.class));
+                Toast.makeText(activity, "Coming soon...", Toast.LENGTH_SHORT).show();
             }
         });
         personalProfile.setOnClickListener(new View.OnClickListener() {
@@ -308,8 +309,10 @@ public class ProfileFragment extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                            String imageUrl = jsonObject.getString("url");
-                            Picasso.get().load(imageUrl).into(userIcon);
+                            if (jsonObject.has("url")) {
+                                String imageUrl = jsonObject.getString("url");
+                                Picasso.get().load(imageUrl).into(userIcon);
+                            }
                         } else {
                             Toast.makeText(activity, "Failed to change profile", Toast.LENGTH_SHORT).show();
                         }

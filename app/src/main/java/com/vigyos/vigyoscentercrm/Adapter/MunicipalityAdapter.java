@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,11 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.vigyos.vigyoscentercrm.Activity.CategoryDetailsActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSPayBillsActivity;
 import com.vigyos.vigyoscentercrm.R;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -47,7 +46,16 @@ public class MunicipalityAdapter extends RecyclerView.Adapter<MunicipalityAdapte
         holder.municipalityName.setText(currentItem.getCategoryName());
         // Check if categoryIconUrl is not empty or null before loading with Picasso
         if (!TextUtils.isEmpty(currentItem.getCategoryIconUrl())) {
-            Picasso.get().load(currentItem.getCategoryIconUrl()).into(holder.municipalityIcon);
+            Picasso.get()
+                    .load(currentItem.getCategoryIconUrl())
+                    .into(holder.municipalityIcon, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+                        @Override
+                        public void onError(Exception e) { }
+                    });
         } else {
             // Handle the case where categoryIconUrl is empty or null
             // You can set a placeholder image or handle it based on your requirements
@@ -57,12 +65,11 @@ public class MunicipalityAdapter extends RecyclerView.Adapter<MunicipalityAdapte
         holder.mainLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,  CategoryDetailsActivity.class);
+                Intent intent = new Intent(context,  BBPSPayBillsActivity.class);
                 intent.putExtra("categoryData", currentItem.getCategoryName());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -74,13 +81,15 @@ public class MunicipalityAdapter extends RecyclerView.Adapter<MunicipalityAdapte
 
         public ImageView municipalityIcon;
         public TextView municipalityName;
-        private RelativeLayout mainLyt;
+        public RelativeLayout mainLyt;
+        public ProgressBar progressBar;
 
         public MunicipalityViewHolder(@NonNull View itemView) {
             super(itemView);
             municipalityIcon = itemView.findViewById(R.id.iconImage);
             municipalityName = itemView.findViewById(R.id.titleName);
             mainLyt = itemView.findViewById(R.id.totalCardView);
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 }

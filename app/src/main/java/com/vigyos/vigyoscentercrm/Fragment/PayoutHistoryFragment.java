@@ -112,45 +112,47 @@ public class PayoutHistoryFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        for (int i = 0; i<jsonArray.length(); i++) {
-                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            PayoutHistoryModel historyModel = new PayoutHistoryModel();
-                            if (jsonObject1.has("user_id")) {
-                                historyModel.setUser_id(jsonObject1.getString("user_id"));
+                        if (jsonObject.has("data")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for (int i = 0; i<jsonArray.length(); i++) {
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                PayoutHistoryModel historyModel = new PayoutHistoryModel();
+                                if (jsonObject1.has("user_id")) {
+                                    historyModel.setUser_id(jsonObject1.getString("user_id"));
+                                }
+                                if (jsonObject1.has("commission")) {
+                                    historyModel.setCommission(jsonObject1.getString("commission"));
+                                }
+                                if (jsonObject1.has("referenceno")) {
+                                    historyModel.setReferenceno(jsonObject1.getString("referenceno"));
+                                }
+                                if (jsonObject1.has("transactiontype")) {
+                                    historyModel.setTransactiontype(jsonObject1.getString("transactiontype"));
+                                }
+                                if (jsonObject1.has("amount")) {
+                                    historyModel.setAmount(jsonObject1.getInt("amount"));
+                                }
+                                if (jsonObject1.has("timestamp")) {
+                                    historyModel.setTimestamp(jsonObject1.getString("timestamp"));
+                                }
+                                if (jsonObject1.has("bene_id")) {
+                                    historyModel.setBene_id(jsonObject1.getString("bene_id"));
+                                }
+                                if (jsonObject1.has("adhaarnumber")) {
+                                    historyModel.setAdhaarnumber(jsonObject1.getString("adhaarnumber"));
+                                }
+                                if (jsonObject1.has("ackno")) {
+                                    historyModel.setAckno(jsonObject1.getString("ackno"));
+                                }
+                                payoutHistoryModels.add(historyModel);
                             }
-                            if (jsonObject1.has("commission")) {
-                                historyModel.setCommission(jsonObject1.getString("commission"));
+                            if (payoutHistoryModels.isEmpty()) {
+                                animationView.setVisibility(View.VISIBLE);
+                            } else {
+                                animationView.setVisibility(View.GONE);
                             }
-                            if (jsonObject1.has("referenceno")) {
-                                historyModel.setReferenceno(jsonObject1.getString("referenceno"));
-                            }
-                            if (jsonObject1.has("transactiontype")) {
-                                historyModel.setTransactiontype(jsonObject1.getString("transactiontype"));
-                            }
-                            if (jsonObject1.has("amount")) {
-                                historyModel.setAmount(jsonObject1.getInt("amount"));
-                            }
-                            if (jsonObject1.has("timestamp")) {
-                                historyModel.setTimestamp(jsonObject1.getString("timestamp"));
-                            }
-                            if (jsonObject1.has("bene_id")) {
-                                historyModel.setBene_id(jsonObject1.getString("bene_id"));
-                            }
-                            if (jsonObject1.has("adhaarnumber")) {
-                                historyModel.setAdhaarnumber(jsonObject1.getString("adhaarnumber"));
-                            }
-                            if (jsonObject1.has("ackno")) {
-                                historyModel.setAckno(jsonObject1.getString("ackno"));
-                            }
-                            payoutHistoryModels.add(historyModel);
+                            payoutHistoryAdapter.notifyDataSetChanged();
                         }
-                        if (payoutHistoryModels.isEmpty()) {
-                            animationView.setVisibility(View.VISIBLE);
-                        } else {
-                            animationView.setVisibility(View.GONE);
-                        }
-                        payoutHistoryAdapter.notifyDataSetChanged();
                     } else {
                         if (jsonObject.has("message")) {
                             Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

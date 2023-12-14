@@ -1,4 +1,4 @@
-package com.vigyos.vigyoscentercrm.Activity;
+package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -14,9 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.EnquiryFragment;
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.MiniStatementFragment;
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.WithdrawalFragment;
 import com.vigyos.vigyoscentercrm.Fragment.AEPS.Paytm.PtmEnquiryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.AEPS.Paytm.PtmMiniStatementFragment;
 import com.vigyos.vigyoscentercrm.Fragment.AEPS.Paytm.PtmWithdrawalFragment;

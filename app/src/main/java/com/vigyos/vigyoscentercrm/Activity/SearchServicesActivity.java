@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,23 +49,26 @@ import retrofit2.Response;
 @BuildCompat.PrereleaseSdkCheck
 public class SearchServicesActivity extends AppCompatActivity {
 
+    private ImageView ivBack;
     private AutoCompleteTextView autoCompleteTextView;
     private RecyclerView recyclerView;
     private ServiceItemListAdapter serviceItemListAdapter;
     private GridLayoutManager gridLayoutManager;
     private ArrayList<SearchServicesModel> searchServicesModels = new ArrayList<>();
     private Dialog dialog;
+    private int page = 1;
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_services);
-        getServicesData();
         initialization();
         declaration();
     }
 
     private void initialization(){
+        ivBack = findViewById(R.id.ivBack);
         autoCompleteTextView = findViewById(R.id.searchView);
         recyclerView = findViewById(R.id.order_list);
     }
@@ -80,55 +84,84 @@ public class SearchServicesActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) { }
         });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+//        serviceList();
+        getServicesData(page);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+    private void serviceList() {
+        serviceItemListAdapter = new ServiceItemListAdapter(searchServicesModels);
+        gridLayoutManager = new GridLayoutManager(this, 1 , GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(serviceItemListAdapter);
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (!isLoading && !recyclerView.canScrollVertically(1)) {
+//                    page++;
+//                    getServicesData(page);
+//                    isLoading = true;
+//                }
+//            }
+//        });
+//        getServicesData(page);
     }
 
-    private void getServicesData() {
+    private void getServicesData(int page) {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "1000");
+        Call<Object> objectCall = RetrofitClient.getApi().getServiceName(SplashActivity.prefManager.getToken(), "10000");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse " + response);
                 dismissDialog();
-                Log.i("12121", "onResponse " + response);
+                isLoading = false;
                 if (response.code() == 200){
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                        if (jsonObject.has("success") && jsonObject.getBoolean("success")){
-                            JSONArray jsonObject1 = jsonObject.getJSONArray("data");
-                            for (int i = 0; i < jsonObject1.length(); i++ ){
-                                JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
-                                SearchServicesModel servicesModel = new SearchServicesModel();
-                                servicesModel.setService_id(jsonObject2.getString("service_id"));
-                                servicesModel.setService(jsonObject2.toString());
-                                servicesModel.setService_name(jsonObject2.getString("service_name"));
-                                servicesModel.setDescription(jsonObject2.getString("description"));
-                                searchServicesModels.add(servicesModel);
+                        if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+                            if (jsonObject.has("data")) {
+                                JSONArray jsonObject1 = jsonObject.getJSONArray("data");
+                                for (int i = 0; i < jsonObject1.length(); i++ ){
+                                    JSONObject jsonObject2 = jsonObject1.getJSONObject(i);
+                                    SearchServicesModel servicesModel = new SearchServicesModel();
+                                    if (jsonObject2.has("service_id")) {
+                                        servicesModel.setService_id(jsonObject2.getString("service_id"));
+                                    }
+                                    if (jsonObject2.has("service_name")) {
+                                        servicesModel.setService_name(jsonObject2.getString("service_name"));
+                                    }
+                                    if (jsonObject2.has("description")) {
+                                        servicesModel.setDescription(jsonObject2.getString("description"));
+                                    }
+                                    searchServicesModels.add(servicesModel);
+                                }
                             }
+//                            serviceItemListAdapter.notifyDataSetChanged();
+                            serviceList();
                         } else {
                             if (jsonObject.has("message")) {
                                 Toast.makeText(SearchServicesActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                SplashActivity.prefManager.setClear();
-                                startActivity(new Intent(SearchServicesActivity.this, LoginActivity.class));
-                                finish();
                             }
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    serviceList();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                Log.i("2016", "onFailure " + t);
                 dismissDialog();
-                Log.i("12121", "onFailure " + t);
+                isLoading = false;
                 Toast.makeText(SearchServicesActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -155,19 +188,16 @@ public class SearchServicesActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void serviceList() {
-        serviceItemListAdapter = new ServiceItemListAdapter(searchServicesModels, SearchServicesActivity.this);
-        gridLayoutManager = new GridLayoutManager(this, 1 , GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(serviceItemListAdapter);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     public class ServiceItemListAdapter extends RecyclerView.Adapter<ServiceItemListAdapter.MyViewHolder> implements Filterable {
 
-        private ArrayList<SearchServicesModel> searchListArray;
-        private ArrayList<SearchServicesModel> searchFilterList;
-        private Activity activity;
+        public ArrayList<SearchServicesModel> searchListArray;
+        public ArrayList<SearchServicesModel> searchFilterList;
 
         @Override
         public Filter getFilter() {
@@ -202,10 +232,9 @@ public class SearchServicesActivity extends AppCompatActivity {
             }
         };
 
-        public ServiceItemListAdapter(ArrayList<SearchServicesModel> searchServicesModels, Activity activity) {
+        public ServiceItemListAdapter(ArrayList<SearchServicesModel> searchServicesModels) {
             super();
             this.searchListArray = searchServicesModels;
-            this.activity = activity;
             this.searchFilterList = new ArrayList<>(searchServicesModels);
         }
 
@@ -240,8 +269,8 @@ public class SearchServicesActivity extends AppCompatActivity {
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
 
-            private TextView listName;
-            private RelativeLayout next;
+            public TextView listName;
+            public RelativeLayout next;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);

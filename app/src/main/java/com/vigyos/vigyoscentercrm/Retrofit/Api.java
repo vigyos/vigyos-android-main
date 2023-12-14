@@ -282,6 +282,11 @@ public interface Api {
     );
     //Paytm AEPS API End
 
+    @GET("govt_services")
+    Call<Object> govtServices(
+            @Header("Authorization") String Authorization
+    );
+
     @FormUrlEncoded
     @POST("pan/generateNewUrl")
     Call<Object> panCardCreate(
