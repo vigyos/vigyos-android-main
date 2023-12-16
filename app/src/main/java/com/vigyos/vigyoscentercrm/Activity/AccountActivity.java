@@ -62,7 +62,6 @@ public class AccountActivity extends AppCompatActivity {
     private void initialization(){
         ivBack = findViewById(R.id.ivBack);
         download = findViewById(R.id.download);
-
     }
 
     private void declaration(){
@@ -70,7 +69,6 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 downloadAndPrintPDF();
-
             }
         });
     }
@@ -174,6 +172,5 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 }

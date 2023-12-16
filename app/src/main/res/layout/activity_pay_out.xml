@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_vigyos"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Activity.AEPS.PayOutActivity">
+    tools:context=".Activity.AEPS.FinoPayOutActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_centerInParent="true"
             android:elegantTextHeight="true"
             android:fontFamily="@font/poppins_medium"
-            android:text="Payout"
+            android:text="Fino Payout"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp" />
     </RelativeLayout>

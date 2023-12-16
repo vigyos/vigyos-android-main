@@ -15,7 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.AepsHistoryFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.FinoAepsHistoryFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.FinoPayoutHistoryFragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck
@@ -90,7 +91,7 @@ public class HistoryFragment extends Fragment {
                 payoutText.setTypeface(typefaceRegular);
                 payoutLine.setBackgroundColor(activity.getColor(R.color.not_click));
 
-                loadFragment(new AepsHistoryFragment(activity));
+                loadFragment(new FinoAepsHistoryFragment(activity));
             }
         });
         payoutLyt.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +107,7 @@ public class HistoryFragment extends Fragment {
                 payoutText.setTypeface(typefaceBold);
                 payoutLine.setBackgroundColor(activity.getColor(R.color.dark_vigyos));
 
-                loadFragment(new PayoutHistoryFragment(activity));
+                loadFragment(new FinoPayoutHistoryFragment(activity));
             }
         });
     }

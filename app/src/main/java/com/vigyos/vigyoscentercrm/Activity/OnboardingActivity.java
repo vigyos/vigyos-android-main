@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.vigyos.vigyoscentercrm.Fragment.Onboarding1Fragment;
-import com.vigyos.vigyoscentercrm.Fragment.Onboarding3Fragment;
+import com.vigyos.vigyoscentercrm.Fragment.Onboarding.Onboarding1Fragment;
+import com.vigyos.vigyoscentercrm.Fragment.Onboarding.Onboarding3Fragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck

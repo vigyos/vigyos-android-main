@@ -44,13 +44,12 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoPayOutActivity;
 import com.vigyos.vigyoscentercrm.Activity.BiometricLockActivity;
 import com.vigyos.vigyoscentercrm.Activity.DocumentsActivity;
 import com.vigyos.vigyoscentercrm.Activity.HelpAndSupportActivity;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
-import com.vigyos.vigyoscentercrm.Activity.AEPS.PayOutActivity;
 import com.vigyos.vigyoscentercrm.Activity.PersonalProfileActivity;
-import com.vigyos.vigyoscentercrm.Activity.PlansActivity;
 import com.vigyos.vigyoscentercrm.Activity.PrivacyPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.RefundPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -162,7 +161,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                startActivity(new Intent(activity, PayOutActivity.class));
+                startActivity(new Intent(activity, FinoPayOutActivity.class));
             }
         });
         changePlan.setOnClickListener(new View.OnClickListener() {

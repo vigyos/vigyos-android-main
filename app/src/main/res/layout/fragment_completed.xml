@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Fragment.CompletedFragment">
+    tools:context=".Fragment.Order.CompletedFragment">
     <TextView
         android:id="@+id/noComplete"
         android:layout_width="match_parent"

@@ -39,9 +39,8 @@ import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.Constant.LockScreenChecker;
 import com.vigyos.vigyoscentercrm.Fragment.HistoryFragment;
 import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
-import com.vigyos.vigyoscentercrm.Fragment.OrderFragment;
+import com.vigyos.vigyoscentercrm.Fragment.Order.OrderFragment;
 import com.vigyos.vigyoscentercrm.Fragment.ProfileFragment;
-import com.vigyos.vigyoscentercrm.Model.StateCodeModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 

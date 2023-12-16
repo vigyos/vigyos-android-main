@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.EnquiryFragment;
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.MiniStatementFragment;
-import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.WithdrawalFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.FinoEnquiryFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.FinoMiniStatementFragment;
+import com.vigyos.vigyoscentercrm.Fragment.AEPS.FinoBank.FinoWithdrawalFragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck
@@ -58,7 +58,7 @@ public class FinoAEPSActivity extends AppCompatActivity {
                 finish();
             }
         });
-        loadFragment(new WithdrawalFragment(FinoAEPSActivity.this), false);
+        loadFragment(new FinoWithdrawalFragment(FinoAEPSActivity.this), false);
         tabLayout();
     }
 
@@ -78,7 +78,7 @@ public class FinoAEPSActivity extends AppCompatActivity {
                 miniStatementText.setTypeface(typefaceRegular);
                 miniStatementLine.setBackgroundColor(getColor(R.color.not_click));
 
-                loadFragment(new WithdrawalFragment(FinoAEPSActivity.this), false);
+                loadFragment(new FinoWithdrawalFragment(FinoAEPSActivity.this), false);
             }
         });
         enquiryLyt.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class FinoAEPSActivity extends AppCompatActivity {
                 miniStatementText.setTypeface(typefaceRegular);
                 miniStatementLine.setBackgroundColor(getColor(R.color.not_click));
 
-                loadFragment(new EnquiryFragment(FinoAEPSActivity.this), false);
+                loadFragment(new FinoEnquiryFragment(FinoAEPSActivity.this), false);
             }
         });
         miniStatementLyt.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class FinoAEPSActivity extends AppCompatActivity {
                 miniStatementText.setTypeface(typefaceBold);
                 miniStatementLine.setBackgroundColor(getColor(R.color.dark_vigyos));
 
-                loadFragment(new MiniStatementFragment(FinoAEPSActivity.this), false);
+                loadFragment(new FinoMiniStatementFragment(FinoAEPSActivity.this), false);
             }
         });
     }

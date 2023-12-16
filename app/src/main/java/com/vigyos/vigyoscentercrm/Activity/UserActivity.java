@@ -42,7 +42,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.vigyos.vigyoscentercrm.Activity.AEPS.PayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoPayOutActivity;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
@@ -170,7 +170,7 @@ public class UserActivity extends AppCompatActivity {
                         // Less than 24 hours have passed since the login
                         // User is still logged in
                         Log.i("741258","Less than 24 hours");
-                        startActivity(new Intent(UserActivity.this, PayOutActivity.class));
+                        startActivity(new Intent(UserActivity.this, FinoPayOutActivity.class));
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -406,7 +406,7 @@ public class UserActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
                         Toast.makeText(UserActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(UserActivity.this, PayOutActivity.class));
+                        startActivity(new Intent(UserActivity.this, FinoPayOutActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
                             Snackbar.make(findViewById(android.R.id.content), jsonObject.getString("message"), Snackbar.LENGTH_LONG).show();

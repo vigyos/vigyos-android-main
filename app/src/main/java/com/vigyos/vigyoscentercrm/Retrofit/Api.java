@@ -149,6 +149,81 @@ public interface Api {
             @Field("bank") String pipe,
             @Field("submerchantid") String submerchantid
     );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/list")
+    Call<Object> payoutList(
+            @Header("Authorization") String Authorization,
+            @Field("merchantid") String merchantid
+    );
+
+    @GET("aeps/payout/bank_list")
+    Call<Object> payoutBankList(
+            @Header("Authorization") String Authorization
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/transaction")
+    Call<Object> finoCreatePayOutAPI(
+            @Header("Authorization") String Authorization,
+            @Field("bene_id") String bene_id,
+            @Field("amount") String amount,
+            @Field("mode") String mode,
+            @Field("submerchantid") String submerchantid,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("timestamp") String timestamp,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobile") String mobile,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("ipaddress") String ipaddress
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/add_account")
+    Call<Object> addBankAccountForPayOut(
+            @Header("Authorization") String Authorization,
+            @Field("bankid") int bankid,
+            @Field("merchant_code") String merchant_code,
+            @Field("account") String account,
+            @Field("ifsc") String ifsc,
+            @Field("name") String name,
+            @Field("account_type") String account_type
+    );
+
+    @Multipart
+    @POST("aeps/payout/doc_upload")
+    Call<Object> addPayOutAccPanDocUpload(
+            @Header("Authorization") String Authorization,
+            @Part("doctype") String doctype,
+            @Part MultipartBody.Part passbookImage,
+            @Part("passbook") String passbook,
+            @Part MultipartBody.Part panCardImage,
+            @Part("panimage") String panimage,
+            @Part("bene_id") String bene_id
+    );
+
+    @Multipart
+    @POST("aeps/payout/doc_upload")
+    Call<Object> addPayOutAccAadhaarDocUpload(
+            @Header("Authorization") String Authorization,
+            @Part("doctype") String doctype,
+            @Part MultipartBody.Part passbookImage,
+            @Part("passbook") String passbook,
+            @Part("bene_id") String bene_id,
+            @Part MultipartBody.Part AadhaarFrontImage,
+            @Part("front_image") String frontImage,
+            @Part MultipartBody.Part AadhaarBackImage,
+            @Part("back_image") String backImage
+    );
+
+    @GET("aeps/transaction/logs")
+    Call<Object> aepsHistory(
+            @Header("Authorization") String Authorization,
+            @Query("user_id") String user_id,
+            @Query("page") int page,
+            @Query("transaction_type") String transaction_type
+    );
     //Fino AEPS API End
 
     //Paytm AEPS API Start
@@ -280,6 +355,54 @@ public interface Api {
             @Field("data") String data,
             @Field("timestamp") String timestamp
     );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/list")
+    Call<Object> paytmPayoutList(
+            @Header("Authorization") String Authorization,
+            @Field("merchantid") String merchantid
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/payout/transaction")
+    Call<Object> paytmCreatePayOutAPI(
+            @Header("Authorization") String Authorization,
+            @Field("bene_id") String bene_id,
+            @Field("amount") String amount,
+            @Field("mode") String mode,
+            @Field("submerchantid") String submerchantid,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("timestamp") String timestamp,
+            @Field("adhaarnumber") String adhaarnumber,
+            @Field("mobile") String mobile,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("ipaddress") String ipaddress
+    );
+
+    @Multipart
+    @POST("aeps/payout/doc_upload")
+    Call<Object> paytmAddPayOutAccPanDocUpload(
+            @Header("Authorization") String Authorization,
+            @Part("doctype") String doctype,
+            @Part MultipartBody.Part passbookImage,
+            @Part("passbook") String passbook,
+            @Part MultipartBody.Part panCardImage,
+            @Part("panimage") String panimage,
+            @Part("bene_id") String bene_id
+    );
+
+    @FormUrlEncoded
+    @POST("aeps/paytm/payout/add_account")
+    Call<Object> paytmAddAccountForPayOut(
+            @Header("Authorization") String Authorization,
+            @Field("bankid") int bankid,
+            @Field("merchant_code") String merchant_code,
+            @Field("account") String account,
+            @Field("ifsc") String ifsc,
+            @Field("name") String name,
+            @Field("account_type") String account_type
+    );
     //Paytm AEPS API End
 
     @GET("govt_services")
@@ -340,81 +463,6 @@ public interface Api {
             @Query("user_id") String id,
             @Query("page") int page,
             @Query("status") String status
-    );
-
-    @FormUrlEncoded
-    @POST("aeps/payout/list")
-    Call<Object> payoutList(
-            @Header("Authorization") String Authorization,
-            @Field("merchantid") String merchantid
-    );
-
-    @GET("aeps/payout/bank_list")
-    Call<Object> payoutBankList(
-            @Header("Authorization") String Authorization
-    );
-
-    @FormUrlEncoded
-    @POST("aeps/payout/transaction")
-    Call<Object> createPayOutAPI(
-            @Header("Authorization") String Authorization,
-            @Field("bene_id") String bene_id,
-            @Field("amount") String amount,
-            @Field("mode") String mode,
-            @Field("submerchantid") String submerchantid,
-            @Field("accessmodetype") String accessmodetype,
-            @Field("timestamp") String timestamp,
-            @Field("adhaarnumber") String adhaarnumber,
-            @Field("mobile") String mobile,
-            @Field("latitude") String latitude,
-            @Field("longitude") String longitude,
-            @Field("ipaddress") String ipaddress
-    );
-
-    @FormUrlEncoded
-    @POST("aeps/payout/add_account")
-    Call<Object> addBankAccountForPayOut(
-            @Header("Authorization") String Authorization,
-            @Field("bankid") int bankid,
-            @Field("merchant_code") String merchant_code,
-            @Field("account") String account,
-            @Field("ifsc") String ifsc,
-            @Field("name") String name,
-            @Field("account_type") String account_type
-    );
-
-    @Multipart
-    @POST("aeps/payout/doc_upload")
-    Call<Object> addPayOutAccPanDocUpload(
-            @Header("Authorization") String Authorization,
-            @Part("doctype") String doctype,
-            @Part MultipartBody.Part passbookImage,
-            @Part("passbook") String passbook,
-            @Part MultipartBody.Part panCardImage,
-            @Part("panimage") String panimage,
-            @Part("bene_id") String bene_id
-    );
-
-    @Multipart
-    @POST("aeps/payout/doc_upload")
-    Call<Object> addPayOutAccAadhaarDocUpload(
-            @Header("Authorization") String Authorization,
-            @Part("doctype") String doctype,
-            @Part MultipartBody.Part passbookImage,
-            @Part("passbook") String passbook,
-            @Part("bene_id") String bene_id,
-            @Part MultipartBody.Part AadhaarFrontImage,
-            @Part("front_image") String frontImage,
-            @Part MultipartBody.Part AadhaarBackImage,
-            @Part("back_image") String backImage
-    );
-
-    @GET("aeps/transaction/logs")
-    Call<Object> aepsHistory(
-            @Header("Authorization") String Authorization,
-            @Query("user_id") String user_id,
-            @Query("page") int page,
-            @Query("transaction_type") String transaction_type
     );
 
     @Multipart

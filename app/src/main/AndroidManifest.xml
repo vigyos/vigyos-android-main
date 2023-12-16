@@ -36,6 +36,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu" >
         <activity
+            android:name=".Activity.AEPS.PaytmPayoutAddAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AEPS.PaytmPayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.BBPS.BBPSPayBillsActivity"
             android:exported="false" />
         <activity
@@ -148,10 +154,10 @@
             android:name=".Activity.HelpAndSupportActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AEPS.AddBankAccountActivity"
+            android:name=".Activity.AEPS.FinoPayoutAddAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AEPS.PayOutActivity"
+            android:name=".Activity.AEPS.FinoPayOutActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.AEPS.ProcessDoneActivity"
@@ -206,14 +212,10 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <!-- Add your API key here -->
-
+            android:required="false" /> <!-- Add your API key here -->
         <!-- <meta-data -->
         <!-- android:name="com.razorpay.ApiKey" -->
         <!-- android:value="rzp_test_uGEFDaUck79dOI" /> -->
-
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_4AIEZmGDgq7mp5" />
@@ -231,4 +233,5 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+
 </manifest>
