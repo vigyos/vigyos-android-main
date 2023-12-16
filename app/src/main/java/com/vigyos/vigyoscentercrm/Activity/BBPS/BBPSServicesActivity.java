@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,12 +37,28 @@ import retrofit2.Response;
 public class BBPSServicesActivity extends AppCompatActivity {
 
     private Dialog dialog;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bbpsservices);
+        Initialization();
+        Declaration();
+    }
+
+    private void Initialization() {
+        ivBack = findViewById(R.id.ivBack);
+    }
+
+    private void Declaration() {
         fetchDataFromApi();
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void fetchDataFromApi() {

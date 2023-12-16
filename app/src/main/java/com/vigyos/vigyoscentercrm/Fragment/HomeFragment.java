@@ -63,6 +63,7 @@ import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Activity.SubCatServiceActivity;
+import com.vigyos.vigyoscentercrm.Activity.WalletRechargeActivity;
 import com.vigyos.vigyoscentercrm.Adapter.BannerListAdapter;
 import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public ArrayList<String> positions;
     private ArrayList<BannerListModel> bannerListModels = new ArrayList<>();
     private Dialog dialog, dialog1;
-    private int bank = 0;
+    private int bankType = 0;
 
     public HomeFragment(Activity activity) {
         this.activity = activity;
@@ -381,7 +382,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.amount:
-                startActivity(new Intent(activity, RazorPayActivity.class));
+                startActivity(new Intent(activity, WalletRechargeActivity.class));
                 break;
             case R.id.searchIcon:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -397,7 +398,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void selectAEPS() {
-        bank = 0;
+        bankType = 0;
         dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -420,7 +421,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 PaytmIcon.setImageResource(R.drawable.paytm_bank_icon);
 //                okButton.setBackgroundResource(R.drawable.round_button_color);
 //                okText.setTextColor(getResources().getColor(R.color.white));
-                bank = 1;
+                bankType = 1;
             }
         });
         PaytmLyt.setOnClickListener(new View.OnClickListener() {
@@ -432,7 +433,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 PaytmIcon.setImageResource(R.drawable.paytm_bank_white);
 //                okButton.setBackgroundResource(R.drawable.round_button_color);
 //                okText.setTextColor(getResources().getColor(R.color.white));
-                bank = 2;
+                bankType = 2;
             }
         });
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -440,17 +441,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 // Dismiss the dialog when the "GRANT!" button is clicked
                 v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
-                if (bank == 0){
+                if (bankType == 0){
                     StyleableToast.makeText(activity, "Choose your preferred bank for AEPS!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
                 dismissDialog();
-                if (bank == 1) {
-                    bank = 0;
-//                    finoAeps();
-                    startActivity(new Intent(activity, FinoAEPSActivity.class));
-                } else if (bank == 2) {
-                    bank = 0;
+                if (bankType == 1) {
+                    bankType = 0;
+                    finoAeps();
+//                    startActivity(new Intent(activity, FinoAEPSActivity.class));
+                } else if (bankType == 2) {
+                    bankType = 0;
                     PaytmAeps();
 //                    startActivity(new Intent(activity, PaytmAEPSActivity.class));
                 }
@@ -810,7 +811,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void finoAuthAPI(String fingerData) {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+        Call<Object> objectCall = RetrofitClient.getApi().FinoAuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
                 String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override

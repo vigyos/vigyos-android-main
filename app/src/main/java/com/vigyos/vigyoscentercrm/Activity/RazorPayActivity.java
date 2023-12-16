@@ -62,6 +62,7 @@ public class RazorPayActivity extends AppCompatActivity implements PaymentResult
 
         amount = findViewById(R.id.amount);
         process = findViewById(R.id.process);
+
         process.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

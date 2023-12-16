@@ -136,7 +136,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("aeps/bank_registration/verify")
-    Call<Object> AuthAPI(
+    Call<Object> FinoAuthAPI(
             @Header("Authorization") String Authorization,
             @Field("accessmodetype") String accessmodetype,
             @Field("adhaarnumber") String adhaarnumber,
@@ -272,7 +272,7 @@ public interface Api {
             @Field("submerchantid") String submerchantid
     );
 
-    @GET("aeps/paytm/bank_list")
+    @GET("aeps/payout/bank_list")
     Call<Object> paytmBankList(
             @Header("Authorization") String Authorization
     );
@@ -357,14 +357,14 @@ public interface Api {
     );
 
     @FormUrlEncoded
-    @POST("aeps/payout/list")
+    @POST("aeps/paytm/payout/list")
     Call<Object> paytmPayoutList(
             @Header("Authorization") String Authorization,
             @Field("merchantid") String merchantid
     );
 
     @FormUrlEncoded
-    @POST("aeps/payout/transaction")
+    @POST("aeps/paytm/payout/transaction")
     Call<Object> paytmCreatePayOutAPI(
             @Header("Authorization") String Authorization,
             @Field("bene_id") String bene_id,
@@ -385,11 +385,11 @@ public interface Api {
     Call<Object> paytmAddPayOutAccPanDocUpload(
             @Header("Authorization") String Authorization,
             @Part("doctype") String doctype,
+            @Part("bene_id") String bene_id,
             @Part MultipartBody.Part passbookImage,
             @Part("passbook") String passbook,
             @Part MultipartBody.Part panCardImage,
-            @Part("panimage") String panimage,
-            @Part("bene_id") String bene_id
+            @Part("panimage") String panimage
     );
 
     @FormUrlEncoded

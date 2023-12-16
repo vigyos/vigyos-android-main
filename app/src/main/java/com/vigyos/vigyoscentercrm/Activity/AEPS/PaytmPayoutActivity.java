@@ -51,7 +51,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.AppController;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
+import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -133,7 +137,7 @@ public class PaytmPayoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(PaytmPayoutActivity.this, R.anim.viewpush));
-                startActivity(new Intent(PaytmPayoutActivity.this, FinoPayoutAddAccountActivity.class));
+                startActivity(new Intent(PaytmPayoutActivity.this, PaytmPayoutAddAccountActivity.class));
             }
         });
         payoutList();
@@ -237,7 +241,7 @@ public class PaytmPayoutActivity extends AppCompatActivity {
                         payoutBalanceUpdate();
                     } else {
                         if (jsonObject.has("message")){
-                            Toast.makeText(PaytmPayoutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -259,27 +263,31 @@ public class PaytmPayoutActivity extends AppCompatActivity {
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
                 Log.i("12121", "onResponse " + response);
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     try {
                         JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             if (jsonObject.has("data")) {
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                if (jsonObject1.has("payout_balance")) {
-                                    SplashActivity.prefManager.setPaytmPayoutBalance(jsonObject1.getInt("payout_balance"));
-                                }
-                                if (SplashActivity.prefManager.getPaytmPayoutBalance() == 0){
-                                    ptmPayoutBalance.setText("₹"+"0.00");
-                                } else {
-                                    int i = SplashActivity.prefManager.getPaytmPayoutBalance();
-                                    float v = (float) i;
-                                    ptmPayoutBalance.setText("₹"+ v);
+                                if (jsonObject1.has("BANK5")) {
+                                    JSONObject bank5Object = jsonObject1.getJSONObject("BANK5");
+                                    if (bank5Object.has("payout_balance")) {
+                                        SplashActivity.prefManager.setPaytmPayoutBalance(bank5Object.getInt("payout_balance"));
+                                    }
+                                    if (SplashActivity.prefManager.getPaytmPayoutBalance() == 0){
+                                        ptmPayoutBalance.setText("₹"+"0.00");
+                                    } else {
+                                        int i = SplashActivity.prefManager.getPaytmPayoutBalance();
+                                        float v = (float) i;
+                                        ptmPayoutBalance.setText("₹"+ v);
+                                    }
                                 }
                             }
                         } else {
                             if (jsonObject.has("message")) {
-                                Toast.makeText(PaytmPayoutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                             }
                         }
                     } catch (JSONException e) {
@@ -287,14 +295,12 @@ public class PaytmPayoutActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(PaytmPayoutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
-                    SplashActivity.prefManager.setClear();
-                    startActivity(new Intent(PaytmPayoutActivity.this, LoginActivity.class));
-                    finish();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
                 Log.i("12121", "onFailure " + t);
                 Toast.makeText(PaytmPayoutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
@@ -303,7 +309,7 @@ public class PaytmPayoutActivity extends AppCompatActivity {
 
     private void payoutList() {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().paytmPayoutList(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getFinoMerchantId());
+        Call<Object> objectCall = RetrofitClient.getApi().paytmPayoutList(SplashActivity.prefManager.getToken(), SplashActivity.prefManager.getPaytmMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {

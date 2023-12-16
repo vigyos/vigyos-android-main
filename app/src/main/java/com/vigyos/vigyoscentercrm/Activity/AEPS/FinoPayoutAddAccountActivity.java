@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -338,26 +339,36 @@ public class FinoPayoutAddAccountActivity extends AppCompatActivity {
     }
 
     private void areYouSure(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(FinoPayoutAddAccountActivity.this);
-        builder1.setMessage("Are you sure, You want to Add this Account ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        addBankAccount();
-                    }
-                });
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        dialog = new Dialog(FinoPayoutAddAccountActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_yes_or_no);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView title = dialog.findViewById(R.id.title);
+        title.setText("Add Account!");
+        TextView details = dialog.findViewById(R.id.details);
+        details.setText("Are you sure, You want to Add this Account ?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(FinoPayoutAddAccountActivity.this, R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(FinoPayoutAddAccountActivity.this, R.anim.viewpush));
+                dismissDialog();
+                addBankAccount();
+            }
+        });
+        dialog.show();
     }
 
     private void addBankAccount() {

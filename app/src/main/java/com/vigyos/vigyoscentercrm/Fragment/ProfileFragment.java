@@ -1,21 +1,22 @@
 package com.vigyos.vigyoscentercrm.Fragment;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.provider.Settings;
+import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,21 +31,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
 import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoPayOutActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmAEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmPayoutActivity;
 import com.vigyos.vigyoscentercrm.Activity.BiometricLockActivity;
 import com.vigyos.vigyoscentercrm.Activity.DocumentsActivity;
 import com.vigyos.vigyoscentercrm.Activity.HelpAndSupportActivity;
@@ -53,22 +59,28 @@ import com.vigyos.vigyoscentercrm.Activity.PersonalProfileActivity;
 import com.vigyos.vigyoscentercrm.Activity.PrivacyPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.RefundPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
+import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
+import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
+import com.vigyos.vigyoscentercrm.FingerPrintModel.PidOptions;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
+import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -90,6 +102,15 @@ public class ProfileFragment extends Fragment {
     private CardView helpAndSupport;
     private TextView logOut;
     private Dialog dialog;
+    private int bank = 0;
+    public PidData pidData = null;
+    private Serializer serializer = null;
+    public ArrayList<String> positions;
+    private String ipAddress;
+    private FusedLocationProviderClient fusedLocationClient;
+    private double latitude;
+    private double longitude;
+    private String currentDateAndTime;
 
     private static final int REQUEST_CODE_IMAGE_PICKER = 123;
 
@@ -126,6 +147,17 @@ public class ProfileFragment extends Fragment {
     }
 
     private void declaration() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+        if (checkPermission()){
+            getLocation();
+        } else {
+            requestPermissions();
+        }
+        dateAndTime();
+        iPAddress();
+        serializer = new Persister();
+        positions = new ArrayList<>();
+
         if (SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("null") || SplashActivity.prefManager.getProfilePicture().equalsIgnoreCase("")) {
             userIcon.setBackgroundResource(R.drawable.user_icon);
         } else {
@@ -139,15 +171,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
-                    CropImage.activity()
-                            .setAspectRatio(1, 1)
-                            .start(requireContext().getApplicationContext(), ProfileFragment.this);
-                } else {
-                    requestPermissions();
-                }
+
             }
         });
         plan.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +185,11 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                startActivity(new Intent(activity, FinoPayOutActivity.class));
+                if (checkPermission()) {
+                    selectAEPS();
+                } else {
+                    requestPermissions();
+                }
             }
         });
         changePlan.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +251,160 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void areYouSure(){
+    private void selectAEPS() {
+        bank = 0;
+        dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setContentView(R.layout.dialog_select_aeps);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        RelativeLayout finoLyt = dialog.findViewById(R.id.finoLyt);
+        ImageView finoIcon = dialog.findViewById(R.id.finoIcon);
+        RelativeLayout PaytmLyt = dialog.findViewById(R.id.PaytmLyt);
+        ImageView PaytmIcon = dialog.findViewById(R.id.PaytmIcon);
+        RelativeLayout okButton = dialog.findViewById(R.id.okButton);
+        TextView okText = dialog.findViewById(R.id.okText);
+        finoLyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finoLyt.setBackgroundResource(R.drawable.round_button_color);
+                finoIcon.setImageResource(R.drawable.fino_bank_white);
+                PaytmLyt.setBackgroundResource(R.drawable.outline_border);
+                PaytmIcon.setImageResource(R.drawable.paytm_bank_icon);
+//                okButton.setBackgroundResource(R.drawable.round_button_color);
+//                okText.setTextColor(getResources().getColor(R.color.white));
+                bank = 1;
+            }
+        });
+        PaytmLyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finoLyt.setBackgroundResource(R.drawable.outline_border);
+                finoIcon.setImageResource(R.drawable.fino_bank_icon);
+                PaytmLyt.setBackgroundResource(R.drawable.round_button_color);
+                PaytmIcon.setImageResource(R.drawable.paytm_bank_white);
+//                okButton.setBackgroundResource(R.drawable.round_button_color);
+//                okText.setTextColor(getResources().getColor(R.color.white));
+                bank = 2;
+            }
+        });
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.viewpush));
+                if (bank == 0){
+                    StyleableToast.makeText(activity, "Choose your preferred bank for AEPS!", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                    return;
+                }
+                dismissDialog();
+                if (bank == 1) {
+                    bank = 0;
+                    FinoAeps();
+                } else if (bank == 2) {
+                    bank = 0;
+                    PaytmAeps();
+                }
+            }
+        });
+        // Show the dialog when needed
+        dialog.show();
+    }
+
+    private void FinoAeps() {
+        startActivity(new Intent(activity, FinoPayOutActivity.class));
+
+//        Log.i("741258", "Fino time Aeps " + formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        try {
+//            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+//            Calendar loginCalendar = Calendar.getInstance();
+//            loginCalendar.setTime(loginDate);
+//
+//            Calendar currentCalendar = Calendar.getInstance();
+//            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+//            long diffInHours = diffInMillis / (60 * 60 * 1000);
+//
+//            if(diffInHours >= 24) {
+//                // More than 24 hours have passed since the login
+//                // Prompt user to log in again
+//                Log.i("741258","More than 24 hours");
+//                try {
+//                    String pidOption = getPIDOptions();
+//                    if (pidOption != null) {
+//                        Log.e("PidOptions", pidOption);
+//                        Intent intent9 = new Intent();
+//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+//                        intent9.putExtra("PID_OPTIONS", pidOption);
+//                        startActivityForResult(intent9, 1);
+//                    } else {
+//                        Log.i("454545","Device not found!");
+//                    }
+//                } catch (Exception e) {
+//                    Log.e("Error", e.toString());
+//                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+//                }
+//
+//            } else {
+//                // Less than 24 hours have passed since the login
+//                // User is still logged in
+//                Log.i("741258","Less than 24 hours");
+//                startActivity(new Intent(activity, FinoPayOutActivity.class));
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void PaytmAeps() {
+        startActivity(new Intent(activity, PaytmPayoutActivity.class));
+
+
+//        Log.i("741258", "Paytm time Aeps " + formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        try {
+//            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
+//            Calendar loginCalendar = Calendar.getInstance();
+//            loginCalendar.setTime(loginDate);
+//
+//            Calendar currentCalendar = Calendar.getInstance();
+//            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+//            long diffInHours = diffInMillis / (60 * 60 * 1000);
+//
+//            if(diffInHours >= 24) {
+//                // More than 24 hours have passed since the login
+//                // Prompt user to log in again
+//                Log.i("741258","More than 24 hours");
+//                try {
+//                    String pidOption = getPIDOptions();
+//                    if (pidOption != null) {
+//                        Log.e("PidOptions", pidOption);
+//                        Intent intent9 = new Intent();
+//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+//                        intent9.putExtra("PID_OPTIONS", pidOption);
+//                        startActivityForResult(intent9, 2);
+//                    } else {
+//                        Log.i("454545","Finger Print device not found!");
+//                    }
+//                } catch (Exception e) {
+//                    Log.e("Error", e.toString());
+//                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+//                }
+//
+//            } else {
+//                // Less than 24 hours have passed since the login
+//                // User is still logged in
+//                Log.i("741258","Less than 24 hours");
+//                startActivity(new Intent(activity, PaytmPayoutActivity.class));
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void areYouSure() {
         dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -258,7 +439,255 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
-    private void dismissDialog(){
+    private String formatTimestamp(long timestamp) {
+        Date date = new Date(timestamp * 1000);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return formatter.format(date);
+    }
+
+    private String getPIDOptions() {
+        try {
+            String posh = "UNKNOWN";
+            if (positions.size() > 0) {
+                posh = positions.toString().replace("[", "").replace("]", "").replaceAll("[\\s+]", "");
+            }
+            Opts opts = new Opts();
+            opts.fCount = "1";
+            opts.fType = "2";
+            opts.iCount = "0";
+            opts.iType = "0";
+            opts.pCount = "0";
+            opts.pType = "0";
+            opts.format = "0";
+            opts.pidVer = "2.0";
+            opts.timeout = "10000";
+            opts.posh = posh;
+            opts.env = "p";
+
+            PidOptions pidOptions = new PidOptions();
+            pidOptions.ver = "1.0";
+            pidOptions.Opts = opts;
+
+            Serializer serializer = new Persister();
+            StringWriter writer = new StringWriter();
+            serializer.write(pidOptions, writer);
+            return writer.toString();
+        } catch (Exception e) {
+            Log.e("Error", e.toString());
+        }
+        return null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                } else {
+                                    FinoAuthAPI(result);
+                                    Log.i("78954", "case 2  result if : - " + pidData.toString());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.i("78954", "Error while deserialize pid data " + e);
+                        Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case 2:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        if (data != null) {
+                            String result = data.getStringExtra("PID_DATA");
+                            if (result != null) {
+                                pidData = serializer.read(PidData.class, result);
+                                if (!pidData._Resp.errCode.equals("0")) {
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                } else {
+                                    PaytmAuthAPI(result);
+                                    Log.i("78954", "case 2  result if : - " + pidData.toString());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.i("78954", "Error while deserialize pid data " + e);
+                        Toast.makeText(activity, "Failed to scan finger print", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void FinoAuthAPI(String fingerData) {
+        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().FinoAuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                dismissDialog();
+                Log.i("2016", "onResponse "+ response);
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(activity, FinoPayOutActivity.class));
+                    } else {
+                        if (jsonObject.has("message")) {
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
+                Log.i("2016", "onFailure "+ t);
+                Toast.makeText(activity, "Failed Authentication", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void PaytmAuthAPI(String fingerData) {
+        pleaseWait();
+        Call<Object> objectCall = RetrofitClient.getApi().paytmAuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+                String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, SplashActivity.prefManager.getPaytmMerchantId());
+        objectCall.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse "+ response);
+                dismissDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
+                        if (jsonObject.has("message")) {
+                            StyleableToast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
+                        }
+                        startActivity(new Intent(activity, PaytmAEPSActivity.class));
+                    } else {
+                        if (jsonObject.has("message")) {
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", () -> {});
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+                dismissDialog();
+                Log.i("2016", "onFailure "+ t);
+                StyleableToast.makeText(activity, "Failed Authentication", Toast.LENGTH_LONG, R.style.myToastError).show();
+            }
+        });
+    }
+
+    private void dateAndTime() {
+        currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+    }
+
+    private void iPAddress() {
+        Context context = activity.getApplicationContext();
+        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        ipAddress = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+    }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(activity, ACCESS_FINE_LOCATION);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions() {
+        Dexter.withContext(activity)
+                .withPermission(ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                        getLocation();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                        if (permissionDeniedResponse.isPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Need Permissions");
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", (dialog, which) -> {
+            dialog.cancel();
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+            intent.setData(uri);
+            startActivityForResult(intent, 101);
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.cancel();
+        });
+        builder.show();
+    }
+
+    private void getLocation() {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(activity, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                                Log.i("874521", "Your Location: - "+ "Latitude: " + latitude + "\nLongitude: " + longitude);
+                            } else {
+                                Log.i("874521", "Location not available");
+                            }
+                        }
+                    })
+                    .addOnFailureListener(activity, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("874521", "Error getting location");
+                        }
+                    });
+        } else {
+            requestPermissions();
+        }
+    }
+
+    private void pleaseWait() {
+        dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_loader);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
@@ -268,210 +697,5 @@ public class ProfileFragment extends Fragment {
     public void onDestroy() {
         dismissDialog();
         super.onDestroy();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == getActivity().RESULT_OK) {
-                Uri resultUri = result.getUri();
-                // Now, you have the cropped image URI (resultUri)
-                // Use it as needed (e.g., upload to the server)
-                uploadImageToServer(resultUri);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-                // Handle the error
-                Toast.makeText(getContext(), "Image cropping failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void uploadImageToServer(Uri selectedImageUri) {
-        //Image Upload code Start
-        progress_bar.setVisibility(View.VISIBLE);
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), selectedImageUri);
-            File imageFile = convertBitmapToFile(bitmap); // You need to implement this method
-            String FileName = getOriginalFileName(selectedImageUri); // You need to implement this method
-
-            RequestBody imageBody = RequestBody.create(MediaType.parse("image/png"), imageFile);
-            MultipartBody.Part Image = MultipartBody.Part.createFormData("file", imageFile.getName(), imageBody);
-
-            Call<Object> objectCall = RetrofitClient.getApi().uploadImage(SplashActivity.prefManager.getToken(), Image, FileName);
-            objectCall.enqueue(new Callback<Object>() {
-                @Override
-                public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                    Log.i("12312","onResponse" + response);
-                    progress_bar.setVisibility(View.GONE);
-                    try {
-                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                        if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                            if (jsonObject.has("url")) {
-                                String imageUrl = jsonObject.getString("url");
-                                Picasso.get().load(imageUrl).into(userIcon);
-                            }
-                        } else {
-                            Toast.makeText(activity, "Failed to change profile", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                @Override
-                public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                    Log.i("12312","onFailure" + t);
-                    progress_bar.setVisibility(View.GONE);
-                    Toast.makeText(activity, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Image Upload Code End
-    }
-
-    private String getOriginalFileName(Uri uri) {
-        String originalFileName = "image.jpg"; // Default filename if not found
-        try (Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                if (displayNameIndex != -1) {
-                    originalFileName = cursor.getString(displayNameIndex);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return originalFileName;
-    }
-
-    private File convertBitmapToFile(Bitmap bitmap) {
-        try {
-            File imageFile = new File(activity.getCacheDir(), "image.jpg");
-            imageFile.createNewFile();
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] bitmapData = byteArrayOutputStream.toByteArray();
-
-            // Write the bytes to the file
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            fos.write(bitmapData);
-            fos.close();
-
-            return imageFile;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private void requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Dexter.withActivity(activity)
-                    .withPermissions(
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.READ_MEDIA_IMAGES
-                    ).withListener(new MultiplePermissionsListener() {
-                        @Override
-                        public void onPermissionsChecked(MultiplePermissionsReport report) {
-                            if (report.areAllPermissionsGranted()) {
-                                // All permissions are granted. Do your work here.
-                                Log.i("2012","Permission Granted!");
-                            } else if (report.isAnyPermissionPermanentlyDenied()) {
-                                // Handle the permanent denial of any permission
-                                showSettingsDialog();
-                            } else {
-                                // Handle the temporary denial of any permission
-                                showPermissionDeniedDialog();
-                            }
-                        }
-
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                            // Handle permission rationale. Show a dialog explaining why the permission is needed
-                            showPermissionRationaleDialog(token);
-                        }
-                    }).check();
-        } else {
-            Dexter.withActivity(activity)
-                    .withPermissions(
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                    ).withListener(new MultiplePermissionsListener() {
-                        @Override
-                        public void onPermissionsChecked(MultiplePermissionsReport report) {
-                            if (report.areAllPermissionsGranted()) {
-                                // All permissions are granted. Do your work here.
-                                Log.i("2012","Permission Granted!");
-                            } else if (report.isAnyPermissionPermanentlyDenied()) {
-                                // Handle the permanent denial of any permission
-                                showSettingsDialog();
-                            } else {
-                                // Handle the temporary denial of any permission
-                                showPermissionDeniedDialog();
-                            }
-                        }
-
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                            // Handle permission rationale. Show a dialog explaining why the permission is needed
-                            showPermissionRationaleDialog(token);
-                        }
-                    }).check();
-        }
-    }
-
-    private void showSettingsDialog() {
-        new AlertDialog.Builder(activity)
-                .setTitle("Need Permissions")
-                .setMessage("This app needs permission to use this feature. You can grant them in app settings.")
-                .setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
-                        intent.setData(uri);
-                        startActivityForResult(intent, 101);
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).show();
-    }
-
-    private void showPermissionDeniedDialog() {
-        new AlertDialog.Builder(activity)
-                .setTitle("Permission Denied")
-                .setMessage("Permission was denied, but is needed for core functionality.")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        requestPermissions(); // Try to request permissions again
-                    }
-                }).show();
-    }
-
-    private void showPermissionRationaleDialog(final PermissionToken token) {
-        new AlertDialog.Builder(activity)
-                .setTitle("Permission Required")
-                .setMessage("This permission is necessary for certain features to function.")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        token.continuePermissionRequest();
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        token.cancelPermissionRequest();
-                    }
-                }).show();
     }
 }

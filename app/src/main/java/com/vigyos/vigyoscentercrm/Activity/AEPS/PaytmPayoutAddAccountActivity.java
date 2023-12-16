@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -47,6 +48,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.Model.BankListModel;
 import com.vigyos.vigyoscentercrm.Model.PayoutAddAccountBankListModel;
 import com.vigyos.vigyoscentercrm.R;
@@ -78,30 +80,26 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
     private ArrayList<PayoutAddAccountBankListModel> bankListModels = new ArrayList<>();
     private ImageView ivBack;
     private LinearLayout ptmBankNameFocus, ptmAccountNumberFocus, ptmIfscNumberFocus;
-    private LinearLayout ptmAccountHolderNameFocus, ptmAccountTypeFocus, ptmDocumentTypeFocus;
+    private LinearLayout ptmAccountHolderNameFocus, ptmAccountTypeFocus;
     private RelativeLayout ptmBankNameLyt, ptmAccountNumberLyt, ptmIfscNumberLyt;
-    private RelativeLayout ptmAccountHolderNameLyt, ptmAccountTypeLyt, ptmDocumentTypeLyt;
-    private Spinner ptmBankNameSpinner, ptmAccountType, ptmSelectDocumentType;
+    private RelativeLayout ptmAccountHolderNameLyt, ptmAccountTypeLyt;
+    private Spinner ptmBankNameSpinner, ptmAccountType;
     private EditText ptmAccountNumber, ptmIfscNumber, ptmAccountHolderName;
     //Image Pick Layouts
-    private LinearLayout ptmPassbookImageFocus, ptmPanCardFocus, ptmAadhaarFrontFocus, ptmAadhaarBackFocus;
+    private LinearLayout ptmPassbookImageFocus, ptmPanCardFocus;
     private RelativeLayout ptmPassbookImageLyt, ptmPanCardLyt, ptmAadhaarFrontLyt, ptmAadhaarBackLyt;
     //Show Image
-    private ImageView ptmPassbookImage, ptmPanCardImage, ptmAadhaarFrontImage, ptmAadhaarBackImage;
-    private RelativeLayout ptmPassbookNoImageLyt, ptmPanCardNoImageLyt, ptmAadhaarFrontNoImageLyt, ptmAadhaarBackNoImageLyt;
-    private RelativeLayout ptmUploadImageLyt, ptmUploadPanCardLyt, ptmAadhaarFrontUploadLyt, ptmAadhaarBackUploadLyt;
+    private ImageView ptmPassbookImage, ptmPanCardImage;
+    private RelativeLayout ptmPassbookNoImageLyt, ptmPanCardNoImageLyt;
+    private RelativeLayout ptmUploadImageLyt, ptmUploadPanCardLyt;
     private RelativeLayout ptmAddAccountButton;
     private String BankName;
     private int bankId;
     private Dialog dialog;
     private String accountTypeName;
-    private String documentTypeName;
     private Uri passbookImageUri, panCardImageUri;
-    private Uri aadhaarImageFrontUri, aadhaarImageBackUri;
     private boolean passbook = false;
     private boolean panCard = false;
-    private boolean aadhaarFront = false;
-    private boolean aadhaarBack = false;
     private String beneID;
     private Animation animation;
 
@@ -120,39 +118,28 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
         ptmIfscNumberFocus = findViewById(R.id.ptmIfscNumberFocus);
         ptmAccountHolderNameFocus = findViewById(R.id.ptmAccountHolderNameFocus);
         ptmAccountTypeFocus = findViewById(R.id.ptmAccountTypeFocus);
-        ptmDocumentTypeFocus = findViewById(R.id.ptmDocumentTypeFocus);
         ptmBankNameLyt = findViewById(R.id.ptmBankNameLyt);
         ptmAccountNumberLyt = findViewById(R.id.ptmAccountNumberLyt);
         ptmIfscNumberLyt = findViewById(R.id.ptmIfscNumberLyt);
         ptmAccountHolderNameLyt = findViewById(R.id.ptmAccountHolderNameLyt);
         ptmAccountTypeLyt = findViewById(R.id.ptmAccountTypeLyt);
-        ptmDocumentTypeLyt = findViewById(R.id.ptmDocumentTypeLyt);
         ptmBankNameSpinner = findViewById(R.id.ptmBankNameSpinner);
         ptmAccountType = findViewById(R.id.ptmAccountType);
-        ptmSelectDocumentType = findViewById(R.id.ptmSelectDocumentType);
         ptmAccountNumber = findViewById(R.id.ptmAccountNumber);
         ptmIfscNumber = findViewById(R.id.ptmIfscNumber);
         ptmAccountHolderName = findViewById(R.id.ptmAccountHolderName);
         ptmPassbookImageFocus = findViewById(R.id.ptmPassbookImageFocus);
         ptmPanCardFocus = findViewById(R.id.ptmPanCardFocus);
-        ptmAadhaarFrontFocus = findViewById(R.id.ptmAadhaarFrontFocus);
-        ptmAadhaarBackFocus = findViewById(R.id.ptmAadhaarBackFocus);
         ptmPassbookImageLyt = findViewById(R.id.ptmPassbookImageLyt);
         ptmPanCardLyt = findViewById(R.id.ptmPanCardLyt);
         ptmAadhaarFrontLyt = findViewById(R.id.ptmAadhaarFrontLyt);
         ptmAadhaarBackLyt = findViewById(R.id.ptmAadhaarBackLyt);
         ptmPassbookImage = findViewById(R.id.ptmPassbookImage);
         ptmPanCardImage = findViewById(R.id.ptmPanCardImage);
-        ptmAadhaarFrontImage = findViewById(R.id.ptmAadhaarFrontImage);
-        ptmAadhaarBackImage = findViewById(R.id.ptmAadhaarBackImage);
         ptmPassbookNoImageLyt = findViewById(R.id.ptmPassbookNoImageLyt);
         ptmPanCardNoImageLyt = findViewById(R.id.ptmPanCardNoImageLyt);
-        ptmAadhaarFrontNoImageLyt = findViewById(R.id.ptmAadhaarFrontNoImageLyt);
-        ptmAadhaarBackNoImageLyt = findViewById(R.id.ptmAadhaarBackNoImageLyt);
         ptmUploadImageLyt = findViewById(R.id.ptmUploadImageLyt);
         ptmUploadPanCardLyt = findViewById(R.id.ptmUploadPanCardLyt);
-        ptmAadhaarFrontUploadLyt = findViewById(R.id.ptmAadhaarFrontUploadLyt);
-        ptmAadhaarBackUploadLyt = findViewById(R.id.ptmAadhaarBackUploadLyt);
         ptmAddAccountButton = findViewById(R.id.ptmAddAccountButton);
     }
 
@@ -201,7 +188,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(PaytmPayoutAddAccountActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                         && ContextCompat.checkSelfPermission(PaytmPayoutAddAccountActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(PaytmPayoutAddAccountActivity.this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
-
                     ImagePicker.with(PaytmPayoutAddAccountActivity.this)
                             .crop()
                             .compress(1024)
@@ -306,32 +292,12 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                     StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select PassBook Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
-//                if (ptmSelectDocumentType.getSelectedItem().toString().trim().equals("Select Document Type")) {
-//                    ptmDocumentTypeLyt.startAnimation(animation);
-//                    ptmDocumentTypeFocus.getParent().requestChildFocus(ptmDocumentTypeFocus, ptmDocumentTypeFocus);
-//                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select Document Type", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-//                    return;
-//                }
-//                if (documentTypeName.equalsIgnoreCase("PAN")) {
-                    if (!panCard){
-                        ptmPanCardLyt.startAnimation(animation);
-                        ptmPanCardFocus.getParent().requestChildFocus(ptmPanCardFocus, ptmPanCardFocus);
-                        StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select Pan Card Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-                        return;
-                    }
-//                } else {
-//                    if (!aadhaarFront){
-//                        ptmAadhaarFrontLyt.startAnimation(animation);
-//                        ptmAadhaarFrontFocus.getParent().requestChildFocus(ptmAadhaarFrontFocus, ptmAadhaarFrontFocus);
-//                        StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select Aadhaar Front Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-//                        return;
-//                    } else if (!aadhaarBack) {
-//                        ptmAadhaarBackLyt.startAnimation(animation);
-//                        ptmAadhaarBackFocus.getParent().requestChildFocus(ptmAadhaarBackFocus, ptmAadhaarBackFocus);
-//                        StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select Aadhaar Back Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-//                        return;
-//                    }
-//                }
+                if (!panCard){
+                    ptmPanCardLyt.startAnimation(animation);
+                    ptmPanCardFocus.getParent().requestChildFocus(ptmPanCardFocus, ptmPanCardFocus);
+                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Select Pan Card Image", Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                    return;
+                }
 
                 areYouSure();
             }
@@ -339,31 +305,41 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
     }
 
     private void areYouSure(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(PaytmPayoutAddAccountActivity.this);
-        builder1.setMessage("Are you sure, You want to Add this Account ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        addBankAccount();
-                    }
-                });
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        dialog = new Dialog(PaytmPayoutAddAccountActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_yes_or_no);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView title = dialog.findViewById(R.id.title);
+        title.setText("Add Account!");
+        TextView details = dialog.findViewById(R.id.details);
+        details.setText("Are you sure, You want to Add this Account ?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(PaytmPayoutAddAccountActivity.this, R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(PaytmPayoutAddAccountActivity.this, R.anim.viewpush));
+                dismissDialog();
+                addBankAccount();
+            }
+        });
+        dialog.show();
     }
 
     private void addBankAccount() {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().addBankAccountForPayOut(SplashActivity.prefManager.getToken(), bankId , SplashActivity.prefManager.getFinoMerchantId(), ptmAccountNumber.getText().toString(),
+        Call<Object> objectCall = RetrofitClient.getApi().paytmAddAccountForPayOut(SplashActivity.prefManager.getToken(), bankId, SplashActivity.prefManager.getPaytmMerchantId(), ptmAccountNumber.getText().toString(),
                 ptmIfscNumber.getText().toString(), ptmAccountHolderName.getText().toString(), accountTypeName);
         objectCall.enqueue(new Callback<Object>() {
             @Override
@@ -379,16 +355,10 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                             beneID = jsonObject.getString("bene_id");
                         }
                         uploadPanDocumentApi(beneID);
-
-//                        if (documentTypeName.equalsIgnoreCase("PAN")) {
-//                            uploadPanDocumentApi(beneID);
-//                        } else {
-//                            uploadAadhaarDocumentApi(beneID);
-//                        }
                     } else {
                         dismissDialog();
                         if (jsonObject.has("message")) {
-                            StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                            DialogCustom.showAlertDialog(PaytmPayoutAddAccountActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -405,7 +375,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
     }
 
     private void uploadPanDocumentApi(String beneID) {
-//        pleaseWait();
         try {
             // Passbook Image code Start
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), passbookImageUri);
@@ -425,8 +394,7 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
             MultipartBody.Part panCardImage = MultipartBody.Part.createFormData("panimage", imageFile1.getName(), panCardBody);
             // PanCard Image Code End
 
-            Call<Object> objectCall = RetrofitClient.getApi().paytmAddPayOutAccPanDocUpload(SplashActivity.prefManager.getToken(), "PAN", passBookImage, passBookFileName,
-                    panCardImage, panCardFileName, beneID);
+            Call<Object> objectCall = RetrofitClient.getApi().paytmAddPayOutAccPanDocUpload(SplashActivity.prefManager.getToken(), "PAN", beneID, passBookImage, passBookFileName, panCardImage, panCardFileName);
             objectCall.enqueue(new Callback<Object>() {
                 @Override
                 public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -438,7 +406,7 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                             if (jsonObject.has("message")) {
                                 StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
                             }
-                            startActivity(new Intent(PaytmPayoutAddAccountActivity.this, FinoPayOutActivity.class));
+                            startActivity(new Intent(PaytmPayoutAddAccountActivity.this, PaytmPayoutActivity.class));
                             finish();
                         } else {
                             StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_LONG, R.style.myToastError).show();
@@ -453,68 +421,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                     Log.i("2016", "onFailure: " + t);
                     dismissDialog();
                     StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Account Failed to Add!", Toast.LENGTH_LONG, R.style.myToastError).show();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void uploadAadhaarDocumentApi(String beneID) {
-        try {
-            // Passbook Image code Start
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), passbookImageUri);
-            File imageFile = convertBitmapToFile(bitmap); // You need to implement this method
-            String passBookFileName = getOriginalFileName(passbookImageUri); // You need to implement this method
-
-            RequestBody passBookBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
-            MultipartBody.Part passBookImage = MultipartBody.Part.createFormData("passbook", imageFile.getName(), passBookBody);
-            // Passbook Image Code End
-
-            // Aadhaar Card Front Image Code Start
-            Bitmap bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), aadhaarImageFrontUri);
-            File imageFile1 = convertBitmapToFile(bitmap1); // You need to implement this method
-            String aadhaarCardFrontFileName = getOriginalFileName(aadhaarImageFrontUri); // You need to implement this method
-
-            RequestBody aadhaarCardFrontBody = RequestBody.create(MediaType.parse("image/*"), imageFile1);
-            MultipartBody.Part aadhaarCardFrontImage = MultipartBody.Part.createFormData("front_image", imageFile1.getName(), aadhaarCardFrontBody);
-            // Aadhaar Card Front Image Code End
-
-            // Aadhaar Card Back Image Code Start
-            Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), aadhaarImageBackUri);
-            File imageFile2 = convertBitmapToFile(bitmap2); // You need to implement this method
-            String aadhaarCardBackFileName = getOriginalFileName(aadhaarImageBackUri); // You need to implement this method
-
-            RequestBody aadhaarCardBackBody = RequestBody.create(MediaType.parse("image/*"), imageFile2);
-            MultipartBody.Part aadhaarCardBackImage = MultipartBody.Part.createFormData("back_image", imageFile2.getName(), aadhaarCardBackBody);
-            // Aadhaar Card Back Image Code End
-
-            Call<Object> objectCall = RetrofitClient.getApi().addPayOutAccAadhaarDocUpload(SplashActivity.prefManager.getToken(), documentTypeName, passBookImage, passBookFileName,
-                    beneID, aadhaarCardFrontImage, aadhaarCardFrontFileName, aadhaarCardBackImage, aadhaarCardBackFileName);
-            objectCall.enqueue(new Callback<Object>() {
-                @Override
-                public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                    Log.i("2016","onResponse: " + response);
-                    dismissDialog();
-                    try {
-                        JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                        if (jsonObject.has("status") && jsonObject.getBoolean("status")) {
-                            if (jsonObject.has("message")) {
-                                StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastSuccess).show();
-                            }
-                        } else {
-                            StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
-                        }
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                    Log.i("2016", "onFailure: " + t);
-                    dismissDialog();
-                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Upload Failed!", Toast.LENGTH_LONG, R.style.myToastError).show();
                 }
             });
         } catch (IOException e) {
@@ -585,7 +491,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                         Log.i("12121"," image " + panCardImageUri);
                         ptmPanCardImage.setImageURI(panCardImageUri);
                         panCard = true;
-
                         ptmPanCardNoImageLyt.setVisibility(View.GONE);
                         ptmUploadPanCardLyt.setVisibility(View.GONE);
                     }
@@ -595,42 +500,12 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                     StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                 }
                 break;
-            case 102:
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data != null && data.getData() != null) {
-                        aadhaarImageFrontUri = data.getData();
-                        Log.i("12121"," image " + aadhaarImageFrontUri);
-                        ptmAadhaarFrontImage.setImageURI(aadhaarImageFrontUri);
-                        aadhaarFront = true;
-                        ptmAadhaarFrontNoImageLyt.setVisibility(View.GONE);
-                        ptmAadhaarFrontUploadLyt.setVisibility(View.GONE);
-                    }
-                } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
-                } else {
-                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-                }
-                break;
-            case 103:
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data != null && data.getData() != null) {
-                        aadhaarImageBackUri = data.getData();
-                        Log.i("12121"," image " + aadhaarImageBackUri);
-                        ptmAadhaarBackImage.setImageURI(aadhaarImageBackUri);
-                        aadhaarBack = true;
-                        ptmAadhaarBackNoImageLyt.setVisibility(View.GONE);
-                        ptmAadhaarBackUploadLyt.setVisibility(View.GONE);
-                    }
-                } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, ImagePicker.getError(data), Toast.LENGTH_LONG, R.style.myToastError).show();
-                } else {
-                    StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, "Task Cancelled", Toast.LENGTH_LONG, R.style.myToastWarning).show();
-                }
+            default:
                 break;
         }
     }
 
-    private void payoutBanks(){
+    private void payoutBanks() {
         Call<Object> objectCall = RetrofitClient.getApi().paytmBankList(SplashActivity.prefManager.getToken());
         objectCall.enqueue(new Callback<Object>() {
             @Override
@@ -639,28 +514,48 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        if (jsonObject.has("banklist")) {
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("banklist");
-                            if (jsonObject1.has("data")) {
-                                JSONArray jsonArray = jsonObject1.getJSONArray("data");
-                                bankNameArrayList.add(0,"Select your bank");
-                                for (int i = 0; i < jsonArray.length(); i++){
-                                    JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                                    PayoutAddAccountBankListModel listModel = new PayoutAddAccountBankListModel();
-                                    if (jsonObject2.has("iinno")) {
-                                        listModel.setBank_id(jsonObject2.getInt("iinno"));
-                                    }
-                                    if (jsonObject2.has("bankName")) {
-                                        listModel.setBank_name(jsonObject2.getString("bankName"));
-                                        bankNameArrayList.add(jsonObject2.getString("bankName"));
-                                    }
-                                    bankListModels.add(listModel);
+                        if (jsonObject.has("bank_list")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("bank_list");
+                            bankNameArrayList.add(0,"Select your bank");
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                PayoutAddAccountBankListModel listModel = new PayoutAddAccountBankListModel();
+                                if (jsonObject1.has("bank_id")) {
+                                    listModel.setBank_id(jsonObject1.getInt("bank_id"));
                                 }
+                                if (jsonObject1.has("bank_name")) {
+                                    listModel.setBank_name(jsonObject1.getString("bank_name"));
+                                    bankNameArrayList.add(jsonObject1.getString("bank_name"));
+                                }
+                                bankListModels.add(listModel);
                             }
                         }
+
+
+
+
+//                        if (jsonObject.has("bank_list")) {
+//                            JSONObject jsonObject1 = jsonObject.getJSONObject("bank_list");
+//                            if (jsonObject1.has("data")) {
+//                                JSONArray jsonArray = jsonObject1.getJSONArray("data");
+//                                bankNameArrayList.add(0,"Select your bank");
+//                                for (int i = 0; i < jsonArray.length(); i++) {
+//                                    JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+//                                    PayoutAddAccountBankListModel listModel = new PayoutAddAccountBankListModel();
+//                                    if (jsonObject2.has("iinno")) {
+//                                        listModel.setBank_id(jsonObject2.getInt("iinno"));
+//                                    }
+//                                    if (jsonObject2.has("bankName")) {
+//                                        listModel.setBank_name(jsonObject2.getString("bankName"));
+//                                        bankNameArrayList.add(jsonObject2.getString("bankName"));
+//                                    }
+//                                    bankListModels.add(listModel);
+//                                }
+//                            }
+//                        }
                     } else {
                         if (jsonObject.has("message")) {
-                            StyleableToast.makeText(PaytmPayoutAddAccountActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG, R.style.myToastWarning).show();
+                            DialogCustom.showAlertDialog(PaytmPayoutAddAccountActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
 
@@ -689,7 +584,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                         public void onNothingSelected(AdapterView<?> parent) { }
                     });
                     selectAccountType();
-                    selectDocumentType();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -719,38 +613,6 @@ public class PaytmPayoutAddAccountActivity extends AppCompatActivity {
                         accountTypeName = "PRIMARY";
                     } else {
                         accountTypeName = "RELATIVE";
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-        });
-    }
-
-    private void selectDocumentType() {
-        String[] document = { "Select Document Type", "Pan Card", "Aadhaar Card" };
-        ArrayAdapter ad = new ArrayAdapter(this, R.layout.layout_spinner_item, document);
-        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ptmSelectDocumentType.setAdapter(ad);
-        ptmSelectDocumentType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (parent.getItemAtPosition(position).equals("Select Document Type")) {
-                    Log.i("12121","Select Document Type");
-                } else {
-                    ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.dark_vigyos));
-                    String selectedItem = (String) parent.getItemAtPosition(position);
-                    if (selectedItem.equalsIgnoreCase("Pan Card")) {
-                        documentTypeName = "PAN";
-                        ptmPanCardFocus.setVisibility(View.VISIBLE);
-                        ptmAadhaarFrontFocus.setVisibility(View.GONE);
-                        ptmAadhaarBackFocus.setVisibility(View.GONE);
-                    } else {
-                        documentTypeName = "AADHAAR";
-                        ptmPanCardFocus.setVisibility(View.GONE);
-                        ptmAadhaarFrontFocus.setVisibility(View.VISIBLE);
-                        ptmAadhaarBackFocus.setVisibility(View.VISIBLE);
                     }
                 }
             }

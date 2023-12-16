@@ -52,6 +52,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -238,7 +239,7 @@ public class FinoPayOutActivity extends AppCompatActivity {
                         payoutBalanceUpdate();
                     } else {
                         if (jsonObject.has("message")){
-                            Toast.makeText(FinoPayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -267,20 +268,23 @@ public class FinoPayOutActivity extends AppCompatActivity {
                         if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                             if (jsonObject.has("data")) {
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                if (jsonObject1.has("payout_balance")) {
-                                    SplashActivity.prefManager.setFinoPayoutBalance(jsonObject1.getInt("payout_balance"));
-                                }
-                                if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
-                                    payoutBalance.setText("₹"+"0.00");
-                                } else {
-                                    int i = SplashActivity.prefManager.getFinoPayoutBalance();
-                                    float v = (float) i;
-                                    payoutBalance.setText("₹"+ v);
+                                if (jsonObject1.has("BANK2")) {
+                                    JSONObject bank2Object = jsonObject1.getJSONObject("BANK2");
+                                    if (bank2Object.has("payout_balance")) {
+                                        SplashActivity.prefManager.setFinoPayoutBalance(bank2Object.getInt("payout_balance"));
+                                    }
+                                    if (SplashActivity.prefManager.getFinoPayoutBalance() == 0){
+                                        payoutBalance.setText("₹"+"0.00");
+                                    } else {
+                                        int i = SplashActivity.prefManager.getFinoPayoutBalance();
+                                        float v = (float) i;
+                                        payoutBalance.setText("₹"+ v);
+                                    }
                                 }
                             }
                         } else {
                             if (jsonObject.has("message")) {
-                                Toast.makeText(FinoPayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                             }
                         }
                     } catch (JSONException e) {
@@ -288,9 +292,6 @@ public class FinoPayOutActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(FinoPayOutActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
-                    SplashActivity.prefManager.setClear();
-                    startActivity(new Intent(FinoPayOutActivity.this, LoginActivity.class));
-                    finish();
                 }
             }
 
@@ -347,7 +348,7 @@ public class FinoPayOutActivity extends AppCompatActivity {
                     } else {
                         bankNameArray.add(0,"Select your bank");
                         if (jsonObject.has("message")) {
-                            Toast.makeText(FinoPayOutActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
                         }
                     }
 

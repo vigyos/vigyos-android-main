@@ -395,7 +395,7 @@ public class UserActivity extends AppCompatActivity {
 
     private void AuthAPI(String fingerData) {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().AuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
+        Call<Object> objectCall = RetrofitClient.getApi().FinoAuthAPI(SplashActivity.prefManager.getToken(), "APP", SplashActivity.prefManager.getAadhaarNumber(), SplashActivity.prefManager.getPhone(),
                 String.valueOf(latitude), String.valueOf(longitude), currentDateAndTime, fingerData, ipAddress, "2", SplashActivity.prefManager.getFinoMerchantId());
         objectCall.enqueue(new Callback<Object>() {
             @Override
