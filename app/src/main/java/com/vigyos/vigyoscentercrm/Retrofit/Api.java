@@ -1,5 +1,8 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
+import com.vigyos.vigyoscentercrm.Model.BbpsPayBillModel;
+import com.vigyos.vigyoscentercrm.Model.PayBillModel;
+import com.vigyos.vigyoscentercrm.Model.PayBillsModel;
 import com.vigyos.vigyoscentercrm.Model.RequestData;
 
 import okhttp3.MultipartBody;
@@ -491,6 +494,21 @@ public interface Api {
     Call<Object> payBillOperator(
             @Header("Authorization") String Authorization,
             @Query("mode") String mode
+    );
+
+    @FormUrlEncoded
+    @POST("bbps_paysprint/bill_payment/fetch_bill")
+    Call<Object> fetchBill(
+            @Header("Authorization") String Authorization,
+            @Field("operator") String operator,
+            @Field("canumber") String canumber,
+            @Field("mode") String mode
+    );
+
+    @POST("bbps_paysprint/bill_payment/pay_bill")
+    Call<PayBillsModel> payBill(
+            @Header("Authorization") String authorization,
+            @Body PayBillsModel requestModel
     );
 
     @FormUrlEncoded

@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -85,10 +86,14 @@ public class BBPSServicesActivity extends AppCompatActivity {
                             Iterator<String> keys = dataObject.keys();
                             while (keys.hasNext()) {
                                 String categoryName = keys.next();
-                                JSONObject categoryObject = dataObject.getJSONObject(categoryName);
-                                if (categoryObject.has("icon")) {
-                                    String categoryIconUrl = categoryObject.getString("icon");
-                                    municipalityList.add(new MunicipalityItem(categoryName, categoryIconUrl));
+
+                                if (!shouldExcludeCategory(categoryName)) {
+                                    JSONObject categoryObject = dataObject.getJSONObject(categoryName);
+
+                                    if (categoryObject.has("icon")) {
+                                        String categoryIconUrl = categoryObject.getString("icon");
+                                        municipalityList.add(new MunicipalityItem(categoryName, categoryIconUrl));
+                                    }
                                 }
                             }
                             // Notify the adapter that the data set has changed
@@ -107,6 +112,66 @@ public class BBPSServicesActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Function to check if the category should be excluded
+    private boolean shouldExcludeCategory(String categoryName) {
+        List<String> excludedCategories = Arrays.asList("Prepaid", "municipality", "water", "DTH", "EMI\r\n", "EMI Payments");
+        return excludedCategories.contains(categoryName);
+    }
+
+//    private void fetchDataFromApi() {
+//        // Assuming you have a RecyclerView in your layout with the id recyclerViewMunicipality
+//        RecyclerView recyclerView = findViewById(R.id.recyclerViewBBPS);
+//        List<MunicipalityItem> municipalityList = new ArrayList<>(); // Populate this list with your data
+//
+//        MunicipalityAdapter adapter = new MunicipalityAdapter(municipalityList, this);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        pleaseWait();
+//        Call<Object> objectCall = RetrofitClient.getApi().payBillOperator(SplashActivity.prefManager.getToken(), "online");
+//        objectCall.enqueue(new Callback<Object>() {
+//            @Override
+//            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+//                dismissDialog();
+//                try {
+//                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
+//                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
+//                        if (jsonObject.has("data")) {
+//                            JSONObject dataObject = jsonObject.getJSONObject("data");
+//                            // Iterate through keys in the "data" object
+//                            Iterator<String> keys = dataObject.keys();
+//                            while (keys.hasNext()) {
+//                                String categoryName = keys.next();
+//
+//                                if (!categoryName.equalsIgnoreCase("Prepaid") && !categoryName.equalsIgnoreCase("municipality") &&
+//                                !categoryName.equalsIgnoreCase("water") && !categoryName.equalsIgnoreCase("DTH") && !categoryName.equalsIgnoreCase("EMI\\r\\n"))  {
+//
+//
+//                                    JSONObject categoryObject = dataObject.getJSONObject(categoryName);
+//
+//                                    if (categoryObject.has("icon")) {
+//                                        String categoryIconUrl = categoryObject.getString("icon");
+//                                        municipalityList.add(new MunicipalityItem(categoryName, categoryIconUrl));
+//                                    }
+//                                }
+//                            }
+//                            // Notify the adapter that the data set has changed
+//                            adapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
+//                Log.i("2016", "onFailure " + t);
+//                dismissDialog();
+//            }
+//        });
+//    }
 
     private void pleaseWait() {
         dialog = new Dialog(this);

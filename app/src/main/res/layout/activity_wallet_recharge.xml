@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Wallet Balance"
+                    android:text="Current Wallet Balance"
                     android:elegantTextHeight="true"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="#001646"

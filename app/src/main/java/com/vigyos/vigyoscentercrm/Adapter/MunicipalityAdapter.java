@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSPayBillsActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSOperatorListActivity;
 import com.vigyos.vigyoscentercrm.R;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public class MunicipalityAdapter extends RecyclerView.Adapter<MunicipalityAdapte
         holder.mainLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,  BBPSPayBillsActivity.class);
+                Intent intent = new Intent(context,  BBPSOperatorListActivity.class);
                 intent.putExtra("categoryData", currentItem.getCategoryName());
                 context.startActivity(intent);
             }

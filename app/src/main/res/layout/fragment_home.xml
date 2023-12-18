@@ -360,7 +360,7 @@
                             <ImageView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/govt_serviece" />
+                                android:src="@drawable/govt_services" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -452,18 +452,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:elegantTextHeight="true"
-                    android:text="BBPS"
+                    android:text="Recharge"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_14sdp"
                     android:fontFamily="@font/poppins_semi_bold"/>
                 <TextView
-                    android:id="@+id/bbpsAll"
+                    android:id="@+id/rechargeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:elegantTextHeight="true"
                     android:text="@string/view_all"
+                    android:visibility="gone"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/dark_vigyos"
                     android:fontFamily="@font/poppins_medium"/>
@@ -473,7 +474,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_below="@+id/fifthLyt"
                 android:background="@drawable/black_round_border">
@@ -506,7 +506,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:elegantTextHeight="true"
-                                android:text="Prepaid"
+                                android:text="Recharge"
                                 android:fontFamily="@font/poppins_regular"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />
@@ -578,14 +578,102 @@
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </GridLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/sevenLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/sixLyt">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:elegantTextHeight="true"
+                    android:text="Utilities"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+                <TextView
+                    android:id="@+id/bbpsAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:elegantTextHeight="true"
+                    android:text="@string/view_all"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/dark_vigyos"
+                    android:fontFamily="@font/poppins_medium"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/eightLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/sevenLyt"
+                android:background="@drawable/black_round_border">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_12sdp">
                     <GridLayout
+                        android:id="@+id/gridLyt3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/gridLyt2"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_gravity="center_vertical"
                         android:columnCount="5"
                         android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/cylinder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/cylinder" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:elegantTextHeight="true"
+                                android:text="LPG"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/broadband"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/broadband" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text="Broadband"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/water"
                             android:layout_width="wrap_content"
@@ -608,6 +696,80 @@
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/education"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/education" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text="Education\nFees"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                    </GridLayout>
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gridLyt3"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center_vertical"
+                        android:columnCount="5"
+                        android:rowCount="1">
+                        <LinearLayout
+                            android:id="@+id/postpaid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/recharge" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text="Postpaid"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/hospital"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:src="@drawable/hospital" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text="Hospital"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textAlignment="center"
+                                android:textColor="@color/dark_vigyos"
+                                android:textSize="@dimen/_10sdp" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:id="@+id/electricity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -625,28 +787,6 @@
                                 android:elegantTextHeight="true"
                                 android:text="Electricity"
                                 android:fontFamily="@font/poppins_regular"
-                                android:textAlignment="center"
-                                android:textColor="@color/dark_vigyos"
-                                android:textSize="@dimen/_10sdp" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/cylinder"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_gravity="center_vertical|center_horizontal"
-                            android:gravity="center"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="@dimen/_40sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:src="@drawable/cylinder" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
-                                android:elegantTextHeight="true"
-                                android:text="Cylinder"
                                 android:textAlignment="center"
                                 android:textColor="@color/dark_vigyos"
                                 android:textSize="@dimen/_10sdp" />

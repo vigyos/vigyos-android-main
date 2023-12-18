@@ -33,9 +33,10 @@ android {
     }
 
     namespace 'com.vigyos.vigyoscentercrm'
-    buildFeatures {
-        viewBinding true
-    }
+
+//    buildFeatures {
+//        viewBinding true
+//    }
 }
 
 dependencies {

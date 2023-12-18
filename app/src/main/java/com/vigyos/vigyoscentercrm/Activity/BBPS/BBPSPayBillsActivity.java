@@ -3,40 +3,32 @@ package com.vigyos.vigyoscentercrm.Activity.BBPS;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AutoCompleteTextView;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
-import com.vigyos.vigyoscentercrm.Model.BbpsPayBillModel;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,55 +38,125 @@ import retrofit2.Response;
 public class BBPSPayBillsActivity extends AppCompatActivity {
 
     private ImageView ivBack;
-    private TextView titleNameText;
+    private TextView titleName;
+    private TextView operatorName;
+    private TextView displayName, billAmountText;
+    private LinearLayout billAmountFocus;
+    private RelativeLayout billNumberLyt, billAmountLyt;
+    private EditText billNumber, billAmount;
+    private TextView payBillText;
+    private RelativeLayout payBillButton;
     private Dialog dialog;
-    private PayBillAdapter payBillAdapter;
-    private ArrayList<BbpsPayBillModel> bbpsPayBillModels = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private AutoCompleteTextView autoCompleteTextView;
+//    private String billAmount,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bbps_pay_bills);
+        setContentView(R.layout.activity_bbpspay_bills);
         Initialization();
         Declaration();
     }
 
     private void Initialization() {
         ivBack = findViewById(R.id.ivBack);
-        titleNameText = findViewById(R.id.titleName);
-        recyclerView = findViewById(R.id.recyclerView);
-        autoCompleteTextView = findViewById(R.id.searchView);
+        titleName = findViewById(R.id.titleName);
+        operatorName = findViewById(R.id.operatorName);
+        displayName = findViewById(R.id.displayName);
+        billAmountText = findViewById(R.id.billAmountText);
+        billAmountFocus = findViewById(R.id.billAmountFocus);
+        billNumberLyt = findViewById(R.id.billNumberLyt);
+        billAmountLyt = findViewById(R.id.billAmountLyt);
+        billNumber = findViewById(R.id.billNumber);
+        billAmount = findViewById(R.id.billAmount);
+        payBillText = findViewById(R.id.payBillText);
+        payBillButton = findViewById(R.id.payBillButton);
     }
 
     private void Declaration() {
         Intent intent = getIntent();
-        String categoryName = intent.getStringExtra("categoryData");
-        String titleName = intent.getStringExtra("titleName");
-        titleNameText.setText(categoryName);
+        String id = intent.getStringExtra("id");
+        String name = intent.getStringExtra("name");
+        String category = intent.getStringExtra("category");
+        String viewbill = intent.getStringExtra("viewbill");
+        String regex = intent.getStringExtra("regex");
+        String displayname = intent.getStringExtra("displayname");
+        String ad1_d_name = intent.getStringExtra("ad1_d_name");
+        String ad1_name = intent.getStringExtra("ad1_name");
+        String ad1_regex = intent.getStringExtra("ad1_regex");
+        String ad2_name = intent.getStringExtra("ad2_name");
+        String ad3_name = intent.getStringExtra("ad3_name");
+        String ad3_regex = intent.getStringExtra("ad3_regex");
+
+        titleName.setText(category);
+        operatorName.setText(name);
+        displayName.setText(displayname);
+
+        if (viewbill.equalsIgnoreCase("0")) {
+            payBillText.setText("Pay Bill");
+            billAmountFocus.setVisibility(View.VISIBLE);
+        } else {
+            payBillText.setText("Get Bill");
+            billAmountFocus.setVisibility(View.GONE);
+        }
+        billNumber.requestFocus();
+        billNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    billNumberLyt.setBackgroundResource(R.drawable.credential_border);
+                    billAmountLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                }
+            }
+        });
+        billAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    billNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    billAmountLyt.setBackgroundResource(R.drawable.credential_border);
+                }
+            }
+        });
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+        payBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                payBillAdapter.getFilter().filter(charSequence);
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(BBPSPayBillsActivity.this, R.anim.viewpush));
+                if (TextUtils.isEmpty(billNumber.getText().toString())) {
+                    billNumber.setError("This field is required");
+                    billNumber.requestFocus();
+                    billNumberLyt.startAnimation(AnimationUtils.loadAnimation(BBPSPayBillsActivity.this, R.anim.shake_animation));
+                    Toast.makeText(BBPSPayBillsActivity.this, "Enter " +displayname, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (viewbill.equalsIgnoreCase("0")) {
+                    if (TextUtils.isEmpty(billAmount.getText().toString())) {
+                        billAmount.setError("This field is required");
+                        billAmount.requestFocus();
+                        billAmountLyt.startAnimation(AnimationUtils.loadAnimation(BBPSPayBillsActivity.this, R.anim.shake_animation));
+                        Toast.makeText(BBPSPayBillsActivity.this, "Enter Amount", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    api();
+                } else {
+                    fetchBill(id, billNumber.getText().toString(), name);
+                }
             }
-            @Override
-            public void afterTextChanged(Editable editable) { }
         });
-        api(categoryName);
     }
 
-    private void api(String desiredCategory) {
+    private void api() {
+
+    }
+
+    private void fetchBill(String id, String canumber, String name) {
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().payBillOperator(SplashActivity.prefManager.getToken(), "online");
+        Call<Object> objectCall = RetrofitClient.getApi().fetchBill(SplashActivity.prefManager.getToken(), id, canumber, "online");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -103,39 +165,57 @@ public class BBPSPayBillsActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        if (jsonObject.has("data")) {
-                            JSONObject dataObject = jsonObject.getJSONObject("data");
-                            if (dataObject.has(desiredCategory)) {
-                                JSONObject categoryObject = dataObject.getJSONObject(desiredCategory);
-                                if (categoryObject.has("icon")) {
-                                    String iconUrl = categoryObject.getString("icon");
-                                }
-                                if (categoryObject.has("data")) {
-                                    JSONArray dataArray = categoryObject.getJSONArray("data");
-                                    for (int i = 0; i < dataArray.length(); i++) {
-                                        JSONObject itemObject = dataArray.getJSONObject(i);
-                                        BbpsPayBillModel payBillModel = new BbpsPayBillModel();
-                                        if (itemObject.has("id")) {
-                                            payBillModel.setId(itemObject.getString("id"));
-                                        }
-                                        if (itemObject.has("name")) {
-                                            payBillModel.setName(itemObject.getString("name"));
-                                        }
-                                        if (itemObject.has("viewbill")) {
-                                            payBillModel.setViewbill(itemObject.getString("viewbill"));
-                                        }
-                                        if (itemObject.has("regex")) {
-                                            payBillModel.setRegex(itemObject.optString("regex", ""));
-                                        }
-                                        bbpsPayBillModels.add(payBillModel);
-                                        Log.i("2019", "Category: " + desiredCategory);
-                                    }
-                                }
-                            } else {
-                                Log.i("2019", "Desired category not found in the response");
+                        String billAmount = null, billdate = null, dueDate = null, userName = null;
+                        String cellNumber = null, billnetamount = null, minBillAmount = null;
+                        boolean acceptPayment = false, acceptPartPay = false;
+
+                        if (jsonObject.has("bill_fetch")) {
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("bill_fetch");
+                            if (jsonObject1.has("billAmount")) {
+                                billAmount = jsonObject1.getString("billAmount");
+                            }
+                            if (jsonObject1.has("billnetamount")) {
+                                billnetamount = jsonObject1.getString("billnetamount");
+                            }
+                            if (jsonObject1.has("billdate")) {
+                                billdate = jsonObject1.getString("billdate");
+                            }
+                            if (jsonObject1.has("dueDate")) {
+                                dueDate = jsonObject1.getString("dueDate");
+                            }
+                            if (jsonObject1.has("minBillAmount")) {
+                                minBillAmount = jsonObject1.getString("minBillAmount");
+                            }
+                            if (jsonObject1.has("acceptPayment")) {
+                                acceptPayment = jsonObject1.getBoolean("acceptPayment");
+                            }
+                            if (jsonObject1.has("acceptPartPay")) {
+                                acceptPartPay = jsonObject1.getBoolean("acceptPartPay");
+                            }
+                            if (jsonObject1.has("cellNumber")) {
+                                cellNumber = jsonObject1.getString("cellNumber");
+                            }
+                            if (jsonObject1.has("userName")) {
+                                userName = jsonObject1.getString("userName");
                             }
                         }
-                        callAdapter();
+                        Intent intent = new Intent(BBPSPayBillsActivity.this, BBPSPayBills2Activity.class);
+                        intent.putExtra("name", name);
+                        intent.putExtra("id", id);
+                        intent.putExtra("billAmount", billAmount);
+                        intent.putExtra("billnetamount", billnetamount);
+                        intent.putExtra("billdate", billdate);
+                        intent.putExtra("dueDate", dueDate);
+                        intent.putExtra("minBillAmount", minBillAmount);
+                        intent.putExtra("acceptPayment", acceptPayment);
+                        intent.putExtra("acceptPartPay", acceptPartPay);
+                        intent.putExtra("cellNumber", cellNumber);
+                        intent.putExtra("userName", userName);
+                        startActivity(intent);
+                    } else {
+                        if (jsonObject.has("message")) {
+                            DialogCustom.showAlertDialog(BBPSPayBillsActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -146,101 +226,13 @@ public class BBPSPayBillsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("2016", "onFailure " + t);
                 dismissDialog();
+                Toast.makeText(BBPSPayBillsActivity.this, "Maintenance underway. We'll be back soon.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void callAdapter() {
-        payBillAdapter = new PayBillAdapter(bbpsPayBillModels);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(payBillAdapter);
-    }
-
-    private class PayBillAdapter extends RecyclerView.Adapter<PayBillAdapter.Holder> implements Filterable {
-
-        public ArrayList<BbpsPayBillModel> bbpsPayBillModels;
-        private ArrayList<BbpsPayBillModel> searchFilterList;
-
-        @Override
-        public Filter getFilter() {
-            return filterData;
-        }
-
-        private Filter filterData = new Filter() {
-
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                ArrayList<BbpsPayBillModel> filteredList = new ArrayList<>();
-                if (charSequence == null || charSequence.length() ==0 ){
-                    filteredList.addAll(searchFilterList);
-                } else {
-                    String filterPattern = charSequence.toString().toLowerCase().trim();
-                    for (BbpsPayBillModel item : searchFilterList){
-                        if (item.getName().toLowerCase().contains(filterPattern)){
-                            filteredList.add(item);
-                        }
-                    }
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                bbpsPayBillModels.clear();
-                bbpsPayBillModels.addAll((ArrayList) filterResults.values);
-                notifyDataSetChanged();
-            }
-        };
-
-        public PayBillAdapter(ArrayList<BbpsPayBillModel> bbpsPayBillModels) {
-            this.bbpsPayBillModels = bbpsPayBillModels;
-            this.searchFilterList = new ArrayList<>(bbpsPayBillModels);
-        }
-
-        @NonNull
-        @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.layout_search_services_item, parent, false);
-            return new Holder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull Holder holder, int position) {
-            BbpsPayBillModel billModel = bbpsPayBillModels.get(position);
-            holder.listName.setText(billModel.getName());
-            holder.next_ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return bbpsPayBillModels.size();
-        }
-
-        private class Holder extends RecyclerView.ViewHolder{
-
-            RelativeLayout next_ll;
-            TextView listName;
-
-            public Holder(@NonNull View itemView) {
-                super(itemView);
-                next_ll = itemView.findViewById(R.id.next_ll);
-                listName = itemView.findViewById(R.id.listName);
-            }
-        }
-    }
-
     private void pleaseWait() {
-        dialog = new Dialog(this);
+        dialog = new Dialog(BBPSPayBillsActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
@@ -256,7 +248,7 @@ public class BBPSPayBillsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         dismissDialog();
         super.onDestroy();
     }

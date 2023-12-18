@@ -51,14 +51,13 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoAEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSPayBillsActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSOperatorListActivity;
 import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.GOVT.GovtServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmAEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.RazorPayActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -106,6 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout govtServices, iec, ipr, registration;
     private LinearLayout recharge, dth, cableTv, fastTag;
     private LinearLayout water, electricity, cylinder, pipedGas;
+    private LinearLayout broadband, education, hospital, postpaid;
     private String ipAddress;
     private FusedLocationProviderClient fusedLocationClient;
     private double latitude;
@@ -157,6 +157,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         electricity = view.findViewById(R.id.electricity);
         cylinder = view.findViewById(R.id.cylinder);
         pipedGas = view.findViewById(R.id.pipedGas);
+        broadband = view.findViewById(R.id.broadband);
+        education = view.findViewById(R.id.education);
+        hospital = view.findViewById(R.id.hospital);
+        postpaid = view.findViewById(R.id.postpaid);
 
 //        bannerRecyclerView = view.findViewById(R.id.bannerRecyclerView);
     }
@@ -188,6 +192,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         cylinder.setOnClickListener(this);
         pipedGas.setOnClickListener(this);
         amount.setOnClickListener(this);
+        broadband.setOnClickListener(this);
+        education.setOnClickListener(this);
+        hospital.setOnClickListener(this);
+        postpaid.setOnClickListener(this);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (checkPermission()){
@@ -238,62 +246,91 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.pipedGas:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Gas = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent Gas = new Intent(activity, BBPSOperatorListActivity.class);
                 Gas.putExtra("categoryData", "Gas");
                 Gas.putExtra("titleName", "Gas Provider");
                 startActivity(Gas);
                 break;
-            case R.id.cylinder:
-                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent LPG = new Intent(activity,  BBPSPayBillsActivity.class);
-                LPG.putExtra("categoryData", "LPG");
-                LPG.putExtra("titleName", "LPG Provider");
-                startActivity(LPG);
-                break;
             case R.id.electricity:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Electricity = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent Electricity = new Intent(activity, BBPSOperatorListActivity.class);
                 Electricity.putExtra("categoryData", "Electricity");
                 Electricity.putExtra("titleName", "Electricity Provider");
                 startActivity(Electricity);
                 break;
+            case R.id.hospital:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Hospital = new Intent(activity, BBPSOperatorListActivity.class);
+                Hospital.putExtra("categoryData", "Hospital");
+                Hospital.putExtra("titleName", "Hospital");
+                startActivity(Hospital);
+                break;
+            case R.id.postpaid:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Postpaid = new Intent(activity, BBPSOperatorListActivity.class);
+                Postpaid.putExtra("categoryData", "Postpaid");
+                Postpaid.putExtra("titleName", "Postpaid");
+                startActivity(Postpaid);
+                break;
+            case R.id.education:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent FeePayment = new Intent(activity, BBPSOperatorListActivity.class);
+                FeePayment.putExtra("categoryData", "Fee Payment");
+                FeePayment.putExtra("titleName", "Fee Payment");
+                startActivity(FeePayment);
+                break;
             case R.id.water:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Water = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent Water = new Intent(activity, BBPSOperatorListActivity.class);
                 Water.putExtra("categoryData", "Water");
                 Water.putExtra("titleName", "Water Provider");
                 startActivity(Water);
                 break;
-//            case R.id.fastTag:
-//                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-//                Intent Cable = new Intent(activity,  BBPSPayBillsActivity.class);
-//                Cable.putExtra("categoryData", "Cable");
-//                startActivity(Cable);
-//                break;
+            case R.id.broadband:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent Broadband = new Intent(activity, BBPSOperatorListActivity.class);
+                Broadband.putExtra("categoryData", "Broadband");
+                Broadband.putExtra("titleName", "Broadband");
+                startActivity(Broadband);
+                break;
+            case R.id.cylinder:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                Intent LPG = new Intent(activity, BBPSOperatorListActivity.class);
+                LPG.putExtra("categoryData", "LPG");
+                LPG.putExtra("titleName", "LPG Provider");
+                startActivity(LPG);
+                break;
+            case R.id.bbpsAll:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                startActivity(new Intent(activity, BBPSServicesActivity.class));
+                break;
+            case R.id.fastTag:
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+//                Intent fastTag = new Intent(activity,  BBPSOperatorListActivity.class);
+//                fastTag.putExtra("categoryData", "fastTag");
+//                fastTag.putExtra("titleName", "FastTag");
+//                startActivity(fastTag);
+                break;
             case R.id.cableTv:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Cable = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent Cable = new Intent(activity, BBPSOperatorListActivity.class);
                 Cable.putExtra("categoryData", "Cable");
                 Cable.putExtra("titleName", "Cable Provider");
                 startActivity(Cable);
                 break;
             case R.id.dth:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent DTH = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent DTH = new Intent(activity, BBPSOperatorListActivity.class);
                 DTH.putExtra("categoryData", "DTH");
                 DTH.putExtra("titleName", "DTH Provider");
                 startActivity(DTH);
                 break;
             case R.id.recharge:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Prepaid = new Intent(activity,  BBPSPayBillsActivity.class);
+                Intent Prepaid = new Intent(activity, BBPSOperatorListActivity.class);
                 Prepaid.putExtra("categoryData", "Prepaid");
                 Prepaid.putExtra("titleName", "Prepaid");
                 startActivity(Prepaid);
-                break;
-            case R.id.bbpsAll:
-                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                startActivity(new Intent(activity, BBPSServicesActivity.class));
                 break;
             case R.id.registration:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -320,10 +357,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.govtServices:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, GovtServicesActivity.class));
-//                Intent intent1 = new Intent(activity, SubCatServiceActivity.class);
-//                intent1.putExtra("serviceName", "Registrations");
-//                intent1.putExtra("serviceID", "1014");
-//                startActivity(intent1);
                 break;
             case R.id.eway:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -372,7 +405,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.panService:
                 startActivity(new Intent(activity, PanCardActivity.class));
-//                startActivity(new Intent(activity, AccountActivity.class));
                 break;
             case R.id.aeps:
                 if (checkPermission()) {

@@ -36,6 +36,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.BBPS.BBPSPayBills2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BBPS.BBPSPayBillsActivity"
+            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Activity.BBPS.BBPSPayBillsActivity"-->
+<!--            android:exported="false" />-->
+        <activity
             android:name=".Activity.WalletRechargeActivity"
             android:exported="false" />
         <activity
@@ -45,7 +54,7 @@
             android:name=".Activity.AEPS.PaytmPayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.BBPS.BBPSPayBillsActivity"
+            android:name=".Activity.BBPS.BBPSOperatorListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.GOVT.GovtServicesWebViewActivity"
@@ -67,10 +76,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.RazorPayActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Activity.BBPS.BBPSPayBillsActivity"
-            android:exported="false" />
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".Activity.BBPS.BBPSOperatorListActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activity.BBPS.BBPSServicesActivity"
             android:exported="false" />
