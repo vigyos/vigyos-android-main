@@ -393,7 +393,7 @@ public class PtmWithdrawalFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
-                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                 }
             }
         });
@@ -473,7 +473,7 @@ public class PtmWithdrawalFragment extends Fragment {
                         }
                     } else {
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
                         }
                     }
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(activity, R.layout.layout_spinner_item, backListArray); //selected item will look like a spinner set from XML
@@ -580,7 +580,7 @@ public class PtmWithdrawalFragment extends Fragment {
                         activity.finish();
                     } else {
                         if (jsonObject.has("message")){
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
                             fingerCapture = false;
                             ptmFingerPrintDone.setVisibility(View.GONE);
                             ptmCaptureFingerPrintWiLyt.setBackgroundResource(R.drawable.credential_border_fill);
@@ -669,7 +669,7 @@ public class PtmWithdrawalFragment extends Fragment {
                         if (result != null) {
                             pidData = serializer.read(PidData.class, result);
                             if (!pidData._Resp.errCode.equals("0")) {
-                                DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                             } else {
                                 fingerData = result;
                                 fingerCapture = true;

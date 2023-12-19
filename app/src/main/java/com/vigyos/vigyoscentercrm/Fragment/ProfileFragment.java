@@ -490,7 +490,7 @@ public class ProfileFragment extends Fragment {
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
                                 if (!pidData._Resp.errCode.equals("0")) {
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 } else {
                                     FinoAuthAPI(result);
                                     Log.i("78954", "case 2  result if : - " + pidData.toString());
@@ -511,7 +511,7 @@ public class ProfileFragment extends Fragment {
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
                                 if (!pidData._Resp.errCode.equals("0")) {
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 } else {
                                     PaytmAuthAPI(result);
                                     Log.i("78954", "case 2  result if : - " + pidData.toString());
@@ -545,7 +545,7 @@ public class ProfileFragment extends Fragment {
                         startActivity(new Intent(activity, FinoPayOutActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -580,7 +580,7 @@ public class ProfileFragment extends Fragment {
                         startActivity(new Intent(activity, PaytmAEPSActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", true, () -> {});
                         }
                     }
                 } catch (JSONException e) {

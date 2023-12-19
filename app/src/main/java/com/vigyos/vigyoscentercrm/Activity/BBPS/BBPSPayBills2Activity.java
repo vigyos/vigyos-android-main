@@ -13,9 +13,11 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,21 +32,26 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
-import com.vigyos.vigyoscentercrm.Model.PayBillModel;
 import com.vigyos.vigyoscentercrm.Model.PayBillsModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,12 +61,13 @@ import retrofit2.Response;
 public class BBPSPayBills2Activity extends AppCompatActivity {
 
     private ImageView ivBack;
-    private TextView operatorName;
-    private TextView billNumber;
-    private TextView customerName;
-    private TextView billDate;
-    private TextView dueDate;
-    private TextView amount;
+    private TextView operatorNameText, billNumberText;
+    private TextView customerNameText, billDateText;
+    private TextView dueDateText, amountText;
+    private String operatorName, billNumber;
+    private String customerName, billDate;
+    private String dueDate, amount;
+    private String OperatorId, bill_fetch;
     private Dialog dialog1;
     private RelativeLayout payBillButton;
     private TextView payBillText;
@@ -77,12 +85,12 @@ public class BBPSPayBills2Activity extends AppCompatActivity {
 
     private void Initialization() {
         ivBack = findViewById(R.id.ivBack);
-        operatorName = findViewById(R.id.operatorName);
-        billNumber = findViewById(R.id.billNumber);
-        customerName = findViewById(R.id.customerName);
-        billDate = findViewById(R.id.billDate);
-        dueDate = findViewById(R.id.dueDate);
-        amount = findViewById(R.id.amount);
+        operatorNameText = findViewById(R.id.operatorName);
+        billNumberText = findViewById(R.id.billNumber);
+        customerNameText = findViewById(R.id.customerName);
+        billDateText = findViewById(R.id.billDate);
+        dueDateText = findViewById(R.id.dueDate);
+        amountText = findViewById(R.id.amount);
         payBillButton = findViewById(R.id.payBillButton);
         payBillText = findViewById(R.id.payBillText);
     }
@@ -95,26 +103,46 @@ public class BBPSPayBills2Activity extends AppCompatActivity {
             requestPermissions();
         }
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String name = intent.getStringExtra("name");
-        String billAmount = intent.getStringExtra("billAmount");
-        String billnetamount = intent.getStringExtra("billnetamount");
-        String billDate = intent.getStringExtra("billdate");
-        String dueDate = intent.getStringExtra("dueDate");
-        String minBillAmount = intent.getStringExtra("minBillAmount");
-        boolean acceptPayment = intent.getBooleanExtra("acceptPayment", false);
-        boolean acceptPartPay = intent.getBooleanExtra("acceptPartPay", false);
-        String cellNumber = intent.getStringExtra("cellNumber");
-        String userName = intent.getStringExtra("userName");
-
-        this.operatorName.setText(name);
-        this.billNumber.setText(cellNumber);
-        this.customerName.setText(userName);
-        this.billDate.setText(billDate);
-        this.dueDate.setText(dueDate);
-        this.amount.setText("₹ "+billAmount);
-        this.payBillText.setText("Pay Bill "+"(₹"+billAmount+")");
-
+        if (intent != null) {
+            // Iterate over the extras in the intent
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                for (String key : extras.keySet()) {
+                    Object value = extras.get(key);
+                    if (key.equals("OperatorId") && value instanceof String) {
+                        OperatorId = (String) value;
+                    }
+                    if (key.equals("OperatorName") && value instanceof String) {
+                        operatorName = (String) value;
+                    }
+                    if (key.equals("billnumer") && value instanceof String) {
+                        billNumber = (String) value;
+                    }
+                    if (key.equals("name") && value instanceof String) {
+                        customerName = (String) value;
+                    }
+                    if (key.equals("billdate") && value instanceof String) {
+                        billDate = (String) value;
+                    }
+                    if (key.equals("duedate") && value instanceof String) {
+                        dueDate = (String) value;
+                    }
+                    if (key.equals("amount") && value instanceof String) {
+                        amount = (String) value;
+                    }
+                    if (key.equals("bill_fetch") && value instanceof String) {
+                        bill_fetch = (String) value;
+                    }
+                }
+            }
+        }
+        this.operatorNameText.setText(operatorName);
+        this.billNumberText.setText(billNumber);
+        this.customerNameText.setText(customerName);
+        this.billDateText.setText(billDate);
+        this.dueDateText.setText(dueDate);
+        this.amountText.setText("₹ "+amount);
+        this.payBillText.setText("Pay Bill "+"(₹"+amount+")");
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,59 +152,91 @@ public class BBPSPayBills2Activity extends AppCompatActivity {
         payBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                payBillAPI(id, "102277100", "8990.0", "8990.0", "01 Dec 2023", "2024-01-01", "8990", true, true, "SALMAN");
+                v.startAnimation(AnimationUtils.loadAnimation(BBPSPayBills2Activity.this, R.anim.viewpush));
+                areYouSure(OperatorId, billNumber, amount);
             }
         });
     }
 
-    private void payBillAPI(String id, String cellNumber, String billAmount, String billnetamount, String billDate, String dueDate, String minBillAmount,
-                            boolean acceptPayment, boolean acceptPartPay, String userName) {
+    private void areYouSure(String OperatorId, String billNumber, String amount){
+        dialog1 = new Dialog(BBPSPayBills2Activity.this);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setCancelable(false);
+        dialog1.setCanceledOnTouchOutside(false);
+        dialog1.setContentView(R.layout.dialog_yes_or_no);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog1.getWindow().setLayout(-1, -1);
+        TextView title = dialog1.findViewById(R.id.title);
+        title.setText("Alert!");
+        TextView details = dialog1.findViewById(R.id.details);
+        details.setText("Please verify all the bill details before paying. Do you want to proceed with the payment?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog1.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(BBPSPayBills2Activity.this, R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog1.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(BBPSPayBills2Activity.this, R.anim.viewpush));
+                dismissDialog();
+                payBillAPI(OperatorId, billNumber, amount);
+            }
+        });
+        dialog1.show();
+    }
+
+    private void payBillAPI(String OperatorId, String billNumber, String amount) {
         pleaseWait();
-        PayBillsModel requestModel = new PayBillsModel();
-        requestModel.setUser_id(SplashActivity.prefManager.getUserID());
-        requestModel.setOperator(id);
-        requestModel.setCanumber(cellNumber);
-        requestModel.setAmount(billAmount);
+        float floatValue = Float.parseFloat(amount);
+        int intValue = (int) floatValue;
+        String stringWithoutDecimal = String.valueOf(intValue);
+        PayBillsModel.RequestModel requestModel = new PayBillsModel.RequestModel();
+        requestModel.setUserId(SplashActivity.prefManager.getUserID());
+        requestModel.setOperator(OperatorId);
+        requestModel.setCanumber(billNumber);
+        requestModel.setAmount(stringWithoutDecimal);
         requestModel.setLatitude(String.valueOf(latitude));
         requestModel.setLongitude(String.valueOf(longitude));
         requestModel.setMode("online");
-
-        // Set values for the "bill_fetch" object
-        PayBillsModel.BillFetch billFetch = new PayBillsModel.BillFetch();
-        billFetch.setBillAmount(billAmount);
-        billFetch.setBillnetamount(billnetamount);
-        billFetch.setBilldate(billDate);
-        billFetch.setDueDate(dueDate);
-//        billFetch.setM(minBillAmount);
-        billFetch.setAcceptPayment(acceptPayment);
-        billFetch.setAcceptPartPay(acceptPartPay);
-        billFetch.setCellNumber(cellNumber);
-        billFetch.setUserName(userName);
-
-        requestModel.setBill_fetch(billFetch);
+        Gson gson = new Gson();
+        JsonObject billFetchJson = gson.fromJson(bill_fetch, JsonObject.class);
+        Map<String, String> billFetchObject = new HashMap<>();
+        for (Map.Entry<String, JsonElement> entry : billFetchJson.entrySet()) {
+            String key = entry.getKey();
+            JsonElement value = entry.getValue();
+            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+                billFetchObject.put(key, value.getAsString());
+            }
+        }
+        requestModel.setBillFetch(billFetchObject);
         requestModel.setMobilenumber(SplashActivity.prefManager.getPhone());
         requestModel.setAccessmodetype("APP");
         requestModel.setTransactiontype("BILL_PAY");
-
-        Log.i("57411987", "dfgd  " +  requestModel.toString());
-
-        Call<PayBillsModel> objectCall = RetrofitClient.getApi().payBill(SplashActivity.prefManager.getToken(), requestModel);
-        objectCall.enqueue(new Callback<PayBillsModel>() {
+        JsonObject jsonObject = gson.fromJson(gson.toJson(requestModel), JsonObject.class);
+        Call<Object> call = RetrofitClient.getApi().payBill(SplashActivity.prefManager.getToken(), jsonObject);
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(@NonNull Call<PayBillsModel> call, @NonNull Response<PayBillsModel> response) {
-                Log.i("2016", "onResponse " + new Gson().toJson(response.body()));
+            public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
+                Log.i("2016", "onResponse " + response);
                 dismissDialog();
                 try {
-                    JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
-                        if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(BBPSPayBills2Activity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                    JSONObject jsonObject1 = new JSONObject(new Gson().toJson(response.body()));
+                    if (jsonObject1.has("success") && jsonObject1.getBoolean("success")) {
+                        if (jsonObject1.has("message")) {
+                            DialogCustom.showAlertDialog(BBPSPayBills2Activity.this, "Payment Successful!", jsonObject1.getString("message"), "OKAY", false, () -> {
+                                startActivity(new Intent(BBPSPayBills2Activity.this, MainActivity.class));
+                                finish();
+                            });
                         }
                     } else {
-                        if (jsonObject.has("message")) {
-
-                            Log.i("251455552", "bgvjdfkdg" + jsonObject.getString("message"));
-                            DialogCustom.showAlertDialog(BBPSPayBills2Activity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                        if (jsonObject1.has("message")) {
+                            DialogCustom.showAlertDialog(BBPSPayBills2Activity.this, "Alert!", jsonObject1.getString("message"), "OK", true, () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -185,7 +245,7 @@ public class BBPSPayBills2Activity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<PayBillsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 Log.i("2016", "onFailure " + t);
                 dismissDialog();
             }

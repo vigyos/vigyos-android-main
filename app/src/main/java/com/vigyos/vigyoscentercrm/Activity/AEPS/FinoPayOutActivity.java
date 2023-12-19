@@ -239,7 +239,7 @@ public class FinoPayOutActivity extends AppCompatActivity {
                         payoutBalanceUpdate();
                     } else {
                         if (jsonObject.has("message")){
-                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK",true, () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -284,7 +284,7 @@ public class FinoPayOutActivity extends AppCompatActivity {
                             }
                         } else {
                             if (jsonObject.has("message")) {
-                                DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                                DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", true,() -> {});
                             }
                         }
                     } catch (JSONException e) {
@@ -348,7 +348,7 @@ public class FinoPayOutActivity extends AppCompatActivity {
                     } else {
                         bankNameArray.add(0,"Select your bank");
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(FinoPayOutActivity.this, "Alert!", jsonObject.getString("message"), "OK", true,() -> {});
                         }
                     }
 

@@ -1,7 +1,5 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
-import com.vigyos.vigyoscentercrm.Model.BbpsPayBillModel;
-import com.vigyos.vigyoscentercrm.Model.PayBillModel;
 import com.vigyos.vigyoscentercrm.Model.PayBillsModel;
 import com.vigyos.vigyoscentercrm.Model.RequestData;
 
@@ -506,9 +504,14 @@ public interface Api {
     );
 
     @POST("bbps_paysprint/bill_payment/pay_bill")
-    Call<PayBillsModel> payBill(
+    Call<Object> payBill(
             @Header("Authorization") String authorization,
-            @Body PayBillsModel requestModel
+            @Body Object requestModel
+    );
+
+    @GET("bbps_paysprint/recharge/operator_list")
+    Call<Object> mobileRechargeOperator(
+            @Header("Authorization") String Authorization
     );
 
     @FormUrlEncoded

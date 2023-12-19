@@ -241,7 +241,7 @@ public class PaytmPayoutActivity extends AppCompatActivity {
                         payoutBalanceUpdate();
                     } else {
                         if (jsonObject.has("message")){
-                            DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                            DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -287,7 +287,7 @@ public class PaytmPayoutActivity extends AppCompatActivity {
                             }
                         } else {
                             if (jsonObject.has("message")) {
-                                DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", () -> {});
+                                DialogCustom.showAlertDialog(PaytmPayoutActivity.this, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
                             }
                         }
                     } catch (JSONException e) {

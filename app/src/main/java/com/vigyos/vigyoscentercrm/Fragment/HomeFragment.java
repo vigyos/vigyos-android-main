@@ -58,6 +58,7 @@ import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
 import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmAEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.Recharge.MobileRechargeOperatorActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -201,7 +202,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (checkPermission()){
             getLocation();
         } else {
-            DialogCustom.showAlertDialog(activity, getString(R.string.required_permissions), getString(R.string.allow_to_access), "GRANT!", (DialogCustom.AlertDialogListener) this::requestPermissions);
+            DialogCustom.showAlertDialog(activity, getString(R.string.required_permissions), getString(R.string.allow_to_access), "GRANT!",true, (DialogCustom.AlertDialogListener) this::requestPermissions);
         }
         dateAndTime();
         iPAddress();
@@ -327,9 +328,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.recharge:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent Prepaid = new Intent(activity, BBPSOperatorListActivity.class);
+                Intent Prepaid = new Intent(activity, MobileRechargeOperatorActivity.class);
                 Prepaid.putExtra("categoryData", "Prepaid");
-                Prepaid.putExtra("titleName", "Prepaid");
+                Prepaid.putExtra("titleName", "Mobile Recharge");
                 startActivity(Prepaid);
                 break;
             case R.id.registration:
@@ -520,7 +521,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         }
                     } catch (Exception e) {
                         Log.e("Error", e.toString());
-                        DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                        DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true,() -> {});
                     }
                 } else {
                     // Less than 24 hours have passed since the login
@@ -532,7 +533,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         } else {
-            DialogCustom.showAlertDialog(activity, getString(R.string.fingerprint_authentication), getString(R.string.to_use_our_aeps_service), "ENABLE", (DialogCustom.AlertDialogListener) () -> {
+            DialogCustom.showAlertDialog(activity, getString(R.string.fingerprint_authentication), getString(R.string.to_use_our_aeps_service), "ENABLE", true,(DialogCustom.AlertDialogListener) () -> {
                 try {
                     String pidOption = getPIDOptions();
                     if (pidOption != null) {
@@ -546,7 +547,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
-                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                 }
             });
         }
@@ -582,7 +583,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             }
                         } catch (Exception e) {
                             Log.e("Error", e.toString());
-                            DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                         }
                     } else {
                         // Less than 24 hours have passed since the login
@@ -609,7 +610,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         }
                     } catch (Exception e) {
                         Log.e("Error", e.toString());
-                        DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                        DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                     }
                 } else {
                     onBoardingStatus();
@@ -658,11 +659,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         if (jsonObject.has("message")) {
                             if (jsonObject.getString("message").equalsIgnoreCase("Merchant data accepted.")) {
-                                DialogCustom.showAlertDialog(activity, getString(R.string.verification_in_progress), getString(R.string.your_aeps_onboarding_is_underway), "OKAY", () -> {
+                                DialogCustom.showAlertDialog(activity, getString(R.string.verification_in_progress), getString(R.string.your_aeps_onboarding_is_underway), "OKAY", true, () -> {
                                     startActivity(new Intent(activity, MainActivity.class));
                                 });
                             } else {
-                                DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", () -> {});
+                                DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", true,() -> {});
                             }
                         }
                     }
@@ -710,10 +711,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                     }
                                 } catch (Exception e) {
                                     Log.e("Error", e.toString());
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 }
                             } else {
-                                DialogCustom.showAlertDialog(activity, "Alert!", "Onboarding process in Progress, Please try again after sometime...", "OK", () -> {});
+                                DialogCustom.showAlertDialog(activity, "Alert!", "Onboarding process in Progress, Please try again after sometime...", "OK", true,() -> {});
                             }
                         }
                     }
@@ -781,7 +782,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
                                 if (!pidData._Resp.errCode.equals("0")) {
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 } else {
                                     finoAuthAPI(result);
                                     Log.i("78954", "case 2  result if : - " + pidData.toString());
@@ -802,7 +803,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
                                 if (!pidData._Resp.errCode.equals("0")) {
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 } else {
                                     finoBankRegistration(result);
                                     Log.i("78954", "case 2  result if : - " + pidData.toString());
@@ -823,7 +824,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             if (result != null) {
                                 pidData = serializer.read(PidData.class, result);
                                 if (!pidData._Resp.errCode.equals("0")) {
-                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
+                                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
                                 } else {
                                     paytmAuthAPI(result);
                                     Log.i("78954", "case 2  result if : - " + pidData.toString());
@@ -859,7 +860,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         startActivity(new Intent(activity, FinoAEPSActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", true, () -> {});
                         }
                     }
                 } catch (JSONException e) {
@@ -915,7 +916,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         startActivity(new Intent(activity, PaytmAEPSActivity.class));
                     } else {
                         if (jsonObject.has("message")) {
-                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", () -> {});
+                            DialogCustom.showAlertDialog(activity, "Alert!", jsonObject.getString("message"), "OKAY", true,() -> {});
                         }
                     }
                 } catch (JSONException e) {

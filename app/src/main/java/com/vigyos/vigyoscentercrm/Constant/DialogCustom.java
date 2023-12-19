@@ -18,10 +18,10 @@ public class DialogCustom {
 
     public static Dialog dialog;
 
-    public static void showAlertDialog(Activity activity, String title, String msg, String action, final AlertDialogListener listener) {
+    public static void showAlertDialog(Activity activity, String title, String msg, String action, boolean backCancel ,final AlertDialogListener listener) {
         dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
+        dialog.setCancelable(backCancel);
         dialog.setContentView(R.layout.dialog_user_message);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.getWindow().setLayout(-1, -1);
