@@ -1,12 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity.BBPS;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,8 +19,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.Gson;
+import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.Model.BbpsPayBillModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
@@ -170,6 +172,15 @@ public class BBPSOperatorListActivity extends AppCompatActivity {
                             }
                         }
                         callAdapter();
+                    } else {
+                        if (jsonObject.has("message")) {
+                            DialogCustom.showAlertDialog(BBPSOperatorListActivity.this, "Alert!", jsonObject.getString("message"), "OK",true, () -> {});
+                        } else {
+                            DialogCustom.showAlertDialog(BBPSOperatorListActivity.this, "Alert!", "Maintenance underway. We'll be back soon. Try after sometime...", "OKAY",true, () -> {
+                                startActivity(new Intent(BBPSOperatorListActivity.this, MainActivity.class));
+                                finish();
+                            });
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

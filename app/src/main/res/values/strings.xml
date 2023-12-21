@@ -77,5 +77,6 @@
     <string name="to_access_the_aeps_feature">To access the AEPS feature, please complete the onboarding process first. We look forward to serving you securely and conveniently</string>
     <string name="verification_in_progress">Verification in Progress</string>
     <string name="your_aeps_onboarding_is_underway">Your AEPS onboarding is underway. We\'re working to verify your details. You\'ll be notified once completed. Thanks for your patience!</string>
+    <string name="disclaimer_we_support"><font color='#333333'>Disclaimer:</font> We support most types of recharges, but please check with your operator before you proceed.</string>
 
 </resources>

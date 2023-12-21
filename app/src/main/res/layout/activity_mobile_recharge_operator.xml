@@ -33,47 +33,106 @@
             android:fontFamily="@font/poppins_medium"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/searchBar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_37sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:background="@drawable/searchview_background"
-            android:layout_centerInParent="true">
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:src="@drawable/search_service"/>
-            <AutoCompleteTextView
-                android:id="@+id/searchView"
+            android:background="@drawable/round_bg_white">
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/icon"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:completionThreshold="1"
-                android:background="@null"
-                android:hint="Search your mobile operator to recharge"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/black"
-                android:textColorHint="#80333333"
-                android:padding="@dimen/_8sdp" />
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp">
+                <EditText
+                    android:id="@+id/mobileNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:elegantTextHeight="true"
+                    android:textColor="@color/dark_vigyos"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:fontFamily="@font/poppins_regular"
+                    android:background= "@null"
+                    android:hint="Your Mobile Number"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="#80333333"/>
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_below="@+id/mobileNumber"
+                    android:background="#80333333"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewLine"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:elegantTextHeight="true"
+                    android:text="Please provide your mobile number for the recharge."
+                    android:textColor="#80333333"
+                    android:textSize="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_regular"/>
+                <LinearLayout
+                    android:id="@+id/billDetailsLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewLine"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_5sdp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:background="@drawable/round_border_color">
+                        <Spinner
+                            android:id="@+id/operatorList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_2sdp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@drawable/round_border_color">
+                        <Spinner
+                            android:id="@+id/stateList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_2sdp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/confirmButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/searchBar">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/layout_search_services_item"/>
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:background="@drawable/next_button_filled">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
     </RelativeLayout>
 </RelativeLayout>

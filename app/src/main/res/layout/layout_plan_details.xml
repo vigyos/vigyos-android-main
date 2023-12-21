@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/nextLyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/round_bg_white"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/amountLyt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp">
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/rupee_icon" />
+            <TextView
+                android:id="@+id/planAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/icon"
+                android:text="151"
+                android:maxLines="1"
+                android:elegantTextHeight="true"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="#001646"
+                android:fontFamily="@font/poppins_medium"/>
+            <TextView
+                android:id="@+id/validityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/validity"
+                android:text="Validity: "
+                android:maxLines="1"
+                android:elegantTextHeight="true"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="#001646"
+                android:fontFamily="@font/poppins_medium"/>
+            <TextView
+                android:id="@+id/validity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="28 days"
+                android:maxLines="1"
+                android:elegantTextHeight="true"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="#001646"
+                android:fontFamily="@font/poppins_semi_bold"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/planDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/amountLyt"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:elegantTextHeight="true"
+            android:text="GST (Nil) Monthly Return Filing Regular Scheme"
+            android:textColor="#001646"
+            android:textSize="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"/>
+    </RelativeLayout>
+</RelativeLayout>

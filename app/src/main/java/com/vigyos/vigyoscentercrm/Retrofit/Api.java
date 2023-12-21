@@ -1,6 +1,5 @@
 package com.vigyos.vigyoscentercrm.Retrofit;
 
-import com.vigyos.vigyoscentercrm.Model.PayBillsModel;
 import com.vigyos.vigyoscentercrm.Model.RequestData;
 
 import okhttp3.MultipartBody;
@@ -512,6 +511,19 @@ public interface Api {
     @GET("bbps_paysprint/recharge/operator_list")
     Call<Object> mobileRechargeOperator(
             @Header("Authorization") String Authorization
+    );
+
+    @GET("bbps_paysprint/recharge/get_circle")
+    Call<Object> mobileRechargeCircle(
+            @Header("Authorization") String Authorization
+    );
+
+    @FormUrlEncoded
+    @POST("bbps_paysprint/recharge/get_plans_api")
+    Call<Object> planForRecharge(
+            @Header("Authorization") String Authorization,
+            @Field("number") String number,
+            @Field("type") String type
     );
 
     @FormUrlEncoded

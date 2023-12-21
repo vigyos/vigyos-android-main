@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/topUpLyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp">
+        <TextView
+            android:id="@+id/planTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:elegantTextHeight="true"
+            android:text="121 made For you "
+            android:textColor="@color/not_click"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_semi_bold"/>
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_2sdp"
+            android:visibility="gone"
+            android:layout_below="@+id/planTitle"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/dark_vigyos"/>
+    </RelativeLayout>
+</RelativeLayout>

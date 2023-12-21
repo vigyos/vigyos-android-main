@@ -141,7 +141,7 @@
     <RelativeLayout
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_48sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_marginHorizontal="@dimen/_26sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/next_button_filled"

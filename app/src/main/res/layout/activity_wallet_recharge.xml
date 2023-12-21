@@ -62,7 +62,8 @@
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/rupee_icon"/>
+                        android:src="@drawable/rupee_icon"
+                        app:tint="#F00024"/>
                     <TextView
                         android:id="@+id/walletAmount"
                         android:layout_width="wrap_content"
@@ -73,7 +74,7 @@
                         android:maxLines="1"
                         android:elegantTextHeight="true"
                         android:textSize="@dimen/_20sdp"
-                        android:textColor="#001646"
+                        android:textColor="#F00024"
                         android:fontFamily="@font/poppins_medium"/>
                 </RelativeLayout>
                 <View

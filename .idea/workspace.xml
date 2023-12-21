@@ -105,6 +105,11 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_select_plan.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_notification.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -455,6 +460,16 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_plan_details.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_plan_title.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_search_services_item.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -526,8 +541,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a059952-3867-437a-9a8d-f3a921aa0e90" name="Changes" comment="working on bbps pay Bill">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" afterDir="false" />
+    <list default="true" id="2a059952-3867-437a-9a8d-f3a921aa0e90" name="Changes" comment="bbps pay Bill done">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
@@ -535,28 +551,22 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/FinoPayOutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/FinoPayOutActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutAddAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutAddAccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBills2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBills2Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBillsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBillsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSServicesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Constant/DialogCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Constant/DialogCustom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoEnquiryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoEnquiryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoMiniStatementFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoMiniStatementFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoWithdrawalFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/FinoBank/FinoWithdrawalFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmEnquiryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmEnquiryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmMiniStatementFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmMiniStatementFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmWithdrawalFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/Paytm/PtmWithdrawalFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HomeFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/PayBillModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/PayBillsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/PayBillsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeOperatorActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeOperatorActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/WalletHistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/WalletHistoryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/MobileRechargeOperatorModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/MobileRechargeOperatorModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/govt_services.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/govt_services.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_border_color.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_border_color.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_operator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_operator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet_recharge.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet_recharge.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -565,6 +575,9 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\ABC\.android\avd\Pixel_3a_XL_API_33.avd]" />
   <component name="ExternalProjectsData">
@@ -614,8 +627,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
         <option value="Class" />
       </list>
     </option>
@@ -651,7 +664,7 @@
     "com.google.services.firebase.aqiPopupShown": "true",
     "git-widget-placeholder": "dev",
     "last_directory_selection": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
-    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/Backup",
+    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -667,6 +680,9 @@
     </key>
     <key name="android.template.-252298993">
       <recent name="com.vigyos.vigyoscentercrm.Activity" />
+    </key>
+    <key name="android.template.671554768">
+      <recent name="com.vigyos.vigyoscentercrm.Activity.Recharge" />
     </key>
     <key name="android.template.1435553623">
       <recent name="com.vigyos.vigyoscentercrm.Activity.BBPS" />
@@ -886,7 +902,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702908257650</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="bbps pay Bill done">
+      <option name="closed" value="true" />
+      <created>1702997799069</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1702997799069</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -914,6 +938,7 @@
     <MESSAGE value="Working on Payout" />
     <MESSAGE value="Wallet Done" />
     <MESSAGE value="working on bbps pay Bill" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on bbps pay Bill" />
+    <MESSAGE value="bbps pay Bill done" />
+    <option name="LAST_COMMIT_MESSAGE" value="bbps pay Bill done" />
   </component>
 </project>

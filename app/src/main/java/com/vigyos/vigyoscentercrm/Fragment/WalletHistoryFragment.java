@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,7 +142,7 @@ public class WalletHistoryFragment extends Fragment {
                 isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    Log.i("2016", "JSON Response: " + jsonObject); // Added this line for logging
+                    Log.i("2016", "JSON ResponseRecharge: " + jsonObject); // Added this line for logging
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         if (jsonObject.has("data")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("data");

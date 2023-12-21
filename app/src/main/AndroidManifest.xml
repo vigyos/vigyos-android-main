@@ -37,6 +37,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Activity.Recharge.MobileRechargeSelectPlanActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Recharge.MobileRechargeOperatorActivity"
             android:exported="false" />
         <activity
