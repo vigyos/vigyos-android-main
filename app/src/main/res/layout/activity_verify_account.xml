@@ -78,7 +78,7 @@
             android:textColor="@color/dark_vigyos"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
-            android:fontFamily="@font/hankengrotesk_medium"
+            android:fontFamily="@font/poppins_medium"
             app:cursorColor="@color/dark_vigyos"
             app:cursorWidth="@dimen/_1sdp"
             app:hideLineWhenFilled="false"

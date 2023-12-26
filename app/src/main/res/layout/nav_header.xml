@@ -6,7 +6,7 @@
     android:gravity="bottom"
     android:padding="16dp"
     android:background="@drawable/headerbkg"
-    android:backgroundTint="@color/vigyos"
+    android:backgroundTint="@color/dark_vigyos"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <RelativeLayout
         android:layout_width="match_parent"

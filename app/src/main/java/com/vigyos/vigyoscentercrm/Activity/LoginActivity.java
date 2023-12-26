@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
-                startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
+                startActivity(new Intent(LoginActivity.this, HelpAndSupportActivity.class));
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(LoginActivity.this, R.anim.viewpush));
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                finish();
             }
         });
     }

@@ -1,16 +1,10 @@
 package com.vigyos.vigyoscentercrm.Activity.GOVT;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -171,10 +172,11 @@ public class GovtServicesShowActivity extends AppCompatActivity {
             holder.mainLyt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(model.getService_link())));
-                    Intent intent = new Intent(GovtServicesShowActivity.this, GovtServicesWebViewActivity.class);
-                    intent.putExtra("servicesLink", model.getService_link());
-                    startActivity(intent);
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(model.getService_link())));
+
+//                    Intent intent = new Intent(GovtServicesShowActivity.this, GovtServicesWebViewActivity.class);
+//                    intent.putExtra("servicesLink", model.getService_link());
+//                    startActivity(intent);
                 }
             });
         }

@@ -14,6 +14,7 @@ public class SharedPrefManager {
     //Profile Data variable start
     private static final String user_id = "id";
     private static final String token = "token";
+    private static final String user_name = "user_name";
     private static final String first_name = "first_name";
     private static final String last_name = "last_name";
     private static final String company = "company";
@@ -356,6 +357,16 @@ public class SharedPrefManager {
 
     public String getUserID(){
         return pref.getString(user_id, "null");
+    }
+
+    public void setUserName(String UserName){
+        editor = pref.edit();
+        editor.putString(user_name, UserName);
+        editor.commit();
+    }
+
+    public String getUserName(){
+        return pref.getString(user_name, "null");
     }
 
     public void setFirstName(String FirstName){

@@ -1,12 +1,12 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import com.vigyos.vigyoscentercrm.R;
 
@@ -21,7 +21,7 @@ public class AccountCreatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(AccountCreatedActivity.this, R.anim.viewpush));
-                startActivity(new Intent(AccountCreatedActivity.this, LoginActivity.class));
+                startActivity(new Intent(AccountCreatedActivity.this, RegisterHomeActivity.class));
             }
         });
         findViewById(R.id.termAndConditions).setOnClickListener(new View.OnClickListener() {

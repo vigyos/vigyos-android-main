@@ -1,11 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -22,15 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
-import com.razorpay.PaymentResultListener;
 import com.razorpay.PaymentResultWithDataListener;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -527,6 +527,48 @@ public interface Api {
     );
 
     @FormUrlEncoded
+    @POST("bbps_paysprint/recharge/do_recharge")
+    Call<Object> doRecharge(
+            @Header("Authorization") String Authorization,
+            @Field("user_id") String user_id,
+            @Field("operator") String operator,
+            @Field("canumber") String canumber,
+            @Field("amount") int amount,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("mobilenumber") String mobilenumber,
+            @Field("accessmodetype") String accessmodetype,
+            @Field("transactiontype") String transactiontype
+    );
+
+    @GET("bbps_paysprint/fastag_recharge/operator_list")
+    Call<Object> fastTag(
+            @Header("Authorization") String Authorization
+    );
+
+    @FormUrlEncoded
+    @POST("bbps_paysprint/fastag_recharge/fetch_bill")
+    Call<Object> fastTagFetchBill(
+            @Header("Authorization") String Authorization,
+            @Field("operator") String operator,
+            @Field("canumber") String canumber
+    );
+
+    @POST("bbps_paysprint/fastag_recharge/recharge")
+    Call<Object> fastTagPayBill(
+            @Header("Authorization") String authorization,
+            @Body Object requestModel
+    );
+
+    @GET("bbps_paysprint/transaction/logs")
+    Call<Object> bbpsTransactionLogs(
+            @Header("Authorization") String authorization,
+            @Query("user_id") String user_id,
+            @Query("page") int page,
+            @Query("status") String status
+    );
+
+    @FormUrlEncoded
     @POST("razorpay/create_order")
     Call<Object> razorpayCreateOrder(
             @Header("Authorization") String Authorization,

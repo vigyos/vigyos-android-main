@@ -3,6 +3,11 @@ package com.vigyos.vigyoscentercrm.Fragment.Order;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.os.BuildCompat;
@@ -10,16 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.vigyos.vigyoscentercrm.Fragment.Order.CancelledFragment;
-import com.vigyos.vigyoscentercrm.Fragment.Order.CompletedFragment;
-import com.vigyos.vigyoscentercrm.Fragment.Order.PendingFragment;
-import com.vigyos.vigyoscentercrm.Fragment.Order.ProcessingFragment;
 import com.vigyos.vigyoscentercrm.R;
 
 @BuildCompat.PrereleaseSdkCheck

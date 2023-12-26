@@ -51,14 +51,15 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoAEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSOperatorListActivity;
-import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSServicesActivity;
+import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmAEPSActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BillPay.BBPSOperatorListActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BillPay.BBPSServicesActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.FasTag.FasTagOperatorActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.Recharge.MobileRechargeOperatorActivity;
 import com.vigyos.vigyoscentercrm.Activity.GOVT.GovtServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.NotificationActivity;
 import com.vigyos.vigyoscentercrm.Activity.PanCardActivity;
-import com.vigyos.vigyoscentercrm.Activity.AEPS.PaytmAEPSActivity;
-import com.vigyos.vigyoscentercrm.Activity.Recharge.MobileRechargeOperatorActivity;
 import com.vigyos.vigyoscentercrm.Activity.SearchServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SeeMoreServicesActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
@@ -307,10 +308,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fastTag:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-//                Intent fastTag = new Intent(activity,  BBPSOperatorListActivity.class);
-//                fastTag.putExtra("categoryData", "fastTag");
-//                fastTag.putExtra("titleName", "FastTag");
-//                startActivity(fastTag);
+                Intent fastTag = new Intent(activity,  FasTagOperatorActivity.class);
+                startActivity(fastTag);
                 break;
             case R.id.cableTv:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
@@ -321,10 +320,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.dth:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
-                Intent DTH = new Intent(activity, BBPSOperatorListActivity.class);
-                DTH.putExtra("categoryData", "DTH");
-                DTH.putExtra("titleName", "DTH Provider");
-                startActivity(DTH);
+//                Intent DTH = new Intent(activity, BBPSOperatorListActivity.class);
+//                DTH.putExtra("categoryData", "DTH");
+//                DTH.putExtra("titleName", "DTH Provider");
+//                startActivity(DTH);
+                Toast.makeText(activity, "Coming Soon...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.recharge:
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));

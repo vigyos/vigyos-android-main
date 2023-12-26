@@ -1,9 +1,7 @@
 package com.vigyos.vigyoscentercrm.Fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,18 +31,14 @@ import androidx.annotation.NonNull;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
+import com.google.gson.Gson;
 import com.vigyos.vigyoscentercrm.Activity.PanWebViewActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
-import com.vigyos.vigyoscentercrm.Activity.WalletActivity;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

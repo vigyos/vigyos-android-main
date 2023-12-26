@@ -4,18 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#E9F5FB"
+    android:background="@color/white"
     tools:context=".Activity.RegisterHomeActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/vigyos">
+        android:background="@color/dark_vigyos">
         <RelativeLayout
             android:id="@+id/notification"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="end"
+            android:visibility="gone"
             android:layout_marginEnd="15sp"
             android:background="@drawable/notification_bg">
             <ImageView
@@ -26,33 +27,107 @@
                 app:tint="@color/white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerInside"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="animation_register.json"
-            app:lottie_loop="false" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/animation_view"
-            android:layout_marginTop="20sp"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:lineSpacingExtra="5dp"
-            android:text="@string/thank_you_for_reaching"
-            android:textAlignment="center"
-            android:textColor="#292e91"
-            android:textSize="16dp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elegantTextHeight="true"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_centerHorizontal="true"
+                android:text="Welcome !"
+                android:textColor="@color/dark_vigyos"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/poppins_semi_bold"/>
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/welcome"
+                android:elegantTextHeight="true"
+                android:text="Krishnkant Sharma"
+                android:textSize="@dimen/_22sdp"
+                android:textColor="#001646"
+                android:fontFamily="@font/poppins_semi_bold"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/userName"
+                android:scaleType="fitXY"
+                app:lottie_fileName="namaste_animation.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_below="@+id/animation_view">
+                <RelativeLayout
+                    android:id="@+id/titleLyt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/helloText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hello! "
+                        android:elegantTextHeight="true"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_bold"/>
+                    <TextView
+                        android:id="@+id/userName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/helloText"
+                        android:text="Krishnkant Sharma"
+                        android:elegantTextHeight="true"
+                        android:textColor="@color/dark_vigyos"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_medium"/>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/titleLyt"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:elegantTextHeight="true"
+                    android:text="@string/warmest_welcome_to_vigyos_our_team"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/light_black"
+                    android:fontFamily="@font/poppins_regular"/>
+                <TextView
+                    android:id="@+id/regards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_below="@+id/details"
+                    android:text="Best regards,"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/regards"
+                    android:elegantTextHeight="true"
+                    android:text="The Vigyos Team"
+                    android:textColor="@color/dark_vigyos"
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
-
-
-
-

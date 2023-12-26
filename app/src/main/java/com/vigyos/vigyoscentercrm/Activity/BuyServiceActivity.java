@@ -1,14 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.core.os.BuildCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,6 +19,7 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,15 +34,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.squareup.picasso.Picasso;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.Model.BuyServiceDocumentModel;
 import com.vigyos.vigyoscentercrm.Model.RequestData;
 import com.vigyos.vigyoscentercrm.R;
@@ -104,6 +103,7 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     private int selectedPosition;
     private ArrayList<String> imageUris;
     private ArrayList<String> imageUrisForShow;
+    private Dialog dialog1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,21 +265,36 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
     }
 
     private void areYouSure() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(BuyServiceActivity.this);
-        alert.setTitle("Buy Service?");
-        alert.setMessage("Are you sure, You want to Buy this Service?");
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+        dialog1 = new Dialog(BuyServiceActivity.this);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setCancelable(false);
+        dialog1.setCanceledOnTouchOutside(false);
+        dialog1.setContentView(R.layout.dialog_yes_or_no);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog1.getWindow().setLayout(-1, -1);
+        TextView title = dialog1.findViewById(R.id.title);
+        title.setText("Buy Service?");
+        TextView details = dialog1.findViewById(R.id.details);
+        details.setText("Are you sure, You want to Buy this Service?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog1.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(BuyServiceActivity.this, R.anim.viewpush));
+                dismissDialog1();
+            }
+        });
+        dialog1.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(BuyServiceActivity.this, R.anim.viewpush));
+                dismissDialog1();
                 buyServiceAPI();
             }
         });
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alert.show();
+        dialog1.show();
     }
 
     private void buyServiceAPI() {
@@ -316,10 +331,17 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         if (jsonObject.has("message")) {
-                            Toast.makeText(BuyServiceActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            DialogCustom.showAlertDialog(BuyServiceActivity.this, "Successfully Done!", jsonObject.getString("message"), "OK", false, () -> {
+                                startActivity(new Intent(BuyServiceActivity.this, MainActivity.class));
+                                finish();
+                            });
                         }
-                        startActivity(new Intent(BuyServiceActivity.this, MainActivity.class));
-                        finish();
+                    } else {
+                        Log.i("8747284", "fgfdgvbb 1 ");
+                        if (jsonObject.has("message")) {
+                            Log.i("8747284", "fgfdgvbb 2 ");
+                            DialogCustom.showAlertDialog(BuyServiceActivity.this, "Alert!", jsonObject.getString("message"), "OK", true, () -> {});
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -666,10 +688,16 @@ public class BuyServiceActivity extends AppCompatActivity implements OnItemClick
             dialog.dismiss();
         }
     }
+    private void dismissDialog1() {
+        if (dialog1 != null && dialog1.isShowing()) {
+            dialog1.dismiss();
+        }
+    }
 
     @Override
     protected void onDestroy() {
         dismissDialog();
+        dismissDialog1();
         super.onDestroy();
     }
 

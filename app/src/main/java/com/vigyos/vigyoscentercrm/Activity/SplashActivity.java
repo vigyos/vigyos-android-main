@@ -1,14 +1,13 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import com.vigyos.vigyoscentercrm.Constant.SharedPrefManager;
 import com.vigyos.vigyoscentercrm.R;
@@ -43,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this, RegisterHomeActivity.class));
                     finish();
                 }  else {
-                    startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
 

@@ -59,6 +59,7 @@ import com.vigyos.vigyoscentercrm.Activity.PersonalProfileActivity;
 import com.vigyos.vigyoscentercrm.Activity.PrivacyPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.RefundPolicyActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
+import com.vigyos.vigyoscentercrm.Activity.WalletRechargeActivity;
 import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.Opts;
 import com.vigyos.vigyoscentercrm.FingerPrintModel.PidData;
@@ -99,7 +100,7 @@ public class ProfileFragment extends Fragment {
     private CardView payout, changePlan;
     private CardView personalProfile, document, security;
     private CardView refundAndPolicy, privacyPolicy;
-    private CardView helpAndSupport;
+    private CardView helpAndSupport, walletRecharge;
     private TextView logOut;
     private Dialog dialog;
     private int bank = 0;
@@ -144,6 +145,7 @@ public class ProfileFragment extends Fragment {
         helpAndSupport = view.findViewById(R.id.helpAndSupport);
         logOut = view.findViewById(R.id.logOut);
         planName = view.findViewById(R.id.planName);
+        walletRecharge = view.findViewById(R.id.walletRecharge);
     }
 
     private void declaration() {
@@ -212,6 +214,13 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
                 startActivity(new Intent(activity, DocumentsActivity.class));
+            }
+        });
+        walletRecharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.viewpush));
+                startActivity(new Intent(activity, WalletRechargeActivity.class));
             }
         });
         security.setOnClickListener(new View.OnClickListener() {
@@ -314,94 +323,89 @@ public class ProfileFragment extends Fragment {
     }
 
     private void FinoAeps() {
-        startActivity(new Intent(activity, FinoPayOutActivity.class));
+        Log.i("741258", "Fino time Aeps " + formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
+            Calendar loginCalendar = Calendar.getInstance();
+            loginCalendar.setTime(loginDate);
 
-//        Log.i("741258", "Fino time Aeps " + formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        try {
-//            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getFinoLastVerifyTimestampAeps()));
-//            Calendar loginCalendar = Calendar.getInstance();
-//            loginCalendar.setTime(loginDate);
-//
-//            Calendar currentCalendar = Calendar.getInstance();
-//            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-//            long diffInHours = diffInMillis / (60 * 60 * 1000);
-//
-//            if(diffInHours >= 24) {
-//                // More than 24 hours have passed since the login
-//                // Prompt user to log in again
-//                Log.i("741258","More than 24 hours");
-//                try {
-//                    String pidOption = getPIDOptions();
-//                    if (pidOption != null) {
-//                        Log.e("PidOptions", pidOption);
-//                        Intent intent9 = new Intent();
-//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                        intent9.putExtra("PID_OPTIONS", pidOption);
-//                        startActivityForResult(intent9, 1);
-//                    } else {
-//                        Log.i("454545","Device not found!");
-//                    }
-//                } catch (Exception e) {
-//                    Log.e("Error", e.toString());
-//                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
-//                }
-//
-//            } else {
-//                // Less than 24 hours have passed since the login
-//                // User is still logged in
-//                Log.i("741258","Less than 24 hours");
-//                startActivity(new Intent(activity, FinoPayOutActivity.class));
-//            }
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+            Calendar currentCalendar = Calendar.getInstance();
+            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+            long diffInHours = diffInMillis / (60 * 60 * 1000);
+
+            if(diffInHours >= 24) {
+                // More than 24 hours have passed since the login
+                // Prompt user to log in again
+                Log.i("741258","More than 24 hours");
+                try {
+                    String pidOption = getPIDOptions();
+                    if (pidOption != null) {
+                        Log.e("PidOptions", pidOption);
+                        Intent intent9 = new Intent();
+                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                        intent9.putExtra("PID_OPTIONS", pidOption);
+                        startActivityForResult(intent9, 1);
+                    } else {
+                        Log.i("454545","Device not found!");
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
+                }
+
+            } else {
+                // Less than 24 hours have passed since the login
+                // User is still logged in
+                Log.i("741258","Less than 24 hours");
+                startActivity(new Intent(activity, FinoPayOutActivity.class));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void PaytmAeps() {
-        startActivity(new Intent(activity, PaytmPayoutActivity.class));
+        Log.i("741258", "Paytm time Aeps " + formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
+            Calendar loginCalendar = Calendar.getInstance();
+            loginCalendar.setTime(loginDate);
 
+            Calendar currentCalendar = Calendar.getInstance();
+            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
+            long diffInHours = diffInMillis / (60 * 60 * 1000);
 
-//        Log.i("741258", "Paytm time Aeps " + formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        try {
-//            Date loginDate = sdf.parse(formatTimestamp(SplashActivity.prefManager.getPaytmLastVerifyTimestampAeps()));
-//            Calendar loginCalendar = Calendar.getInstance();
-//            loginCalendar.setTime(loginDate);
-//
-//            Calendar currentCalendar = Calendar.getInstance();
-//            long diffInMillis = currentCalendar.getTimeInMillis() - loginCalendar.getTimeInMillis();
-//            long diffInHours = diffInMillis / (60 * 60 * 1000);
-//
-//            if(diffInHours >= 24) {
-//                // More than 24 hours have passed since the login
-//                // Prompt user to log in again
-//                Log.i("741258","More than 24 hours");
-//                try {
-//                    String pidOption = getPIDOptions();
-//                    if (pidOption != null) {
-//                        Log.e("PidOptions", pidOption);
-//                        Intent intent9 = new Intent();
-//                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
-//                        intent9.putExtra("PID_OPTIONS", pidOption);
-//                        startActivityForResult(intent9, 2);
-//                    } else {
-//                        Log.i("454545","Finger Print device not found!");
-//                    }
-//                } catch (Exception e) {
-//                    Log.e("Error", e.toString());
-//                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", () -> {});
-//                }
-//
-//            } else {
-//                // Less than 24 hours have passed since the login
-//                // User is still logged in
-//                Log.i("741258","Less than 24 hours");
-//                startActivity(new Intent(activity, PaytmPayoutActivity.class));
-//            }
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+            if(diffInHours >= 24) {
+                // More than 24 hours have passed since the login
+                // Prompt user to log in again
+                Log.i("741258","More than 24 hours");
+                try {
+                    String pidOption = getPIDOptions();
+                    if (pidOption != null) {
+                        Log.e("PidOptions", pidOption);
+                        Intent intent9 = new Intent();
+                        intent9.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+                        intent9.putExtra("PID_OPTIONS", pidOption);
+                        startActivityForResult(intent9, 2);
+                    } else {
+                        Log.i("454545","Finger Print device not found!");
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.toString());
+                    DialogCustom.showAlertDialog(activity, "Warning!", "Finger Print device not found...", "OK", true, () -> {});
+                }
+
+            } else {
+                // Less than 24 hours have passed since the login
+                // User is still logged in
+                Log.i("741258","Less than 24 hours");
+                startActivity(new Intent(activity, PaytmPayoutActivity.class));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void areYouSure() {

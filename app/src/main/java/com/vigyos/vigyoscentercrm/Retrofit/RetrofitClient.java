@@ -26,9 +26,9 @@ public class RetrofitClient {
 
         OkHttpClient okHttpClient ;
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
-                .writeTimeout(5, TimeUnit.MINUTES) // write timeout
-                .readTimeout(5, TimeUnit.MINUTES); // read timeout
+        builder.connectTimeout(1, TimeUnit.MINUTES) // connect timeout
+                .writeTimeout(1, TimeUnit.MINUTES) // write timeout
+                .readTimeout(1, TimeUnit.MINUTES); // read timeout
         okHttpClient = builder.build();
 
         Gson gson = new GsonBuilder().setLenient().create();

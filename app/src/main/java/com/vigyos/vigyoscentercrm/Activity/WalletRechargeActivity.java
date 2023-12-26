@@ -1,9 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -27,11 +23,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
-import com.vigyos.vigyoscentercrm.Activity.AEPS.FinoPayoutAddAccountActivity;
+import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 
@@ -48,16 +48,15 @@ public class WalletRechargeActivity extends AppCompatActivity implements Payment
 
     private ImageView ivBack;
     private TextView walletAmount;
-    private EditText rechargeAmount;
+    private EditText rechargeAmountEdt;
     private LinearLayout firstAmount, secondAmount;
     private LinearLayout thirdAmount, fourAmount;
     private RelativeLayout rechargeButton;
     private RelativeLayout rechargeAmountLyt;
     private Animation animation;
-
     public EditText amount;
     public Button process;
-    private Dialog dialog;
+    private Dialog dialog, dialog2;
     private String id = null;
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -67,24 +66,21 @@ public class WalletRechargeActivity extends AppCompatActivity implements Payment
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_recharge);
         Initialization();
         Declaration();
-
         // Register the receiver
         registerReceiver(myReceiver, new IntentFilter("yourAction"));
     }
 
     private void Initialization() {
         Checkout.preload(getApplicationContext());
-
         ivBack = findViewById(R.id.ivBack);
         walletAmount = findViewById(R.id.walletAmount);
-        rechargeAmount = findViewById(R.id.rechargeAmount);
+        rechargeAmountEdt = findViewById(R.id.rechargeAmount);
         firstAmount = findViewById(R.id.firstAmount);
         secondAmount = findViewById(R.id.secondAmount);
         thirdAmount = findViewById(R.id.thirdAmount);
@@ -111,52 +107,47 @@ public class WalletRechargeActivity extends AppCompatActivity implements Payment
         firstAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rechargeAmount.setText("1000");
+                rechargeAmountEdt.setText("1000");
             }
         });
         secondAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rechargeAmount.setText("2000");
+                rechargeAmountEdt.setText("2000");
             }
         });
         thirdAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rechargeAmount.setText("2500");
+                rechargeAmountEdt.setText("2500");
             }
         });
         fourAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rechargeAmount.setText("5000");
+                rechargeAmountEdt.setText("5000");
             }
         });
-
         rechargeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(WalletRechargeActivity.this, R.anim.viewpush));
-                if (TextUtils.isEmpty(rechargeAmount.getText().toString())) {
+                if (TextUtils.isEmpty(rechargeAmountEdt.getText().toString())) {
                     rechargeAmountLyt.startAnimation(animation);
                     StyleableToast.makeText(WalletRechargeActivity.this, "Enter Amount", Toast.LENGTH_LONG, R.style.myToastWarning).show();
                     return;
                 }
-
-                rechargeApi();
+                createOrder();
+//                callBackOrder("order_NGz8INiYTJfEqd");
             }
         });
     }
 
-    private void rechargeApi() {
-        createOrder();
-    }
-
     private void createOrder(){
         pleaseWait();
-        Call<Object> objectCall = RetrofitClient.getApi().razorpayCreateOrder(SplashActivity.prefManager.getToken(), Integer.parseInt(rechargeAmount.getText().toString() + "00"), "INR",
-                SplashActivity.prefManager.getUserID(), "Subscription Plan", SplashActivity.prefManager.getFirstName() + " " + SplashActivity.prefManager.getLastName(),
-                SplashActivity.prefManager.getPhone(), SplashActivity.prefManager.getEmail(), "Jeevan Bima", "RECHARGE");
+        Call<Object> objectCall = RetrofitClient.getApi().razorpayCreateOrder(SplashActivity.prefManager.getToken(), Integer.parseInt(rechargeAmountEdt.getText().toString() + "00"), "INR",
+                SplashActivity.prefManager.getUserID(), "Wallet Recharge", SplashActivity.prefManager.getFirstName() + " " + SplashActivity.prefManager.getLastName(),
+                SplashActivity.prefManager.getPhone(), SplashActivity.prefManager.getEmail(), "Wallet Recharge", "WALLET_RECHARGE");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
@@ -215,108 +206,34 @@ public class WalletRechargeActivity extends AppCompatActivity implements Payment
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
                 dismissDialog();
                 Log.i("2016", "onFailure " + t);
-
             }
         });
-
     }
 
     public void startPayment(String id, int amount) {
-
         Log.i("2121212","id " + id );
-
         Checkout checkout = new Checkout();
-
-//        checkout.setKeyID("rzp_test_uGEFDaUck79dOI");
-
         checkout.setImage(R.drawable.vigyos_logo);
-
         final Activity activity = this;
-
-//        try {
-//            JSONObject options = new JSONObject();
-//
-//            options.put("name", SplashActivity.prefManager.getFirstName() + " " +SplashActivity.prefManager.getLastName());
-//            options.put("description", "Subscription Plan");
-//            options.put("order_id", id);//from response of step 3.
-//            options.put("currency", "INR");
-//            options.put("amount", amount);//pass amount in currency subunits
-//
-////            options.put("prefill.email", SplashActivity.prefManager.getEmail());
-////            options.put("prefill.contact", SplashActivity.prefManager.getPhone());
-////            JSONObject retryObj = new JSONObject();
-////            retryObj.put("enabled", true);
-////            retryObj.put("max_count", 4);
-////            options.put("retry", retryObj);
-//
-//            checkout.open(activity, options);
-//
-//        } catch(Exception e) {
-//            Log.e(TAG, "Error in starting Razorpay Checkout", e);
-//        }
-
         try {
             JSONObject options = new JSONObject();
-            options.put("name", "Razorpay Corp");
-            options.put("description", "Demoing Charges");
+            options.put("name", "Vigyos Center");
+            options.put("description", "Wallet Recharge");
             options.put("send_sms_hash",true);
             options.put("allow_rotation", true);
             //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            options.put("image", "https://vigyos-upload-files.s3.amazonaws.com/ca2ce849-556e-4483-9638-e3b1671b192d");
             options.put("order_id", id);//from response of step 3.
             options.put("currency", "INR");
-//            options.put("amount", "100");
             options.put("amount", amount);//pass amount in currency subunits
-
             JSONObject preFill = new JSONObject();
-            preFill.put("email", "test@razorpay.com");
-            preFill.put("contact", "9876543210");
-
+            preFill.put("email", SplashActivity.prefManager.getEmail());
+            preFill.put("contact", SplashActivity.prefManager.getPhone());
             options.put("prefill", preFill);
-
             checkout.open(activity, options);
         } catch (Exception e) {
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-        }
-    }
-
-    private void pleaseWait() {
-        dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setContentView(R.layout.dialog_loader);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    }
-
-    private void dismissDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        // Unregister the receiver only once in onDestroy
-        unregisterReceiverIfNeeded();
-        dismissDialog();  // Make sure to dismiss the dialog
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiverIfNeeded();
-        dismissDialog();
-    }
-
-    private void unregisterReceiverIfNeeded() {
-        try {
-            unregisterReceiver(myReceiver);
-        } catch (IllegalArgumentException e) {
-            // Receiver was not registered, ignore
         }
     }
 
@@ -333,21 +250,94 @@ public class WalletRechargeActivity extends AppCompatActivity implements Payment
     }
 
     private void callBackOrder(String orderID) {
-        pleaseWait();
+        pleaseWait2();
         Call<Object> objectCall = RetrofitClient.getApi().razorpayCallBackOrder(SplashActivity.prefManager.getToken(), orderID, "true", "", "","");
         objectCall.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
-                dismissDialog();
+                dismissDialog2();
                 Log.i("2121212", "onResponse " + response);
-
+                try {
+                    JSONObject object = new JSONObject(new Gson().toJson(response.body()));
+                    if (object.has("success") && object.getBoolean("success")) {
+                        if (object.has("message")) {
+                            DialogCustom.showAlertDialog(WalletRechargeActivity.this, "Wallet Recharge Successful!", object.getString("message"), "OKAY", false, () -> {
+                                startActivity(new Intent(WalletRechargeActivity.this, MainActivity.class));
+                                finish();
+                            });
+                        }
+                    } else {
+                        if (object.has("message")){
+                            DialogCustom.showAlertDialog(WalletRechargeActivity.this, "Alert!", object.getString("message"), "OK",true, () -> {});
+                        }
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Object> call, @NonNull Throwable t) {
-                dismissDialog();
+                dismissDialog2();
                 Log.i("2121212", "onFailure " + t);
             }
         });
+    }
+
+    private void pleaseWait2() {
+        dialog2 = new Dialog(this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setCancelable(true);
+        dialog2.setCanceledOnTouchOutside(false);
+        dialog2.setContentView(R.layout.dialog_loader);
+        dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog2.show();
+    }
+
+    private void pleaseWait() {
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_loader);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void dismissDialog2() {
+        if (dialog2 != null && dialog2.isShowing()) {
+            dialog2.dismiss();
+        }
+    }
+
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Unregister the receiver only once in onDestroy
+        unregisterReceiverIfNeeded();
+        dismissDialog();  // Make sure to dismiss the dialog
+        dismissDialog2();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiverIfNeeded();
+        dismissDialog();
+        dismissDialog2();
+    }
+
+    private void unregisterReceiverIfNeeded() {
+        try {
+            unregisterReceiver(myReceiver);
+        } catch (IllegalArgumentException e) {
+            // Receiver was not registered, ignore
+        }
     }
 }

@@ -1,13 +1,10 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -22,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,8 +40,10 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailAddress;
     private EditText phoneNumber;
     private EditText password;
+    private EditText address;
     private RelativeLayout userNameLyt, emailLyt;
     private RelativeLayout phoneNumberLyt, passwordLyt;
+    private RelativeLayout addressLyt;
     private ImageView passwordVisibility;
     private RelativeLayout signUpButton;
     private RelativeLayout signUpWithNumber;
@@ -76,6 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.checkbox);
         checkBoxLyt = findViewById(R.id.checkBoxLyt);
         termsAndConditions = findViewById(R.id.termsAndConditions);
+        address = findViewById(R.id.address);
+        addressLyt = findViewById(R.id.addressLyt);
     }
 
     private void declaration() {
@@ -87,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                     userNameLyt.setBackgroundResource(R.drawable.credential_border);
                     emailLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
-                    passwordLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
                 }
             }
         });
@@ -98,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity {
                     userNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     emailLyt.setBackgroundResource(R.drawable.credential_border);
                     phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
-                    passwordLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
                 }
             }
         });
@@ -109,21 +114,33 @@ public class SignUpActivity extends AppCompatActivity {
                     userNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     emailLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     phoneNumberLyt.setBackgroundResource(R.drawable.credential_border);
-                    passwordLyt.setBackgroundResource(R.drawable.credential_border_fill);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border_fill);
                 }
             }
         });
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     userNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     emailLyt.setBackgroundResource(R.drawable.credential_border_fill);
                     phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
-                    passwordLyt.setBackgroundResource(R.drawable.credential_border);
+                    addressLyt.setBackgroundResource(R.drawable.credential_border);
                 }
             }
         });
+
+//        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    userNameLyt.setBackgroundResource(R.drawable.credential_border_fill);
+//                    emailLyt.setBackgroundResource(R.drawable.credential_border_fill);
+//                    phoneNumberLyt.setBackgroundResource(R.drawable.credential_border_fill);
+//                    passwordLyt.setBackgroundResource(R.drawable.credential_border);
+//                }
+//            }
+//        });
         passwordVisibility.setBackgroundResource(R.drawable.visibility_off_icon);
         passwordVisibility.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,10 +189,16 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Enter Your Phone Number", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(password.getText().toString())) {
-                    passwordLyt.startAnimation(animation);
-                    password.requestFocus();
-                    Toast.makeText(SignUpActivity.this, "Enter Your Password", Toast.LENGTH_SHORT).show();
+//                if (TextUtils.isEmpty(password.getText().toString())) {
+//                    passwordLyt.startAnimation(animation);
+//                    password.requestFocus();
+//                    Toast.makeText(SignUpActivity.this, "Enter Your Password", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+                if (TextUtils.isEmpty(address.getText().toString())) {
+                    addressLyt.startAnimation(animation);
+                    address.requestFocus();
+                    Toast.makeText(SignUpActivity.this, "Enter Your Address", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!checkBox.isChecked()) {
@@ -199,19 +222,32 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.viewpush));
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                finish();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> {
+                        Log.i("8522456","gfdgfdg");
+                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                        finish();
+                    }
+            );
+        }
     }
 
     private void signup() {
         pleaseWait();
-        String URl = url + "action=create&name="+userFullName.getText().toString()+"&email="+emailAddress.getText().toString()+"&phone="+phoneNumber.getText().toString()+"&password="+password.getText().toString();
+        String URl = url + "action=create&name="+userFullName.getText().toString()+"&email="+emailAddress.getText().toString()+"&phone="+phoneNumber.getText().toString()+"&password="+address.getText().toString();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissDialog();
                 Toast.makeText(SignUpActivity.this, response, Toast.LENGTH_SHORT).show();
                 SplashActivity.prefManager.setRegister(true);
+                SplashActivity.prefManager.setUserName(userFullName.getText().toString());
                 startActivity(new Intent(SignUpActivity.this, AccountCreatedActivity.class));
                 finish();
             }
@@ -245,5 +281,12 @@ public class SignUpActivity extends AppCompatActivity {
     public void onDestroy() {
         dismissDialog();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+        finish();
     }
 }

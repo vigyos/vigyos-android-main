@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.vigyos.vigyoscentercrm.Activity.BBPS.BBPSOperatorListActivity;
+import com.vigyos.vigyoscentercrm.Activity.BBPS.BillPay.BBPSOperatorListActivity;
 import com.vigyos.vigyoscentercrm.R;
 
 import java.util.List;

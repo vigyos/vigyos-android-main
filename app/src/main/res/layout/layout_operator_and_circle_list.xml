@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/_5sdp">
+    <RelativeLayout
+        android:id="@+id/titleLyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp">
+        <TextView
+            android:id="@+id/titleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:text="Jio"
+            android:elegantTextHeight="true"
+            android:textColor="@color/dark_vigyos"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_12sdp" />
+        <ImageView
+            android:id="@+id/forward"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/forword" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_below="@+id/titleLyt"
+        android:background="#CCCCCC"
+        android:layout_marginHorizontal="@dimen/_10sdp"/>
+</RelativeLayout>

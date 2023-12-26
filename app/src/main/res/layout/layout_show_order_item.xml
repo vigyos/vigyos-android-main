@@ -77,7 +77,7 @@
                         android:layout_height="@dimen/_12sdp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/phone_icon"
-                        app:tint="@color/vigyos" />
+                        app:tint="@color/dark_vigyos" />
                     <TextView
                         android:id="@+id/phoneNumber"
                         android:layout_width="wrap_content"

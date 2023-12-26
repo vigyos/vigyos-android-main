@@ -8,7 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
-
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#009306</color>
     <color name="dark_vigyos">#2C55A3</color>
     <color name="light_black">#333333</color>
@@ -20,13 +19,7 @@
     <color name="rejected">#F00024</color>
     <color name="cr">#00944E</color>
     <color name="dr">#F00024</color>
-
-
-
     <color name="vigyos">#2196F3</color>
-    <color name="text_color">#1d1031</color>
-    <color name="title_text">#0e0023</color>
-    <color name="icon_card">#FCEAF5FA</color>
     <color name="ucrop_color_toolbar">@color/white</color>
     <color name="ucrop_color_statusbar">@color/vigyos</color>
     <color name="ucrop_color_widget_active">@color/black</color>

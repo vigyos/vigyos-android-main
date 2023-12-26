@@ -70,7 +70,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="phone|textImeMultiLine"
                 android:backgroundTint="@color/white"
-                android:fontFamily="@font/hankengrotesk_medium"
+                android:fontFamily="@font/poppins_medium"
                 android:hint="Enter your number"
                 android:textColorHint="#999999"
                 android:textColor="@color/dark_vigyos" />

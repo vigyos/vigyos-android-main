@@ -90,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5sp"
-                            android:text="+91 - 9513885050"
+                            android:text="+91-9513885050"
                             android:textColor="@color/dark_vigyos"
                             android:textSize="@dimen/_12sdp"
                             android:textStyle="bold"/>

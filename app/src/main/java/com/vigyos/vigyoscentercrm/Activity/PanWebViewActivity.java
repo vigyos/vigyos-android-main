@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.ValueCallback;
@@ -26,8 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
 import com.google.gson.Gson;
-import com.vigyos.vigyoscentercrm.AppController;
-import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;
 

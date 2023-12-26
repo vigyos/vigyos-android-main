@@ -1,11 +1,5 @@
 package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.os.BuildCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,6 +34,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
+
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.gson.Gson;
 import com.karumi.dexter.Dexter;
@@ -49,7 +49,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
 import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
-import com.vigyos.vigyoscentercrm.Model.BankListModel;
 import com.vigyos.vigyoscentercrm.Model.PayoutAddAccountBankListModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;

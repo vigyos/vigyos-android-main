@@ -23,9 +23,9 @@ import com.vigyos.vigyoscentercrm.R;
 public class HistoryFragment extends Fragment {
 
     private Activity activity;
-    private RelativeLayout walletLyt, aepsLyt, payoutLyt;
-    private TextView walletText, aepsText, payoutText;
-    private View walletLine, aepsLine, payoutLine;
+    private RelativeLayout walletLyt, aepsLyt, payoutLyt, bbpsLyt;
+    private TextView walletText, aepsText, payoutText, bbpsText;
+    private View walletLine, aepsLine, payoutLine, bbpsLine;
     private Typeface typefaceBold;
     private Typeface typefaceRegular;
 
@@ -52,6 +52,9 @@ public class HistoryFragment extends Fragment {
         walletLine = view.findViewById(R.id.walletLine);
         aepsLine = view.findViewById(R.id.aepsLine);
         payoutLine = view.findViewById(R.id.payoutLine);
+        bbpsLyt = view.findViewById(R.id.bbpsLyt);
+        bbpsText = view.findViewById(R.id.bbpsText);
+        bbpsLine = view.findViewById(R.id.bbpsLine);
     }
 
     private void declaration() {
@@ -74,6 +77,9 @@ public class HistoryFragment extends Fragment {
                 payoutText.setTextColor(activity.getColor(R.color.not_click));
                 payoutText.setTypeface(typefaceRegular);
                 payoutLine.setBackgroundColor(activity.getColor(R.color.not_click));
+                bbpsText.setTextColor(activity.getColor(R.color.not_click));
+                bbpsText.setTypeface(typefaceRegular);
+                bbpsLine.setBackgroundColor(activity.getColor(R.color.not_click));
 
                 loadFragment(new WalletHistoryFragment(activity));
             }
@@ -90,6 +96,9 @@ public class HistoryFragment extends Fragment {
                 payoutText.setTextColor(activity.getColor(R.color.not_click));
                 payoutText.setTypeface(typefaceRegular);
                 payoutLine.setBackgroundColor(activity.getColor(R.color.not_click));
+                bbpsText.setTextColor(activity.getColor(R.color.not_click));
+                bbpsText.setTypeface(typefaceRegular);
+                bbpsLine.setBackgroundColor(activity.getColor(R.color.not_click));
 
                 loadFragment(new FinoAepsHistoryFragment(activity));
             }
@@ -106,8 +115,30 @@ public class HistoryFragment extends Fragment {
                 payoutText.setTextColor(activity.getColor(R.color.dark_vigyos));
                 payoutText.setTypeface(typefaceBold);
                 payoutLine.setBackgroundColor(activity.getColor(R.color.dark_vigyos));
+                bbpsText.setTextColor(activity.getColor(R.color.not_click));
+                bbpsText.setTypeface(typefaceRegular);
+                bbpsLine.setBackgroundColor(activity.getColor(R.color.not_click));
 
                 loadFragment(new FinoPayoutHistoryFragment(activity));
+            }
+        });
+        bbpsLyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                walletText.setTextColor(activity.getColor(R.color.not_click));
+                walletText.setTypeface(typefaceRegular);
+                walletLine.setBackgroundColor(activity.getColor(R.color.not_click));
+                aepsText.setTextColor(activity.getColor(R.color.not_click));
+                aepsText.setTypeface(typefaceRegular);
+                aepsLine.setBackgroundColor(activity.getColor(R.color.not_click));
+                payoutText.setTextColor(activity.getColor(R.color.not_click));
+                payoutText.setTypeface(typefaceRegular);
+                payoutLine.setBackgroundColor(activity.getColor(R.color.not_click));
+                bbpsText.setTextColor(activity.getColor(R.color.dark_vigyos));
+                bbpsText.setTypeface(typefaceBold);
+                bbpsLine.setBackgroundColor(activity.getColor(R.color.dark_vigyos));
+
+                loadFragment(new BBPSHistoryFragment(activity));
             }
         });
     }

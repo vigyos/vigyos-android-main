@@ -36,20 +36,31 @@
         android:theme="@style/Theme_light.Vigyos"
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
+
         <activity
-            android:name=".Activity.Recharge.MobileRechargeSelectPlanActivity"
+            android:name=".Activity.BBPS.FasTag.FasTagPayBillActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Recharge.MobileRechargeOperatorActivity"
+            android:name=".Activity.BBPS.FasTag.FasTagFetchBillActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.BBPS.BBPSPayBills2Activity"
+            android:name=".Activity.BBPS.FasTag.FasTagOperatorActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.BBPS.BBPSPayBillsActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".Activity.BBPS.BBPSPayBillsActivity" -->
-        <!-- android:exported="false" /> -->
+            android:name=".Activity.BBPS.Recharge.MobileRechargeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BBPS.Recharge.MobileRechargeSelectPlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BBPS.Recharge.MobileRechargeOperatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BBPS.BillPay.BBPSPayBills2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BBPS.BillPay.BBPSPayBillsActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.WalletRechargeActivity"
             android:exported="false" />
@@ -60,7 +71,7 @@
             android:name=".Activity.AEPS.PaytmPayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.BBPS.BBPSOperatorListActivity"
+            android:name=".Activity.BBPS.BillPay.BBPSOperatorListActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.GOVT.GovtServicesWebViewActivity"
@@ -82,11 +93,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.RazorPayActivity"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".Activity.BBPS.BBPSOperatorListActivity" -->
-        <!-- android:exported="false" /> -->
+            android:exported="true" />
         <activity
-            android:name=".Activity.BBPS.BBPSServicesActivity"
+            android:name=".Activity.BBPS.BillPay.BBPSServicesActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.PlansActivity"
@@ -103,6 +112,7 @@
         <activity
             android:name=".Activity.SignUpWithPhoneActivity"
             android:exported="false" />
+
         <activity
             android:name=".Activity.SignUpActivity"
             android:exported="true">
@@ -125,15 +135,13 @@
                 <data android:host="vigyos.com" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activity.OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.RegisterHomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.RegisterActivity"
-            android:exported="true" />
         <activity
             android:name=".Activity.BiometricLockActivity"
             android:exported="false" />
@@ -144,19 +152,10 @@
             android:name=".Activity.AEPS.MiniStatementDoneActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.WalletActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.SeeMoreServicesActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.RefundPolicyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.AccountActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.UserActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.NotificationActivity"
@@ -229,10 +228,13 @@
 
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" /> <!-- Add your API key here -->
+            android:required="false" />
+
+        <!-- Add your API key here -->
         <!-- <meta-data -->
         <!-- android:name="com.razorpay.ApiKey" -->
         <!-- android:value="rzp_test_uGEFDaUck79dOI" /> -->
+
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_4AIEZmGDgq7mp5" />
@@ -249,6 +251,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
     </application>
 
 </manifest>

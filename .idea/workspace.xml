@@ -5,11 +5,6 @@
       <config />
     </shared>
     <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account_created.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -60,6 +55,21 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fas_tag_fetch_bill.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fas_tag_operator.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_fas_tag_pay_bill.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forgot.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -96,6 +106,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mini_statemnet_done.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -180,11 +195,6 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_home.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -230,17 +240,7 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_verify_account.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wallet.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -261,6 +261,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_loader.xml">
+        <config>
+          <theme>@style/Theme_light.Vigyos</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_operator_and_circle.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -295,7 +300,7 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_aeps_history2.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_bbps_history.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -311,11 +316,6 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_enquiry.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fino_aeps.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -370,11 +370,6 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_paytm_aeps.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_pending.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -415,16 +410,6 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_municipality.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_account_item_list.xml">
-        <config>
-          <theme>@style/Theme_light.Vigyos</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_aeps_history.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
@@ -435,7 +420,7 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_category_item_list.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_bbps_history.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -445,12 +430,12 @@
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_history_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_ministatement_list.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_ministatement_list.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_operator_and_circle_list.xml">
         <config>
           <theme>@style/Theme_light.Vigyos</theme>
         </config>
@@ -541,9 +526,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a059952-3867-437a-9a8d-f3a921aa0e90" name="Changes" comment="bbps pay Bill done">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/checksums/sha1-checksums.bin" afterDir="false" />
+    <list default="true" id="2a059952-3867-437a-9a8d-f3a921aa0e90" name="Changes" comment="Working on mobile recharge">
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
@@ -553,19 +536,144 @@
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeOperatorActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeOperatorActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/animation_register.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/cities.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutAddAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AEPS/PaytmPayoutAddAccountActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AccountActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AccountCreatedActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/AccountCreatedActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSOperatorListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BillPay/BBPSOperatorListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBills2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BillPay/BBPSPayBills2Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSPayBillsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BillPay/BBPSPayBillsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BBPSServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/BillPay/BBPSServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BiometricLockActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BiometricLockActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BuyServiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BuyServiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/GOVT/GovtServicesShowActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/GOVT/GovtServicesShowActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/GOVT/GovtServicesWebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/GOVT/GovtServicesWebViewActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/PanWebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/PanWebViewActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RazorPayActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RazorPayActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeOperatorActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/Recharge/MobileRechargeOperatorActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/Recharge/MobileRechargeSelectPlanActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/BBPS/Recharge/MobileRechargeSelectPlanActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RefundPolicyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RefundPolicyActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RegisterActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RegisterHomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/RegisterHomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SearchServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SearchServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SeeMoreServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SeeMoreServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/ShowServicesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/ShowServicesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SignUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SignUpActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/UserActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/WalletActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/WalletRechargeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Activity/WalletRechargeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Adapter/MunicipalityAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Adapter/MunicipalityAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Constant/SharedPrefManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Constant/SharedPrefManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/AEPS/AepsHistoryFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HistoryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/HomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/CancelledFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/CancelledFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/CompletedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/CompletedFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/OrderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/OrderFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/PendingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/PendingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/ProcessingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/Order/ProcessingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardCreateFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardCreateFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardUpdateFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/PanCardUpdateFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/ProfileFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/WalletHistoryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Fragment/WalletHistoryFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/MobileRechargeOperatorModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/MobileRechargeOperatorModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/PlanDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Model/ResponseRecharge.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/Api.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vigyos/vigyoscentercrm/Retrofit/RetrofitClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/govt_services.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/govt_services.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_border_color.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_border_color.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/aadhaar_card_pic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/aadhaar_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/address_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bin_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/credir_card.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/data_card.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/digital_voucher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/download.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/dsc_services.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/e_way_bills.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/emi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/gradient_bg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/help_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image_not_available.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/income_tax_return.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/landline.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/lock_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/login_gradient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logout_bg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/male_vactor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/more_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_history_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_home_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_message_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_order_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_search_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nav_wishlist_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/no_data.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pan_card_pic.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/payout_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pending.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/person_dark.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/person_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/plan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/processing.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/recycle_borderline.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/refund_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/register.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_bg_color.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/services.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/star.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/tax_services.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/traffic_challan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/udyam.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/user_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/view_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/wallet_gradient.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/hankengrotesk_bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/hankengrotesk_medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/hankengrotesk_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/montserrat_black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/montserrat_bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/montserrat_medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/font/montserrat_regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbps_pay_bills.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbps_pay_bills.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpspay_bills2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpsservices.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bbpsservices.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_biometrc_lock.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_biometrc_lock.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_govt_services_web_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_govt_services_web_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_help_and_support.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_help_and_support.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_operator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_operator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet_recharge.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet_recharge.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_select_plan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mobile_recharge_select_plan.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_privacy_policy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_privacy_policy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_refund_policy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_refund_policy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_with_phone.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up_with_phone.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_terms_and_conditions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_verify_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_verify_account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aadhaar_pay.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aadhaar_pay.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_aeps_history2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fino_aeps.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_history.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_paytm_aeps.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_municipality.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_account_item_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_category_item_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_history_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_show_order_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_show_order_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -628,10 +736,16 @@
       <list>
         <option value="Interface" />
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="C:\Users\ABC\Documents\WIP\Vigyos\Key\vigyoscentercrm.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -651,6 +765,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "BundleExportedModule": "Vigyos.app",
+    "ExportBundle.BundlePathForVigyos.app": "C:\\Users\\ABC\\Documents\\WIP\\Vigyos\\vigyos-android-main\\app",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -664,14 +780,22 @@
     "com.google.services.firebase.aqiPopupShown": "true",
     "git-widget-placeholder": "dev",
     "last_directory_selection": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
-    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/vigyos-android-main/app/src/main/res/drawable",
+    "last_opened_file_path": "C:/Users/ABC/Documents/WIP/Vigyos/Key",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  },
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="android.template.1054453092">
+      <recent name="com.vigyos.vigyoscentercrm.Activity.BBPS.FasTag" />
+    </key>
     <key name="android.template.1803943179">
       <recent name="com.vigyos.vigyoscentercrm.Activity" />
     </key>
@@ -694,6 +818,10 @@
     <key name="android.template.1021933610">
       <recent name="com.vigyos.vigyoscentercrm.Activity" />
     </key>
+    <key name="android.template.-941124553">
+      <recent name="com.vigyos.vigyoscentercrm.Activity.BBPS.FasTag" />
+      <recent name="com.vigyos.vigyoscentercrm.Activity.Recharge" />
+    </key>
     <key name="android.template.-481988583">
       <recent name="com.vigyos.vigyoscentercrm.Activity" />
     </key>
@@ -704,8 +832,8 @@
       <recent name="com.vigyos.vigyoscentercrm.Activity.Recharge" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app\src\main\res\drawable" />
       <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app\src\main\assets" />
+      <recent name="C:\Users\ABC\Documents\WIP\Vigyos\vigyos-android-main\app\src\main\res\drawable" />
     </key>
     <key name="android.template.-1166139368">
       <recent name="com.vigyos.vigyoscentercrm.Activity.BBPS" />
@@ -910,7 +1038,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702997799069</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Working on mobile recharge">
+      <option name="closed" value="true" />
+      <created>1703169977319</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1703169977319</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -939,6 +1075,7 @@
     <MESSAGE value="Wallet Done" />
     <MESSAGE value="working on bbps pay Bill" />
     <MESSAGE value="bbps pay Bill done" />
-    <option name="LAST_COMMIT_MESSAGE" value="bbps pay Bill done" />
+    <MESSAGE value="Working on mobile recharge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on mobile recharge" />
   </component>
 </project>

@@ -124,7 +124,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
+                    android:text="Address"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/poppins_medium"/>
+                <RelativeLayout
+                    android:id="@+id/addressLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/credential_border_fill">
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="@dimen/_15sdp"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_vigyos"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:fontFamily="@font/poppins_light"
+                        android:background= "@null"
+                        android:hint=""
+                        android:textSize="@dimen/_14sdp"
+                        android:textColorHint="#D3D1D1"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:text="Password"
+                    android:visibility="gone"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/_12sdp"
                     android:elegantTextHeight="true"
@@ -134,6 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_2sdp"
+                    android:visibility="gone"
                     android:background="@drawable/credential_border_fill">
                     <EditText
                         android:id="@+id/password"
@@ -205,7 +238,7 @@
                 android:layout_height="@dimen/_48sdp"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_below="@+id/checkBoxLyt"
-                android:layout_marginTop="@dimen/_17sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:background="@drawable/next_button_filled">
                 <TextView
                     android:layout_width="wrap_content"
@@ -221,6 +254,7 @@
                 android:id="@+id/signUpWithNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_48sdp"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_below="@+id/signUpButton"
                 android:layout_marginTop="@dimen/_10sdp"

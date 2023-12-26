@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".Activity.Recharge.MobileRechargeSelectPlanActivity">
+    tools:context=".Activity.BBPS.Recharge.MobileRechargeSelectPlanActivity">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -41,14 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:background="@drawable/round_bg_white">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_18sdp"
                 android:layout_marginHorizontal="@dimen/_15sdp">
                 <RelativeLayout
                     android:id="@+id/detailsTop"
@@ -65,21 +65,21 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/icon">
                         <TextView
-                            android:id="@+id/operatorName"
+                            android:id="@+id/mobileNumberTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:elegantTextHeight="true"
-                            android:text="Operator Name"
+                            android:text="Mobile Number"
                             android:textSize="@dimen/_11sdp"
                             android:textColor="@color/light_black"
                             android:fontFamily="@font/poppins_medium"/>
                         <TextView
-                            android:id="@+id/mobileNumber"
+                            android:id="@+id/mobileNumberText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/operatorName"
+                            android:layout_below="@+id/mobileNumberTitle"
                             android:elegantTextHeight="true"
-                            android:text="+91-6666677777"
+                            android:text="+91 "
                             android:textSize="@dimen/_11sdp"
                             android:textColor="@color/light_black"
                             android:fontFamily="@font/poppins_regular"/>
@@ -92,49 +92,69 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_below="@+id/detailsTop"
                     android:background="#80333333"/>
-                <LinearLayout
-                    android:id="@+id/billDetailsLyt"
+                <RelativeLayout
+                    android:id="@+id/operatorDetailsLyt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/viewLine"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_5sdp">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/credential_border">
+                    <RelativeLayout
+                        android:id="@+id/operatorAndCircleLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/dropDown"
+                        android:layout_marginVertical="@dimen/_6sdp"
+                        android:layout_marginStart="@dimen/_10sdp">
+                        <TextView
+                            android:id="@+id/operatorText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Operator"
+                            android:textSize="@dimen/_8sdp"
+                            android:textColor="#575656"
+                            android:fontFamily="@font/poppins_regular"/>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/operatorText">
+                            <TextView
+                                android:id="@+id/operatorNameText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:text=", "
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_11sdp"
+                                android:fontFamily="@font/poppins_regular"/>
+                            <TextView
+                                android:id="@+id/circleNameText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@+id/operatorNameText"
+                                android:elegantTextHeight="true"
+                                android:visibility="gone"
+                                android:text="Madhya Pradesh"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/_11sdp"
+                                android:fontFamily="@font/poppins_regular"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/dropDown"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:background="@drawable/round_border_color">
-                        <Spinner
-                            android:id="@+id/operatorList"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textAlignment="center"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:layout_marginVertical="@dimen/_2sdp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:background="@drawable/round_border_color">
-                        <Spinner
-                            android:id="@+id/stateList"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textAlignment="center"
-                            android:layout_marginStart="@dimen/_4sdp"
-                            android:layout_marginVertical="@dimen/_2sdp"/>
-                    </LinearLayout>
-                </LinearLayout>
+                        android:src="@drawable/drop_down"/>
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/disclaimerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/billDetailsLyt"
+                    android:layout_below="@+id/operatorDetailsLyt"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:elegantTextHeight="true"
                     android:text="@string/disclaimer_we_support"

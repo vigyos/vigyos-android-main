@@ -27,6 +27,6 @@
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
         android:background="@color/white"
-        app:itemIconTint="@color/vigyos"
-        app:itemTextColor="@color/vigyos"/>
+        app:itemIconTint="@color/dark_vigyos"
+        app:itemTextColor="@color/dark_vigyos"/>
 </androidx.drawerlayout.widget.DrawerLayout>

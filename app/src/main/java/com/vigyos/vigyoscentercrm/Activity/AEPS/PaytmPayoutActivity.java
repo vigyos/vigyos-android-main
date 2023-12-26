@@ -2,11 +2,6 @@ package com.vigyos.vigyoscentercrm.Activity.AEPS;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.os.BuildCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -39,6 +34,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.BuildCompat;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,12 +50,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.vigyos.vigyoscentercrm.Activity.LoginActivity;
-import com.vigyos.vigyoscentercrm.Activity.MainActivity;
 import com.vigyos.vigyoscentercrm.Activity.SplashActivity;
-import com.vigyos.vigyoscentercrm.AppController;
 import com.vigyos.vigyoscentercrm.Constant.DialogCustom;
-import com.vigyos.vigyoscentercrm.Fragment.HomeFragment;
 import com.vigyos.vigyoscentercrm.Model.PayoutBankNameModel;
 import com.vigyos.vigyoscentercrm.R;
 import com.vigyos.vigyoscentercrm.Retrofit.RetrofitClient;

@@ -52,6 +52,12 @@
         <item>Mini Statement</item>
     </string-array>
 
+    <string-array name="bbpsHistoryType">
+        <item>ALL</item>
+        <item>SUCCESS</item>
+        <item>FAILED</item>
+    </string-array>
+
     <string name="already_have_an_account">Already have an account? <font color='#01C6DB'>Login</font></string>
     <string name="thank_you_for_reaching">Thank you for reaching out. Our team will connect with you shortly to assist you with your inquiry. We appreciate your patience and look forward to helping you.</string>
     <string name="send_money">Send money easily and with one click everything will be sent every time you make a transaction</string>
@@ -70,13 +76,14 @@
     <string name="log_out"><u>Log out</u></string>
     <string name="important_notice">Important Notice!</string>
     <string name="complete_your_pan_card">Complete your PAN card application without interruptions. Once started, <font color='#2E56A3'>do</font> <font color='#E88104'>not </font><font color='#2E56A3'>exit until</font> the process <font color='#E88104'>is </font>finished. Keep your documents ready. Contact support <font color='#2E56A3'>for</font> assistance.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_your_preferred">Choose your preferred bank for AEPS transactions: \nFino Payment Bank or Paytm Payment Bank. \nSelect one to proceed with secure and convenient Aadhaar-enabled payments.</string>
     <string name="welcome">Welcome to AEPS!</string>
     <string name="to_access_the_aeps_feature">To access the AEPS feature, please complete the onboarding process first. We look forward to serving you securely and conveniently</string>
     <string name="verification_in_progress">Verification in Progress</string>
     <string name="your_aeps_onboarding_is_underway">Your AEPS onboarding is underway. We\'re working to verify your details. You\'ll be notified once completed. Thanks for your patience!</string>
     <string name="disclaimer_we_support"><font color='#333333'>Disclaimer:</font> We support most types of recharges, but please check with your operator before you proceed.</string>
+    <string name="warmest_welcome_to_vigyos_our_team">Warmest welcome to Vigyos! 🌟 Our team is delighted that you\'ve signed up and joined our community. We\'re eager to assist you every step of the way. Expect a call from our dedicated team shortly to ensure you have a seamless and enjoyable experience with our app. If you have any immediate questions or concerns, feel free to reach out to us at <font color='#2C55A3'><u>support@vigyos.com.</u></font> </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -142,7 +142,7 @@ public class WalletHistoryFragment extends Fragment {
                 isLoading = false;
                 try {
                     JSONObject jsonObject = new JSONObject(new Gson().toJson(response.body()));
-                    Log.i("2016", "JSON ResponseRecharge: " + jsonObject); // Added this line for logging
+                    Log.i("2016", "JSON Recharge: " + jsonObject); // Added this line for logging
                     if (jsonObject.has("success") && jsonObject.getBoolean("success")) {
                         if (jsonObject.has("data")) {
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -338,13 +338,9 @@ public class WalletHistoryFragment extends Fragment {
         }
 
         private class Holder extends RecyclerView.ViewHolder{
-
-            TextView titleName;
-            TextView date;
-            TextView amount;
-            TextView balance;
+            TextView titleName, date;
+            TextView amount, balance;
             TextView orderID;
-
             public Holder(@NonNull View itemView) {
                 super(itemView);
                 titleName = itemView.findViewById(R.id.titleName);

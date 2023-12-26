@@ -1,14 +1,18 @@
 package com.vigyos.vigyoscentercrm.Activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,6 +32,8 @@ public class RegisterHomeActivity extends AppCompatActivity implements Navigatio
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private TextView userName, userName2;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +48,19 @@ public class RegisterHomeActivity extends AppCompatActivity implements Navigatio
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
         Drawable drawable = toolbar.getNavigationIcon();
         drawable.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_ATOP);
-
         findViewById(R.id.notification).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterHomeActivity.this, NotificationActivity.class));
             }
         });
+
+        userName = findViewById(R.id.userName);
+        userName2 = findViewById(R.id.userName2);
+        userName.setText(SplashActivity.prefManager.getUserName());
+        userName2.setText(SplashActivity.prefManager.getUserName());
     }
 
     @Override
@@ -96,28 +105,50 @@ public class RegisterHomeActivity extends AppCompatActivity implements Navigatio
         return false;
     }
 
-    private void areYouSure(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(RegisterHomeActivity.this);
-        builder1.setMessage("Are you sure, You want to logout ?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        SplashActivity.prefManager.setClear();
-                        startActivity(new Intent(RegisterHomeActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                });
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+    private void areYouSure() {
+        dialog = new Dialog(RegisterHomeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.dialog_yes_or_no);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().setLayout(-1, -1);
+        TextView title = dialog.findViewById(R.id.title);
+        title.setText("Logout!");
+        TextView details = dialog.findViewById(R.id.details);
+        details.setText("Are you sure, You want to logout ?");
+        details.setMovementMethod(LinkMovementMethod.getInstance());
+        dialog.findViewById(R.id.noLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(RegisterHomeActivity.this, R.anim.viewpush));
+                dismissDialog();
+            }
+        });
+        dialog.findViewById(R.id.yesLyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog when the "GRANT!" button is clicked
+                v.startAnimation(AnimationUtils.loadAnimation(RegisterHomeActivity.this, R.anim.viewpush));
+                dismissDialog();
+                SplashActivity.prefManager.setClear();
+                startActivity(new Intent(RegisterHomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+        dialog.show();
+    }
+
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        dismissDialog();
+        super.onDestroy();
     }
 }
